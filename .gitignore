@@ -8,7 +8,6 @@
 
 # Ignore directories
 #*/
-#/WEB-INF/*
 WEB-INF/src/*
 WEB-INF/templates/*
 WEB-INF/upload
@@ -18,7 +17,10 @@ WEB-INF/upload
 /pub/
 
 # Ignore Directories NOT
-!*/fgl/*
+# Merke: Das reicht nicht aus alle darunterliegenden Verzeichnisse und Dateien zu erfassen. !WEB-INF/fgl/*
+# Also:
+!WEB-INF/fgl/*/*/job/*
+
 
 #!/WEB-INF/
 #!*/ROOT/*
