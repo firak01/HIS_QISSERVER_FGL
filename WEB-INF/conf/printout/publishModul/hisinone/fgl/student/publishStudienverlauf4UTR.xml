@@ -1,0 +1,78 @@
+<publishDetail VMErrorFile="hisreports/reports/vm/error.vm" 
+	active="y">
+	<Report tanRequired="n" directPDF="y" database="hisinone"
+		WriteXMLFileTo1="[LOGROOT]//export.xml"		
+		global="[CURRENTTIME], [TODAY],[TEMPLATEROOT]"
+		authorities=""
+		extDataAccess="y"
+		outFormat="XML">	
+		
+		<Transform.SQL ElementName="Student" storeFields="publishStudentId, publishPersonId">												
+					select distinct s.id as publishStudentId,
+					p.id as publishPersonId,
+  p.surname as Nachname, p.firstname as Vorname
+, gender.form_of_address as Anrede, (SELECT fieldvalue FROM foreigntext WHERE reftable = 'k_gender' AND refid = gender.id AND refcolumn = 'form_of_address') AS AnredeEng
+, p.birthdate as GebDat, p.birthcity as GebOrt
+, p.nameprefix as prefix
+, p.namesuffix as suffix
+, t.shorttext as titel
+, street AS Strasse, postcode AS PLZ, city AS Ort
+, s.registrationnumber as Mtknr, s.enrollmentdate as ImmaDat
+FROM student s 
+JOIN person p ON p.id = s.person_ID 
+left join title t on t.id = p.title_id
+JOIN k_gender gender ON gender.id = p.k_gender_id
+LEFT JOIN (
+    	SELECT person_ID, street, postcode, city, ROW_NUMBER() OVER (PARTITION BY person_ID ORDER BY 1) rowNr
+    	FROM address a
+    		JOIN address_k_notificationcategory akn ON akn.address_id = a.id 
+    		JOIN k_notificationcategory kn ON kn.id = akn.k_notificationcategory_id
+    	WHERE 1=1 
+    		AND a.addresstype = 'Postaddress'
+    		AND kn.uniquename = 'STU'
+    	) addr ON addr.person_ID = p.id AND addr.rowNr = 1 
+WHERE 1=1
+and s.id in ([where.StudentId])	
+		<Transform.SubSQL ElementName="reportPeriod">
+			SELECT DISTINCT period.term_year As Sem, period.term_type_id As SemType, period.startdate AS beginn, date(period.enddate) AS ende
+			FROM period
+			WHERE period.id = [where.reportPeriodId]	
+	</Transform.SubSQL>							
+	<Transform.SubSQL ElementName="Studienverlauf" storeFields="publishPersonId">	
+						select distinct
+								 dp.person_id as publishPersonId, 
+								 cos.lid as coslid,
+								 cos.defaulttext as studGang
+								, d.longtext  as Abschluss
+								, sub.longtext as Fach
+								, mfos.longtext as Vertiefung
+								, dpp.studysemester as fachsem
+								, cos.regular_number_of_semesters as fristsemester
+								, ke.defaulttext as studientyp
+								, krf.longtext as beendegrund 
+								, case when dpp.finished is null then '' else ('Exmatrikulationsdatum:') end as exmadatum								
+								, dpp.finished as beendedatum
+								, ks.defaulttext as status
+								, dpp.studynumber as studiengang
+								, peri.id as periodId
+								, peri.startdate as StgAnfDat
+								, peri.enddate as StgEndDat
+								  from degree_program_progress dpp 
+								 join degree_program dp on dp.id = dpp.degree_program_id 
+								 join course_of_study cos on cos.id =dpp.course_of_study_id 
+								 join "degree" d on d.lid = cos.degree_lid 
+								 join k_enrollment ke on ke.id =cos.k_enrollment_id 
+								 left join k_reason_of_finishing krf on krf.id = dpp.k_reason_of_finishing_id 
+								 join k_studystatus ks on ks.id = dpp.k_studystatus_id 
+								 join subjectobj sob on sob.id = cos.subject_lid 
+								 join subject sub on sub.lid = sob.id 
+								 join major_field_of_study mfos on mfos.lid = cos.major_field_of_study_lid 
+								 join period peri on peri.id = dpp.period_id
+								 where 1=1
+								 and dp.person_id IN ([publishPersonId])									 
+								 order by dpp.studynumber desc, peri.id desc
+ 					</Transform.SubSQL>						
+</Transform.SQL>
+	</Report>
+</publishDetail>
+
