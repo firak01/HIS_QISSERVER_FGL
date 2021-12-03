@@ -6,10 +6,12 @@
 # Don`t ignore directories, so we can recurse into them
 !*/
 
+
+
 # Ignore directories
 #*/
 WEB-INF/src/*
-WEB-INF/templates/*
+WEB-INF/templates/temp
 WEB-INF/upload
 */bin/
 */log/*
@@ -20,6 +22,8 @@ WEB-INF/upload
 # Merke: Das reicht nicht aus alle darunterliegenden Verzeichnisse und Dateien zu erfassen. !WEB-INF/fgl/*
 # Also:
 !WEB-INF/fgl/*/*/job/*
+!WEB-INF/conf/printout/publishModul/hisinone/fgl/*/*
+!WEB-INF/templates/oooreporting/fgl/*/*
 
 
 #!/WEB-INF/

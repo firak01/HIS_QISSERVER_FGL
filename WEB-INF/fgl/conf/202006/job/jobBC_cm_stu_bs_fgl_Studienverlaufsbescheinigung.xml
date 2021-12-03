@@ -1,7 +1,7 @@
 <root>
   <Metadata>
     <description>Auftragskonfigurationen und Aufträge</description>
-    <created_at>03.12.2021 15:04:50</created_at>
+    <created_at>03.12.2021 15:57:29</created_at>
     <database>muster_hisinone202006_20210113 [PostgreSQL] on localhost:5434</database>
     <dbVersion>Release: 2020.06    Build id: 2020.06.11371    HISINONE Hotfix Nr.: 74    QIS Hotfix Nr.: 39</dbVersion>
     <confpackage>reportingCenterAndJob</confpackage>
@@ -393,7 +393,7 @@ Erweitert um publishDataRequestStep (Hiszilla Ticket 250115)</Description>
             </Configuration>
             <Confkey>publishSearch.configFile</Confkey>
             <Conflabel />
-            <Confvalue>printout/publishModul/hisinone/h250115b/publishStudienverlauf4UMA.xml</Confvalue>
+            <Confvalue>printout/publishModul/hisinone/fgl/student/publishStudienverlauf4UMA.xml</Confvalue>
             <Id>5929</Id>
             <ObjGuid>dc05b926-c7f8-47f4-b1c9-e0517bc6f1f9</ObjGuid>
           </Element>
