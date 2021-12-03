@@ -1,0 +1,47 @@
+# 20211204: Ziel ist es sinnvolle Protypen, Erweiterungen, etc. von einem Release zu einem anderen zu "retten".
+
+# Ignore everything
+*
+
+# Don`t ignore directories, so we can recurse into them
+!*/
+
+# Ignore directories
+#*/
+#/WEB-INF/*
+WEB-INF/src/*
+WEB-INF/templates/*
+WEB-INF/upload
+*/bin/
+*/log/*
+/pages/
+/pub/
+
+# Ignore Directories NOT
+!*/fgl/*
+
+#!/WEB-INF/
+#!*/ROOT/*
+#!/config/*
+#!/src/*
+
+
+
+# Ignore
+#.project
+#*.7z
+
+# Auf allen Ebenen .cvsignore ausschliessen
+.cvsignore
+
+# Auf allen anderen Ebenen .gitignore ausschliessen. Nur zuoberst nicht.
+!.gitignore
+*/.gitignore
+*/*/.gitignore
+*/*/*/.gitignore
+*/*/*/*/.gitignore
+*/*/*/*/*/.gitignore
+*/*/*/*/*/*/.gitignore
+*/*/*/*/*/*/*/.gitignore
+*/*/*/*/*/*/*/*/.gitignore
+
