@@ -13,7 +13,7 @@
 WEB-INF/src/*
 WEB-INF/templates/temp
 WEB-INF/upload
-*/bin/
+WEB-INF/bin/*
 */log/*
 /pages/
 /pub/
