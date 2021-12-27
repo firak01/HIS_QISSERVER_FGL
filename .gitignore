@@ -24,6 +24,7 @@ WEB-INF/internal/*
 # Also:
 !WEB-INF/fgl/*/*/job/*/*
 !WEB-INF/conf/printout/publishModul/hisinone/fgl/*/*
+!WEB-INF/conf/cs/sys/genericSearch/conf/fgl/*/*/*/*
 !WEB-INF/templates/oooreporting/fgl/*/*
 
 
