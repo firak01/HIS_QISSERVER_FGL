@@ -14,6 +14,7 @@ WEB-INF/src/*
 WEB-INF/templates/temp
 WEB-INF/upload
 WEB-INF/bin/*
+WEB-INF/internal/*
 */log/*
 /pages/
 /pub/
