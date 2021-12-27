@@ -1,9 +1,9 @@
 <root>
   <Metadata>
     <description>Auftragskonfigurationen und Aufträge</description>
-    <created_at>27.12.2021 14:52:49</created_at>
-    <database>muster_hisinone202106_20210817 [PostgreSQL] on localhost:5432</database>
-    <dbVersion>Release: 2021.06    Build id: 2021.06.11424</dbVersion>
+    <created_at>27.12.2021 16:57:54</created_at>
+    <database>muster_hisinone202106_20210804c [PostgreSQL] on localhost:5436</database>
+    <dbVersion>Release: 2021.06    Build id: 2021.06.11568    HISINONE Hotfix Nr.: 117    QIS Hotfix Nr.: 45</dbVersion>
     <confpackage>reportingCenterAndJob</confpackage>
     <beginEntityCollections />
     <LanguageValue>1</LanguageValue>
@@ -56,9 +56,9 @@
       <Uniquename>HIS</Uniquename>
     </Confsrc>
     <Confsrc entity="Confsrc" dtoKey="common.Confsrc" update="false">
-      <Id>16</Id>
-      <ObjGuid>5cfb914c-5732-4501-ad00-65f7f335639e</ObjGuid>
-      <Uniquename>HFBK-STU</Uniquename>
+      <Id>20</Id>
+      <ObjGuid>39bd8a2d-608f-4a2b-b271-601b238350b0</ObjGuid>
+      <Uniquename>FGL</Uniquename>
     </Confsrc>
   </Confsrc-collection>
   <DomainValue-collection searchColumns="Uniquename">
@@ -153,10 +153,10 @@
         <ObjGuid>4b21d0c1-c72c-11df-bd3b-0800200c9a66</ObjGuid>
       </Category>
       <Confsrc entity="Confsrc" incomplete="y">
-        <Id>16</Id>
-        <ObjGuid>5cfb914c-5732-4501-ad00-65f7f335639e</ObjGuid>
+        <Id>20</Id>
+        <ObjGuid>39bd8a2d-608f-4a2b-b271-601b238350b0</ObjGuid>
       </Confsrc>
-      <Defaulttext>HfBK Meldungsliste der Erst- und Neueinschreiber</Defaulttext>
+      <Defaulttext>FGL : Meldungsliste der Erst- und Neueinschreiber</Defaulttext>
       <Description>Meldungsliste der Erst- und Neueinschreiber
 
 überarbeitete Gruppierung VOR 2021-10-12
@@ -170,23 +170,37 @@ alte Gruppierung:
       </Domain>
       <ExecuteOnAllTargetHosts />
       <ExecutionRights isEmptyString="true" />
-      <Id>816</Id>
+      <Id>835</Id>
       <IsActive>true</IsActive>
       <JobType>ReportJob</JobType>
       <NrParallelExecutionsAllowed />
-      <ObjGuid>5d7fe16c-7f6a-4274-8292-75cae1064daa</ObjGuid>
+      <ObjGuid>f295e570-1470-4a4b-a545-7cbb425ca5a1</ObjGuid>
       <Priority />
       <Synchronous>true</Synchronous>
       <TargetHost />
-      <Uniquename>cm.stu.li.EinschreiberMeldung_HfBK_Dresden</Uniquename>
+      <Uniquename>cm.stu.li.fgl.EinschreiberMeldung</Uniquename>
       <JobStepRelations>
         <Element entity="JobStepRelation" dtoKey="cs.sys.steps.steps.JobStepRelation">
-          <Id>2898</Id>
+          <Id>2981</Id>
           <Job entity="AbstractSequentialStepsJob" incomplete="y">
-            <Id>816</Id>
-            <ObjGuid>5d7fe16c-7f6a-4274-8292-75cae1064daa</ObjGuid>
+            <Id>835</Id>
+            <ObjGuid>f295e570-1470-4a4b-a545-7cbb425ca5a1</ObjGuid>
           </Job>
-          <ObjGuid>050bc496-2b97-45f4-a759-9eb2a66be2cd</ObjGuid>
+          <ObjGuid>02988b5a-5495-4111-b79f-86e77c85c49f</ObjGuid>
+          <StepAlias>browserOutput</StepAlias>
+          <Step entity="JobStep" incomplete="y">
+            <Id>364</Id>
+            <ObjGuid>ee00a338-35a9-4b9a-902a-79b2499376ac</ObjGuid>
+          </Step>
+          <StepSort>4</StepSort>
+        </Element>
+        <Element entity="JobStepRelation" dtoKey="cs.sys.steps.steps.JobStepRelation">
+          <Id>2978</Id>
+          <Job entity="AbstractSequentialStepsJob" incomplete="y">
+            <Id>835</Id>
+            <ObjGuid>f295e570-1470-4a4b-a545-7cbb425ca5a1</ObjGuid>
+          </Job>
+          <ObjGuid>822e839e-fcdf-4c42-9100-d5b3bed2fae3</ObjGuid>
           <StepAlias>genericSearch</StepAlias>
           <Step entity="JobStep" incomplete="y">
             <Id>362</Id>
@@ -195,12 +209,12 @@ alte Gruppierung:
           <StepSort>1</StepSort>
         </Element>
         <Element entity="JobStepRelation" dtoKey="cs.sys.steps.steps.JobStepRelation">
-          <Id>2899</Id>
+          <Id>2980</Id>
           <Job entity="AbstractSequentialStepsJob" incomplete="y">
-            <Id>816</Id>
-            <ObjGuid>5d7fe16c-7f6a-4274-8292-75cae1064daa</ObjGuid>
+            <Id>835</Id>
+            <ObjGuid>f295e570-1470-4a4b-a545-7cbb425ca5a1</ObjGuid>
           </Job>
-          <ObjGuid>3578b2c4-d889-41e8-abcc-047f809a63de</ObjGuid>
+          <ObjGuid>8cab3642-61ce-48a6-a4bc-a49c2331baca</ObjGuid>
           <StepAlias>openOfficeLayout</StepAlias>
           <Step entity="JobStep" incomplete="y">
             <Id>363</Id>
@@ -209,12 +223,12 @@ alte Gruppierung:
           <StepSort>3</StepSort>
         </Element>
         <Element entity="JobStepRelation" dtoKey="cs.sys.steps.steps.JobStepRelation">
-          <Id>2900</Id>
+          <Id>2982</Id>
           <Job entity="AbstractSequentialStepsJob" incomplete="y">
-            <Id>816</Id>
-            <ObjGuid>5d7fe16c-7f6a-4274-8292-75cae1064daa</ObjGuid>
+            <Id>835</Id>
+            <ObjGuid>f295e570-1470-4a4b-a545-7cbb425ca5a1</ObjGuid>
           </Job>
-          <ObjGuid>4447dbb8-eccf-47f2-bfac-0243aee2a82a</ObjGuid>
+          <ObjGuid>9de1178a-fb87-4ecd-af63-f3f14b045050</ObjGuid>
           <StepAlias>documentManagementOutput</StepAlias>
           <Step entity="JobStep" incomplete="y">
             <Id>366</Id>
@@ -223,12 +237,12 @@ alte Gruppierung:
           <StepSort>5</StepSort>
         </Element>
         <Element entity="JobStepRelation" dtoKey="cs.sys.steps.steps.JobStepRelation">
-          <Id>2901</Id>
+          <Id>2979</Id>
           <Job entity="AbstractSequentialStepsJob" incomplete="y">
-            <Id>816</Id>
-            <ObjGuid>5d7fe16c-7f6a-4274-8292-75cae1064daa</ObjGuid>
+            <Id>835</Id>
+            <ObjGuid>f295e570-1470-4a4b-a545-7cbb425ca5a1</ObjGuid>
           </Job>
-          <ObjGuid>475f585f-bb2a-4d7f-9572-bde297a950c3</ObjGuid>
+          <ObjGuid>ac87fc57-87b5-48aa-8dda-1d9c13b1f876</ObjGuid>
           <StepAlias>gsGrouping</StepAlias>
           <Step entity="JobStep" incomplete="y">
             <Id>444</Id>
@@ -236,134 +250,120 @@ alte Gruppierung:
           </Step>
           <StepSort>2</StepSort>
         </Element>
-        <Element entity="JobStepRelation" dtoKey="cs.sys.steps.steps.JobStepRelation">
-          <Id>2902</Id>
-          <Job entity="AbstractSequentialStepsJob" incomplete="y">
-            <Id>816</Id>
-            <ObjGuid>5d7fe16c-7f6a-4274-8292-75cae1064daa</ObjGuid>
-          </Job>
-          <ObjGuid>d23eef58-2f51-418c-8b29-acc8f79310e1</ObjGuid>
-          <StepAlias>browserOutput</StepAlias>
-          <Step entity="JobStep" incomplete="y">
-            <Id>364</Id>
-            <ObjGuid>ee00a338-35a9-4b9a-902a-79b2499376ac</ObjGuid>
-          </Step>
-          <StepSort>4</StepSort>
-        </Element>
       </JobStepRelations>
       <Details entity="JobConf" dtoKey="cs.sys.steps.JobConf">
-        <Id>1558</Id>
-        <ObjGuid>891f92a2-3503-43d6-ab5a-404761cbc11a</ObjGuid>
+        <Id>1577</Id>
+        <ObjGuid>b2df3c31-06d0-463f-a09d-c0d1e7b2984a</ObjGuid>
         <Confs>
           <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
             <Configuration entity="JobConf" incomplete="y">
-              <Id>1558</Id>
-              <ObjGuid>891f92a2-3503-43d6-ab5a-404761cbc11a</ObjGuid>
-            </Configuration>
-            <Confkey>genericSearch.personAddressPurpose</Confkey>
-            <Conflabel />
-            <Confvalue>PORTALMESSAGE</Confvalue>
-            <Id>6082</Id>
-            <ObjGuid>19001212-ebd2-452c-925a-b58b606d765f</ObjGuid>
-          </Element>
-          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
-            <Configuration entity="JobConf" incomplete="y">
-              <Id>1558</Id>
-              <ObjGuid>891f92a2-3503-43d6-ab5a-404761cbc11a</ObjGuid>
-            </Configuration>
-            <Confkey>genericSearch.serviceCalls</Confkey>
-            <Conflabel />
-            <Confvalue>studentOverview,email</Confvalue>
-            <Id>6077</Id>
-            <ObjGuid>2ebc3f95-f9e9-4e2c-a98e-dda7c7888d19</ObjGuid>
-          </Element>
-          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
-            <Configuration entity="JobConf" incomplete="y">
-              <Id>1558</Id>
-              <ObjGuid>891f92a2-3503-43d6-ab5a-404761cbc11a</ObjGuid>
-            </Configuration>
-            <Confkey>gsGrouping.groupby</Confkey>
-            <Conflabel />
-            <Confvalue>{studentOverview.SelectedStudies[0].CourseOfStudy.Degree.Defaulttext|undef AS abschl,studentOverview.SelectedStudies[0].CourseOfStudy.Subject.Defaulttext|undef AS sbj,studentOverview.SelectedStudies[0].CourseOfStudy.MajorFieldOfStudy|undef AS mfs}</Confvalue>
-            <Id>6080</Id>
-            <ObjGuid>345903f1-68ad-4d9d-84c1-9561122d64af</ObjGuid>
-          </Element>
-          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
-            <Configuration entity="JobConf" incomplete="y">
-              <Id>1558</Id>
-              <ObjGuid>891f92a2-3503-43d6-ab5a-404761cbc11a</ObjGuid>
-            </Configuration>
-            <Confkey>reportLanguage</Confkey>
-            <Conflabel />
-            <Confvalue>de</Confvalue>
-            <Id>6073</Id>
-            <ObjGuid>519d4c7b-0368-423c-bc08-153266d9401a</ObjGuid>
-          </Element>
-          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
-            <Configuration entity="JobConf" incomplete="y">
-              <Id>1558</Id>
-              <ObjGuid>891f92a2-3503-43d6-ab5a-404761cbc11a</ObjGuid>
-            </Configuration>
-            <Confkey>genericSearch.searchConfigFile</Confkey>
-            <Conflabel />
-            <Confvalue>searchStudentReportsBasicEnrollmentNew4HFBK.xml</Confvalue>
-            <Id>6079</Id>
-            <ObjGuid>5743af74-46da-4cec-99fe-c9d7b43a6e15</ObjGuid>
-          </Element>
-          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
-            <Configuration entity="JobConf" incomplete="y">
-              <Id>1558</Id>
-              <ObjGuid>891f92a2-3503-43d6-ab5a-404761cbc11a</ObjGuid>
-            </Configuration>
-            <Confkey>openOfficeLayout.reportFormat</Confkey>
-            <Conflabel />
-            <Confvalue>single_pdf</Confvalue>
-            <Id>6078</Id>
-            <ObjGuid>80545627-fbfa-42e8-9075-30fd19bd11c8</ObjGuid>
-          </Element>
-          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
-            <Configuration entity="JobConf" incomplete="y">
-              <Id>1558</Id>
-              <ObjGuid>891f92a2-3503-43d6-ab5a-404761cbc11a</ObjGuid>
+              <Id>1577</Id>
+              <ObjGuid>b2df3c31-06d0-463f-a09d-c0d1e7b2984a</ObjGuid>
             </Configuration>
             <Confkey>genericSearch.useSearchConfigFileAlways</Confkey>
             <Conflabel />
             <Confvalue>true</Confvalue>
-            <Id>6074</Id>
-            <ObjGuid>81129088-e19d-44ad-9579-a738096c3f35</ObjGuid>
+            <Id>6221</Id>
+            <ObjGuid>10491ab6-34f5-4853-86fc-8e9d62e50206</ObjGuid>
           </Element>
           <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
             <Configuration entity="JobConf" incomplete="y">
-              <Id>1558</Id>
-              <ObjGuid>891f92a2-3503-43d6-ab5a-404761cbc11a</ObjGuid>
+              <Id>1577</Id>
+              <ObjGuid>b2df3c31-06d0-463f-a09d-c0d1e7b2984a</ObjGuid>
             </Configuration>
             <Confkey>documentManagementOutput.execute</Confkey>
             <Conflabel />
             <Confvalue>false</Confvalue>
-            <Id>6076</Id>
-            <ObjGuid>d1dee98c-4c04-4620-8e10-b371a2f970de</ObjGuid>
+            <Id>6226</Id>
+            <ObjGuid>107f11bb-eccf-49d4-a140-41216c0f4613</ObjGuid>
           </Element>
           <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
             <Configuration entity="JobConf" incomplete="y">
-              <Id>1558</Id>
-              <ObjGuid>891f92a2-3503-43d6-ab5a-404761cbc11a</ObjGuid>
+              <Id>1577</Id>
+              <ObjGuid>b2df3c31-06d0-463f-a09d-c0d1e7b2984a</ObjGuid>
             </Configuration>
-            <Confkey>gsGrouping.execute</Confkey>
+            <Confkey>gsGrouping.groupby</Confkey>
             <Conflabel />
-            <Confvalue>true</Confvalue>
-            <Id>6072</Id>
-            <ObjGuid>e4b5058d-ed55-4e0c-94e7-d9a59d60da06</ObjGuid>
+            <Confvalue>{studentOverview.SelectedStudies[0].CourseOfStudy.Degree.Defaulttext|undef AS abschl,studentOverview.SelectedStudies[0].CourseOfStudy.Subject.Defaulttext|undef AS sbj,studentOverview.SelectedStudies[0].CourseOfStudy.MajorFieldOfStudy|undef AS mfs}</Confvalue>
+            <Id>6225</Id>
+            <ObjGuid>16405def-aca6-491a-9e70-e6fd5cb7da44</ObjGuid>
           </Element>
           <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
             <Configuration entity="JobConf" incomplete="y">
-              <Id>1558</Id>
-              <ObjGuid>891f92a2-3503-43d6-ab5a-404761cbc11a</ObjGuid>
+              <Id>1577</Id>
+              <ObjGuid>b2df3c31-06d0-463f-a09d-c0d1e7b2984a</ObjGuid>
+            </Configuration>
+            <Confkey>genericSearch.searchConfigFile</Confkey>
+            <Conflabel />
+            <Confvalue>fgl/202006/cm/stu/searchStudentReportsBasicEnrollmentNew4FGL.xml</Confvalue>
+            <Id>6220</Id>
+            <ObjGuid>1d173147-c001-420b-b176-c48111bfe7ec</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1577</Id>
+              <ObjGuid>b2df3c31-06d0-463f-a09d-c0d1e7b2984a</ObjGuid>
             </Configuration>
             <Confkey>INSLOTREF.documentManagementOutput.in</Confkey>
             <Conflabel />
             <Confvalue>openOfficeLayout.out</Confvalue>
-            <Id>6075</Id>
-            <ObjGuid>fa8a1d1e-c2e1-41af-899c-799dc13cc0aa</ObjGuid>
+            <Id>6219</Id>
+            <ObjGuid>72df7607-a305-4bd4-874a-3fcdc3e46bc3</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1577</Id>
+              <ObjGuid>b2df3c31-06d0-463f-a09d-c0d1e7b2984a</ObjGuid>
+            </Configuration>
+            <Confkey>reportLanguage</Confkey>
+            <Conflabel />
+            <Confvalue>de</Confvalue>
+            <Id>6223</Id>
+            <ObjGuid>8b8ffd4f-0792-4560-80b7-87703c7a6a6b</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1577</Id>
+              <ObjGuid>b2df3c31-06d0-463f-a09d-c0d1e7b2984a</ObjGuid>
+            </Configuration>
+            <Confkey>openOfficeLayout.reportFormat</Confkey>
+            <Conflabel />
+            <Confvalue>single_pdf</Confvalue>
+            <Id>6224</Id>
+            <ObjGuid>b2b9ffdb-ebca-4c34-b755-0de28979cd6b</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1577</Id>
+              <ObjGuid>b2df3c31-06d0-463f-a09d-c0d1e7b2984a</ObjGuid>
+            </Configuration>
+            <Confkey>genericSearch.personAddressPurpose</Confkey>
+            <Conflabel />
+            <Confvalue>PORTALMESSAGE</Confvalue>
+            <Id>6218</Id>
+            <ObjGuid>b4dea7e7-0d45-47a1-9e12-5d3a6b629e8d</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1577</Id>
+              <ObjGuid>b2df3c31-06d0-463f-a09d-c0d1e7b2984a</ObjGuid>
+            </Configuration>
+            <Confkey>gsGrouping.execute</Confkey>
+            <Conflabel />
+            <Confvalue>true</Confvalue>
+            <Id>6222</Id>
+            <ObjGuid>c2b22645-828b-49fa-a367-71ba43d2b79c</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1577</Id>
+              <ObjGuid>b2df3c31-06d0-463f-a09d-c0d1e7b2984a</ObjGuid>
+            </Configuration>
+            <Confkey>genericSearch.serviceCalls</Confkey>
+            <Conflabel />
+            <Confvalue>studentOverview,email</Confvalue>
+            <Id>6217</Id>
+            <ObjGuid>dfdd364b-2e07-417c-ac3d-f69700d16b77</ObjGuid>
           </Element>
         </Confs>
       </Details>
@@ -393,15 +393,15 @@ alte Gruppierung:
   <PurposeValue-collection searchColumns="Uniquename" />
   <Mimedata-collection>
     <Mimedata entity="Mimedata" dtoKey="cs.sys.filemanagement.Mimedata">
-      <CreatedAt>2021-10-14 18:44:07.723</CreatedAt>
+      <CreatedAt>2021-12-27 16:00:22.661</CreatedAt>
       <Description />
       <ExternalDmsIdentifier />
-      <Id>2086</Id>
+      <Id>2214</Id>
       <MimeFilename>EinschreiberlisteMeldung_HfBK_Dresden.odt</MimeFilename>
       <MimePath />
       <MimeType>application/vnd.oasis.opendocument.text</MimeType>
       <ObjGuid>8f6d6776-b01c-484b-affb-bfd99c0b142b</ObjGuid>
-      <UpdatedAt>2021-10-14 18:44:07.723</UpdatedAt>
+      <UpdatedAt>2021-12-27 16:00:22.962</UpdatedAt>
       <MimeBlob isBase64encoded="true" isHandledAfterPersist="true">UEsDBBQAAAgAAEmFTlNexjIMJwAAACcAAAAIAAAAbWltZXR5cGVhcHBsaWNhdGlvbi92bmQub2Fz&#xD;
 aXMub3BlbmRvY3VtZW50LnRleHRQSwMEFAAACAAASYVOUwAAAAAAAAAAAAAAABoAAABDb25maWd1&#xD;
 cmF0aW9uczIvcG9wdXBtZW51L1BLAwQUAAAIAABJhU5TAAAAAAAAAAAAAAAAGAAAAENvbmZpZ3Vy&#xD;
@@ -1884,29 +1884,29 @@ QwEAAAA=</MimeBlob>
   </Mimedata-collection>
   <DocumentMetadata-collection>
     <DocumentMetadata entity="DocumentMetadata" dtoKey="cs.sys.filemanagement.DocumentMetadata">
-      <CreatedAt>2021-10-14 18:44:07.708</CreatedAt>
+      <CreatedAt>2021-12-27 16:31:08.595</CreatedAt>
       <CreatedBy entity="Person" incomplete="y">
         <Id>652</Id>
         <ObjGuid>9d13c7be-e2bc-46a8-bf61-e3199900fc43</ObjGuid>
       </CreatedBy>
-      <DmsMetadata>his_object_guid,5d7fe16c-7f6a-4274-8292-75cae1064daa;his_object_id,816;his_additional_saving_path,;his_document_metadata_guid,649db102-52ea-429a-b9b5-017aba1c73ab;his_expiry_date,;his_mimedata_id,2086;his_object_type,cs.sys.reporting.steps.JobReportJob;his_additional_dms_filename_params,;filename,EinschreiberlisteMeldung_HfBK_Dresden;his_category,Vorlage;his_document_metadata_id,2099;his_created_at_timestamp,1634229847723;his_mimedata_guid,8f6d6776-b01c-484b-affb-bfd99c0b142b</DmsMetadata>
+      <DmsMetadata>his_object_guid,f295e570-1470-4a4b-a545-7cbb425ca5a1;his_object_id,835;his_additional_saving_path,;his_document_metadata_guid,3bf6e95c-a03f-45b8-8988-112dd68e2ce0;his_expiry_date,;his_mimedata_id,2214;his_object_type,cs.sys.reporting.steps.JobReportJob;his_additional_dms_filename_params,;filename,EinschreiberlisteMeldung_HfBK_Dresden;his_category,Vorlage;his_document_metadata_id,2229;his_created_at_timestamp,1640617222661;his_mimedata_guid,8f6d6776-b01c-484b-affb-bfd99c0b142b</DmsMetadata>
       <DocumentAccessed />
       <DocumentMetadataCategoryValue entity="DocumentMetadataCategoryValue" incomplete="y">
         <Id>10</Id>
         <ObjGuid>51eb2ea0-a941-11df-94e2-0800200c9a66</ObjGuid>
       </DocumentMetadataCategoryValue>
       <ExpiryDate />
-      <Id>2099</Id>
+      <Id>2229</Id>
       <LogicalFilename>EinschreiberlisteMeldung_HfBK_Dresden.odt</LogicalFilename>
       <Mimedata entity="Mimedata" incomplete="y">
-        <Id>2086</Id>
+        <Id>2214</Id>
         <ObjGuid>8f6d6776-b01c-484b-affb-bfd99c0b142b</ObjGuid>
       </Mimedata>
-      <ObjGuid>649db102-52ea-429a-b9b5-017aba1c73ab</ObjGuid>
+      <ObjGuid>3bf6e95c-a03f-45b8-8988-112dd68e2ce0</ObjGuid>
       <RightsContext />
       <Target entity="JobReportJob" dtoKey="cs.sys.reporting.steps.JobReportJob">
-        <Id>816</Id>
-        <ObjGuid>5d7fe16c-7f6a-4274-8292-75cae1064daa</ObjGuid>
+        <Id>835</Id>
+        <ObjGuid>f295e570-1470-4a4b-a545-7cbb425ca5a1</ObjGuid>
       </Target>
     </DocumentMetadata>
   </DocumentMetadata-collection>
@@ -1917,9 +1917,9 @@ QwEAAAA=</MimeBlob>
       <Uniquename>HIS</Uniquename>
     </Confsrc>
     <Confsrc entity="Confsrc" dtoKey="common.Confsrc" update="false">
-      <Id>16</Id>
-      <ObjGuid>5cfb914c-5732-4501-ad00-65f7f335639e</ObjGuid>
-      <Uniquename>HFBK-STU</Uniquename>
+      <Id>20</Id>
+      <ObjGuid>39bd8a2d-608f-4a2b-b271-601b238350b0</ObjGuid>
+      <Uniquename>FGL</Uniquename>
     </Confsrc>
   </Confsrc-collection>
   <DataSelectionDefinition-collection ignoreOnMerge="Active" />
@@ -1947,12 +1947,12 @@ QwEAAAA=</MimeBlob>
       </Domains>
     </ApplicationDialogReportingCenterElement>
     <JobReportingCenterElement entity="JobReportingCenterElement" dtoKey="cs.sys.reporting.center.JobReportingCenterElement">
-      <Id>513</Id>
+      <Id>528</Id>
       <Job entity="AbstractJob" incomplete="y">
-        <Id>816</Id>
-        <ObjGuid>5d7fe16c-7f6a-4274-8292-75cae1064daa</ObjGuid>
+        <Id>835</Id>
+        <ObjGuid>f295e570-1470-4a4b-a545-7cbb425ca5a1</ObjGuid>
       </Job>
-      <ObjGuid>89f33a5c-aa6f-4d65-927a-2728cfdeab8d</ObjGuid>
+      <ObjGuid>37cdbd28-c462-4f47-9d5b-2386d16f30e5</ObjGuid>
       <Parent entity="BaseGroupReportingCenterElement" incomplete="y">
         <Id>135</Id>
         <ObjGuid>41016630-8e9b-43c6-ab89-39ed91f43c1d</ObjGuid>
@@ -1982,18 +1982,18 @@ QwEAAAA=</MimeBlob>
     <ReportingCenterElementConfiguration entity="ReportingCenterElementConfiguration" dtoKey="cs.sys.reporting.center.ReportingCenterElementConfiguration">
       <Active>true</Active>
       <Confsrc entity="Confsrc" incomplete="y">
-        <Id>16</Id>
-        <ObjGuid>5cfb914c-5732-4501-ad00-65f7f335639e</ObjGuid>
+        <Id>20</Id>
+        <ObjGuid>39bd8a2d-608f-4a2b-b271-601b238350b0</ObjGuid>
       </Confsrc>
       <Defaultlanguage>12</Defaultlanguage>
-      <Id>745</Id>
+      <Id>759</Id>
       <InheritConditions>false</InheritConditions>
       <InheritSortorder>true</InheritSortorder>
-      <ObjGuid>05bb319b-4171-48f6-ade6-6dfd13f088c8</ObjGuid>
+      <ObjGuid>48987c06-2588-4fe6-acd9-c4050a994f0f</ObjGuid>
       <ObjectLocale>de</ObjectLocale>
       <ReportingCenterElement entity="ReportingCenterElement" incomplete="y">
-        <Id>513</Id>
-        <ObjGuid>89f33a5c-aa6f-4d65-927a-2728cfdeab8d</ObjGuid>
+        <Id>528</Id>
+        <ObjGuid>37cdbd28-c462-4f47-9d5b-2386d16f30e5</ObjGuid>
       </ReportingCenterElement>
       <Sortorder />
       <Title />
@@ -2006,6 +2006,10 @@ QwEAAAA=</MimeBlob>
   <EntitiesToDelete>
     <EntityToDelete entityName="ReportingCenterElementConfiguration" guid="ca4f26e8-3dee-4797-847a-c2a1d191b953" deletionTimestamp="1638626146000" />
     <EntityToDelete entityName="JobReportingCenterElement" guid="748024a1-0d20-4d7c-a30b-95885198621a" deletionTimestamp="1638626147000" />
+    <EntityToDelete entityName="ReportingCenterElementConfiguration" guid="06221f84-dbf3-4368-92c8-8c91ced71cd5" deletionTimestamp="1638954759396" />
+    <EntityToDelete entityName="JobReportingCenterElement" guid="bc4f8a72-c4d8-4076-95f5-5977bb3f9a2d" deletionTimestamp="1638954759418" />
+    <EntityToDelete entityName="SerialEMailJob" guid="38968b5a-5612-4bde-8c95-982d139bea00" deletionTimestamp="1638954822259" />
+    <EntityToDelete entityName="SerialEMailJob" guid="3c54db5a-9b86-426b-b236-f4a6db2db156" deletionTimestamp="1638954853340" />
     <EntityToDelete entityName="JobCsvJob" guid="f483a698-680b-4a5b-87d6-a721f4eb1fae" deletionTimestamp="1639044964000" />
     <EntityToDelete entityName="DocumentMetadata" guid="b91006ff-2077-4c67-8b73-d90ae3178fed" deletionTimestamp="1639045019000" />
     <EntityToDelete entityName="JobReportJob" guid="8138c904-059b-46d6-821e-fd88260018ee" deletionTimestamp="1639045019000" />
@@ -2043,9 +2047,27 @@ QwEAAAA=</MimeBlob>
     <EntityToDelete entityName="DocumentMetadata" guid="6552abea-4621-4d58-9bdc-d64d051da3a0" deletionTimestamp="1639474398000" />
     <EntityToDelete entityName="Mimedata" guid="63c8a34b-7bfd-4fe5-833a-c1b5d0ec81cd" deletionTimestamp="1639474398000" />
     <EntityToDelete entityName="Mimedata" guid="73f68e38-31c9-4913-8fef-a134c3ac6ee2" deletionTimestamp="1639475866000" />
+    <EntityToDelete entityName="JobReportJob" guid="5cc93d46-3479-4325-b8fc-0791c1b28c67" deletionTimestamp="1639479591810" />
+    <EntityToDelete entityName="JobReportJob" guid="4bba9f77-97ac-417c-b928-7e30b5f6f63a" deletionTimestamp="1639482524087" />
+    <EntityToDelete entityName="JobReportJob" guid="47d068ad-0df1-4416-84f1-52239f287a5f" deletionTimestamp="1639482664809" />
+    <EntityToDelete entityName="Mimedata" guid="87b4baef-2732-42d6-bbaa-1411513f4ba6" deletionTimestamp="1639482664826" />
+    <EntityToDelete entityName="Mimedata" guid="9b8a9394-83c4-4061-8234-c755f410343d" deletionTimestamp="1639482664876" />
+    <EntityToDelete entityName="Mimedata" guid="5848b34a-ff12-42fd-800a-9e509a640af7" deletionTimestamp="1639482664912" />
+    <EntityToDelete entityName="Mimedata" guid="032d68c8-fec4-4ef1-aad6-919bd4b10374" deletionTimestamp="1639482664963" />
+    <EntityToDelete entityName="DocumentMetadata" guid="a008b1f9-5b9c-4354-a6e0-e2fb0fc2ab1a" deletionTimestamp="1639482664977" />
+    <EntityToDelete entityName="DocumentMetadata" guid="c4a9c07d-7e90-4e6d-bcd0-f3e1fb25b565" deletionTimestamp="1639482664991" />
+    <EntityToDelete entityName="DocumentMetadata" guid="04d2fdbf-ef06-414c-8730-6077316a67ff" deletionTimestamp="1639482665005" />
+    <EntityToDelete entityName="DocumentMetadata" guid="413455ac-03da-4b17-8c00-ee7c96ec050e" deletionTimestamp="1639482665019" />
+    <EntityToDelete entityName="DocumentMetadata" guid="4201da76-6ef7-48fc-9625-e7e836260ad6" deletionTimestamp="1639482672250" />
+    <EntityToDelete entityName="JobReportingCenterElement" guid="17151d7e-d0a4-4bb8-bd23-3fde5e46964c" deletionTimestamp="1639482672283" />
+    <EntityToDelete entityName="ReportingCenterElementConfiguration" guid="eb20cb8f-150b-488e-bba5-26c3df2f4162" deletionTimestamp="1639482672351" />
+    <EntityToDelete entityName="Mimedata" guid="875aa525-59c6-4259-af24-6229e2e2a325" deletionTimestamp="1639482672364" />
+    <EntityToDelete entityName="JobReportJob" guid="ac858d33-f837-45c3-a420-c92e913d45df" deletionTimestamp="1639482672376" />
     <EntityToDelete entityName="Mimedata" guid="4b584b0f-08fd-4224-bc1e-89d86a7fe653" deletionTimestamp="1639484269000" />
     <EntityToDelete entityName="Mimedata" guid="66acf052-3e4a-435c-83a2-c0b4a17298d3" deletionTimestamp="1639484747000" />
     <EntityToDelete entityName="Mimedata" guid="c6986d39-4be6-4276-bfc4-903f26c1495a" deletionTimestamp="1639484830000" />
+    <EntityToDelete entityName="JobReportJob" guid="25bd83ea-75a5-4c04-9149-51278172ec37" deletionTimestamp="1639487469089" />
+    <EntityToDelete entityName="JobReportJob" guid="c7fc9fa1-bc95-4c03-9fcf-dad7ce2647bb" deletionTimestamp="1639489329428" />
     <EntityToDelete entityName="DocumentMetadata" guid="08c6629e-0c11-47a3-9f82-69713d140515" deletionTimestamp="1639533605000" />
     <EntityToDelete entityName="DocumentMetadata" guid="2ba2e0ba-db41-4f96-8cf6-73a34d99653d" deletionTimestamp="1639533605000" />
     <EntityToDelete entityName="DocumentMetadata" guid="7bcc22d6-3d80-4fb4-be54-331cd9b14e9e" deletionTimestamp="1639533605000" />
@@ -2062,6 +2084,7 @@ QwEAAAA=</MimeBlob>
     <EntityToDelete entityName="Mimedata" guid="589f2f10-274e-4605-9d26-5bdca6e53e1d" deletionTimestamp="1639567400000" />
     <EntityToDelete entityName="DocumentMetadata" guid="21fdcc30-321e-407d-903a-93cda51ffb87" deletionTimestamp="1639567453000" />
     <EntityToDelete entityName="Mimedata" guid="6676caf8-ed68-4540-a5b7-7943317327b2" deletionTimestamp="1639567453000" />
+    <EntityToDelete entityName="ReportingCenterElementCondition" guid="ed77ef33-374e-40c6-a6fd-5d43f4d88cf7" deletionTimestamp="1639588327362" />
     <EntityToDelete entityName="Foreigntext" guid="2cb97c27-0cc4-4f1c-8038-3946c108ca72" deletionTimestamp="1639642004000" />
     <EntityToDelete entityName="Foreigntext" guid="4218d23c-8974-48ca-8d2d-ee57635695fc" deletionTimestamp="1639642004000" />
     <EntityToDelete entityName="Foreigntext" guid="ce1af6dc-1178-4763-8636-557a08dcbfc1" deletionTimestamp="1639642004000" />
@@ -2084,6 +2107,8 @@ QwEAAAA=</MimeBlob>
     <EntityToDelete entityName="DocumentMetadata" guid="2ae9644e-bcc9-4da5-8451-da62b8629dbb" deletionTimestamp="1640087978000" />
     <EntityToDelete entityName="JobReportingCenterElement" guid="5c387f3e-af58-4223-afd9-7c93fecb8698" deletionTimestamp="1640089183000" />
     <EntityToDelete entityName="ReportingCenterElementConfiguration" guid="3d8e3d48-a612-4d2a-80ec-829288460cc1" deletionTimestamp="1640089183000" />
+    <EntityToDelete entityName="DocumentMetadata" guid="e9b79198-4f2f-4f23-aa07-e0b8d3790813" deletionTimestamp="1640092256653" />
+    <EntityToDelete entityName="DocumentMetadata" guid="75072245-c8f7-4c3e-a57f-79a14b9e0c05" deletionTimestamp="1640092256689" />
     <EntityToDelete entityName="DocumentMetadata" guid="a407134a-0754-4e79-a8b7-f86264de4c46" deletionTimestamp="1640138408000" />
     <EntityToDelete entityName="DocumentMetadata" guid="61bba017-58cd-496f-9c17-4971f602a2bd" deletionTimestamp="1640138409000" />
     <EntityToDelete entityName="Mimedata" guid="720e9ad8-ef46-4af8-8fd7-3ba6469f8b24" deletionTimestamp="1640138409000" />
