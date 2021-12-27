@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<publishDetail VMErrorFile="hisreports/reports/vm/error.vm" WriteXMLFileTo="[LOGROOT]//Veranstaltungsdaten.xml" active="y">
+    <Veranstaltungsdaten tanRequired="n" directPDF="y" database="hisinone" global="[CURRENTTIME], [TODAY]">
+        <Transform.SQL ElementName="Veranstaltung">
+				select unit.id as publishUnitId, count(person_id) from examplan
+				join unit ON (examplan.unit_id=unit.id) 
+				where unit.id in ([unitId])
+				GROUP BY unit.id
+				ORDER BY unit.id
+		</Transform.SQL>
+		<!-- <Transform.GlobalObjects file="OwnUniversity.xml" subdir="printout/publishModul/globalObjects/hisinone/" object="Hochschuldaten"/> -->
+	</Veranstaltungsdaten>
+</publishDetail>
