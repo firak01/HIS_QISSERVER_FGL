@@ -1,6 +1,0 @@
-jobBC_cm_stu_li_EinschreiberMeldung-HfBK-Dresden.xml
-
-Beispiel für eine Liste, die gruppiert wird über einen Auftraggschritt
-Hier Meldeliste der Studiernden
-
-
