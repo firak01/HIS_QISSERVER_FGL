@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<publishDetail VMErrorFile="hisreports/reports/vm/error.vm" WriteXMLFileTo="[LOGROOT]//Veranstaltungsdaten.xml" active="y">
+    <veranstaltungsdaten tanRequired="n" directPDF="y" database="hisinone" global="[CURRENTTIME], [TODAY]">
+        <Transform.SQL ElementName="Root">
+				SELECT DISTINCT 
+					planelement.defaulttext AS defaulttext,
+					planelement.organizational_commentary AS comment,
+					term_year, term_segment, 
+					term_type.defaulttext
+				FROM planelement, unit, term_type 
+				WHERE planelement.unit_id=unit.id 
+					AND planelement.term_type_id = term_type.id 
+					AND planelement.id in ([planelementIds])
+				GROUP BY planelement.defaulttext,planelement.organizational_commentary, unit.elementnr, term_year, term_segment, term_type.defaulttext;
+			<Transform.SubSQL ElementName="unit" >
+				SELECT DISTINCT unit.defaulttext, unit.shorttext, unit.longtext, unit.elementnr
+				FROM unit, planelement
+				WHERE planelement.unit_id=unit.id AND planelement.id in ([planelementIds]);
+			</Transform.SubSQL>
+			
+			<Transform.SubSQL ElementName="termin" ueberschreiben="y" >
+				SELECT DISTINCT 
+    					planned_dates.startdate AS startdate, 
+						planned_dates.enddate AS enddate, 
+    					substring (text(planned_dates.starttime::time),1, 5) AS starttime, 
+    					substring (text(planned_dates.endtime::time),1, 5) AS endtime, 
+    					k_day_of_week.shorttext AS dayS, 
+    					k_day_of_week.defaulttext AS dayD, 
+    					room.defaulttext AS room, 
+    					person.firstname, person.surname, 
+    					academicdegree.defaulttext, 
+    					academicdegree.shorttext
+    				FROM hisinone.planned_dates 
+    				LEFT JOIN room ON (planned_dates.room_id=room.id)
+    				LEFT JOIN hisinone.k_day_of_week ON k_day_of_week.id = CASE WHEN extract(dow FROM (planned_dates.startdate)) = 0 THEN 7 ELSE extract(dow FROM (planned_dates.startdate)) END
+    				LEFT JOIN hisinone.instructor ON (instructor.planned_dates_id = planned_dates.id)
+    				LEFT JOIN hisinone.abstract_person ON (instructor.abstract_person_id= abstract_person.id) 
+    				LEFT JOIN hisinone.person ON (abstract_person.id = person.id) 
+    				LEFT JOIN hisinone.academicdegree on (person.academicdegree_id=academicdegree.id)
+				WHERE planned_dates.planelement_id IN ([planelementIds]);
+				<Transform.SubSQL ElementName="pruefer1">
+					SELECT DISTINCT person.surname AS surname, person.firstname AS firstname, academicdegree.defaulttext, 
+    					academicdegree.shorttext 
+					FROM planned_dates 
+					LEFT JOIN hisinone.instructor ON (instructor.planned_dates_id = planned_dates.id)
+    				LEFT JOIN hisinone.abstract_person ON (instructor.abstract_person_id= abstract_person.id) 
+    				LEFT JOIN hisinone.person ON (abstract_person.id = person.id) 
+    				LEFT JOIN hisinone.academicdegree on (person.academicdegree_id=academicdegree.id)
+					WHERE planned_dates.planelement_id IN ([planelementIds])
+					AND instructor.k_instructortask_id=1;
+				</Transform.SubSQL>
+				<Transform.SubSQL ElementName="pruefer2">
+					SELECT DISTINCT person.surname AS surname, person.firstname AS firstname 
+					FROM planned_dates 
+					LEFT JOIN hisinone.instructor ON (instructor.planned_dates_id = planned_dates.id)
+    				LEFT JOIN hisinone.abstract_person ON (instructor.abstract_person_id= abstract_person.id) 
+    				LEFT JOIN hisinone.person ON (abstract_person.id = person.id) 
+    				LEFT JOIN hisinone.academicdegree on (person.academicdegree_id=academicdegree.id)
+					WHERE planned_dates.planelement_id IN ([planelementIds])
+					AND instructor.k_instructortask_id=2;
+				</Transform.SubSQL>
+			</Transform.SubSQL>
+			
+			<Transform.SubSQL ElementName="teilnehmer" ueberschreiben="y">
+				SELECT DISTINCT examplan.id, examplan.unit_id, examplan.cancelation, examplan.date_of_work, student.id, person.firstname, person.surname, student.registrationnumber,
+					academicdegree.defaulttext, 
+					academicdegree.shorttext, 
+					replace(to_char(examresult.grade,'99D99'),'.',',') as note, 
+					examresult.score AS punkte,
+					examresult.id AS examresultID,
+					examresult.attempt,
+					examrelation.bonus AS bonus, 
+					k_remark_on_exam.uniquename AS remarkU, 
+					k_remark_on_exam.shorttext AS remarkS,
+					k_remark_on_exam.defaulttext AS remarkD,
+					k_workstatus.shorttext AS workstatusS, 
+					k_workstatus.defaulttext AS workstatusD, 
+					k_workstatus.longtext AS workstatusL
+				FROM hisinone.examplan
+				JOIN hisinone.person ON (examplan.person_id=person.id)
+				LEFT JOIN hisinone.academicdegree on (person.academicdegree_id = academicdegree.id)
+				LEFT JOIN k_remark_on_exam ON (k_remark_on_exam.id=examplan.k_remark_on_exam_id) 
+				LEFT JOIN hisinone.examrelation ON (examrelation.id = examplan.default_examrelation_id)
+				LEFT JOIN hisinone.examresult ON (examresult.examrelation_id = examrelation.id)
+				LEFT JOIN hisinone.k_workstatus ON (k_workstatus.id = examrelation.k_workstatus_id)
+				JOIN hisinone.planelement ON (examplan.planelement_id=planelement.id), 
+    				hisinone.student
+    			WHERE 
+    				person.id=student.person_id AND  
+					examplan.id IN ([examplanIds])
+				ORDER BY person.surname, person.firstname;
+				<Transform.SubSQL ElementName="pruefer">
+					SELECT DISTINCT person.surname AS surname, person.firstname AS firstname 
+					FROM person, examvaluation 
+					WHERE examvaluation.examresult_id=[examresultID] 
+					AND examvaluation.person_id=person.id 
+					AND examvaluation.k_instructortask_id=1;
+				</Transform.SubSQL>
+				<Transform.SubSQL ElementName="Studiengang">
+					SELECT DISTINCT <!-- course_of_study.defaulttext, course_of_study.shorttext -->
+						degree.defaulttext AS degreeD, degree.shorttext AS degreeS, 
+						subject.defaulttext AS subjectD, subject.shorttext AS subjectS
+					FROM course_of_study, degree_program_progress, degree_program, student, unit_studies, unit_top, degree, subject, person, student
+					WHERE course_of_study.id = degree_program_progress.course_of_study_id
+						AND degree_program_progress.degree_program_id = degree_program.id
+						AND student.id = [student.id]
+						AND unit_studies.course_of_study_lid = course_of_study.lid
+						AND unit_studies.unit_id = unit_top.top_unit_id
+						AND unit_top.unit_id = [examplan.unit_id]
+						AND course_of_study.degree_lid = degree.lid
+						AND course_of_study.subject_lid = subject.lid
+						AND degree_program.person_id = person.id
+						AND person.id = student.person_id;
+				</Transform.SubSQL>
+			</Transform.SubSQL>
+		</Transform.SQL>
+		<!-- <Transform.GlobalObjects file="OwnUniversity.xml" subdir="printout/publishModul/globalObjects/hisinone/" object="Hochschuldaten"/> -->
+	</veranstaltungsdaten>
+</publishDetail>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<publishDetail VMErrorFile="hisreports/reports/vm/error.vm" WriteXMLFileTo="[LOGROOT]//Teilnehmerliste.xml" active="y">    
+    <Reports tanRequired="n" directPDF="y" database="hisinone" global="[CURRENTTIME], [TODAY]"
+        fileExtension="csv" outFileName="Teilnehmerliste" ueberschreiben="y">
+                <Transform.SQL ElementName="Pruefung" storeFields="elementnr">
+        SELECT DISTINCT 
+		planelement.defaulttext AS defaulttext,
+		planelement.organizational_commentary AS comment,
+		term_year, term_segment, 
+		term_type.defaulttext,unit.elementnr as elementnr
+	FROM planelement, unit, term_type 
+	WHERE planelement.unit_id=unit.id 
+		AND planelement.term_type_id = term_type.id 
+		AND planelement.id in ([planelementIds])
+	GROUP BY planelement.defaulttext,planelement.organizational_commentary, unit.elementnr, term_year, term_segment, term_type.defaulttext       
+        <Transform.SubSQL ElementName="Teilnehmer">
+				SELECT DISTINCT person.firstname, person.surname, student.registrationnumber
+				FROM hisinone.examplan
+				JOIN hisinone.person ON (examplan.person_id=person.id)
+				LEFT JOIN hisinone.academicdegree on (person.academicdegree_id = academicdegree.id)
+				LEFT JOIN hisinone.k_remark_on_exam ON (k_remark_on_exam.id=examplan.k_remark_on_exam_id) 
+				LEFT JOIN hisinone.examrelation ON (examrelation.id = examplan.default_examrelation_id)
+				LEFT JOIN hisinone.examresult ON (examresult.examrelation_id = examrelation.id)
+				LEFT JOIN hisinone.k_workstatus ON (k_workstatus.id = examrelation.k_workstatus_id)
+				JOIN hisinone.planelement ON (examplan.planelement_id=planelement.id), 
+    				hisinone.student
+    			WHERE 
+    				person.id=student.person_id AND  
+					examplan.id IN ([where.examplanid])
+				ORDER BY person.surname, person.firstname;
+		</Transform.SubSQL>
+		</Transform.SQL>
+	</Reports>
+</publishDetail>
