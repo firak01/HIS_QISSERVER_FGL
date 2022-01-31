@@ -1,0 +1,1496 @@
+<root>
+  <Metadata>
+    <description>Auftragskonfigurationen und Aufträge</description>
+    <created_at>31.01.2022 17:34:34</created_at>
+    <database>muster_hisinone202106_20210804c [PostgreSQL] on localhost:5436</database>
+    <dbVersion>Release: 2021.06    Build id: 2021.06.11568    HISINONE Hotfix Nr.: 117    QIS Hotfix Nr.: 45</dbVersion>
+    <confpackage>reportingCenterAndJob</confpackage>
+    <beginEntityCollections />
+    <LanguageValue>1</LanguageValue>
+    <DomainValue>2</DomainValue>
+    <Confsrc>2</Confsrc>
+    <JobcategoryValue>2</JobcategoryValue>
+    <JobStep>9</JobStep>
+    <AbstractJob>2</AbstractJob>
+    <DocumentMetadataCategoryValue>1</DocumentMetadataCategoryValue>
+    <DocumentStatusValue>0</DocumentStatusValue>
+    <PurposeValue>0</PurposeValue>
+    <Mimedata>1</Mimedata>
+    <DocumentMetadata>1</DocumentMetadata>
+    <DataSelectionDefinition>0</DataSelectionDefinition>
+    <DataSelection>0</DataSelection>
+    <HqlDataSelectionParameter>0</HqlDataSelectionParameter>
+    <ReportingCenterElement>4</ReportingCenterElement>
+    <ReportingCenterElementConfiguration>4</ReportingCenterElementConfiguration>
+    <ReportingCenterElementCondition>0</ReportingCenterElementCondition>
+    <ReportingCenterElementConfigurationProperty>0</ReportingCenterElementConfigurationProperty>
+    <ReportingCenterDomainSetting>0</ReportingCenterDomainSetting>
+    <Foreigntext>0</Foreigntext>
+  </Metadata>
+  <UploadOptions>merge checked, addMissing</UploadOptions>
+  <LanguageValue-collection searchColumns="Iso_639_2">
+    <LanguageValue entity="LanguageValue" dtoKey="common.i18n.LanguageValue" update="false">
+      <Id>12</Id>
+      <Iso_639_2>ger</Iso_639_2>
+      <ObjGuid>7e32eec0-07b2-4e9b-b99b-6fc37da412e3</ObjGuid>
+    </LanguageValue>
+  </LanguageValue-collection>
+  <DomainValue-collection searchColumns="Uniquename">
+    <DomainValue entity="DomainValue" dtoKey="value.DomainValue">
+      <Defaultlanguage>12</Defaultlanguage>
+      <Defaulttext>EXA</Defaulttext>
+      <HiskeyId>4</HiskeyId>
+      <Id>7</Id>
+      <Longtext>Prüfungsmanagement</Longtext>
+      <ObjGuid>81d9dd73-44db-4c0b-a9fe-c138c47a4a1b</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <Shorttext>EXA</Shorttext>
+      <Sortorder>4</Sortorder>
+      <Uniquename>EXA</Uniquename>
+    </DomainValue>
+    <DomainValue entity="DomainValue" dtoKey="value.DomainValue">
+      <Defaultlanguage>12</Defaultlanguage>
+      <Defaulttext>STU</Defaulttext>
+      <HiskeyId>2</HiskeyId>
+      <Id>4</Id>
+      <Longtext>Student</Longtext>
+      <ObjGuid>aa16c558-8d21-4067-b3eb-1d8479166428</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <Shorttext>STU</Shorttext>
+      <Sortorder>2</Sortorder>
+      <Uniquename>STU</Uniquename>
+    </DomainValue>
+  </DomainValue-collection>
+  <Confsrc-collection searchColumns="Uniquename">
+    <Confsrc entity="Confsrc" dtoKey="common.Confsrc" update="false">
+      <Id>1</Id>
+      <ObjGuid>0b1c0c1c-9997-472d-ab19-f34329ff225c</ObjGuid>
+      <Uniquename>HIS</Uniquename>
+    </Confsrc>
+    <Confsrc entity="Confsrc" dtoKey="common.Confsrc" update="false">
+      <Id>20</Id>
+      <ObjGuid>39bd8a2d-608f-4a2b-b271-601b238350b0</ObjGuid>
+      <Uniquename>FGL</Uniquename>
+    </Confsrc>
+  </Confsrc-collection>
+  <DomainValue-collection searchColumns="Uniquename">
+    <DomainValue entity="DomainValue" dtoKey="value.DomainValue">
+      <Defaultlanguage>12</Defaultlanguage>
+      <Defaulttext>EXA</Defaulttext>
+      <HiskeyId>4</HiskeyId>
+      <Id>7</Id>
+      <Longtext>Prüfungsmanagement</Longtext>
+      <ObjGuid>81d9dd73-44db-4c0b-a9fe-c138c47a4a1b</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <Shorttext>EXA</Shorttext>
+      <Sortorder>4</Sortorder>
+      <Uniquename>EXA</Uniquename>
+    </DomainValue>
+    <DomainValue entity="DomainValue" dtoKey="value.DomainValue">
+      <Defaultlanguage>12</Defaultlanguage>
+      <Defaulttext>STU</Defaulttext>
+      <HiskeyId>2</HiskeyId>
+      <Id>4</Id>
+      <Longtext>Student</Longtext>
+      <ObjGuid>aa16c558-8d21-4067-b3eb-1d8479166428</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <Shorttext>STU</Shorttext>
+      <Sortorder>2</Sortorder>
+      <Uniquename>STU</Uniquename>
+    </DomainValue>
+  </DomainValue-collection>
+  <JobcategoryValue-collection searchColumns="Uniquename">
+    <JobcategoryValue entity="JobcategoryValue" dtoKey="cs.sys.steps.JobcategoryValue">
+      <Defaultlanguage>12</Defaultlanguage>
+      <Defaulttext>Liste</Defaulttext>
+      <Id>2</Id>
+      <Longtext>Liste</Longtext>
+      <ObjGuid>4b21d0c1-c72c-11df-bd3b-0800200c9a66</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <Shorttext>Liste</Shorttext>
+      <Sortorder>2</Sortorder>
+      <Uniquename>LI</Uniquename>
+    </JobcategoryValue>
+    <JobcategoryValue entity="JobcategoryValue" dtoKey="cs.sys.steps.JobcategoryValue">
+      <Defaultlanguage>12</Defaultlanguage>
+      <Defaulttext>Serienbrief</Defaulttext>
+      <Id>3</Id>
+      <Longtext>Serienbrief</Longtext>
+      <ObjGuid>4b21d0c2-c72c-11df-bd3b-0800200c9a66</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <Shorttext>Serienbrief</Shorttext>
+      <Sortorder>3</Sortorder>
+      <Uniquename>SB</Uniquename>
+    </JobcategoryValue>
+  </JobcategoryValue-collection>
+  <JobStep-collection searchColumns="Uniquename">
+    <GenericSearchDataRequestStep entity="GenericSearchDataRequestStep" dtoKey="cs.sys.steps.common.datarequest.GenericSearchDataRequestStep">
+      <Defaulttext>GenericSearchDataRequestStep</Defaulttext>
+      <Description />
+      <Id>362</Id>
+      <ObjGuid>20b35f3b-7789-4704-803d-189a4acbaeb2</ObjGuid>
+      <Uniquename>GenericSearchDataRequestStep</Uniquename>
+      <Details entity="JobConf" dtoKey="cs.sys.steps.JobConf">
+        <Id>547</Id>
+        <ObjGuid>7c7b49db-ef12-434a-ad8e-d955c1610987</ObjGuid>
+      </Details>
+      <RowIterator />
+    </GenericSearchDataRequestStep>
+    <PublishDataRequestStep entity="PublishDataRequestStep" dtoKey="cs.sys.steps.common.datarequest.PublishDataRequestStep">
+      <Defaulttext>new step</Defaulttext>
+      <Description />
+      <Id>498</Id>
+      <ObjGuid>3e7d9442-9c20-4df4-972a-8a890c74989c</ObjGuid>
+      <Uniquename />
+      <Details entity="JobConf" dtoKey="cs.sys.steps.JobConf">
+        <Id>951</Id>
+        <ObjGuid>3b450556-0810-4f61-9870-5afec8755eec</ObjGuid>
+        <Confs>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>951</Id>
+              <ObjGuid>3b450556-0810-4f61-9870-5afec8755eec</ObjGuid>
+            </Configuration>
+            <Confkey>configFile</Confkey>
+            <Conflabel />
+            <Confvalue>printout/publishModul/hisinone/studentExam/studentExams.xml</Confvalue>
+            <Id>3101</Id>
+            <ObjGuid>1f77cf86-4ca0-47c6-ac63-9f26dde3a346</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>951</Id>
+              <ObjGuid>3b450556-0810-4f61-9870-5afec8755eec</ObjGuid>
+            </Configuration>
+            <Confkey>listElement</Confkey>
+            <Conflabel />
+            <Confvalue>Root</Confvalue>
+            <Id>3105</Id>
+            <ObjGuid>1fb67666-73ab-4141-85bf-5a298b981c86</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>951</Id>
+              <ObjGuid>3b450556-0810-4f61-9870-5afec8755eec</ObjGuid>
+            </Configuration>
+            <Confkey>individualTargetColumn</Confkey>
+            <Conflabel />
+            <Confvalue>Student</Confvalue>
+            <Id>3104</Id>
+            <ObjGuid>2be2f0bb-91c4-4d0f-a0a9-cc6076e192e3</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>951</Id>
+              <ObjGuid>3b450556-0810-4f61-9870-5afec8755eec</ObjGuid>
+            </Configuration>
+            <Confkey>individualIdElement</Confkey>
+            <Conflabel />
+            <Confvalue>studentID.text</Confvalue>
+            <Id>3106</Id>
+            <ObjGuid>695790f3-5738-474b-84f3-f28a37ccc188</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>951</Id>
+              <ObjGuid>3b450556-0810-4f61-9870-5afec8755eec</ObjGuid>
+            </Configuration>
+            <Confkey>individualIdTargetColumn</Confkey>
+            <Conflabel />
+            <Confvalue>StudentId</Confvalue>
+            <Id>3103</Id>
+            <ObjGuid>ce5296ff-0da7-4959-9506-ba172ae19a7c</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>951</Id>
+              <ObjGuid>3b450556-0810-4f61-9870-5afec8755eec</ObjGuid>
+            </Configuration>
+            <Confkey>moduleCall</Confkey>
+            <Conflabel />
+            <Confvalue>Reports</Confvalue>
+            <Id>3100</Id>
+            <ObjGuid>e53d3086-e6a2-46ee-a323-7db409ced0bd</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>951</Id>
+              <ObjGuid>3b450556-0810-4f61-9870-5afec8755eec</ObjGuid>
+            </Configuration>
+            <Confkey>searchConfigFile</Confkey>
+            <Conflabel />
+            <Confvalue />
+            <Id>3102</Id>
+            <ObjGuid>edbf09e1-fbeb-45ab-8e5a-0069ac9161fb</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>951</Id>
+              <ObjGuid>3b450556-0810-4f61-9870-5afec8755eec</ObjGuid>
+            </Configuration>
+            <Confkey>splitXmlToResultSet</Confkey>
+            <Conflabel />
+            <Confvalue>true</Confvalue>
+            <Id>3107</Id>
+            <ObjGuid>f73dda2d-0d9a-46c2-a1db-3685aac56aac</ObjGuid>
+          </Element>
+        </Confs>
+      </Details>
+    </PublishDataRequestStep>
+    <BrowserOutputStep entity="BrowserOutputStep" dtoKey="cs.sys.steps.common.output.BrowserOutputStep">
+      <Defaulttext>new step</Defaulttext>
+      <Description />
+      <Id>499</Id>
+      <ObjGuid>478b0daa-c567-4559-acd0-cb667434e96e</ObjGuid>
+      <Uniquename />
+      <Details entity="JobConf" dtoKey="cs.sys.steps.JobConf">
+        <Id>952</Id>
+        <ObjGuid>060040ea-672e-47ab-a362-a8d09b299c12</ObjGuid>
+      </Details>
+    </BrowserOutputStep>
+    <ServiceCallModificationStep entity="ServiceCallModificationStep" dtoKey="cs.sys.steps.common.modification.ServiceCallModificationStep">
+      <Defaulttext>ServiceCallModificationStep</Defaulttext>
+      <Description />
+      <Id>478</Id>
+      <ObjGuid>677e7626-a109-46e4-8c0a-ef48781895b3</ObjGuid>
+      <Uniquename>ServiceCallModificationStep</Uniquename>
+      <Details entity="JobConf" dtoKey="cs.sys.steps.JobConf">
+        <Id>883</Id>
+        <ObjGuid>9e41761b-94bc-48a8-81e6-f9e9c0c227fe</ObjGuid>
+      </Details>
+      <ResultSet />
+    </ServiceCallModificationStep>
+    <PublishDataRequestStep entity="PublishDataRequestStep" dtoKey="cs.sys.steps.common.datarequest.PublishDataRequestStep">
+      <Defaulttext>PublishDataRequestStep</Defaulttext>
+      <Description />
+      <Id>409</Id>
+      <ObjGuid>801bd2d5-1571-4c69-a8d2-aef7d4a5e5cd</ObjGuid>
+      <Uniquename>PublishDataRequestStep</Uniquename>
+      <Details entity="JobConf" dtoKey="cs.sys.steps.JobConf">
+        <Id>615</Id>
+        <ObjGuid>08069457-0cdb-49c8-bd6b-50e8f695491e</ObjGuid>
+      </Details>
+    </PublishDataRequestStep>
+    <DocumentManagementOutputStep entity="DocumentManagementOutputStep" dtoKey="cs.sys.steps.common.output.DocumentManagementOutputStep">
+      <Defaulttext>DocumentManagementOutputStep</Defaulttext>
+      <Description />
+      <Id>366</Id>
+      <ObjGuid>a76f6dd1-662e-49cc-818b-39164e45bcec</ObjGuid>
+      <Uniquename>DocumentManagementOutputStep</Uniquename>
+      <Details entity="JobConf" dtoKey="cs.sys.steps.JobConf">
+        <Id>552</Id>
+        <ObjGuid>9dfcf97c-bc19-45fa-915c-3cf26971929d</ObjGuid>
+      </Details>
+    </DocumentManagementOutputStep>
+    <OpenOfficeLayoutStep entity="OpenOfficeLayoutStep" dtoKey="cs.sys.steps.reports.layout.OpenOfficeLayoutStep">
+      <Defaulttext>new step</Defaulttext>
+      <Description />
+      <Id>523</Id>
+      <ObjGuid>e9649820-47ac-4286-80e3-91e4b12a2ce5</ObjGuid>
+      <Uniquename />
+      <Details entity="JobConf" dtoKey="cs.sys.steps.JobConf">
+        <Id>976</Id>
+        <ObjGuid>db0f8b96-65a2-43eb-ae7a-4237ebd0a8d3</ObjGuid>
+        <Confs>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>976</Id>
+              <ObjGuid>db0f8b96-65a2-43eb-ae7a-4237ebd0a8d3</ObjGuid>
+            </Configuration>
+            <Confkey>reportFormat</Confkey>
+            <Conflabel />
+            <Confvalue>pdf</Confvalue>
+            <Id>3123</Id>
+            <ObjGuid>93098c73-aac8-411b-80dd-873adc2b86ac</ObjGuid>
+          </Element>
+        </Confs>
+      </Details>
+    </OpenOfficeLayoutStep>
+    <ExcelLayoutStep entity="ExcelLayoutStep" dtoKey="cs.sys.steps.reports.layout.ExcelLayoutStep">
+      <Defaulttext>ExcelLayoutStep</Defaulttext>
+      <Description />
+      <Id>481</Id>
+      <ObjGuid>eb4df35a-1c82-4774-815a-8afe7eb8835e</ObjGuid>
+      <Uniquename>ExcelLayoutStep</Uniquename>
+      <Details entity="JobConf" dtoKey="cs.sys.steps.JobConf">
+        <Id>895</Id>
+        <ObjGuid>80b4fe4b-0170-40ed-8e8e-0f4f7c0b53ef</ObjGuid>
+      </Details>
+    </ExcelLayoutStep>
+    <BrowserOutputStep entity="BrowserOutputStep" dtoKey="cs.sys.steps.common.output.BrowserOutputStep">
+      <Defaulttext>BrowserOutputStep</Defaulttext>
+      <Description />
+      <Id>364</Id>
+      <ObjGuid>ee00a338-35a9-4b9a-902a-79b2499376ac</ObjGuid>
+      <Uniquename>BrowserOutputStep</Uniquename>
+      <Details entity="JobConf" dtoKey="cs.sys.steps.JobConf">
+        <Id>549</Id>
+        <ObjGuid>85e18d6f-f2ed-48f3-bc17-c69453598f47</ObjGuid>
+      </Details>
+    </BrowserOutputStep>
+  </JobStep-collection>
+  <AbstractJob-collection searchColumns="{Confsrc, Uniquename}">
+    <JobReportJob entity="JobReportJob" dtoKey="cs.sys.reporting.steps.JobReportJob">
+      <Category entity="JobcategoryValue" incomplete="y">
+        <Id>2</Id>
+        <ObjGuid>4b21d0c1-c72c-11df-bd3b-0800200c9a66</ObjGuid>
+      </Category>
+      <Confsrc entity="Confsrc" incomplete="y">
+        <Id>20</Id>
+        <ObjGuid>39bd8a2d-608f-4a2b-b271-601b238350b0</ObjGuid>
+      </Confsrc>
+      <Defaulttext>FGL - Veranstaltungsliste (Excel)(publish erweitert)</Defaulttext>
+      <Description>FGL - Veranstaltungsliste (Excel)(publish erweitert)</Description>
+      <Domain entity="DomainValue" incomplete="y">
+        <Id>7</Id>
+        <ObjGuid>81d9dd73-44db-4c0b-a9fe-c138c47a4a1b</ObjGuid>
+      </Domain>
+      <ExecuteOnAllTargetHosts />
+      <ExecutionRights isEmptyString="true" />
+      <Id>840</Id>
+      <IsActive>true</IsActive>
+      <JobType>ReportJob</JobType>
+      <NrParallelExecutionsAllowed />
+      <ObjGuid>15b105dd-823f-45d1-baa7-7d1460874e1b</ObjGuid>
+      <Priority />
+      <Synchronous>true</Synchronous>
+      <TargetHost />
+      <Uniquename>cm.exa.bs.fgl.VeranstaltungslisteExcel</Uniquename>
+      <JobStepRelations>
+        <Element entity="JobStepRelation" dtoKey="cs.sys.steps.steps.JobStepRelation">
+          <Id>3002</Id>
+          <Job entity="AbstractSequentialStepsJob" incomplete="y">
+            <Id>840</Id>
+            <ObjGuid>15b105dd-823f-45d1-baa7-7d1460874e1b</ObjGuid>
+          </Job>
+          <ObjGuid>203cc598-5d33-4e6c-901b-72d8e4cf7b21</ObjGuid>
+          <StepAlias>excelLayout</StepAlias>
+          <Step entity="JobStep" incomplete="y">
+            <Id>481</Id>
+            <ObjGuid>eb4df35a-1c82-4774-815a-8afe7eb8835e</ObjGuid>
+          </Step>
+          <StepSort>4</StepSort>
+        </Element>
+        <Element entity="JobStepRelation" dtoKey="cs.sys.steps.steps.JobStepRelation">
+          <Id>2999</Id>
+          <Job entity="AbstractSequentialStepsJob" incomplete="y">
+            <Id>840</Id>
+            <ObjGuid>15b105dd-823f-45d1-baa7-7d1460874e1b</ObjGuid>
+          </Job>
+          <ObjGuid>4a9a8203-96cf-42d8-a53c-bf5f5dd9097d</ObjGuid>
+          <StepAlias>genericSearch</StepAlias>
+          <Step entity="JobStep" incomplete="y">
+            <Id>362</Id>
+            <ObjGuid>20b35f3b-7789-4704-803d-189a4acbaeb2</ObjGuid>
+          </Step>
+          <StepSort>1</StepSort>
+        </Element>
+        <Element entity="JobStepRelation" dtoKey="cs.sys.steps.steps.JobStepRelation">
+          <Id>3000</Id>
+          <Job entity="AbstractSequentialStepsJob" incomplete="y">
+            <Id>840</Id>
+            <ObjGuid>15b105dd-823f-45d1-baa7-7d1460874e1b</ObjGuid>
+          </Job>
+          <ObjGuid>96980850-6137-43d2-b7dd-9169fa02a9fb</ObjGuid>
+          <StepAlias>publishSearch</StepAlias>
+          <Step entity="JobStep" incomplete="y">
+            <Id>409</Id>
+            <ObjGuid>801bd2d5-1571-4c69-a8d2-aef7d4a5e5cd</ObjGuid>
+          </Step>
+          <StepSort>2</StepSort>
+        </Element>
+        <Element entity="JobStepRelation" dtoKey="cs.sys.steps.steps.JobStepRelation">
+          <Id>3003</Id>
+          <Job entity="AbstractSequentialStepsJob" incomplete="y">
+            <Id>840</Id>
+            <ObjGuid>15b105dd-823f-45d1-baa7-7d1460874e1b</ObjGuid>
+          </Job>
+          <ObjGuid>d5eaf08f-280f-4eb1-86d1-c362ad2f4348</ObjGuid>
+          <StepAlias>browserOutput</StepAlias>
+          <Step entity="JobStep" incomplete="y">
+            <Id>364</Id>
+            <ObjGuid>ee00a338-35a9-4b9a-902a-79b2499376ac</ObjGuid>
+          </Step>
+          <StepSort>5</StepSort>
+        </Element>
+        <Element entity="JobStepRelation" dtoKey="cs.sys.steps.steps.JobStepRelation">
+          <Id>3004</Id>
+          <Job entity="AbstractSequentialStepsJob" incomplete="y">
+            <Id>840</Id>
+            <ObjGuid>15b105dd-823f-45d1-baa7-7d1460874e1b</ObjGuid>
+          </Job>
+          <ObjGuid>d8c66749-ddfa-488a-b96d-015cec938631</ObjGuid>
+          <StepAlias>documentManagementOutput</StepAlias>
+          <Step entity="JobStep" incomplete="y">
+            <Id>366</Id>
+            <ObjGuid>a76f6dd1-662e-49cc-818b-39164e45bcec</ObjGuid>
+          </Step>
+          <StepSort>6</StepSort>
+        </Element>
+        <Element entity="JobStepRelation" dtoKey="cs.sys.steps.steps.JobStepRelation">
+          <Id>3001</Id>
+          <Job entity="AbstractSequentialStepsJob" incomplete="y">
+            <Id>840</Id>
+            <ObjGuid>15b105dd-823f-45d1-baa7-7d1460874e1b</ObjGuid>
+          </Job>
+          <ObjGuid>fc2269ca-9789-4514-b084-dd50d0e95a61</ObjGuid>
+          <StepAlias>serviceCallModification</StepAlias>
+          <Step entity="JobStep" incomplete="y">
+            <Id>478</Id>
+            <ObjGuid>677e7626-a109-46e4-8c0a-ef48781895b3</ObjGuid>
+          </Step>
+          <StepSort>3</StepSort>
+        </Element>
+      </JobStepRelations>
+      <Details entity="JobConf" dtoKey="cs.sys.steps.JobConf">
+        <Id>1582</Id>
+        <ObjGuid>2316d4c5-00e0-46e6-8687-994df194e471</ObjGuid>
+        <Confs>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1582</Id>
+              <ObjGuid>2316d4c5-00e0-46e6-8687-994df194e471</ObjGuid>
+            </Configuration>
+            <Confkey>documentCategoryGuid</Confkey>
+            <Conflabel />
+            <Confvalue>42c3eb70-9e3b-11e0-aa82-0800200c9a66</Confvalue>
+            <Id>6290</Id>
+            <ObjGuid>0978a3e3-a08d-4dbf-9751-bf7580745097</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1582</Id>
+              <ObjGuid>2316d4c5-00e0-46e6-8687-994df194e471</ObjGuid>
+            </Configuration>
+            <Confkey>publishSearch.splitXmlToResultSet</Confkey>
+            <Conflabel />
+            <Confvalue>true</Confvalue>
+            <Id>6293</Id>
+            <ObjGuid>0c9f30f2-5ec1-4c72-8868-3fc83f191373</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1582</Id>
+              <ObjGuid>2316d4c5-00e0-46e6-8687-994df194e471</ObjGuid>
+            </Configuration>
+            <Confkey>publishSearch.moduleCall</Confkey>
+            <Conflabel />
+            <Confvalue>Veranstaltungsdaten</Confvalue>
+            <Id>6294</Id>
+            <ObjGuid>1f49f8e3-0952-4a4b-b1d4-7f8bd8a61302</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1582</Id>
+              <ObjGuid>2316d4c5-00e0-46e6-8687-994df194e471</ObjGuid>
+            </Configuration>
+            <Confkey>publishSearch.individualTargetColumn</Confkey>
+            <Conflabel />
+            <Confvalue>publishRequest</Confvalue>
+            <Id>6289</Id>
+            <ObjGuid>34b5d81f-681c-417b-8379-911b8ec3e19f</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1582</Id>
+              <ObjGuid>2316d4c5-00e0-46e6-8687-994df194e471</ObjGuid>
+            </Configuration>
+            <Confkey>publishSearch.configFile</Confkey>
+            <Conflabel />
+            <Confvalue>printout/publishModul/hisinone/fgl/veranstaltung/veranstaltung4excel.xml</Confvalue>
+            <Id>6292</Id>
+            <ObjGuid>42dd3101-1e14-415e-8a78-bfedfa21dcd4</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1582</Id>
+              <ObjGuid>2316d4c5-00e0-46e6-8687-994df194e471</ObjGuid>
+            </Configuration>
+            <Confkey>publishSearch.individualIdTargetColumn</Confkey>
+            <Conflabel />
+            <Confvalue>unitId</Confvalue>
+            <Id>6287</Id>
+            <ObjGuid>67f9d156-a343-429d-b0ab-19d19d42d3fb</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1582</Id>
+              <ObjGuid>2316d4c5-00e0-46e6-8687-994df194e471</ObjGuid>
+            </Configuration>
+            <Confkey>publishSearch.individualIdElement</Confkey>
+            <Conflabel />
+            <Confvalue>publishUnitId</Confvalue>
+            <Id>6298</Id>
+            <ObjGuid>89ac42b8-12dd-4e5b-b92b-f5a993d360b2</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1582</Id>
+              <ObjGuid>2316d4c5-00e0-46e6-8687-994df194e471</ObjGuid>
+            </Configuration>
+            <Confkey>publishSearch.listElement</Confkey>
+            <Conflabel />
+            <Confvalue>Veranstaltung</Confvalue>
+            <Id>6296</Id>
+            <ObjGuid>8f63147a-6ef3-4b8e-bc6c-e321a2e59bdf</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1582</Id>
+              <ObjGuid>2316d4c5-00e0-46e6-8687-994df194e471</ObjGuid>
+            </Configuration>
+            <Confkey>serviceCallModification.serviceCallDefinitions</Confkey>
+            <Conflabel />
+            <Confvalue>[{"guid":"b807c42e-8c02-4afe-9288-9bd870ec92a6","serviceCall":"other.extractColumns","params":{"columns":"Anzahl Teilnehmer\u003d$$publishRequest.count","columnsVisible":true}}]</Confvalue>
+            <Id>6291</Id>
+            <ObjGuid>9655ca9d-cfcc-48b0-a856-9b0e2a5a1c17</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1582</Id>
+              <ObjGuid>2316d4c5-00e0-46e6-8687-994df194e471</ObjGuid>
+            </Configuration>
+            <Confkey>genericSearch.useSearchConfigFileAlways</Confkey>
+            <Conflabel />
+            <Confvalue>true</Confvalue>
+            <Id>6295</Id>
+            <ObjGuid>bae6e6ae-978e-4b53-91a5-98cf5e8e1688</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1582</Id>
+              <ObjGuid>2316d4c5-00e0-46e6-8687-994df194e471</ObjGuid>
+            </Configuration>
+            <Confkey>genericSearch.searchConfigFile</Confkey>
+            <Conflabel />
+            <Confvalue>cm/exa/coursemanagement/search/searchCoursesStaff4ExcelFGL.xml</Confvalue>
+            <Id>6286</Id>
+            <ObjGuid>baf97581-714b-4c6e-b461-70c036a3f785</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1582</Id>
+              <ObjGuid>2316d4c5-00e0-46e6-8687-994df194e471</ObjGuid>
+            </Configuration>
+            <Confkey>reportLanguage</Confkey>
+            <Conflabel />
+            <Confvalue>de</Confvalue>
+            <Id>6288</Id>
+            <ObjGuid>c3795be9-be20-405c-8ff9-92f136bd5e4e</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1582</Id>
+              <ObjGuid>2316d4c5-00e0-46e6-8687-994df194e471</ObjGuid>
+            </Configuration>
+            <Confkey>browserOutput.execute</Confkey>
+            <Conflabel />
+            <Confvalue>true</Confvalue>
+            <Id>6297</Id>
+            <ObjGuid>d8b0b232-dbec-4ff8-94a4-4317d4689b6a</ObjGuid>
+          </Element>
+        </Confs>
+      </Details>
+    </JobReportJob>
+    <JobReportJob entity="JobReportJob" dtoKey="cs.sys.reporting.steps.JobReportJob">
+      <Category entity="JobcategoryValue" incomplete="y">
+        <Id>3</Id>
+        <ObjGuid>4b21d0c2-c72c-11df-bd3b-0800200c9a66</ObjGuid>
+      </Category>
+      <Confsrc entity="Confsrc" incomplete="y">
+        <Id>20</Id>
+        <ObjGuid>39bd8a2d-608f-4a2b-b271-601b238350b0</ObjGuid>
+      </Confsrc>
+      <Defaulttext>FGL : Einzahlungsbeleg</Defaulttext>
+      <Description>Einzahlungsbeleg, ACHTUNG: immer nur eine Zahlung in einer Zahldatei haben.
+Anfrage 266967
+ZIEL: Mehrere Zahlungen in einer Zahldatei haben</Description>
+      <Domain entity="DomainValue" incomplete="y">
+        <Id>4</Id>
+        <ObjGuid>aa16c558-8d21-4067-b3eb-1d8479166428</ObjGuid>
+      </Domain>
+      <ExecuteOnAllTargetHosts />
+      <ExecutionRights isEmptyString="true" />
+      <Id>837</Id>
+      <IsActive>true</IsActive>
+      <JobType>ReportJob</JobType>
+      <NrParallelExecutionsAllowed />
+      <ObjGuid>82732adc-0cf5-4cd0-af3a-27b3beebc77b</ObjGuid>
+      <Priority />
+      <Synchronous>true</Synchronous>
+      <TargetHost />
+      <Uniquename>cm.stu.sb.fgl.DTDLHAW</Uniquename>
+      <JobStepRelations>
+        <Element entity="JobStepRelation" dtoKey="cs.sys.steps.steps.JobStepRelation">
+          <Id>2988</Id>
+          <Job entity="AbstractSequentialStepsJob" incomplete="y">
+            <Id>837</Id>
+            <ObjGuid>82732adc-0cf5-4cd0-af3a-27b3beebc77b</ObjGuid>
+          </Job>
+          <ObjGuid>2cd29af8-169f-498b-8a2e-fe48427108b1</ObjGuid>
+          <StepAlias>browserOutput</StepAlias>
+          <Step entity="JobStep" incomplete="y">
+            <Id>499</Id>
+            <ObjGuid>478b0daa-c567-4559-acd0-cb667434e96e</ObjGuid>
+          </Step>
+          <StepSort>2</StepSort>
+        </Element>
+        <Element entity="JobStepRelation" dtoKey="cs.sys.steps.steps.JobStepRelation">
+          <Id>2987</Id>
+          <Job entity="AbstractSequentialStepsJob" incomplete="y">
+            <Id>837</Id>
+            <ObjGuid>82732adc-0cf5-4cd0-af3a-27b3beebc77b</ObjGuid>
+          </Job>
+          <ObjGuid>84dfd71d-3c6f-4bc2-983f-51eb12136af7</ObjGuid>
+          <StepAlias>ooo</StepAlias>
+          <Step entity="JobStep" incomplete="y">
+            <Id>523</Id>
+            <ObjGuid>e9649820-47ac-4286-80e3-91e4b12a2ce5</ObjGuid>
+          </Step>
+          <StepSort>1</StepSort>
+        </Element>
+        <Element entity="JobStepRelation" dtoKey="cs.sys.steps.steps.JobStepRelation">
+          <Id>2986</Id>
+          <Job entity="AbstractSequentialStepsJob" incomplete="y">
+            <Id>837</Id>
+            <ObjGuid>82732adc-0cf5-4cd0-af3a-27b3beebc77b</ObjGuid>
+          </Job>
+          <ObjGuid>edf7ca9c-f007-431d-b603-bd8ba8b66da4</ObjGuid>
+          <StepAlias>search</StepAlias>
+          <Step entity="JobStep" incomplete="y">
+            <Id>498</Id>
+            <ObjGuid>3e7d9442-9c20-4df4-972a-8a890c74989c</ObjGuid>
+          </Step>
+          <StepSort>0</StepSort>
+        </Element>
+      </JobStepRelations>
+      <Details entity="JobConf" dtoKey="cs.sys.steps.JobConf">
+        <Id>1579</Id>
+        <ObjGuid>89962fc1-6ba2-4ee9-aaa7-e38fd26adfcb</ObjGuid>
+        <Confs>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1579</Id>
+              <ObjGuid>89962fc1-6ba2-4ee9-aaa7-e38fd26adfcb</ObjGuid>
+            </Configuration>
+            <Confkey>reportLanguage</Confkey>
+            <Conflabel />
+            <Confvalue>de</Confvalue>
+            <Id>6240</Id>
+            <ObjGuid>0f787676-6539-44a5-9657-af5d5ecb267a</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1579</Id>
+              <ObjGuid>89962fc1-6ba2-4ee9-aaa7-e38fd26adfcb</ObjGuid>
+            </Configuration>
+            <Confkey>search.splitXmlToResultSet</Confkey>
+            <Conflabel />
+            <Confvalue>true</Confvalue>
+            <Id>6251</Id>
+            <ObjGuid>278e226c-f67f-4da1-8287-cf37d8097c8e</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1579</Id>
+              <ObjGuid>89962fc1-6ba2-4ee9-aaa7-e38fd26adfcb</ObjGuid>
+            </Configuration>
+            <Confkey>search.individualIdTargetColumn</Confkey>
+            <Conflabel />
+            <Confvalue>FileReference</Confvalue>
+            <Id>6246</Id>
+            <ObjGuid>28a3c44f-44d1-4aab-89f1-a5f908abb8f0</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1579</Id>
+              <ObjGuid>89962fc1-6ba2-4ee9-aaa7-e38fd26adfcb</ObjGuid>
+            </Configuration>
+            <Confkey>ooo.reportFormat</Confkey>
+            <Conflabel />
+            <Confvalue>single_pdf</Confvalue>
+            <Id>6241</Id>
+            <ObjGuid>34c34b03-3f07-472b-86b5-7038eb420a2b</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1579</Id>
+              <ObjGuid>89962fc1-6ba2-4ee9-aaa7-e38fd26adfcb</ObjGuid>
+            </Configuration>
+            <Confkey>search.listElement</Confkey>
+            <Conflabel />
+            <Confvalue>Root</Confvalue>
+            <Id>6250</Id>
+            <ObjGuid>5b8e8296-8c09-4c29-9ab7-2c33011bf730</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1579</Id>
+              <ObjGuid>89962fc1-6ba2-4ee9-aaa7-e38fd26adfcb</ObjGuid>
+            </Configuration>
+            <Confkey>ooo.reportTemplateFileId</Confkey>
+            <Conflabel />
+            <Confvalue />
+            <Id>6244</Id>
+            <ObjGuid>81d59cce-667d-4962-92a8-e27d52347a14</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1579</Id>
+              <ObjGuid>89962fc1-6ba2-4ee9-aaa7-e38fd26adfcb</ObjGuid>
+            </Configuration>
+            <Confkey>search.searchConfigFile</Confkey>
+            <Conflabel />
+            <Confvalue />
+            <Id>6245</Id>
+            <ObjGuid>9db6f446-e43a-4d09-94c6-b04317f2ee81</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1579</Id>
+              <ObjGuid>89962fc1-6ba2-4ee9-aaa7-e38fd26adfcb</ObjGuid>
+            </Configuration>
+            <Confkey>search.individualTargetColumn</Confkey>
+            <Conflabel />
+            <Confvalue>DatentraegerBegleitZettel</Confvalue>
+            <Id>6248</Id>
+            <ObjGuid>a119a232-24b8-4cf8-bb31-d0d57afec78b</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1579</Id>
+              <ObjGuid>89962fc1-6ba2-4ee9-aaa7-e38fd26adfcb</ObjGuid>
+            </Configuration>
+            <Confkey>ooo.ooTemplate</Confkey>
+            <Conflabel />
+            <Confvalue>fgl/fia/dtdl4FGL</Confvalue>
+            <Id>6247</Id>
+            <ObjGuid>d6e86e7a-396a-40fd-bf37-b9b60c27d440</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1579</Id>
+              <ObjGuid>89962fc1-6ba2-4ee9-aaa7-e38fd26adfcb</ObjGuid>
+            </Configuration>
+            <Confkey>search.individualIdElement</Confkey>
+            <Conflabel />
+            <Confvalue>accountno.text</Confvalue>
+            <Id>6242</Id>
+            <ObjGuid>d922ef45-1b6d-4280-bd0c-9647732cf4c4</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1579</Id>
+              <ObjGuid>89962fc1-6ba2-4ee9-aaa7-e38fd26adfcb</ObjGuid>
+            </Configuration>
+            <Confkey>search.moduleCall</Confkey>
+            <Conflabel />
+            <Confvalue>Reports</Confvalue>
+            <Id>6252</Id>
+            <ObjGuid>da2bfcbf-afeb-400d-adeb-3645d5ba0098</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1579</Id>
+              <ObjGuid>89962fc1-6ba2-4ee9-aaa7-e38fd26adfcb</ObjGuid>
+            </Configuration>
+            <Confkey>search.configFile</Confkey>
+            <Conflabel />
+            <Confvalue>printout/publishModul/hisinone/fgl/fia/dtdl.xml</Confvalue>
+            <Id>6243</Id>
+            <ObjGuid>f45720a3-3818-496c-b14b-a7ea5ed89edf</ObjGuid>
+          </Element>
+          <Element entity="JobConfValue" dtoKey="cs.sys.steps.JobConfValue">
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>1579</Id>
+              <ObjGuid>89962fc1-6ba2-4ee9-aaa7-e38fd26adfcb</ObjGuid>
+            </Configuration>
+            <Confkey>synchronous</Confkey>
+            <Conflabel />
+            <Confvalue>true</Confvalue>
+            <Id>6249</Id>
+            <ObjGuid>ff37c4c9-b013-4470-9060-a55d1f572351</ObjGuid>
+          </Element>
+        </Confs>
+      </Details>
+    </JobReportJob>
+  </AbstractJob-collection>
+  <DocumentMetadataCategoryValue-collection searchColumns="{Uniquename, HiskeyId}">
+    <DocumentMetadataCategoryValue entity="DocumentMetadataCategoryValue" dtoKey="cs.sys.filemanagement.DocumentMetadataCategoryValue">
+      <AdditionalDmsFilenameParams />
+      <AdditionalSubfolderToStore />
+      <Defaultlanguage>12</Defaultlanguage>
+      <Defaulttext>Vorlage</Defaulttext>
+      <DocumentStorageCategory entity="DocumentStorageCategoryValue" incomplete="y">
+        <Id>2</Id>
+        <ObjGuid>fffbbef0-ec68-4c64-bde4-4566465833d9</ObjGuid>
+      </DocumentStorageCategory>
+      <HiskeyId>10</HiskeyId>
+      <Id>10</Id>
+      <Longtext>Vorlage</Longtext>
+      <ObjGuid>51eb2ea0-a941-11df-94e2-0800200c9a66</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <Shorttext>Vorlage</Shorttext>
+      <Sortorder />
+      <Uniquename>Vorlage</Uniquename>
+    </DocumentMetadataCategoryValue>
+  </DocumentMetadataCategoryValue-collection>
+  <DocumentStatusValue-collection searchColumns="Uniquename" />
+  <PurposeValue-collection searchColumns="Uniquename" />
+  <Mimedata-collection>
+    <Mimedata entity="Mimedata" dtoKey="cs.sys.filemanagement.Mimedata">
+      <CreatedAt>2021-12-06 09:38:24.574</CreatedAt>
+      <Description />
+      <ExternalDmsIdentifier />
+      <Id>2185</Id>
+      <MimeFilename>dtdl_fia_HAW.odt</MimeFilename>
+      <MimePath />
+      <MimeType>application/vnd.oasis.opendocument.text</MimeType>
+      <ObjGuid>996e6215-19e1-423f-9889-cbaf22139b06</ObjGuid>
+      <UpdatedAt>2021-12-06 09:38:24.754</UpdatedAt>
+      <MimeBlob isBase64encoded="true" isHandledAfterPersist="true">UEsDBBQAAAgAAPmERlNexjIMJwAAACcAAAAIAAAAbWltZXR5cGVhcHBsaWNhdGlvbi92bmQub2Fz&#xD;
+aXMub3BlbmRvY3VtZW50LnRleHRQSwMEFAAACAAA+YRGUwAAAAAAAAAAAAAAABoAAABDb25maWd1&#xD;
+cmF0aW9uczIvcG9wdXBtZW51L1BLAwQUAAAIAAD5hEZTAAAAAAAAAAAAAAAAGAAAAENvbmZpZ3Vy&#xD;
+YXRpb25zMi90b29sYmFyL1BLAwQUAAAIAAD5hEZTAAAAAAAAAAAAAAAAGgAAAENvbmZpZ3VyYXRp&#xD;
+b25zMi9zdGF0dXNiYXIvUEsDBBQACAgIAPmERlMAAAAAAAAAAAAAAAAnAAAAQ29uZmlndXJhdGlv&#xD;
+bnMyL2FjY2VsZXJhdG9yL2N1cnJlbnQueG1sAwBQSwcIAAAAAAIAAAAAAAAAUEsDBBQAAAgAAPmE&#xD;
+RlMAAAAAAAAAAAAAAAAYAAAAQ29uZmlndXJhdGlvbnMyL2Zsb2F0ZXIvUEsDBBQAAAgAAPmERlMA&#xD;
+AAAAAAAAAAAAAAAfAAAAQ29uZmlndXJhdGlvbnMyL2ltYWdlcy9CaXRtYXBzL1BLAwQUAAAIAAD5&#xD;
+hEZTAAAAAAAAAAAAAAAAGAAAAENvbmZpZ3VyYXRpb25zMi9tZW51YmFyL1BLAwQUAAAIAAD5hEZT&#xD;
+AAAAAAAAAAAAAAAAHAAAAENvbmZpZ3VyYXRpb25zMi9wcm9ncmVzc2Jhci9QSwMEFAAACAAA+YRG&#xD;
+UwAAAAAAAAAAAAAAABoAAABDb25maWd1cmF0aW9uczIvdG9vbHBhbmVsL1BLAwQUAAgICAD5hEZT&#xD;
+AAAAAAAAAAAAAAAACgAAAHN0eWxlcy54bWztHF1z27jxvb9Cw5vrtDOlRFKSLamxb3K+XHOd5Jq5&#xD;
+87WPNxAJSryQBAegLCm/vosvEqRAmrbi1PUkmbEt7C6w2F0sdoGFXn13yNLRHaYsIfmV4489Z4Tz&#xD;
+kERJvrlyfrv90V04313/6RWJ4yTEq4iEuwznpcvKY4rZCIhztpLAK2dH8xVBLGGrHGWYrcpwRQqc&#xD;
+a6KVib0SQ8kW0dlQcoFsUpf4UA4l5rgNWrQePrJANqkjivZDiTkuyNQkj8lQ4gNL3Zi4IckKVCYt&#xD;
+Lg5pkn+8crZlWawmk/1+P95Px4RuJv5yuZwIaMVwWOEVO5oKrCic4BTzwdjEH/sTjZvhEg3lj+Oa&#xD;
+LOW7bI3pYNGgEp1old1tBlvE3aZDNOEW0cG2IZCb6p1Gw9U7jUzaDJXbDp0sJu8BKH68f1fbAs2G&#xD;
+jsVxG6IKaVIMnqbENukJIRWrnEAuUMFu4HmzifxsYO970fc0KTE10MNe9BClYSVxktmEBnj+BDBc&#xD;
+fMfNVGNTPunOnucTigtCy4qReLiDAukE1fLallnavbw4VKNuaBRZUYGd6QSWGhi6e5fg/TdOw3P2&#xD;
+K2DZUoBwQ/eRCCTTT/US+N6E41TLBlRSO1W6qdx+THY5TAK2CiVAfCgwTTgIpYJs1ejBtLKUPKJL&#xD;
+tVcYPTQcaIJTvUKrKVm7IcTNmJvkYJikWBnUDW/B2LS0qe/2lwmHuXz3AP+oxjE2zcC51jtkTGB3&#xD;
+jFGI3QiHKbt+JT1b1TySnzmTV84t2pIM+c4IXJhGyZL0qCHOpJ/+NU1QaiMXAGfUoOUQd4NzEAus&#xD;
+SLZPGLuv/xuyowmmo5/x3jLIn1FB2N8NHNnQO2xGIkzzBkqRlCH4yjg54Og+hm5Bo4wPNfoFxJN3&#xD;
+MtXCG8AYVf2d8HWHQJZ8MQ3RxRmqOGdoWEEpHv2Kcjb67adOoTTRBsiEHVmJs3M4U2bcad/njz7p&#xD;
+WneqXQaqmssIx2iXqvBV96xY2lBUbJPQ0bjqs1uAy8C0TMCg+DRYSclHDAFHSiDC+cYT/5wR95/g&#xD;
+UtK0giyXYRjHzigmqz105ZKiFO4iJy7/rEjYFkVk7wK3DJfu4crxxtMwswKPLWAJ8YoL4R12WYFC&#xD;
+CC7dLaHJJ8JdHkcNFr3Id3xS4Skq7IdDez1BtfSphJzCPPZJuXVluB6jlBnWUyCKhLwb0hYgju+i&#xD;
+XUn4GGBSSYSJREVpsa1MSLCxphhBKAwqSsKyYTlJHmG+0/PcxeRYc6IZgX0TjIMUjJtWN28VOmfu&#xD;
+hOUdwzDXnKtODK4soqQ73GCqw6eBwQgwSz4B2A+KUrSlKN/s0AaaIiwaQtg6SwpW8cObSgq4hC3O&#xD;
+/Qg+VkzOOqQLERDKLW6jRuNDazTJgOpf8aBhf1TyV8xowD8/nA7LY/QUH6yLXwxYIViHrKDxyaAV&#xD;
+6KdfnFpxjcU+xANUmnZ67RJEvz0WW5yLsMVNUQR7mit4Eas7TbKkYn+g+Ra7PCx3skPuHSAMgXmD&#xD;
+Du+3b22ybpTAKs/5IBCRzOb14uMROV+dfPPls9wYK++rBT87CzYNDGsH1bY6ijOU5C5PWrXpBSdI&#xD;
+xY5tWyhnLA+ZUxieMsWm5cjjkTWhfDVwU4NdAOwmRQXjdnzuwC4l+9bg0NJalx8xLtySbHC55ecP&#xD;
+fN3dN7A5oDTnX2EVRYhGTqd70MpLEWPAHiwhp2s9Ncz+0+HQtPuc5LjLMgWy1TStVJUFWegqmKCs&#xD;
+BXKPIN5iFBkuqFMO0FCdCbp2GeZcLCbCLTT8Hni/r0l07JNnlwfOEAX3CLoueKwxC0SsUbevSVny&#xD;
+wwQIQ/yAg2TyGMJKhd87lLYDgMp6RJCSiyAFpXt0ZPf5SsMRqlhfu7/PmQK0feqsKB/jFtXACvFR&#xD;
+eYEm7orPNbxmvcstW+fQ52MVIwNQNK8Vaie3FUY3v7VX5xwPXj42E4c9ukjR0VgEIxN8zhJ79Oo5&#xD;
+c+UMlsc7iE8eM9EeV5HyLgcuz7bZ+ENMa/DkbpBI7z6jImE2FD3QDyqVneMHxRWJPMAXmRJrQkQc&#xD;
+qs/3vW7f2BECyjZOAaEwZJSQbw+J2moyDbUQP1rJw8I4g4cKrrgYbCU/QQZ6+Iw2koj+em3kM+nz&#xD;
+iy4mHnjwK4QvuZYeJqeT84J2g2aRsEQe+yzGs+WizsnKYwHshpgfSRtS76L2L8bL5bJNTpPN1tyQ&#xD;
+DG56Dy+GaeFHQsqvWvhfa+GWxyR8+7vhPltcf1lDCY42auM8R6UNj5/0zFt5iG3iZ6QqnQJ+0D4s&#xD;
+z3nSZJNX9qS6+WPHyiQ+ujwLhkH3kCA/1Wa7x9wUr5w1SaOGQ5YAvXd2gSt/LRAG6+lHCr+4AMNe&#xD;
+CxVoozbOZwoEpZImfTsvqCTHgl6WRNh41FgjE6U6hrgnzzevBBae84DUX3S2g72cyrNpGR8xkiZR&#xD;
+B8o+iXiBgTjgsGMoburju+d7zvCzsHBYHlw5vx4zML8OG6owRy20ho56zOAf8lLnhG7A5Y9YkSgP&#xD;
+t4S60vGbNnu3WR1ULsX/Puq/RW/yRNcUp74ocWFzAa5JcQKg/PzsZFXUdzGSsulqDGiL/GGL+UtJ&#xD;
+p85TUhyXIkvx/CaASo9mgeiUp91upDwSZOqAM5WmuDqNUb6XAwscuRXP7PQkX1zicfdFdrRy04/T&#xD;
+pqu84JlarbuB2RcokkV73tifK4nIw1je5F0U5Ug4lJG+sjwxCaFCsitrH9SwjH9JiNNCTPEdThW6&#xD;
+3LR4A8RKhohdXrKEQI2VBfHEXZG2jcgEqcjLhchEJKpY3WGkaA1gsd3yEg9bty0U1bdojEmakj2o&#xD;
+e32URwgQsTnG4NWNSh35eePLC51aC0ebiLvEK8c1IS1jloBaztZJA7RLngMlHbwoSftjz7+wStqE&#xD;
+NCStAU8u6ekLk3Rw2SHoCtCSs2h/cjHPXpiY58GsQ841pCVoCXhySc9fmKQvLxcdkq4hLUlLwJNL&#xD;
++uJFSToYe1P7dmhCGpLWgCeX9OULk3SwsG+HJqQlaQl4ckkvXpik53Y3bQBacp5/ESe9fGFivlx2&#xD;
+ybmGtAQtAU8uad97UaKejr2ZfT80IQ1Ra8A5om6CTPnnpMSMZ61xstlRUaM0qgCuOsqLCSn5Z5sq&#xD;
+fDVjWc56h9Id5gejslETMkMEotjNpMn1CZLL+9OvEPh8h3OI86iLwcTOoO6eS6TmwDZM51mwLAIW&#xD;
+xS7mFYRNOqqTWgpctwqW5CEVr7148GfUT4ve6rJpfrAIfSahqwFdB0bvP/jt46IH3TY87ILbX8zD&#xD;
+rtOe4YU+5mG90NSAs/q+w/d2MbgSR6swyG8X8Sz45XL1BGhFWQKjQQfrdTxfmpBaNm2c1khVBZB+&#xD;
+GFKDzav1RW/hTRdxhbB4SBXM+w/B09mHoRGjxlafPtv19TjlDFJBn4zPEuH0eYmwYfKLeRQ8zOT/&#xD;
+H4x29mwlPo0v4b9F4o3XWq36G8+sv2leE/JzYhR+3FD+Eq+u9EY5kzPs1FfzdZhdaXJgA3jPTWRT&#xD;
+qb0j1EU6HWM88jrz/Yf5Y3SvqiUeWytqXx5P5VBuT/bsh15udm9bw1e3dQU/YBInG8tDJuE9j0nE&#xD;
+9EQV+rat29aqW8y+t2oC0LyZiinJ3MdfNgpyGUueINh7yBJKucTl1SfXQJpAHEdxWP7FC7O/jRo/&#xD;
+/qqelaW7LMnlSxbvW9XGAzqKWGk0URwZnzYU49z4vJahdwVGWYa4rzB6BGOAlKh6x6viQwFMMn7X&#xD;
+TXjoWB4tZDKjY9rfd+ibZx+Q0x0hF2pqvch8x4LUMlcBUTf9gadLjzRgq7x4sBxf9GQEahBIOEoX&#xD;
+1MUfRKvUiFCQaFKe3Kl2lJDaT/Wst7VB19ujlLrlui4pEHPe0KTadr4JPf7fhqFSosAKXCNWC8Qb&#xD;
+X3oXNQcmHt2tjwbedD6140lum/UPrV4gJ+dfhNC4BzaRhMR74KqwoYWhc1g3Q4eaUWCyfmerEBjW&#xD;
+9WnKQryx5xulbfo1GDAK1iDwRQJl3olXOCjmj65sKGZBiikPFPFcSSaSpksAP1CZ7PzbukCk4XjN&#xD;
+x5U249eT3Yo60OZ7HdUWi+22nSuCCZpCO72TtRcXdKWUMtOuubXxoxj5wjzqdy8tBpvMnMp4gGMK&#xD;
+nq9j6ij08Ic7Jv+rY/rqmD6zY5rYPIG1o/q07fR4TQEyCHF0H9VoqpH31Fit7Ypdk2dLoCGZVieR&#xD;
+hT6nrKNKfpJ3/Up+kYGo1VTfHGBgiGhVNFeBaJx8DJxB5V9+MJ57C6MGzPXG8+lUNyjlzMbTCkfb&#xD;
+mT++nFdfOvBJHGMfZP13HayNxDddrbYUx1fOhyQsdxQz/mU4/N9S/Fzc3Ijf0+B7z38TBNPp9PUi&#xD;
+uHhz8cPNmN1B/7ILyT9LeEiv29iWrymcrXGkm5B4sA2YJH9HUKRPHrME8gHZheBrcnDvwlTH9JP7&#xD;
+WfY5i4pvz7t4LX8HF9PZ9IdgevP6+zfB5Wz25vW44PXOZ7HMrbTW9/Xb1/8ZvUXZekc36hC/6LOW&#xD;
+QJeCoR4u5OSM79QBlWJYuVsSblm43aV4HOGJc9r/acGuQLlLWFLiqJEO/Vu2cUyT6h2nUiyyAuWW&#xD;
+OUAefL1Vc+Uo+vIC3UMGU4cZMTWlLdq7Wyk3mIylu14xTqvbASt4dhJ/NP1NH+38JDSoPho+5T43&#xD;
+8/aWf09Zj4sJzIuElgeb2L858Pq/UEsHCD2PLx2QDQAAeVAAAFBLAwQUAAgICAD5hEZTAAAAAAAA&#xD;
+AAAAAAAADAAAAG1hbmlmZXN0LnJkZs2TwW6DMAyG7zxFFM4QYJeBCj0M9TxtT5CF0EaDGMVmlLdf&#xD;
+llZT1cMmdT3saOvX78/y7832OA7sQzs0YGuepxln2irojN3XfKY+eeTbJtq4rq9e2h3zaouVr2p+&#xD;
+IJoqIZZlSZeHFNxe5GVZiqwQRZF4RYKrJXlMLMa8iRgLHq1G5cxEfhr7quUbzFRzpHXQmHr3ID2L&#xD;
+aZ10UDmNMDulv4d2oDAFiQYTmLQN0y0K6HujtMjTQoyapICuj1+D9c4MmouAIa44fmO7K9H0vo9b&#xD;
+UPOoLf2Rx2JWHSQ+S0fns/jOLTz8aiMFljxeuMY/RbzIy22ElzveO3FPJ+8fI3dq+Y9qok9QSwcI&#xD;
+ivGy/wMBAACDAwAAUEsDBBQACAgIAPmERlMAAAAAAAAAAAAAAAAIAAAAbWV0YS54bWyNlE+P0zAQ&#xD;
+xe98iihwTew4TppYbfaCEEggkLYIbpVrT1tDakeOu1m+Pc5fumwPzS1vfs/zZmJl/fB8roMnsK0y&#xD;
+ehMmMQ4D0MJIpY+b8Pv2Q1SED9WbtTkclAAmjbicQbvoDI4H3qpbNpY24cVqZnirWqb5GVrmBDMN&#xD;
+6NnCrmk2NBqV51rp35vw5FzDEOq6Lu7S2NgjSsqyREN1RqVYuOZi64GSAkENfYcWJXGCZrZPeG+o&#xD;
+nr2OZIxZGvX4GHpoRzCmaHyf6aOVsr41gGdT5BNyx6MnBd3bMJjGv1o4Cat5u32Maj2EERa480Tk&#xD;
+zVD5g8oI0yjJt0nCUsIwiXO6RjfQ0Q5SOf8FI3mxQ636Rt5vE/Kx/EKKx8n3inlpFX9EDW1FUvof&#xD;
+PxVG+ggavN3Y6rPaW/g6DILyGMd5TN79UH7TXbv7WeS7nAZXyK6x5hcIh7AgJSlWeE8ynpJsn4FM&#xD;
+s0O+p1lWlpIApzQrYLWaQvzrt5aCTcshSZTgCPvlFCwtGS3jglI8PGs0Y2Pe5QK3zg/dOiWCQXd8&#xD;
+X0MkzEW7TZiGo6jO/LiIySSafZ97VvGkNjfIhlt+tLw5LeeupkpnrJzFsphEcfK8cGCXczKaTzXt&#xD;
+P293Ug7ahgvf6BWK8zJE04yX1hckHJQGOdn93d+En/TBBMl9GLkPS+/DaI+hF7cc3fqjVH8BUEsH&#xD;
+CNQWSKMFAgAAjwQAAFBLAwQUAAgICAD5hEZTAAAAAAAAAAAAAAAADAAAAHNldHRpbmdzLnhtbL1a&#xD;
+bXPaOBD+fr8iw/eUkKYJYZJ0DCktVxIYIM1cvwl7AV1krUeSA/z7W8mGy/HSUBvdJwa/7Eq7z+4+&#xD;
+u/LN50UsTl5BaY7ytlL7cFY5ARlixOX0tvI0ap/WK5/v/rjByYSH0IgwTGOQ5lSDMfSIPqHXpW5k&#xD;
+t28rqZINZJrrhmQx6IYJG5iAXL3WePt0wynLriwEly+3lZkxSaNanc/nH+YfP6CaVmvX19dVd3f1&#xD;
+aIhywqeHqsqefqsKEdeK7AvZYpyy87Ozi2r2v3KSL/KNac4rdys7rLZ/d5MryH5OuYHY2uYkv2yX&#xD;
+dlshlY1XDvO11Sq73vvvOz/o+UABG2FSWd0xy4TuCJTTyl2tVv90dlPdFnO46C5MzE7ZJeU+88jM&#xD;
+dgo+v6hd1csJ/wZ8Otu97Nrl+flFMenDGc4HEBHOoDVjcgp6Q8MYUQCTlTujUiimoyObCucaHjCC&#xD;
+fdInTOiDxZ/GLDnlMoIFRNvG2g0y9w6Fh1oeZvJOtLFUbRS3xrZ4Pi/uyr3Yq3/6eF1c7N5oua7X&#xD;
+CwNP87GA4weLE+slvJ3kwd44sVF4WUp2E43BeLfw+tlVQVz8RIxHJGoTcTNUplRS6rIlpqaFIo3l&#xD;
+ZmDn0mtlpTcRX44W2dt2abPQoNqz9ouCtunoIQgIDURtRRc8LD2QIa0RohEsTI9K6UQghf6UhcsC&#xD;
+ynZcfJvO9t3OM+TuB6giH17DswupYoYYwe8U875CQ3Zuo9oMmmMYuU8Z2YB63HZhnqyr78v4Eo8h&#xD;
+iiC6Z4aNmYZSwlqpUuSUlSz7O8RUhcUldokAPiURM7uqZ7kQDqKozxQbMcprw4SFtKLADA1Tm8nz&#xD;
+CBSgLZAZYzU9YszUlG+lo2Pg4UmOiSi9ODUp+VU5lB5fT5uDiILUYOaZ45uLXPMDlOEhEy5B9SYT&#xD;
+CjofW2my8GWqMJUOCzZT3Ss292S3HYg7vu2Ixirj0zkbQd7COGZyD1s8IMIDwaeSTDI0mPRRc5ti&#xD;
+j7/oPFUOwaSbvMtu4vKiySVTy0MW3NHfQclAcyb7qQxNyn615BJwsZ6k6g+KTJwo0LYdPTpNCpJE&#xD;
+LJ804Z78eXy7D9krfBU4ZuI+789tRvcRXEOCpY1jyzieFUuGMRPChx4rt8US3QcqbNKwKVxe/l9R&#xD;
+tsP9hOvCzrfe+ZHNOXqyJVD7oIJZHmor4vgQJ8JLTnLhPaSMI+BPHPuAV55AOsQp7bDJAtnR/z1d&#xD;
+8oyasFOKWWo9bHYoptNxs+FS0402Si/17x4f0RCaTarAVr7e+G/dk30CtQ8kaLBMGBRpIVa8yva/&#xD;
+KIMllHV0l41hnXb8lHPP7IQ0fFkQ6iQTXWCRF75ATumJaM0XPeyilxo7X+vCK4i/LHXUPrU5RA+A&#xD;
+PGK5VmCM0gQ60mhDyAfOppIa3TZX2pY26Ljc0JE+txgI6qZdQqJk12IyhL2FrhQusmC1u3qHrZbn&#xD;
+xLmCETpy3AIhPAxi11tacYTEz57ygXLe/FOG+w5bY4/fJJ0tlJpH/668JymHUgL1FUB/ptrwydL6&#xD;
+Xj9zM3tgMmWiadtLDypdofNV4hyiBjj/DrBF/Y8jXg+AaA1/hRFm4e/hDMFlGasrkFFTMOLQBGXr&#xD;
+nhYTYSp89SADQt0AcXNHjnReXV7X6wWHL11k0YBKGkpRZCL4brgIngR63UCtppHPih5VbbF0ddvP&#xD;
+CGZBfgnhJyik0v1O1S7Hpahs56z0AYh2hp6CJzD2CCQDNu3NZuspZaCZ7sgu1z5KqgXdLsB9vLqq&#xD;
+XZ1/Kib0QT+jimwrPVKMU36eZmHkYf0PzMyalOBtEXDjDU8EtCNfQZkmbQuUvwrdQiGo3YUvcWKW&#xD;
+tjJbBBw/wxHSVgcFPrp2sxSgH/EeJiwVPpxhU04CUZ+HtpfyFIvWQg9ufuxDPlX3vInOjsxcuQ+0&#xD;
+7QZ9VX43flqnFNrai2VozIzQJ4EmZpa8obXDmbJDqTWH9zKdGhtbi6j26FU1Cty/40fSPdeW8lBb&#xD;
+aj13QJddcu4SSInGEZD9ZzQFB1RO/lcLjV+Ut5LLpzIQvvgin04DwU0n1An4km/rs3W1Lwu1yDgK&#xD;
+fXRkmXlsflmfw3hSYhunPnkaZiioXPpyxXunRyV38Y1HRMPsXnxtwHVL3jydB8Jg1PW1/gHYD/dg&#xD;
+L4xKy7df1/gMtjZblDqDz0MqoT5HYbzzwOtYtnCMsKAt9n6TUd360rK67xvUu38AUEsHCBvEBE5u&#xD;
+BgAAxSoAAFBLAwQUAAAIAAD5hEZToJDoPdULAADVCwAANQAAAFBpY3R1cmVzLzEwMDAwMjAwMDAw&#xD;
+MDAwNkEwMDAwMDAyNjM0M0QyM0NBQkUyNzQ0RUEucG5niVBORw0KGgoAAAANSUhEUgAAAGoAAAAm&#xD;
+CAYAAAAsuw6AAAAACXBIWXMAABJjAAASTgHlHPMiAAALh0lEQVR4nO1aCVRU5xX+AAFZFIUBjUaj&#xD;
+ooBYjaKAMaImoEBslGhaY4xmNFqTukajRiEoKE0QjSb1pHh60iS2cUM8xZyKUZKqKDujuASqgiur&#xD;
+WjZBtoH+9+q8DjIzDkMSnXPm87yD73/v/cu9//3u8k+n5ubmFpjw1KPTk56ACfrBpCgjgUlRRgKT&#xD;
+oowEJkUZCXQqqqWlBbU1tehIWGhmBlhbW6NTJ/33RFNTE+rq6tC5c2fpu8bGRjQ0NLTpq1nZjNr7&#xD;
+99HS3AxbO1tYWFhIz+ib+vp62NjYcDuvp7YW5ubm3A/9pT5pPLpX//Zpg07p3b59G+P8xon/mRk8&#xD;
+gL29HcLCwhDyWoje3xz+12GsWb0Gn+/4HAEBAULZZoiLi0P0x9GIiIxo1VdmVibeW/hH3K+9j082&#xD;
+f4ypIVO5XaQdiI8/gE2RUdiydQsCgwJRVVUF/5f84ejohG/+/jV69OiBqE1RSE4+Jd6JgZeXl8Hr&#xD;
+/KWhU1G0E2fNmtWhAWinDhgwoF3fNDQ2oKKigi2ClEQgy6isrGQLUMehhARYWVvB2soKhw59hwkv&#xD;
+TeB2BwcHMa4r7Ozs8eOPP7Kirl69iqLiYt6Aebl5bFHnz5/ndfbv379D6/yloVNR9vb2WPPhmjbt&#xD;
+SqUSpaWluC8ox+xx1iYeE6UU5Be0am4R/2ROMjh0c9D4mWApXL92A+dyzvF9cVFRm3eKCosQf+Ag&#xD;
+ZrwxA66uAxD9SQxOn0rhZ8GvBMHT0xMeg92RlZmFYqGgxMOJcBWbpkuXLjhw4ABeF//yr+RjjnwO&#xD;
+unXrpnsdTxg6FUW72Urs1Edx584dhIeHI/V0qrTj2wtSdmhYKObOm6uxD/InMVu2YPs2C1Z2Y0Nj&#xD;
+m/fS0tL4r5u7G1Pk+vAIqe1l/5d4ow35zRBcuHARZ8+eRXp6BtObk8wJR78/Cnd3d9y9excB/gEG&#xD;
+r+PXgkFRH1EFCcZVUMtjLUoLyId4DvbU+pwEt3jRIvj4+nBA8v2R77Hrm13S88bGJpw4cZKpMD4u&#xD;
+Hsknkvm9C4LKCBQEUTBCc2wQtJmZkcmU9/rr05nyDh48yIqTyWTtpuYnAZ2KImGWlZVpfDZp0iS9&#xD;
+BiCBd+3alZXbHpDQibbGjn2R7y9fvtzq+RmFAunCeoiyKGorFNTYq1cvZAjhE/IL8uHo5IixfmP5&#xD;
+eeLhI6ipucfzLi4pJu6FIluBSYGTYN3Zul1zexLQqShy3suXLu9QeG4rFCSfJ8f48eM70EtrUJCR&#xD;
+kZmJW4WF2BS1EdOmTWOqPH3qNFa8v5LfycjIgLe3N1xcXOA6cCBycnLwbK/ekDnLYCciUZmzM3J/&#xD;
+ykW/fv2e6rBchcdYVAvuCA5nzy5Bneoer8I6OzuO2NoDitg8h3iy01fB0dERHp4e6Na9G+dCN2/e&#xD;
+wGBxHxwczBZLeH748wiYFMD/L3oYfJBFh7w2VeRaNfD19WXasxNzomDDysoSo0aNNH5FOQnqSPrh&#xD;
+2K81FwkTJ07kSx1Tpkzhi0DWEx0d3ea73r17Y8eOP7dpnz9/Pl/qWLlyJV/GAoOCiXv37uHbb3cj&#xD;
+//IV/T7QEG+Q/yPB+43za3fE9bRHaL8EDFIU+Yjc3FwosrINj/pamtmHmKAfDFIU+YTQ0HWor6vn&#xD;
+xNVQUMT2c1gHUSFd5H+MEVQ4oLlTzqpNHqbquZFAp6Ko3rZ0yVKNVqOivMdZFOVPs2fPhp+fn96T&#xD;
+ojA7NjYWS5ctlegxKSkJu/+xG/Pemce5EY8trOj69evYHL0ZleWVCP0olKNFddy8eRMfhYVDKXKp&#xD;
+t+fKRaLuz+1UoN26eSvnW+EbwuHm5sbVkp2xO5Eq8jOuylhawdvHGzNnvoEugkVoxdnZ2di+bTsW&#xD;
+LlwozYMScYVoX77ifQ73y0rLRNoQxfKjiPmZXs9g9luzeW4qq28SCfvZnLPYv38/8n7Kg0UnC4we&#xD;
+PRqrVq/SyAy6w3NlM26X3dZbwJpga2vLFNkeUF0u6ViSENBMqe3WrVtcXA0KDpLaSJhHjx7ldymD&#xD;
+2LVrlxDQplbHIBT4/PBDEq9FKfyiSlElJaXYs3cvKoUwlyxbwm2k+AvnLyD5+Em88OIYVFdWISY6&#xD;
+BhlpGfjLzi+YmkgeSceO4dVXX5XGyMvLw8nkZMyb/w7fE5WdOpnM/Q0ePBhpKalIOZ2C2J2xGDJk&#xD;
+CLfHH4znEwInRyeMfmH0g/ppWalW+tapKCqYUucdAQ3c3bF7+z56SNOP81+0uIR/JjzIhTpZQqE4&#xD;
+g2vXrmGgSHDVYW1lja4iN7v0n0toqG/gantqSorYRDYix6trFRARQ9C51sZNkSzQZSLhpz5ra++r&#xD;
+1T318Kti4wwdNhQxMTHIOZeD9xa+h/wrBayoQpGox34RCxdnF6wVvn7y5Fd4rEqxMbRBp6IoEXyu&#xD;
+33Nt2mnH0O4uLCwy+KSKJkY7aejQoVqKssC+ffuRnp7OY1y8+FObsSjyzBW0sXjJIniNHAn5HDnS&#xD;
+09Kl2p1qd1paWgoKHYXsLAUys7L4/4mJR3i3p6SkPNKrGTPA3j37hOAqcOvGTcx48w0RQHVBe1En&#xD;
++qFThkuXLsFGMIuLizO3KxQKLs0FTw5mJZWUlHCZiyCTObWf+rShpqYGe3bvYXM29FCR8qiPwsNY&#xD;
+UZpAiiwoKEB5+X/5vowp2KzV87TUNN7lpAiqlJtbmCMzI0s6WKQKhGosUkpRUTGOJCaKDWiOQkGl&#xD;
+YwS9JQvKehSNQmjp6Wmob2iApei/77N9WJCaThK0QkyV5jfttelspfMFLVIln1BeXs5z6uHSA5aC&#xD;
+CWiD3bhxg9eRfSab3cWjMEhRVOJZJ0y2sqLSkM8ZNHlyvNrozczcDAsWzJcOAun86LNtn0nPq6uq&#xD;
+cfzfx4V117Izj9sXB6Vw0OTUyS8RVIoiGurevTt8fL3Z39jY2Io8TinG13xYSNQXERHB36/9cC3T&#xD;
+1EjvkXy+pUKToF212WpaoNgcHhg3fpywzr0crNg/LIk5y5yF1ViwVRF9f7DqA/azhxK+01qV06ko&#xD;
+OkLIFkltR0D02a9/Py6Otge0dDo36tOnD9+ToFUga0oVDjon5xwfg4yjgq9ooyJrQkICF2AJj1b4&#xD;
+Q0JC8OVfv+RK/OTfvgJnZ5nGsVuahb+oqpR+p9GobJSoqatDVzg5OSFebBzyjbTRFIpsuLu5i/6c&#xD;
+W62Aor3FSxZzbfKrv33FPmvQoEHwHe2LPn37iEDomGgbhgkTxuNK/hWhPO3spDs8L6/AmzNndeAX&#xD;
+Ew9OiddHrsf06dP1/oYERTu2Ra0YTFShfNhGRd5UQU2lpSX4dPtWqS5I/um08Dmpqal8T4qi95XN&#xD;
+Sq6EkNLppwF0KhAUFIzyinKpT/VxqkXovnbNWjQ0NbLl/n7G76QAxd3DA4FBQUJRcXh3wbvC8s35&#xD;
+nEsunyspitiCxxR9kSJnvTWLlfLN17u42k+KJr9KUd/GyI04eCAeJcUlTLkGJbz2XewFxa3VW8Ca&#xD;
+YGllqdUPacPwEcMR9adNraiGKt8bIjdghNcIFqyX+Bv1cRTGjBkjvUN5ysaNkTymCj179kSY8IU+&#xD;
+Pj5cjd/y6RbOb8gSKd+JFNFd3+f6SpUNUsrIUV4cCZJPcvdwZ/+m8huOwrJDw9Zx9Z3OvkiwdIhK&#xD;
+a1SlBVTpX71mFR+p0OEl/R6DokhSqOqXVIGBgdxOeRlFoy/7+/Oa6H1N0KkomtyCPyxo0047OjMz&#xD;
+U+8c6+KFi3ypgwQzTJj9wEED27xP9ECXOiispUv1raqSrg5SxJSprdtJaHK5XLpXz3/I1w5y+/84&#xD;
+JHR/ITC6tIHeoT7pHVKQaj7qlkAlNrIidQQFBbW6p8BBfU2a+lGHQcFEdXU1duzYgZTkFL1qdZqq&#xD;
+F0QL6zesh+tAV6OsnqvP4eeaj65+DC7KrlyxEvK35Qb/5I92j4fg+6dB6MYAgxRF3E01MBN+PZiq&#xD;
+50YCk6KMBCZFGQlMijISmBRlJPgf34DQsN2T3g8AAAAASUVORK5CYIJQSwMEFAAACAAA+YRGU+qD&#xD;
+pasJDgAACQ4AADUAAABQaWN0dXJlcy8yMDAwMDAwOTAwMDAwOENDMDAwMDAzMkIwMUUyMjMzM0E4&#xD;
+MjZFNkRDLnN2bVZDTE1URgEAMQAAAAEAAAABABsAAAAAAAAAAAAAAAAAAQAAAAEAAAABAAAAAQAA&#xD;
+AAHMCAAAKwMAAAkAAACLAAEAAgAAACAAjQABAAIAAAAAAIwAAQAAAAAAiwABAAIAAAAgAI0AAQAC&#xD;
+AAAAAAB1AAEAeA0AAEJNPF0AAAAAAAA2AAAAKAAAAJMAAAA2AAAAAQAYAFNEAAGoXQAAAAAAAAAA&#xD;
+AAAAAAAAAAAAACYNAACoXQAAAAAAAHhe7Vp5UFPXGu/fLQJZ7r1JICyyhmxs2qJsDor6qijuz2px&#xD;
+nkqdBzp2fLUytT4KuNQVoYIdR8WnAmpdRjo67qJVX0dHVNxGlIo+t7og+kbZfb9w8PYaEm6SK5Ok&#xD;
+L5kzmeTcs3zn+91vP+3tro9TcuCDDz5wSrpdRLe3u7Bz3rfAhZ0LO+flgPNS7pI7F3bOywHnpdwl&#xD;
+d/+/2LU579GdnnKBcvem7Y3Ts8BpDyAEu+rq6h07dvwk7LN9+/anT586Lf/sSbgQ7HJyckSeIqlI&#xD;
+KqR5uLmfP3/enixw2r2FYJefn68OU+vUOouaRqfVaLu20JDQy9WXnZZ/9iRcCHY9SndbG48bhAHk&#xD;
+0w0Z3KdGI8lfk51dFzS3ixEBvPRwV+6GcgvX4cXuxYsXZWVl5WXlAj+HDh6yFut79+5t3boVBrGl&#xD;
+pYXMxaFgZEHP7t27ydmPHj0KwmB2W1tbueuTuXv37iWdDx48wN99+/eRvxcvXsQihw4dIlzas2cP&#xD;
+nj58+JDl56VLlwynJp+y8iNHjrx69cqIfjL48uXLa9eunTt3Lr7v1N0xeh8ePXqElUvLSuvr68mj&#xD;
+27dvY2V0Pn/+nD0Ufly/fn39+vVY5/sl31fsrXj27Bkvu3ixq71ZK/EUC7FoZO7g5MG8xBgNOHDg&#xD;
+QK+P3BiG4fJtyZIlYk9xcFAwAau0tNTdzd3D3YM1mm3tBpZ+OftLsacoLS2NrHn8+HG3j9xi+8cS&#xD;
+BvaL6ScWi70VXr///hh/Q4ND3T50O3nyJIvdksVLxB44tUSCJhbjG9p+3bp1HGjaQFXKsBSplJKK&#xD;
+KUokpUSUj0K5edO/uKc4depUrw/dPHp5AGLSP3v2bBA2JS2NFa6XL18OHzacNqyDRaRSTwm+/X39&#xD;
+XzS86J5jvNjV3a7ThmkssmjdGr7PJn5mLXaQC7w2Sm/l69ev2bnLli2TUTK1Sg3scHyohQC/3gzF&#xD;
+5ObmsmPQr1NrZTSzYcMG0nmi8gSwGJAwAL8hCwpGIWNkeKMgWxisVWtFHiLwmV1h+dJljJQJ8A/I&#xD;
+zMjMyMj4OLqvnJFREurKlSssvtnZ/2SkNCWlcLSS9RvTp02X0TI5Lau5UcOuc+b0GYmHmJbQmIhO&#xD;
+iLavj6+f0hcSymI3ZcoUmqax1JDBQzZu2LjmhzWBvQOVcu/n9Z2CaY5vvNhh4pv38bEWOIznxY6s&#xD;
+mTEjA2iqQlUzvpgxI/0LtM8nfw424jW+ceOGEXY4CuRL4imJj4sHD0eMGNkNdn2j+2A8Vvit9jfw&#xD;
+FmgWFBSQBaHGw8LUQGrypMns0SaMn4AxeXl5RtgR0PGyTUmbQktpKGEMINhVVVXRErwB1MyMTPI2&#xD;
+4lFMTMz7ws4Gtr+XKRZh19Z+oeoC9BVECXyDKEHhgKUKWhHXP54lg5U7YDFnzhyI855du6HxKIp+&#xD;
++OABhNSE3FFMn+hogt3jx4/ljJwR0z+u/ZGsCVXg7aWEfvu5ooLdZfGixQpGPnToUC52kHfI3bGj&#xD;
+xzZv2QJtP27MuI6nnS7WwryFMopRKrxh/gDc3bt36+rq+kb37Wns8BLqtLoIXYSQplFpWFtghDjB&#xD;
+zlvuVVhQULTG8CkqKho/fjyrM8l4HDnmkxjghdcensW28nK9Vi+TMqtWrDTCLjEhsaW5RafRQQ8j&#xD;
+IZCVlQXZhBNlUmdiBY1KDRkpKy0dkTKCElMBvr3v3rnLYodFgAXXB1u0cJFJ7NCJ6UBQQcuzF2Rz&#xD;
+sQPNclqeEJeAztaW1pDAELx+6PGGzgSaONxblLuKgyU605wQvY3NJbDpNjd4GlXnq0xuQbADKNIO&#xD;
+bwENu0B3gRXE3hHg8A0bgf642Dj8hgWETcHEX06e5GIHyRqUNKjyWCUewcTg0enTp7FmYUEh0Owq&#xD;
+d8AOLwncDA8PdznFDE0e+uTJE3ZByJ3l2OEIGvgMGi10I3DZsnkLu05qaioketDAQQQ7HEGj1qDh&#xD;
+9WtoaDDHedIvBDviaQuMHeAocnnCpZaVu++ys3NzcnNz8vJy8oYPS5HRf2BHxkMjAZHe/r3B0oMH&#xD;
+DsCcwb9qbm5+V+5EKcNTvsn6BiN379pl4FVra7hWPytzFnSUCewoJixEtalkE9zLAfGJEJy/Tphg&#xD;
+G3a0hLp29Rrmwt1VyBWhQSFNjU1kKbidQDMoIKixqRHvIdez6B44gdgZFhdWRyBSYy5KJdj5eCsb&#xD;
+GxvZgyxfvhxeJSt3pL/xdSNeVIlYevjw4elTp4FXebl/OAwYUFlZCXSGJA/uE90HLkr9s3qyKTRY&#xD;
+VERUUmKSEXbL4Gca7F2nr/Lrv3+FyMMw3amrIztaJXdcBzUyIhJ2ueatE4XQEkoSBMMi8IJlNIBX&#xD;
+7hB97Pxp566duwQ2iIa1tFnkq7xdFN4dJaGn/W1qSGAwQ9G1tbXc7Qh2Si+lXCaP69+ffXTt2jUo&#xD;
+xgC/AJPYRUZGQifc+8+9xYsXAzho0dpbnctahZ1UKkWwAFtZsrEEGtLH2+e/L1+SlxbKIbZfLDoR&#xD;
+0RT9sIZEslevXa08fpyXXbzYgdqOKFVQwtkQmw+yOjaHG0DiO25s3hHfGcsdmIC8hMGaMHJYw5RP&#xD;
+hxsdnGBn8BUpet7XX5OnxEuPCo+EU0qwYzUA5E4mlcF3hQcISwo3AzozNWUkm70x+Jnv+iqYa8ZX&#xD;
+EcFFge9BIfSW0Az9ThABMmpqapDUReyAp8GBwVAgEPkxY0YLxw4uK5xJveDPpEmTeInhDgAr4Nir&#xD;
+Q9VRUVHc2Byupl6jR5TNTYIRnk+cOBEZkiC/wH0/d+a+2AXPnDkTFqoK14UjeX7xwgXuRvO+mgc/&#xD;
+OSw07OzZs2x/cVExHJhwvZ605KRBJSUlzS0woJ1GAmo8Oioas0AkOwtuT7gughvxnTt7zrBvxyJ6&#xD;
+nT4hIWHLFoOj8o6ZaGuH04t8EU7qrfDGCwaL8O38+Wwm0BzfeOWue4a/aXeM2msHR8EQhADNTc28&#xD;
+Vpgvz2360OY8dnP22izrjJwEw7qddh+BJHIvXC+rG/4LwQ5p1VMnT536RVBDlgNevVUi6RpMOCAE&#xD;
+O8R3SKsKNIWu2qvNr6IQ7Fbn5xuiSI3e0ga7+W5DuIo8pKv2aht8QrAjOwpJVNtGs2uWcJ0pnIfd&#xD;
+WHmTj7idbA3FQjKM5lo4y5GH8codMglQdPCuuS1CF842o0fm/nI9ZwsZcuLECZVKZRQjFBcXa7Xa&#xD;
+xMREEiNkZ2frdDqMQfaPiw4K62q1etSoUWQvPKqoqEAPBs+fP58lgEwfOHCgUdndQgrtO4wXu9pb&#xD;
+t5AeRL5dYLOhbs6bVwEiCNykYqSpxfv2dcZ0BMEJ48YjAzwvK4tlb+bfM5G7QAk1MS6RBTSm7yfo&#xD;
+QfR9s+amfYGwYXde7Az3VUrL0MqFtYMHDlpLHi92RKASYuNRaR07dixiFqTC8EFRCUEusohYgWyK&#xD;
+iEkVHIokSVBAYFDvQJIKvnr1KnId/j5+yFWinGcteXYfz4udHSm0BDuQV7i6EDkrJMo661BiQ6kI&#xD;
+2QkvmRd7Ywe5FECJGmvqiJHIblVfqsZE3IiAMukf0w+p4PyVq+x4Utu2FoIdakAoTW4r32Z7K9tW&#xD;
+trXs6RPT96LZOsLrV69Yz8SQaXx7X4Uc+Xl9PUoDpJICawtDjGQvFOb0aeksT1atXAXFOHrU6KI1&#xD;
+RZRYgrtYcI9nZs4EoHP/8RWwSx6YbBsD7ThLCHbvKTb36L722lFpDVOrVIbvsDB/P3+S8eN6F7ig&#xD;
+gvzttKnTiBaNjoiCMsQ9OpaxuMoCwczMzDx39qxUJP50yF+AHcqpKHzv378fcooSQ8NznlqnHWEy&#xD;
+ubUQ7FYXrEaaOlwfbntDclil7v7Og4KR+fv64s4baUqk9hmFEXYwx9B+KI0BOFg9OSUDUsjPd/ok&#xD;
+7W0J8QkQsbXFxU1NTZowNS7j4WaIr9IXiWIkurEaCujsZU5Hw8gcPUKw6+kzdupML+WTx48RAjQ0&#xD;
+vEBbuHCRkc4EGbdu3oLc4doeECkoNJi/EcNSWPLu379PbvRd6KggpE9PF7uL8lfliz1EaZMNFzgn&#xD;
+T5yM6bNmzerpE73f9XmxQ+0M9zpQOuza0G/uUdfBxD2w6mPSV1m6dGlX7LDs9OnpUokkJ/u7fh/H&#xD;
+wLRVHq9k98KlBfgn0ZFRJD8PJQkpg7cJUcVv9OBaNX5DHlFotopC+w7mxe691V6tvxcN7GCPTN2t&#xD;
+Na69godw+KUSKaqcKKQOSR7C5WpSUhJK3gu+XUCsIe63y2W4BCjH5WqoUHQ+q3+GmAJ1XtzEti8c&#xD;
+Vu3Oix3uRXcYtc4qpM0/bK69osQJk8TmTMzVXjEgdWSqOkQVHBC8Y9sOlgm4tBAeEYEa7tEjRwl2&#xD;
+qGniXlaENhz33tlhY0aN0Wt0K1assIp79h3Mi519ybNid2RT2trgfOKmXDezjLKgVpdNrSCox4f+&#xD;
+ebDrcVY53AYu7BwOEosJcmFnMascbqALO4eDxGKCXNhZzCqHG+jCzuEgsZggF3YWs8rhBrqwczhI&#xD;
+LCbIhZ3FrHK4gS7sHA4SiwkCdv8DdKz3UAAAAAAAAAAA2ggAADkDAACNAAEAAgAAAAAAjQABAAIA&#xD;
+AAAAAIwAAQAAAAAAUEsDBBQAAAgAAPmERlMzDwKrQxQAAEMUAAAYAAAAVGh1bWJuYWlscy90aHVt&#xD;
+Ym5haWwucG5niVBORw0KGgoAAAANSUhEUgAAALUAAAEACAMAAADC/cfpAAAA/1BMVEUxMTE7OztD&#xD;
+QkNLS0tRT1FUVFRbW1tfXmBjY2Nqampzc3N7e3t1dZgek9cll9ktmtkynds6odxEpd5JqN9NquBT&#xD;
+rOBYr+FcseJjtONot+RruOVyu+Z4vud6v+h9wOiAf4CDg4OIhoiLi4uQj5CTk5OYl5icnJygn6Cj&#xD;
+o6Onpqiop6irq6uwr7Czs7O4t7i+vr6ystG0tNqBwuiJxuqNyeqTy+ue0O6j0+6o1e+q1vCt2PCy&#xD;
+2vG53fK+4PPDw8PLy8vQz9DT09Pb29vCwuHD4vTK5vXO6PbQ6ffW6/jZ7fjf8Pnj4+Pq6url5fLk&#xD;
+8vrq9fvz8/Py+fz+/v4AAAD///9Q15X/AAAS/0lEQVR42u1dCXsct5HVEc1Od28SyyFX/KiNjEAw&#xD;
+jLhUW7s6zE9XwUDoLClgSRD//8dsoUmKpDi8bB4jp1ujYc90N/kG8+pEofpe/Rq3exPqCfWEekI9&#xD;
+oZ5QT6gn1BPqCfWEesH246xtuu26HKqqKNvSoy4lKNmMq/XfvmPzB6/sbFh61PlnT0Q+51qHxMMw&#xD;
+PH/e//grUJeSi/ySXNr+jaPm52170XYpJ18h8c/pV6BG59DpopSzYD0Q3zDu2Lftb79RGlOKyYcS&#xD;
+iX3EgA5uFDMObfuh7doccl///mP4gQf6Of2tdC/KoJdU88UR93ORxoH1H1h9r7/7cfa9j7Py8Pvh&#xD;
+xfOlRJ38f33/3Pzd/1xr7/m7/ru/9Q+/e9EP/sc/lNmLH75/eEnU/9fkueZ9kYifnw5l9ZpRB/ih&#xD;
+jXRD/XPJsXLwIo4vcn0R689cX7y4JOr/+Xdn++hdr3plnVaDcWB6awe25MHgzUjj898ojf/479j0&#xD;
+Z4k5pyjKKMu+T8WHkG0KKU4WfUI9oZ5QT6gn1BPqCfWE+tq2N0/eruy+3n3y5Nl2rVvjW3vbJ85Y&#xD;
+fbkx/tysdffjxoenH+W8vZ9qfdfO3ngvTzt/fbu5/rTuvRvP2/pp88ZRP3u6sbb38v36+oenb/68&#xD;
+tvHN2spfnq2vvn/yan3lw+rK2trmkz8+W/+Px5vrK29ffrOx+u32q83H62v/ufLt49cf9lZXn7xf&#xD;
+Wf/zk5WNd2/f73xcWXu8/fin1c1nN4761Z9ff/Ph3funq6/frPzx7ebjp+tv3r5Z2/729dr6u/WV&#xD;
+1Zebm3/6+HhldeP16tunTzaerT179vbxy3cf1/60+vr97pPHTz+9fPWX9fWN98+e7v1zbeXJzuPN&#xD;
+V/98eRnUNLhDzz/GeiwIiM21DueH/bvv9t7W7d21D1t169Pe//6yt7Wzu7ld/7n76dMv3zzd2d7b&#xD;
+2/y4u73z6duXu7tbe5+2Nj/ubO3ubX3cadub3e26U3/Z3d7d3dza29mUt3a3tp69vwzqHqO2A5pH&#xD;
+use57mwyfZf63hicGWuc6/3Q+6WTxgFi18dBQq57BPfnA3e2c4J4ju7RQ+XmM3PP4k1C2l7/5e3T&#xD;
+Wl/v/vV93Vn/sPHhcgyxSJnMYEyIFoMmj+HeDF3UhBCCKg/u3+hYv3229u3Turv2y7P1uvv+zfrG&#xD;
+r5ZGzieyATf69b9ffbX2ZLe+2n7y152tx9tvNm5ch1zL9ksVga07e9t7O9ubn3Z2Jts4of5XRQ0O&#xD;
+nPvqUAcd9FeIGgPkrw51TvUE6Pw5+1vKmCOuB0/52Cn12IEv/atyG6iJwHIghsCekYJj9t4gQCWr&#xD;
+MZMi770W024peA/ouTo5n7zysm98eOQhEmLAWDQF1nwbqMUJAZHICLKl1DkLHqxTD/pCoRtA9lHE&#xD;
+1TljAVE7kE/S3uwTaNtlcPaeQ1Qi0jNT5zb16G5lrGNNMYecx2R14vYiJR9jSUXeCHGcbmo57SwH&#xD;
+co6+Rnnez3XLZcG3S3PKsch+zJ5uhdeHxNznaRyz7+ELqn7mdSmHNM6xfdKFfySVG0ct/OWgUDRg&#xD;
+ZKoO+8CoBh9tDBAwsxOaC1flnIgcvRM/Vn5iBTSJ0Qfy4DmIY2sxY+2YY7R0C6jB0cw2hlpXgwIR&#xD;
+RzfXiEB933HoLQuji7yeD13xxgwORGrlTPLMoKFPFuxcjidDVXWqD8A3jjpyI6mvwtGY5dmnAo20&#xD;
+0RZbQy4hxhSo+uxLaEpSCJ9LlvM95wJBLuNGKSF4LT6nlMr1U/s0ak+hZCoZ5Lved/9zOK6YS1hG&#xD;
+K+OczdXXZAlExwEyGTRgjMRfxQgXtF9K1KiBXEkDKkJhqKhhB73ue2uLG8CakJcQ9ZEhLvUzH9Mx&#xD;
+U7GUYy2BuGC0XG2wnDHsgwwjv5fFq1roX/NAva3WOwrklHtkTdXaOQVhaVGL4+PE0NiqWVNBMs4Q&#xD;
+Z8KIbolRf6EHTxj7srSoGRiI9uXwuHUYSd3sxSC2HsM47HEU23Tgk8Rwd6iDSKElC84omuXqjAta&#xD;
+2zlbPUcrNrpqMuKDaJxhBygv2SExdnIQ73CsDRmP4kaA+B+5MkGSoXeem8FhTLVHJVGaBcO2KRjn&#xD;
+g43iNxEg3DGvD+kc6aSyK36f2of+aWF/7Oy0LNI4ZXEm1BPqCfWEemn9EKIle8TfL0NADHRf4bNT&#xD;
+kcfPCjbVtLyxjFCk5p6MUsNMq07POtWZR94G1z00D2adX07U0TNJ3AJGWXH0rJVAHWwBG83g9HLE&#xD;
+M+fwemnirUvqEBqF96Qo05dv3N7jd6xDCM9O7IzPLc8+hg4EY+xYDqdeAlOQw/v5bb+fSI2fr4ux&#xD;
+veAxzgiH7DtiYf5tqLVhRO/QMrd5Dnbyw4HXEpNJEGaRHKA2wVZHhsHJyZbQy7EoLwhgQJewiKok&#xD;
+UO0XOMeeJEAzTqLRqq02hIbsEJwj0iyCj7JnDGDylwziFulrMJqV7TQN1kMPEC131t4HFwS1ttFZ&#xD;
+qxx0Rd4O8icFnQdRLjYkR23Spu8jl0rW6FbXA3PtUVkcuva5q7PQaWvt/GGaq+jkQ0Dfud62bDnF&#xD;
+AL9Vh1x1WyA1t61DjusMOlIix17zwrNOHNjf5wVX8llX/Yv5IZGbZI/C7XhfxrkumKMocHCa2Hiv&#xD;
++Y5RW21VEXuubTXsjNN+5kTAnVInkyMkIk9a5EzEzs3md+09Bce1ZZq8jDUyGDJCOGxK70R2siCj&#xD;
+HLCNjmjcHaM+c0u8xLzmAw4LRj8y9yywTJpcccuBWitSzcIpN0NjjZmBMgvNbXJWUMNyoG4ZVLKi&#xD;
+KY1hMepKnhd7JjaKRay0HKi/GNBUl29bgNpDm1Bu1RWVXYg5Znny6XSMAJXl7RyjLcJxHHIJ7axk&#xD;
+PEZK+rb1tYRf2M+TUtGCA3HLoMO+K6dRO9eBHrPtrrq5CehQgmOElDHD7aIOmQJ7xRXb9IsOHCO3&#xD;
+qZpTqCn6wUH0odUKUEKxoL75DFBK9oHugtf5YmddvPyWdTgoDjg60Yu2LDndpTSesw2NSWVMVkk0&#xD;
+YPGg3DlBH7IBXFLUwvmhLzXioJ2Tj7DvUkZBLQLqlhV1zqI/Wu3KWPSSUihfA0OWMovzVaH+OjPB&#xD;
+Xpw4ds1uHNkJdzxxsZRjnbtaTcahVxLO3FeqfxT0oGdaD51eXtQGuKrQki/gTN9UWrDGaiBenmLy&#xD;
+C6URedIhE+oJ9YR6Qr2cqC20AmyLQYLe4uI5wYwpnW9Vcs7iACrebYxu0LjU9RqgzRScE7U6Ngji&#xD;
+ZVtQQw98t6jZk/dEwXMgz+e4TS5zwcTB+0IFy52iDr5wlhiQ/AXTUm2tUq4plxxzvGtei+PErZhZ&#xD;
+XCiMiBmBFzt73ibxZgfDDm43EbwItfEhaJcCVKtMc/zmZ3DbK4pQ9eCDCequUedauAhJ2Y+NtaqP&#xD;
+Z0SuRc4iCXNzTjndNepw6bAltOD8S/KnY2s+bpMhJrAWFcIXqTKyvs2KMgfdFihFYogeogjEnUij&#xD;
+seishYvyi3GWHCGSApe1aPYwmNTJNzXEO9F8Yhtluzjg8jFkiLHpPR8Vl+xTiVzzXaBude5hFLZ6&#xD;
+QSUBBLH3+xXuVOLhZ/4srHW/YuFg5UcqIYdIOYf9Muhy3bzmsc+nfPEE54blg8+MZghywcwNsmtd&#xD;
+ZeuxlSGQZd9WWwuFWn+JVs0gvw57Ej8HjLfyZitwwOtDbbSdW6N1B/Zclkjcrq3unRE3pOsH53pT&#xD;
+SRkNKJG9YhwsWq2dQa0NUnbGmmorZD1D15N8SGvddaE+UGDwK9hJZwrwGb+N+XpRT1HBhPr3hZqw&#xD;
+JupETPBAWYca6cgELTBLx/vEQsvchqPz4CaKGRf5fKKNHs5nM3sfZ3M7s3XoBtDQ9Z0ys07r/r7q&#xD;
+h0HXuZk9oDqH2dAHpVXPw7xXamA9I+iGwcz1TPVVLpyZuWGjrrHCdeFYcxUcNiiyGG2oYiyCpZZl&#xD;
+NaaZiN5J2GBrz10XS0/auYjKuSCaWjmMoMgDWOzE2rQkuHgq4lbZ6xz0a+R1cuV4UQbjrfJaRiXl&#xD;
+2LNvLQh8NmfnFlLMSyONXsIugPm8dTUmZ50+85uN6JYHNQVidowhYYge/ZnRVWS/NKjjuHZu9Dwv&#xD;
+IIC4p6mcbIByO+vuFqAeGBCcaAIKDjkEBI+t88lp0OIdOszkjW0NIphBgvt4R6hBoTYae63Bpk7w&#xD;
+iz8JesG8eJzRDCRID66PaV5E86G9nQL5RVYm5dBKbHK790HinFNq0+QL2OKLz5RKSe30kiUAS7dT&#xD;
+PbcAdfHHiHoes0sUXueDDnJjRqQFW/nYRSXfGmqXAyLG4JVvteBiGBk5L8wsaGspeYNJg7ecQ/Ax&#xD;
+ahEEEQUm9HxT1auLUPPcOrQSOqLLTovI2cW3Whh5jTnMFatBKC0fVGIuseUSiYlcWnY3VdqyiCFc&#xD;
+/cjsHKOMX4qtb8/Cr3rkdZTn6n3r4FNCaj9C5hRL8mN3lNvNLHxOAy9jQd8izYctNaCFF8GRFfZm&#xD;
+9xWgFhHTziqr+zwX/evC8vU1m+LGCfWEeolRWz6yN+cn3m3UkBD9WLKKJ5MN4o341oyEkKh19BA7&#xD;
+1WwOHXdyxtMCXw/qgUTtGWWb06rRDDAjpRdlPzEawyHBYGy7F40rys2U0mYoZhBfV3ypZLy1GMrD&#xD;
+OUr87uapdwo7FWcWWP5ANyc90LWgZktOxkcCsArVemZr2nKn045zcUGJi4QeA1iDwWQWn4UIW/Mf&#xD;
+dt6XHBQZT158GvlaqPV0QSbLbCglCrkZMgvXy+vLZfPDhUcuCC799TAEQLwnsG16RcxibLf1EXdI&#xD;
+PLpWIH5sWg6wrVHUtnrILU6rObSKfi5ermnrw29sxndxZsGRwXGW2WoyEAFdN3ROHM8TkViAcT0j&#xD;
+OqGFccpUchZR4jWr2rxweghcbg9169059vgMrT0fUWQfSWQqhNh2j1AThNbpp7UNI08SSHCLeVtx&#xD;
+acgec2RYVn19bkyebg+1EWq0blSAHKG1Gfc6izZp9RcnF92xaWWhICPtkyfna4rgo4RhKUnwM3iT&#xD;
+AQaXo4vxQVtqLLQvSCkruAnUCLUREuq8YJWIqoP2QglrT+b1Uue1RS5zw3FwzgYHTlBrQxaoWmuj&#xD;
+49ZqFdDcA6gSmkF1QJ36zXRfNLdbvZC6WbtQRYUMOBdzQUF4zSdXnyQrKoaEwJg9CLWjmByUYW+t&#xD;
+P7FCsDWTeOfcVL7nLCLR5ifJE9w8r33Ol+X16cRZvBm6Tz7fhPrqeb7D5oH5izbXpxOCra3xsaVX&#xD;
++bZywotyTxCZvIIsiowCm0CJFkIH6pNDE1qm2IlBjCqjg4w+Ww7B+ltF3RYKAnQIc7SOtGtrChb7&#xD;
+dCDaFwfGDlo7YQgAWvxsY6rTYO0NVnAtZEjrHi2RSOsMnYK4FGWx8styLMF4i8cqvl674a14Kk1V&#xD;
+5rbE6nbnwIL4Qy05erFnLeGA/I9HuvoSF91YxkxMMriBLkw4MWnh9aBYwqxqWt2W4btD3WpxrL0E&#xD;
+aquRJArUM8QIRj6swztDffmt1XOdENRyd2PtHB82tbmA15ZEh/gGfBTXeGuzj4s81dYYPV8ijZqU&#xD;
+F9XYZn8Td0NrE3GHqJ1DtpdpvxyG1nmVAExKps3D3GEX2Ctux1hR4leDevL5JtQT6gn1Fz7R1ONz&#xD;
+YsiEeklQYysvpGMTHM1rJXN+7Hps2sZf0N0AcUHWAdtFh+/GViqYroTaP2ylqr3qetsbpSRG6Tpr&#xD;
+9IMHbtD9mf5Ru/kPgLMSRUYGy8Yh2t7aBYl3jM4ajr1zxzzbTkIodORNUxsDG6XNlVDr+zJYaj4o&#xD;
+pe/Nsp73MKght/UO9x+e3UgTHrEdEsxajZlqKQfAoescGDiV9ZXwsgPG+/H4MiLVbmkEhsGDSzgm&#xD;
+Nq7GkJja+p2YcuTUbqQl/2QAY8wcz66+yqn4VHJmbhmrUFpqoqWmyun4hmPyKYdwMl9BY+uX1C4L&#xD;
+Y2oiXgm1O9F6kb/oxXj64Q6P8VHv2BPbyfMtH5y7f8zyqQv44N/R4xKo6WSxUj76nxfm7q4YdtHV&#xD;
+r74UaiwWU7uHBSaMzJhpILHzATWrcPp2UzePmi+D2ipNquQ0pI5MNE6X1gYVbYXWBxYu/p1XgcDX&#xD;
+NdZRhjtSKJQDciFK8lKkMpIPLAO+pAw5Py5Py8kQzUSnVAHTmb2kzdXcTn3uy4UPexn/2tP+ysSW&#xD;
+Eomj9og1n62paTl4bV2E1mrUEbR+d60OwLaaU38tqG+I1+zb/dGbV2ExA7ZUFEQd55Evy7o70Xyt&#xD;
+wCNzq6htt8IUQxuCOIF+CMvMEH1gTY8sL9MVxOuCxylpvMQ1l5LG+psG764YEg6yjO3580RLrOlQ&#xD;
+pzStHQ9dlKWxMmMD99y8eg9GYcusMw6tTKj56xV18ra1eCeC8eZyS8FrhqTs4J3TUUk04rXoEJNt&#xD;
+uwevG3UKeRxMK25yhOCWRofUcdXa+LPV52e5rKmUOM5AF4rjsjYeG15YsyQM0Sdigi9d/C+sOtMV&#xD;
+dQjfkEWf8iET6gn1hHpCPaGeUE+oJ9QT6gn1hHpCPaGeUE+oJ9QT6gn117b9P6Q3z3Th+LUpAAAA&#xD;
+AElFTkSuQmCCUEsDBBQACAgIAPmERlMAAAAAAAAAAAAAAAALAAAAY29udGVudC54bWztXcmS28jR&#xD;
+vvspYFp2/HYIIBbuHrWjN88o3NIo1D0ehy4dRaBIYoSFLoC9aGIu/4v8l//oR/Bt3sRP4qzCQuws&#xD;
+gCCbarYdlhu1ZdaXWbkBBL75y4NtCXeYeKbrvOkoktwRsKO7hunM33R+uPmrOOr85eQ337izmanj&#xD;
+ieHqKxs7vqi7jg//L8Bsx5sEvW86K+JMXOSZ3sRBNvYmvj5xl9iJZk2SoyeMVtDi+Y8W93Q2ODnb&#xD;
+xw8+72Q6NjUXTfkps8HJ2QZB97yT6VgANTl95vJOfvAsceYC6vYS+WaGiwfLdD6/6Sx8fznpdu/v&#xD;
+76V7TXLJvKuMx+Mu640Z1uNxyxWx2ChD72ILU2JeV5GUbjTWxj7i5Y+OTbLkrOwpJtzQIB/lpOrd&#xD;
+zbk14m5eAo2+QIRbN9jgtHg1g1+8mpGcayN/USKTUfcddLJ/3l2tdYHYvLTo2BRUOjGX3NsMRifn&#xD;
+u64bs0onBAeUsavKcq8bXCdG31cOvyemj0liuF45XEeWHiPu2kWgwTilCyNEfEfVNFZ8CoRXMkHt&#xD;
+Bt3xYM8oXfof766u9QW20XqwuXmwaDqej5w1MoQKoXSn/S7BS5f4MTAzfoMJ0lJj3ha+bZUfd9ob&#xD;
+DZ0TwygcCuxoXTj6cPDEOxPf/66TsuTVCjHOKAQzi5umsEFJu1k5QZG7dEx8jEFF1kaezGM/NHNX&#xD;
+DmwCfFcIIH5YYmLSLmSxaZPUCkmtt9wGS4a+K7FCyqCb2IosRrylwmVcV7Q9UCA4KO5ykpid9g/E&#xD;
+fuBbjh4O15hlV8wYCt3zNL9IH24+dmmfSN0jOICQUiIsUDsnUQwQ2A+vGzfMIBYQZ0jHooF1yzv5&#xD;
+JrDlcbMQXFO+33Ru0MK1kdIRwGhHQ2zTeox6Ot3q+afERFbRdNbREVJzaY84xw4gBTbIuzc9b9P6&#xD;
+5+6KmJgI7/F9AZE/oKXr/TkxJmioJGu7BiZOasjS9HXwDjPzARubGLoBIXuUlPAR4HFKmcqM42CM&#xD;
+hOvl+LpDgCU9rjyy2EIU25CGM2ph4Ro5nvDD21JQ0sM4MPEePR/b23AWqnGpfm9PvVt27sJ2tPKB&#xD;
+kG/qIlsnPpDs3xSvt2rvlv1vOL39+P2P59+/v7n8x831rWbcXiAa3xOE55ic4bmFTf8T9n1s3Wro&#xD;
+9gLCPdPybofGbcSsYXpLCz2KwcKvXv2cWO9N6WKTcKVf4j2HYAXuIuKcXYlLMGyY+CaoedB8bxo0&#xD;
+yFIGEng+HXALAnRkmXMwWjYic/DQ0creAhk0cHFcJ0AxAcpOEZJOW8JovVAKJQh9rZXtZMAKGvOY&#xD;
+he0hdJrUH+qxwhFsiel+RRsOtD/tF66ztuA6ax2uniT3RpV49QfyYM94nbeF1/ku8BpvwGs4Hu4Z&#xD;
+r4u28LpoHS9VGimVcMkjTd0zXJdtwXW5A7h6Q60Kr3Ff27d2KW3BpRTDRdz7DFbQkgfKNh3WscDm&#xD;
+fAEhvywp8gCg2q/jaw2M0xI0dGxZWdWBpjwed/QKkkAxCg5MyIwhH525kyUygmqnDNaKeUNonLrE&#xD;
+oAWs/UcLZ62BdtYctMOD5bw1WM6fEywXrcFy8ZxguWwNlsvnBIvaFirqVs4p6ZhG0nC4b7+ktQWD&#xD;
+1hoMsqTtHYZeWzD0WoRBHqt7D1NaA+K0BIkdhymihWd+aE8SrSTANNvsu8t849T1fXrvBRbvL33B&#xD;
+cy3TEH4ns//wS+MGTWFbuNhkHkA1J+JvB5WUNdtlycig39f6NbKRmNntMoH08RoqWp3jtQbsaQLw&#xD;
+BppdqME70/QWPSEIp5bpW8umhIfDk81urU6L7liVlEGtdDnkoVgS7Vi+2rzswMr1pYFcaeRUZaA2&#xD;
+MHLqDoq1fak3Uqt5VZoYZHUHhVJFGvQHlc5DGzVitf0aZU9S+9VFyoE2lpvwuoWP4bJUmzzDwXgV&#xD;
+dZfJeEscbuF0di6snboZEM5hbH3TsB1C8SGnnktE0Jyg5SLqgAb6nCi7CPOpax85BiJGjFE8KQNR&#xD;
+4PGig6eM+iFKYft6D6rCDHzwHA57JPXBX0Ec4y2RzjCeIcsL9k+7ovjG8xF9DCtg4qeV55uzR9GD&#xD;
+CcDqPeAUzYvv9LPJaR7B5rlwmmLcQzjoLfn0gyowlrV65hdoHS396PEa13UnxDOBGiwwnc7642TP&#xD;
+GpvsmAwlEXkmchIPxqy7KcmomxHOTqUPTVr4oXxyPIBO51eP3AFpTz0SAqHPOVBJ43UaWCyuZrLh&#xD;
+kkAVxNsgmAtlnxbBlMKP+oZaT+G/ApXNVW5atWhJ64Mdg8P27FlMSo+CHbXdh2nQ1LWMwHsg/fOc&#xD;
+0CcjxZCAT5DjBZA0lW9AM9EZkI26A+LN5V+2fDyAEeDXkP7BHkltNoT/Fsg69TBjRuDyDgSefniy&#xD;
+ROryNlKvpLAWfQmNpqIf7M048IYm25uHqrAlpyxqkbI4LrHDsfzqklIFtVIVovXLxVwyPx4QrsAv&#xD;
+6OGRCfrFD9Q3BqMmOvJX16W/iakXoW6KpXYVfI4b7ZDA/92q8m3400CvdLPpTWWlk9xUYV+8qV6t&#xD;
+TSnykZ3teka8ICc1jFl/Vp0RKaOROus9Kxeg7La2caR6Mhvog+nz0pMdFjmOVk/UoTqQleelJzss&#xD;
+5TwrPTkObXh+daaXRLJIzjusFn3Fpz7I5Yruf8xGyuBpY4hcnllTR2qmkcqxF5VG7YcP8mzU0/Qt&#xD;
+VGS4nR3JJuHbm5FjK0jlzIhyeGZE2cqMlMxubEYalaOOV0N4khB1qPRmz0dDGpXzjlZDlL6qIrRB&#xD;
+Q9BQ6eNnoyHq0ZdGCzWEK0Xdsa3YnLps0oXaMYd69AVQTm3I6sCx6cnRF0Br6skhxB5PoSfHXgAd&#xD;
+7KTmNdhOziXTtxDzcVc2j0TIx1bWfHlApkE6ceyVzerAYGdaUtvz19WT9kODl/JmzVRD03vD/oYQ&#xD;
+MhzzomdrPWunSJoVO0eZuQaPjcp0N/RnZvSpu3M389Td8RyKQ6j6P0FepTWq2r0ozNEWbLRGhb2n&#xD;
+V5jET2qBM3fprbdcxMKTq5eiYYT147NHjeqBB6he2YaIedczffY6/KGkKOlXtSTmvmjm4Wlmowrk&#xD;
+02vm03vKIy1Za41qmS8Kw6kwU4TlrX40cngK06gu+qIwfAqj9fposMPHLZ5CYRrVSF8UZv2Ts2Nz&#xD;
+SY1KpcejMKWPc/GEvOGYZ/I4l9ao2rkfVan5jp7iXxXw/CK1TFLZp/gLHvKvgfQB12x3jnT066y9&#xD;
+IN074GJny0jHkREeqvQZq4PR9t4B1w+fUAb7PAc3+fdCwn6r3rSQ9LEjuerdcxmkKu4GFt7P499D&#xD;
+/vWJNfYgH8Ye8q8arrmHOnrZ/EmC8M2IC0RE+sZ0ODfiHbJWsLLMr7BP/WPKm1w1phLs0huE/ARz&#xD;
+2XxdgoHZ4CeYywZr75DpPz/BXDaxSX8Lgm3+eHe7gPYmF882YLa88rC3beSCxZpCDtOUGs4iFzTV&#xD;
+Aq7gpG80BVuf9fzrVxrx3EDcO9lNbV9X8xb2fndT2+vx7ib8PdV+d1PPrdTYjTHSM6/e3MNutvVZ&#xD;
+YSpRg+K2TkvB4CSHdSjW81qlp6YGxXqup9Tq1KC4rZcIi+U1wvF6XqKA4kiejmrIcUZyNp5lVKZe&#xD;
+kUay18vFTIXjKz5lsnQ9Ssm16WvEO9legq2C7HXhEvMLnMbUdPpO9oIB2RVmyTe7F33oLVwi9eEi&#xD;
+wSDoPmwSXfrScv+Rvr1U/n0dNHM+ZjOa3wYjvAMGNBhgm4S4MYQ0j7LM5ZsOwbr/PwDzayH1zx9D&#xD;
+RK2VbTrIoUVogDJoo68lJMjzE00EG4mrOcHYSVxPgzwp7ka2jULhRCtCwiWaDoDgsedCwmo46zRt&#xD;
+NMcZmSan2a6BWXkjeMSUW9zXsPPc8fGgETiIpRle56WJDZN9mCDiNZoQfMEjSlTpxzx0yCkBq+D3&#xD;
+D2HbHC0D5U5wm6OU3YizsqeYTAzkYzG/nff0KcZwyPq79eG58ckKx70z6hFBi90VoXK1kDNfAcSd&#xD;
+BIXHbnxBrdaJ9E03eRn12aAJC76hjxgRutncJqAtMIQJrlkH7D/smLrGY3wRrBpe0K1QrImdmD1z&#xD;
+9ZWX+GIB7VwurUfRwJ45d0KFiatddEFA/58rDGoOY3TLK2oUWFP0XTt35Vumg+EI3tHTBtCz7kAU&#xD;
+by1r5cERYZpUSKHGYqzqt/0q1BFtu8gFHDowy0xpy1FbBlOSRvLDAJSLHdkZdT6hsU4MYI6MtQbX&#xD;
+H9HCxo4SUgf7A+ZN9B+XOG3Y7uYT+tssaTwMvo0O14/sQxdqdBl9vloaa6yN0fgCpsZgBZaILeaa&#xD;
+p+4DPaL0g8/R16sUSZPpl0UqttbrnLx69dufS79pKC1nBM/eXkh06i8hcMvqBYNOekbCIw5/opTb&#xD;
+Yac9HhWVolRZVURFFuUBxFsTbTzp069Vq+PxeDgedk7kAVxJqhIyQWeerBnqppCIrpnATjJsh7Yq&#xD;
+z3xoUxM68+rVz+F3H8s/+/hLFb7DqNNbogKKNwDXpel8QQtr5cy9KbbwPNJOmHAicCA+jE9GUa86&#xD;
+CCT8nasvPH2xsihujhRf0mHSInXFRM1Dma59ZXogZzDTAqUyMy1MFT1c49d/g7UU/gZ21mXdSGfu&#xD;
+xHG51YmSOLv6xGYTON5wgOvMBvjfnp2+FyplECJkTpGTWplJgJNHugDM/3y7RvC1EDdS388Pa3yE&#xD;
+vO4WqnuGCTb1hVKlnQordQdfmWP/hl+ci213+BXPoDUFWtSXmh5+AaxivHSaoQjGCrGPGbn3XroD&#xD;
+WqoWypGG5krCSpSjT5i9CQ0yeDrqFKpA2nSGIQE+UZI6IwmnljXHNgZfJDC7wSF1SNyrznHQ3c3u&#xD;
+ONMEmGVamsKr1oVXbQivOu6cfMReEM/RGBo5/r1LwJHrCyyAcSTwhw/WsQt/g2fzhfhwXGNyBwSn&#xD;
+gaYL1/7KMOFv8I7OF2qrV3bCP/AgVwMfbZ/4nBKfmdi1q4hACCbo4Ou1dYBUrKawzrcrH8w8MWd+&#xD;
+TRMH/vrkO7SCDNXyvZ/QguToq9SUUA/Osxqc3VPHW0L2toBswQODltsO9WpX5pImE6+F7y0TFGMt&#xD;
+eLH6PMKBHSt9te4e1ficx2z0aCHsHTJfC9eQoBGU45P2c3Aj9+S6bl0dNTrwVRsETlRJ+BQGG0bG&#xD;
+MJV4gdpfvy5yFy18npvX07TyJfCsk9optbO9UjvfK7WLvVK73DK4aIMHzrikFTVtGtKoWolt2RPj&#xD;
+Z18r4+dfK+MXjRnvPS3jl60j3m7A3MYeOWPttkxG6N1ZKTO0xx79VKrj0Dp4vyne8qY0CcKPa6Qv&#xD;
+PrNyQC5+pAFfX5FlTZZloW4GDkb3w/UH8dKCpMvx84vTZ3D+Jl69E8ZjnuV4tnKGAe98HK5RtWOJ&#xD;
+P+sPs/7//O+/GmzpjJaDaFd+Q2OOaP/jr//WP0f5wjUg4/mYTEE1KN/fnf4ofIfs6YrM63ImVyeq&#xD;
+o86JJgk/Ah3IxYS3TlCwN10HO8KXFRGiYtdyRlM835xD+weWBXDCksjz8sDQNPknxLnSOwRq/Rlb&#xD;
+cBZsnM9plFEoS9v/7BDuqpMy3qQ+QPrbFOqVo0EbMcjJpxH7yp7k9ywnatqbl1ODahX/hF7nJDQh&#xD;
+Ev8kyI+/xVPguBZjzepvKmVwavou6IT4nkh8c6qUWIM9v4c/Xwt/dwltK9aNjUaC1dZD7LKVwah9&#xD;
+Znr+uq9u0tqn54GgX/8PeKUZeokqqxu5Heez32Go/hGn9K6Q5zVntJoBGPDh6hMk+zTjn89nknAF&#xD;
+OXdxoSPJ1dL6ElrZZKtL/GZ8atWKMeicsHq26SwQvRVYXAihnHxODOO2HXT9Spiob3qb3NPZ6fs8&#xD;
+E1pvk7y3LXrTitDZ1acC0gNO0tNIbsWUS0NO3b0D42+I657uDrqaFAfbCNA464qHHQsqcmXS8Lwl&#xD;
+2NujBHs7k+DgICXIWelUetUhqrbByEII25OEHxyIYMN6OXaCCUC5Tqw1iggF89Z/poKL4iEXNNpL&#xD;
+XCfZKTHWJSXc8CaEWnEjL5eCbriRp9aokcZT+Aud8RT+amU8JVdyzJ396ns1avO6Wk+h97L0hYOJ&#xD;
+CZISSJDgcDi1HTOmjZtXcQ6EeuMKVin1jQ6iJjxN7/BRraGFEZoOt68yTblqR2WelPpF69QPSWXi&#xD;
++7H0Niq7XS58WVm//r9Hfxb7oj9fif7wRjRq8rlF9hBQ/jL1jGk39fhpdGW4+oqWSMXw6+wn/wVQ&#xD;
+SwcImieFSQ8SAAD5tQAAUEsDBBQACAgIAPmERlMAAAAAAAAAAAAAAAAVAAAATUVUQS1JTkYvbWFu&#xD;
+aWZlc3QueG1srZTNbuIwFIX3fQrk7Sg2OIgyFqGCQNezaB/AdW5SS44d+QfB29fJkJLRCERm8CKx&#xD;
+45tzvnMjZ/VyrNXkANZJozM0w1M0AS1MIXWVofe312SJXtZPq5prWYLzrJ9M4nvafS8zFKxmhjvp&#xD;
+mOY1OOYFMw3owohQg/bsz3rWOX2vBgAUnaWVgWOvayvWC5Um6IL7WH02gmMDVrZbXDFTllIAGyh0&#xD;
+TuunySVCKRUksdyeLgBlUCppuP/MELnKdWkCFJIn/tRAhnjTKCk6IHLQBe56gIfRsY8YiIxhyI0u&#xD;
+ZRVsJ+so4UKAgrg0lohgbasaM15B+j+vO3O6oFsEHCQWQ4Vx5s6fFLgbWdrekXZ7lGz/DNuivCNP&#xD;
+rPox3gM8fzi4A+/j0Xt8R35J4YMFR2bTOOj0PBab33e6SOfpjqb5Zrunz/P5foMbXV0hkDWvgLT7&#xD;
+/4Zwdv/ZXZd53t1Tup3O9pSmabpZ0sV+scuxO9Q3EY5JWzEK4u0z1B+aS+WI76ePjxpPhL99Rodf&#xD;
+cUX++r2uvwBQSwcIWC57hY4BAACZBQAAUEsBAhQAFAAACAAA+YRGU17GMgwnAAAAJwAAAAgAAAAA&#xD;
+AAAAAAAAAAAAAAAAAG1pbWV0eXBlUEsBAhQAFAAACAAA+YRGUwAAAAAAAAAAAAAAABoAAAAAAAAA&#xD;
+AAAAAAAATQAAAENvbmZpZ3VyYXRpb25zMi9wb3B1cG1lbnUvUEsBAhQAFAAACAAA+YRGUwAAAAAA&#xD;
+AAAAAAAAABgAAAAAAAAAAAAAAAAAhQAAAENvbmZpZ3VyYXRpb25zMi90b29sYmFyL1BLAQIUABQA&#xD;
+AAgAAPmERlMAAAAAAAAAAAAAAAAaAAAAAAAAAAAAAAAAALsAAABDb25maWd1cmF0aW9uczIvc3Rh&#xD;
+dHVzYmFyL1BLAQIUABQACAgIAPmERlMAAAAAAgAAAAAAAAAnAAAAAAAAAAAAAAAAAPMAAABDb25m&#xD;
+aWd1cmF0aW9uczIvYWNjZWxlcmF0b3IvY3VycmVudC54bWxQSwECFAAUAAAIAAD5hEZTAAAAAAAA&#xD;
+AAAAAAAAGAAAAAAAAAAAAAAAAABKAQAAQ29uZmlndXJhdGlvbnMyL2Zsb2F0ZXIvUEsBAhQAFAAA&#xD;
+CAAA+YRGUwAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAAAAgAEAAENvbmZpZ3VyYXRpb25zMi9pbWFn&#xD;
+ZXMvQml0bWFwcy9QSwECFAAUAAAIAAD5hEZTAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAAAC9AQAA&#xD;
+Q29uZmlndXJhdGlvbnMyL21lbnViYXIvUEsBAhQAFAAACAAA+YRGUwAAAAAAAAAAAAAAABwAAAAA&#xD;
+AAAAAAAAAAAA8wEAAENvbmZpZ3VyYXRpb25zMi9wcm9ncmVzc2Jhci9QSwECFAAUAAAIAAD5hEZT&#xD;
+AAAAAAAAAAAAAAAAGgAAAAAAAAAAAAAAAAAtAgAAQ29uZmlndXJhdGlvbnMyL3Rvb2xwYW5lbC9Q&#xD;
+SwECFAAUAAgICAD5hEZTPY8vHZANAAB5UAAACgAAAAAAAAAAAAAAAABlAgAAc3R5bGVzLnhtbFBL&#xD;
+AQIUABQACAgIAPmERlOK8bL/AwEAAIMDAAAMAAAAAAAAAAAAAAAAAC0QAABtYW5pZmVzdC5yZGZQ&#xD;
+SwECFAAUAAgICAD5hEZT1BZIowUCAACPBAAACAAAAAAAAAAAAAAAAABqEQAAbWV0YS54bWxQSwEC&#xD;
+FAAUAAgICAD5hEZTG8QETm4GAADFKgAADAAAAAAAAAAAAAAAAAClEwAAc2V0dGluZ3MueG1sUEsB&#xD;
+AhQAFAAACAAA+YRGU6CQ6D3VCwAA1QsAADUAAAAAAAAAAAAAAAAATRoAAFBpY3R1cmVzLzEwMDAw&#xD;
+MjAwMDAwMDAwNkEwMDAwMDAyNjM0M0QyM0NBQkUyNzQ0RUEucG5nUEsBAhQAFAAACAAA+YRGU+qD&#xD;
+pasJDgAACQ4AADUAAAAAAAAAAAAAAAAAdSYAAFBpY3R1cmVzLzIwMDAwMDA5MDAwMDA4Q0MwMDAw&#xD;
+MDMyQjAxRTIyMzMzQTgyNkU2REMuc3ZtUEsBAhQAFAAACAAA+YRGUzMPAqtDFAAAQxQAABgAAAAA&#xD;
+AAAAAAAAAAAA0TQAAFRodW1ibmFpbHMvdGh1bWJuYWlsLnBuZ1BLAQIUABQACAgIAPmERlOaJ4VJ&#xD;
+DxIAAPm1AAALAAAAAAAAAAAAAAAAAEpJAABjb250ZW50LnhtbFBLAQIUABQACAgIAPmERlNYLnuF&#xD;
+jgEAAJkFAAAVAAAAAAAAAAAAAAAAAJJbAABNRVRBLUlORi9tYW5pZmVzdC54bWxQSwUGAAAAABMA&#xD;
+EwA2BQAAY10AAAAA</MimeBlob>
+      <PreviewBlob />
+    </Mimedata>
+  </Mimedata-collection>
+  <DocumentMetadata-collection>
+    <DocumentMetadata entity="DocumentMetadata" dtoKey="cs.sys.filemanagement.DocumentMetadata">
+      <CreatedAt>2021-12-28 16:44:17.544</CreatedAt>
+      <CreatedBy entity="Person" incomplete="y">
+        <Id>652</Id>
+        <ObjGuid>9d13c7be-e2bc-46a8-bf61-e3199900fc43</ObjGuid>
+      </CreatedBy>
+      <DmsMetadata>his_object_guid,82732adc-0cf5-4cd0-af3a-27b3beebc77b;his_object_id,837;his_additional_saving_path,;his_document_metadata_guid,149fa773-a874-40f8-bc9c-769203c5d025;his_expiry_date,;his_mimedata_id,2185;his_object_type,cs.sys.reporting.steps.JobReportJob;his_additional_dms_filename_params,;filename,dtdl_fia_HAW;his_category,Vorlage;his_document_metadata_id,2231;his_created_at_timestamp,1638779904574;his_mimedata_guid,996e6215-19e1-423f-9889-cbaf22139b06</DmsMetadata>
+      <DocumentAccessed />
+      <DocumentMetadataCategoryValue entity="DocumentMetadataCategoryValue" incomplete="y">
+        <Id>10</Id>
+        <ObjGuid>51eb2ea0-a941-11df-94e2-0800200c9a66</ObjGuid>
+      </DocumentMetadataCategoryValue>
+      <ExpiryDate />
+      <Id>2231</Id>
+      <LogicalFilename>Einzahlungsbeleg</LogicalFilename>
+      <Mimedata entity="Mimedata" incomplete="y">
+        <Id>2185</Id>
+        <ObjGuid>996e6215-19e1-423f-9889-cbaf22139b06</ObjGuid>
+      </Mimedata>
+      <ObjGuid>149fa773-a874-40f8-bc9c-769203c5d025</ObjGuid>
+      <RightsContext />
+      <Target entity="JobReportJob" dtoKey="cs.sys.reporting.steps.JobReportJob">
+        <Id>837</Id>
+        <ObjGuid>82732adc-0cf5-4cd0-af3a-27b3beebc77b</ObjGuid>
+      </Target>
+    </DocumentMetadata>
+  </DocumentMetadata-collection>
+  <Confsrc-collection searchColumns="Uniquename">
+    <Confsrc entity="Confsrc" dtoKey="common.Confsrc" update="false">
+      <Id>1</Id>
+      <ObjGuid>0b1c0c1c-9997-472d-ab19-f34329ff225c</ObjGuid>
+      <Uniquename>HIS</Uniquename>
+    </Confsrc>
+    <Confsrc entity="Confsrc" dtoKey="common.Confsrc" update="false">
+      <Id>20</Id>
+      <ObjGuid>39bd8a2d-608f-4a2b-b271-601b238350b0</ObjGuid>
+      <Uniquename>FGL</Uniquename>
+    </Confsrc>
+  </Confsrc-collection>
+  <DataSelectionDefinition-collection ignoreOnMerge="Active" />
+  <DataSelection-collection />
+  <HqlDataSelectionParameter-collection />
+  <ReportingCenterElement-collection>
+    <ApplicationDialogReportingCenterElement entity="ApplicationDialogReportingCenterElement" dtoKey="cs.sys.reporting.center.ApplicationDialogReportingCenterElement">
+      <DialogKey>cm.exa.coursemanagement.search-course-staff</DialogKey>
+      <Id>169</Id>
+      <NavigationItems>hisinoneLectures</NavigationItems>
+      <ObjGuid>73c16b51-5e07-4297-8274-4e49c1c58f39</ObjGuid>
+      <Domains>
+        <Element entity="DomainValue" dtoKey="value.DomainValue">
+          <Defaultlanguage>12</Defaultlanguage>
+          <Defaulttext>EXA</Defaulttext>
+          <HiskeyId>4</HiskeyId>
+          <Id>7</Id>
+          <Longtext>Prüfungsmanagement</Longtext>
+          <ObjGuid>81d9dd73-44db-4c0b-a9fe-c138c47a4a1b</ObjGuid>
+          <ObjectLocale>de</ObjectLocale>
+          <Shorttext>EXA</Shorttext>
+          <Sortorder>4</Sortorder>
+          <Uniquename>EXA</Uniquename>
+        </Element>
+      </Domains>
+    </ApplicationDialogReportingCenterElement>
+    <ApplicationDialogReportingCenterElement entity="ApplicationDialogReportingCenterElement" dtoKey="cs.sys.reporting.center.ApplicationDialogReportingCenterElement">
+      <DialogKey>cm.stu.fia-payment-file-create</DialogKey>
+      <Id>327</Id>
+      <NavigationItems>fiaPaymentFileCreate,fiaPaymentFileDownload</NavigationItems>
+      <ObjGuid>47ee01c2-ac96-47ac-8fd6-5f19df0fa301</ObjGuid>
+      <Domains>
+        <Element entity="DomainValue" dtoKey="value.DomainValue">
+          <Defaultlanguage>12</Defaultlanguage>
+          <Defaulttext>STU</Defaulttext>
+          <HiskeyId>2</HiskeyId>
+          <Id>4</Id>
+          <Longtext>Student</Longtext>
+          <ObjGuid>aa16c558-8d21-4067-b3eb-1d8479166428</ObjGuid>
+          <ObjectLocale>de</ObjectLocale>
+          <Shorttext>STU</Shorttext>
+          <Sortorder>2</Sortorder>
+          <Uniquename>STU</Uniquename>
+        </Element>
+      </Domains>
+    </ApplicationDialogReportingCenterElement>
+    <JobReportingCenterElement entity="JobReportingCenterElement" dtoKey="cs.sys.reporting.center.JobReportingCenterElement">
+      <Id>512</Id>
+      <Job entity="AbstractJob" incomplete="y">
+        <Id>840</Id>
+        <ObjGuid>15b105dd-823f-45d1-baa7-7d1460874e1b</ObjGuid>
+      </Job>
+      <ObjGuid>fd741cf1-17c8-49d1-a7df-a4411eb5e684</ObjGuid>
+      <Parent entity="BaseGroupReportingCenterElement" incomplete="y">
+        <Id>169</Id>
+        <ObjGuid>73c16b51-5e07-4297-8274-4e49c1c58f39</ObjGuid>
+      </Parent>
+    </JobReportingCenterElement>
+    <JobReportingCenterElement entity="JobReportingCenterElement" dtoKey="cs.sys.reporting.center.JobReportingCenterElement">
+      <Id>529</Id>
+      <Job entity="AbstractJob" incomplete="y">
+        <Id>837</Id>
+        <ObjGuid>82732adc-0cf5-4cd0-af3a-27b3beebc77b</ObjGuid>
+      </Job>
+      <ObjGuid>55368d5e-d09f-4a28-9530-bf1afd4d3b90</ObjGuid>
+      <Parent entity="BaseGroupReportingCenterElement" incomplete="y">
+        <Id>327</Id>
+        <ObjGuid>47ee01c2-ac96-47ac-8fd6-5f19df0fa301</ObjGuid>
+      </Parent>
+    </JobReportingCenterElement>
+  </ReportingCenterElement-collection>
+  <ReportingCenterElementConfiguration-collection searchColumns="{ReportingCenterElement,Confsrc}" startNewPass="true">
+    <ReportingCenterElementConfiguration entity="ReportingCenterElementConfiguration" dtoKey="cs.sys.reporting.center.ReportingCenterElementConfiguration">
+      <Active>true</Active>
+      <Confsrc entity="Confsrc" incomplete="y">
+        <Id>1</Id>
+        <ObjGuid>0b1c0c1c-9997-472d-ab19-f34329ff225c</ObjGuid>
+      </Confsrc>
+      <Defaultlanguage>12</Defaultlanguage>
+      <Id>265</Id>
+      <InheritConditions>true</InheritConditions>
+      <InheritSortorder>true</InheritSortorder>
+      <ObjGuid>d16dcee3-529b-4490-bf52-d363e90c29e6</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <ReportingCenterElement entity="ReportingCenterElement" incomplete="y">
+        <Id>169</Id>
+        <ObjGuid>73c16b51-5e07-4297-8274-4e49c1c58f39</ObjGuid>
+      </ReportingCenterElement>
+      <Sortorder />
+      <Title>Lehrorganisation - Veranstaltungen bearbeiten</Title>
+    </ReportingCenterElementConfiguration>
+    <ReportingCenterElementConfiguration entity="ReportingCenterElementConfiguration" dtoKey="cs.sys.reporting.center.ReportingCenterElementConfiguration">
+      <Active>true</Active>
+      <Confsrc entity="Confsrc" incomplete="y">
+        <Id>1</Id>
+        <ObjGuid>0b1c0c1c-9997-472d-ab19-f34329ff225c</ObjGuid>
+      </Confsrc>
+      <Defaultlanguage>12</Defaultlanguage>
+      <Id>506</Id>
+      <InheritConditions>false</InheritConditions>
+      <InheritSortorder>true</InheritSortorder>
+      <ObjGuid>12561be0-8b45-4df5-a612-9f4f6c80b704</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <ReportingCenterElement entity="ReportingCenterElement" incomplete="y">
+        <Id>327</Id>
+        <ObjGuid>47ee01c2-ac96-47ac-8fd6-5f19df0fa301</ObjGuid>
+      </ReportingCenterElement>
+      <Sortorder />
+      <Title>Zahlungsdateien - Berichte</Title>
+    </ReportingCenterElementConfiguration>
+    <ReportingCenterElementConfiguration entity="ReportingCenterElementConfiguration" dtoKey="cs.sys.reporting.center.ReportingCenterElementConfiguration">
+      <Active>true</Active>
+      <Confsrc entity="Confsrc" incomplete="y">
+        <Id>20</Id>
+        <ObjGuid>39bd8a2d-608f-4a2b-b271-601b238350b0</ObjGuid>
+      </Confsrc>
+      <Defaultlanguage>12</Defaultlanguage>
+      <Id>743</Id>
+      <InheritConditions>false</InheritConditions>
+      <InheritSortorder>true</InheritSortorder>
+      <ObjGuid>9f89a6d4-ceca-439f-94ae-8c87283fc4b4</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <ReportingCenterElement entity="ReportingCenterElement" incomplete="y">
+        <Id>512</Id>
+        <ObjGuid>fd741cf1-17c8-49d1-a7df-a4411eb5e684</ObjGuid>
+      </ReportingCenterElement>
+      <Sortorder />
+      <Title />
+    </ReportingCenterElementConfiguration>
+    <ReportingCenterElementConfiguration entity="ReportingCenterElementConfiguration" dtoKey="cs.sys.reporting.center.ReportingCenterElementConfiguration">
+      <Active>true</Active>
+      <Confsrc entity="Confsrc" incomplete="y">
+        <Id>20</Id>
+        <ObjGuid>39bd8a2d-608f-4a2b-b271-601b238350b0</ObjGuid>
+      </Confsrc>
+      <Defaultlanguage>12</Defaultlanguage>
+      <Id>760</Id>
+      <InheritConditions>false</InheritConditions>
+      <InheritSortorder>true</InheritSortorder>
+      <ObjGuid>75b41405-5003-4ec4-aacf-ef2e97598555</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <ReportingCenterElement entity="ReportingCenterElement" incomplete="y">
+        <Id>529</Id>
+        <ObjGuid>55368d5e-d09f-4a28-9530-bf1afd4d3b90</ObjGuid>
+      </ReportingCenterElement>
+      <Sortorder />
+      <Title />
+    </ReportingCenterElementConfiguration>
+  </ReportingCenterElementConfiguration-collection>
+  <ReportingCenterElementCondition-collection />
+  <ReportingCenterElementConfigurationProperty-collection />
+  <ReportingCenterDomainSetting-collection />
+  <Foreigntext-collection searchColumns="{Table, Objectid, Column, Language}" startNewPass="true" />
+  <EntitiesToDelete>
+    <EntityToDelete entityName="DocumentMetadata" guid="2c34260d-ae74-4e99-838f-3f48da545b0a" deletionTimestamp="1641235998000" />
+    <EntityToDelete entityName="Mimedata" guid="805cca2e-baf8-4908-b93a-4fe79ea6f9c0" deletionTimestamp="1641235998000" />
+    <EntityToDelete entityName="DocumentMetadata" guid="ca8086c3-bc85-40fd-9d72-e9d6a326d6d9" deletionTimestamp="1641236069000" />
+    <EntityToDelete entityName="Mimedata" guid="50a75cb0-a45b-4a91-90bd-dfd5a1349da4" deletionTimestamp="1641236069000" />
+    <EntityToDelete entityName="JobReportJob" guid="de2fd66a-8ccc-4493-a9a8-6b89b23d5bb7" deletionTimestamp="1643646097566" />
+  </EntitiesToDelete>
+</root>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<publishDetail VMErrorFile="publish/pmodul/vm/error.vm" WriteXMLFileTo1="C://temp//export.xml" active="y" ueberschreiben="y">
+	<Reports  ueberschreiben="y" tanRequired="n" directPDF="y" database="hisinone" global="[CURRENTTIME], [TODAY]" 	
+		 extDataAccess="y" >
+		<!--context="int,student,exa_admin,advisor_grade,examination_regulation_responsible"? 2B_DatentraegerDetailliste -->
+		<Transform.SQL ElementName="Root">
+		
+SELECT DISTINCT 
+	 pf.export_file_reference 	   As pfrefID, 
+	 ba.account_number             AS accountno, 
+	 bk.bank_routing_number        AS routingno,
+     ba.iban					   AS iban,
+     bk.swiftcode				   AS bic,
+	 bk.bank_name                  AS bank_name,
+	 bk.bank_city                  AS bank_city,
+
+   CASE 
+      WHEN pf.content_type = 1 THEN 'Lastschriften' 
+      WHEN pf.content_type = 2 THEN 'Gutschriften' 
+      ELSE ''  
+    END                           AS filetype,
+      CASE
+	      WHEN ba.person_id   IS NOT NULL THEN ps.surname || ', ' || ps.firstname
+	      WHEN ba.orgunit_lid IS NOT NULL THEN oe.uniquename
+      ELSE                                 ''
+      END                           AS accountholder,
+  		pf.export_file_number 		AS filenumber
+  FROM subsidiary_ledger sl
+  LEFT OUTER JOIN payment_file pf ON pf.id = sl.id
+  LEFT OUTER JOIN cash_account ca ON ca.id = pf.cash_account_id
+  LEFT OUTER JOIN bank_account ba ON ca.bank_account_id = ba.id
+  LEFT OUTER JOIN bank bk ON ba.bank_id = bk.id
+  LEFT OUTER JOIN person ps ON ba.person_id = ps.id
+  LEFT OUTER JOIN orgunit oe ON ba.orgunit_lid = oe.lid
+  WHERE pf.export_file_reference = '[where]';
+  
+ <Transform.SubSQL ElementName="Details" storefields="PID">		
+  SELECT to_char(pl.paid_amount, '99G999G990D99') AS betrag, 
+  		 to_char(COALESCE(sl2.gross_total, pl.paid_amount), '99G999G909D99') AS gesamt,        
+		 CASE 
+		      WHEN pf.content_type = 1 THEN  
+                 string_agg( fa.uniquename || ':' || to_char(pt.amount_credit, '9G990D99'), '; ' ORDER BY fa.uniquename, pt.amount_credit DESC)
+		      WHEN pf.content_type = 2 THEN  
+				 string_agg( fa.uniquename || ':' || to_char(-pt.amount_credit, '9G990D99'), '; ' ORDER BY fa.uniquename, pt.amount_credit ASC)
+		 END AS details,
+		 pl.account_holder             			AS kontoinhaber,
+    	 COALESCE(st.registrationnumber::varchar, 'P ' || (pe.term_year * 10 + tt.termnumber)::varchar, '---')         AS mtknr,
+    	 pl.account_no                			AS kontonr,
+    	 pl.routing_no                 			AS blz,
+     	 pl.iban					   			AS iban,
+     	 pl.bic				           			AS bic,
+     	 pl.purpose								AS vwz,
+     	  ps.id 					AS PID,
+		  ps.birthdate				AS Gebdat,
+		  ps.surname				AS name,
+		  ps.firstname				AS firstname,
+		  ad.street					AS strasse,
+		  ad.city					AS ort,
+		  ad.postcode				AS plz
+  FROM subsidiary_ledger sl
+  LEFT OUTER JOIN payment_file pf ON pf.id = sl.id
+  LEFT OUTER JOIN payment_line pl ON pl.payment_file_id = pf.id
+  LEFT OUTER JOIN subsidiary_ledger sl2 ON sl2.id = pl.subsidiary_ledger_id
+  LEFT OUTER JOIN purchase_invoice pi  ON pi.id = sl2.id
+  LEFT OUTER JOIN sales_invoice si     ON si.id = sl2.id
+  LEFT OUTER JOIN business_partner bp  ON bp.id = COALESCE(pi.business_partner_id, si.business_partner_id)
+  LEFT OUTER JOIN period pe            ON pe.id = COALESCE(pi.period_id, si.period_id)
+  LEFT OUTER JOIN term_type tt         ON tt.id = pe.term_type_id
+  LEFT OUTER JOIN person ps            ON ps.id = bp.person_id
+  LEFT OUTER JOIN student st           ON st.person_id = ps.id
+  LEFT OUTER JOIN address ad		ON ad.person_id = ps.id
+  LEFT OUTER JOIN payment_transaction pt ON pt.subsidiary_ledger_id = sl2.id AND pt.origin_subsidiary_ledger_id = sl.id
+  LEFT OUTER JOIN financial_account fa ON fa.id = pt.financial_account_id
+  JOIN k_status kst ON kst.id = sl.document_k_status_id
+  WHERE pf.export_file_reference = '[where]' AND ad.addresstype='Postaddress'
+    AND kst.hiskey_id = 15005
+  GROUP BY 
+	pl.id, pl.paid_amount, pl.account_holder, pl.account_no, pl.routing_no, pl.iban, pl.bic, pf.cash_account_id, 
+	sl2.gross_total, st.registrationnumber, ps.surname, ps.firstname, ps.id, pe.term_year, tt.termnumber, pf.content_type, ps.birthdate, ad.street, ad.city, ad.postcode
+  ORDER BY ps.surname, ps.firstname;
+  	<Transform.SubSQL ElementName="Debitorenbereich">
+  		select surname as criterion,
+  		CASE
+		WHEN surname LIKE 'A%' THEN '600000000'
+		WHEN surname LIKE 'B%' THEN '600000000'
+		WHEN surname LIKE 'C%' THEN '600000000'
+		WHEN surname LIKE 'D%' THEN '600000000'
+		WHEN surname LIKE 'E%' THEN '600000001'
+		WHEN surname LIKE 'F%' THEN '600000001'
+		WHEN surname LIKE 'G%' THEN '600000001'
+		WHEN surname LIKE 'H%' THEN '600000001'
+		WHEN surname LIKE 'I%' THEN '600000002'
+		WHEN surname LIKE 'J%' THEN '600000002'
+		WHEN surname LIKE 'K%' THEN '600000002'
+		WHEN surname LIKE 'L%' THEN '600000002'
+		WHEN surname LIKE 'M%' THEN '600000003'
+		WHEN surname LIKE 'N%' THEN '600000003'
+		WHEN surname LIKE 'O%' THEN '600000003'
+		WHEN surname LIKE 'P%' THEN '600000003'
+		WHEN surname LIKE 'Q%' THEN '600000004'
+		WHEN surname LIKE 'R%' THEN '600000004'
+		WHEN surname LIKE 'S%' THEN '600000004'
+		WHEN surname LIKE 'T%' THEN '600000005'
+		WHEN surname LIKE 'U%' THEN '600000005'
+		WHEN surname LIKE 'V%' THEN '600000005'
+		WHEN surname LIKE 'W%' THEN '600000005'
+		WHEN surname LIKE 'X%' THEN '600000006'
+		WHEN surname LIKE 'Y%' THEN '600000007'
+		WHEN surname LIKE 'Z%' THEN '600000008'
+		ELSE 'kein Debitorbereich'
+	END as nr
+	FROM person where id = [PID];
+  	</Transform.SubSQL>
+  </Transform.SubSQL>
+  
+  <Transform.SubSQL ElementName="Gesamtsumme" >
+  SELECT to_char(SUM(pl.paid_amount), '99G999G990D99') AS SUM
+	FROM subsidiary_ledger sl
+	LEFT OUTER JOIN payment_file pf ON pf.id = sl.id
+	LEFT OUTER JOIN payment_line pl ON pl.payment_file_id = pf.id
+    JOIN k_status kst ON kst.id = sl.document_k_status_id
+    WHERE pf.export_file_reference = '[where]'
+      AND kst.hiskey_id = 15005;
+  </Transform.SubSQL>
+  
+  <Transform.SubSQL ElementName="SummeKonten" >
+SELECT DISTINCT fa.uniquename AS konto,
+  to_char(SUM(pt.amount_debit + pt.amount_credit), '99G999G990D99') AS betrag
+  FROM subsidiary_ledger sl
+  LEFT OUTER JOIN payment_file pf ON pf.id = sl.id
+  LEFT OUTER JOIN payment_line pl ON pl.payment_file_id = pf.id 
+  LEFT OUTER JOIN subsidiary_ledger sl2 ON sl2.id = pl.subsidiary_ledger_id
+  LEFT OUTER JOIN payment_transaction pt ON pt.subsidiary_ledger_id = sl2.id AND pt.origin_subsidiary_ledger_id = sl.id
+  LEFT OUTER JOIN financial_account fa ON fa.id = pt.financial_account_id
+  JOIN k_status kst ON kst.id = sl.document_k_status_id
+  WHERE pf.export_file_reference = '[where]'
+    AND kst.hiskey_id = 15005
+  GROUP BY konto
+  ORDER BY konto;
+  </Transform.SubSQL>
+  
+		<Transform.GlobalObjects file="OwnUniversity.xml" subdir="printout/publishModul/globalObjects/hisinone/" object="Hochschuldaten"/>
+		</Transform.SQL>
+	</Reports>
+</publishDetail>
