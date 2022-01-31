@@ -1,3 +1,0 @@
-jobBC_cm_stu_bs_fgl_Studienverlaufsbescheinigung
-
-Beispiel für einen Studienverlauf mit publish
