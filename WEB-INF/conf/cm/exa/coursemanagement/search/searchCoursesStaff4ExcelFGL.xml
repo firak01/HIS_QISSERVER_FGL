@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2014 HIS eG All Rights Reserved. Author: Deicke Created: 
+	20.02.2014 Id: $Id$ $Log$ -->
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="searchConfig.xsd">
+	
+	<entity name="Unit">
+		<groupResult />
+		
+		<iconTitleColumns>Unit.defaulttext</iconTitleColumns>
+
+		<tableTitle>sul.plan.searchLectures.result</tableTitle>
+		
+		<defaultSortCriteria>
+			Unit.defaulttext, Unit.elementnr
+		</defaultSortCriteria>
+
+		<selectColumns>
+			<!-- Veranstaltungsnummer: sul.common.Unit.elementnr -->
+			<column label="Veranstaltungnummer">Unit.elementnr</column>
+			
+			<!-- Veranstaltungstitel: sul.plan.searchLecture.veranstTitle -->
+			<column label="Veranstaltungstitel">Unit.defaulttext</column>
+			
+			<!--<column label="sul.common.Course.eventtypeId">Unit.course.eventtype.defaulttext</column>-->
+			<!-- TODO: Anfrage 266459 Echte Teilnehmerzahl -->
+			
+			
+			<!-- Name des durchf. Dozenten 1: cm.exa.eventprocess.responsible_instructor -->
+			<column label="Name des durchf. Dozenten 1" sortable="false">COALESCE(CONCAT(COALESCE(CONCAT(Unit.planelements.personPlanelement.person.title.shorttext,' '), ''),COALESCE(CONCAT(Unit.planelements.personPlanelement.person.academicdegree.shorttext,' '), ''),Unit.planelements.personPlanelement.person.firstname,' ', Unit.planelements.personPlanelement.person.surname),Unit.planelements.personPlanelement.person.defaulttext)</column>
+			
+			<!-- Name des durchf. Dozenten 2: cm.exa.eventprocess.instructor -->
+            <column label="Name des durchf. Dozenten 2" sortable="false">COALESCE(CONCAT(COALESCE(CONCAT(Unit.planelements.plannedDates.instructor.person.title.shorttext,' '), ''),COALESCE(CONCAT(Unit.planelements.plannedDates.instructor.person.academicdegree.shorttext,' '), ''),Unit.planelements.plannedDates.instructor.person.firstname,' ',Unit.planelements.plannedDates.instructor.person.surname),Unit.planelements.plannedDates.instructor.person.defaulttext)</column>
+            
+            <!-- Art der Veranstaltung: sul.common.Course.eventtypeId -->
+            <column label="Art der Veranstaltung">Unit.course.eventtype.defaulttext</column>
+            
+			<!--<column label="cm.exa.Unit.Orgunit">Unit.unitOrgunits.orgunitObj.currentVersions.defaulttext</column>-->
+		</selectColumns>
+
+		<hiddenSelectColumns>
+			<column name="unitId">Unit.id</column>
+			<column name="where">Unit.id</column>
+		</hiddenSelectColumns>
+
+		<staticSearchCriteria>
+			<criteria value="=5">
+				Unit.elementtype.hiskeyId
+			</criteria>
+		</staticSearchCriteria>
+
+		<searchCriteria>
+
+			<group label="cm.exa.eventprocess.basic_data">
+
+				<criteria label="cm.exa.eventprocess.unit_defaulttext"
+					searchInAllTexts="true" addToSelects="false" quickSearchCriterion="false">
+					Unit.defaulttext
+				</criteria>
+
+				<criteria
+					label="cm.exa.eventprocess.planelement_term_dependent_defaulttext"
+					searchInAllTexts="true" addToSelects="false" quickSearchCriterion="true">
+					Unit.planelements.defaulttext
+				</criteria>
+
+				<criteria label="cm.exa.eventprocess.elementnr"
+					quickSearchCriterion="true">
+					Unit.elementnr
+				</criteria>
+
+				<criteria defaultValue="eq|${flowScope.termTypeId}|${flowScope.termYear}"
+                   label="sul.planelement.term"
+                   inputType="TERM"
+                   showUnequalOption="false"
+                   showNullItem="true"
+                   quickSearchCriterion="true"
+                   termSelectFrom="${flowScope.termValueList}"
+                   name="term">
+                   Unit.planelements.term
+               </criteria>
+
+				<criteria label="sul.common.Course.eventtypeId"
+					multipleSelect="true" selectFrom="allEventtypes" showUnequalOption="true"
+					quickSearchCriterion="true">
+					Unit.course.eventtype.id
+				</criteria>
+
+				<criteria label="cm.exa.eventprocess.Planelement.hoursPerWeek"
+					quickSearchCriterion="false">
+					Unit.planelements.hoursPerWeek
+				</criteria>
+
+				<criteria
+					label="activerecord.titles.models.event.attributes.k_frequency_of_offer_id"
+					multipleSelect="true" selectFrom="allFrequencyOfOffers"
+					showUnequalOption="true" quickSearchCriterion="false">
+					Unit.course.frequencyOfOffervalue.id
+				</criteria>
+
+				<criteria label="cm.exa.Unit.defaultUnitrelation.k_compulsory_id"
+					multipleSelect="true" selectFrom="allCompulsories"
+					showUnequalOption="true" quickSearchCriterion="false">
+					Unit.defaultUnitrelation.compulsory.id
+				</criteria>
+
+				<criteria label="cm.exa.Unit.defaultUnitrelation.recommended_semester"
+					context="!courseCatalog" quickSearchCriterion="false">
+					Unit.defaultUnitrelation.recommendedSemester
+				</criteria>
+
+				<criteria label="cm.exa.Unit.defaultUnitrelation.firsttrial_semester"
+					context="!courseCatalog" quickSearchCriterion="false">
+					Unit.defaultUnitrelation.firsttrialSemester
+				</criteria>
+				
+				<!-- Lehrsprache -->
+				<criteria label="sul.common.Course.teachingKLanguageId"
+					multipleSelect="true" selectFrom="allLanguages" showUnequalOption="true"
+					quickSearchCriterion="false">
+					Unit.planelements.teachingLanguage.id
+				</criteria>
+				
+				<criteria label="value.PlanelementEditingStateValue"
+					multipleSelect="true" 
+					selectFrom="searchCoursesStaffGenericSearchSearchCriteriaValues.getAllPlanelementEditingStates()" 
+					showUnequalOption="true"
+					quickSearchCriterion="false">
+					Unit.planelements.editingState.id
+				</criteria>
+
+			</group>
+
+			<group label="cm.exa.searchUnits.structure">
+
+				<criteria label="cm.exa.Unit.Orgunit" treeName="orgunit"
+					selectFromTree="orgunitTree.xml" 
+					showUnequalOption="true"
+					quickSearchCriterion="true" 
+					useSelectTypeahead="true" 
+					searchEntity="Orgunit"
+					searchConfigFile="searchOrgunit.xml">
+					DONT_SELECT:Unit.unitOrgunits.orgunitObj.currentVersions.lid
+				</criteria>
+
+				<criteria label="cm.exa.CourseOfStudy" 
+					searchEntity="CourseOfStudy"
+					searchConfigFile="cm/exa/rules/searchCourseOfStudy.xml"
+					showUnequalOption="true" 
+					quickSearchCriterion="true"
+					useSelectTypeahead="true">
+					Unit.topUnits.unitStudies.courseOfStudyObj.currentVersions.lid
+				</criteria>
+
+				<criteria label="cm.exa.Unit.parents"
+					useSelectTypeahead="true"
+					multipleSelect="true"
+					searchEntity="Unit"
+					searchConfigFile="cm/exa/unit/searchUnit.xml"
+					quickSearchCriterion="false">
+					Unit.parents.parent.lid
+				</criteria>
+
+				<criteria label="cm.exa.Unit.noParent" searchEntity="Unit"
+					value="ISNULL" quickSearchCriterion="false">
+					Unit.parents.parent.lid{{}}
+				</criteria>
+
+			</group>
+
+			<group label="cm.exa.eventprocess.instructors_dates_locations">
+				<criteria label="cm.exa.eventprocess.instructors"
+					searchEntity="Person"
+					searchConfigFile="searchInstructor.xml"
+					showUnequalOption="false" 
+					quickSearchCriterion="true"
+					useSelectTypeahead="true">
+                    DONT_SELECT:Unit.planelements.plannedDates.instructor.person.id,
+                    DONT_SELECT:Unit.planelements.personPlanelement.person.id
+                </criteria>
+                
+				<criteria label="cm.exa.eventprocess.instructor" 
+					searchEntity="Person"
+					searchConfigFile="searchInstructor.xml"
+					showUnequalOption="true" 
+					quickSearchCriterion="false"
+					useSelectTypeahead="true">
+					DONT_SELECT:Unit.planelements.plannedDates.instructor.person.id
+				</criteria>
+
+				<criteria label="cm.exa.eventprocess.responsible_instructor"
+					searchEntity="Person" 
+					searchConfigFile="searchInstructor.xml"
+					showUnequalOption="true"
+					quickSearchCriterion="false"
+					useSelectTypeahead="true">
+					DONT_SELECT:Unit.planelements.personPlanelement.person.id
+				</criteria>
+
+				<criteria label="psv.bau.raum"
+				    useSelectTypeahead="true"
+				    multipleSelect="true"
+				    searchEntity="AbstractRoom"
+				    treeName="building"
+					selectFromTree="buildingWithAbstractRoomNodesTree.xml"
+					searchConfigFile="searchRoomSearchForCourses.xml"
+					quickSearchCriterion="true">
+					Unit.planelements.plannedDates.individualDates.room.id
+				</criteria>
+				
+				<criteria label="psv.event.individualDates.executiondate"
+					inputType="DATE" quickSearchCriterion="true">
+					Unit.planelements.plannedDates.individualDates.executionDate.date
+				</criteria>
+
+				<criteria label="psv.bau.plan.TimeFrom" displayFormat="%tR"
+					quickSearchCriterion="false">
+					Unit.planelements.plannedDates.starttime
+				</criteria>
+
+				<criteria label="psv.bau.plan.TimeBis" displayFormat="%tR"
+					quickSearchCriterion="false">
+					Unit.planelements.plannedDates.endtime
+				</criteria>
+
+				<criteria label="dates.rhythm" multipleSelect="true"
+					selectFrom="allRhythms" quickSearchCriterion="false">
+					Unit.planelements.plannedDates.rhythm.id
+				</criteria>
+
+				<criteria label="sul.event.weekday" multipleSelect="true"
+					selectFrom="allDaysOfWeek" showUnequalOption="true"
+					quickSearchCriterion="false">
+					IGNORE:weekdays
+				</criteria>
+
+			</group>
+
+			<group label="sul.common.conflicts">
+
+				<criteria label="sul.common.searchPersonConflicts" value=">=0"
+					showUnequalOption="true" addToSelects="false"
+					ifAnyGranted="RIGHT_CM_EXA_COURSE_SEARCH_COURSES_WITH_CONFLICT"
+					quickSearchCriterion="false">
+					IGNORE:personConflicts
+				</criteria>
+
+				<criteria label="sul.common.searchRoomConflicts" value=">=0"
+					showUnequalOption="true" addToSelects="false"
+					ifAnyGranted="RIGHT_CM_EXA_COURSE_SEARCH_COURSES_WITH_CONFLICT"
+					quickSearchCriterion="false">
+					IGNORE:roomConflicts
+				</criteria>
+
+				<criteria label="sul.common.courseOfStudyConflicts" value=">=0"
+					showUnequalOption="true" addToSelects="false"
+					ifAnyGranted="RIGHT_CM_EXA_COURSE_SEARCH_COURSES_WITH_CONFLICT"
+					quickSearchCriterion="false">
+					IGNORE:courseOfStudyConflicts
+				</criteria>
+				
+				<criteria label="sul.common.searchRoomBlockageConflicts" value=">=0"
+					showUnequalOption="true" addToSelects="false"
+					ifAnyGranted="RIGHT_CM_EXA_COURSE_SEARCH_COURSES_WITH_CONFLICT"
+					quickSearchCriterion="false">
+					IGNORE:roomBlockageConflicts
+				</criteria>
+				
+			</group>
+
+			<group label="cm.exa.eventprocess.without">
+
+				<criteria label="cm.exa.eventprocess.without_instructor"
+					value=">=0" showUnequalOption="true" addToSelects="false"
+					ifAnyGranted="RIGHT_CM_EXA_COURSE_SEARCH_COURSES_WITH_MISSING_DATA"
+					quickSearchCriterion="false">
+					IGNORE:withoutPerformingLecturer
+				</criteria>
+
+				<criteria label="cm.exa.eventprocess.without_responsible_instructor"
+					value="ISNULL" showUnequalOption="true" addToSelects="false"
+					ifAnyGranted="RIGHT_CM_EXA_COURSE_SEARCH_COURSES_WITH_MISSING_DATA"
+					quickSearchCriterion="false">
+					IGNORE:withoutResponsibleLecturer
+				</criteria>
+
+				<criteria label="psv.bau.without_raum" value=">=0"
+					showUnequalOption="true" addToSelects="false"
+					ifAnyGranted="RIGHT_CM_EXA_COURSE_SEARCH_COURSES_WITH_MISSING_DATA"
+					quickSearchCriterion="false">
+					IGNORE:withoutRoom
+				</criteria>
+
+				<criteria label="cm.exa.coursemanagement.search.without_dates"
+					value=">=0" showUnequalOption="true" addToSelects="false"
+					ifAnyGranted="RIGHT_CM_EXA_COURSE_SEARCH_COURSES_WITH_MISSING_DATA"
+					quickSearchCriterion="false">
+					IGNORE:withIncompleteDateData
+				</criteria>
+				
+				<criteria label="cm.exa.eventprocess.personPlaceholder_responsible" 
+					searchEntity="PersonPlaceholder"
+					showUnequalOption="false" 
+					quickSearchCriterion="false"
+					showNullItem="false"
+					selectFrom="allPersonPlaceholders">
+					Unit.planelements.personPlanelement.person.id
+				</criteria>
+				
+				<criteria label="cm.exa.eventprocess.personPlaceholder_instructor" 
+					searchEntity="PersonPlaceholder"
+					showUnequalOption="false" 
+					quickSearchCriterion="false"
+					showNullItem="false"
+					selectFrom="allPersonPlaceholders">
+					Unit.planelements.plannedDates.instructor.person.id
+				</criteria>
+			</group>
+
+			<group label="cm.exa.period.periodcontainerPlural">
+
+				<criteria label="cm.exa.period.unitPeriodcontainerList"
+					useSelectTypeahead="true"
+					searchEntity="Periodcontainer" searchConfigFile="cm/exa/period/searchPeriodcontainer.xml"
+					showUnequalOption="true" quickSearchCriterion="false">
+					Unit.periodcontainers.id
+				</criteria>
+
+			</group>
+
+		</searchCriteria>
+	</entity>
+</root>

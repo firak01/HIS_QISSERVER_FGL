@@ -26,6 +26,9 @@ WEB-INF/upload
 !WEB-INF/conf/printout/publishModul/hisinone/fgl/*/*
 !WEB-INF/templates/oooreporting/fgl/*/*
 
+#!WEB-INF/conf/cm/*/*/*/*FGL.xml
+# Merke: Das nur auf eine Verzeichnisstruktur zu beschränken ist zu wenig. Daher alle XML Dateien mit FGL
+!*FGL.xml
 
 #!/WEB-INF/
 #!*/ROOT/*
