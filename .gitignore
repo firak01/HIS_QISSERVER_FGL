@@ -13,8 +13,7 @@
 WEB-INF/src/*
 WEB-INF/templates/temp
 WEB-INF/upload
-WEB-INF/bin/*
-WEB-INF/internal/*
+*/bin/
 */log/*
 /pages/
 /pub/
@@ -22,9 +21,8 @@ WEB-INF/internal/*
 # Ignore Directories NOT
 # Merke: Das reicht nicht aus alle darunterliegenden Verzeichnisse und Dateien zu erfassen. !WEB-INF/fgl/*
 # Also:
-!WEB-INF/fgl/*/*/job/*/*
+!WEB-INF/fgl/*/*/job/*
 !WEB-INF/conf/printout/publishModul/hisinone/fgl/*/*
-!WEB-INF/conf/cs/sys/genericSearch/conf/fgl/*/*/*/*
 !WEB-INF/templates/oooreporting/fgl/*/*
 
 

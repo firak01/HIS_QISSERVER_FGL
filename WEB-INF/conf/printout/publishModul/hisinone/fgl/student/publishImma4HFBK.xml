@@ -1,0 +1,83 @@
+<publishDetail VMErrorFile="hisreports/reports/vm/error.vm" 
+	active="y">
+	<Report tanRequired="n" directPDF="y" database="hisinone"
+		WriteXMLFileTo1="[LOGROOT]//export.xml"		
+		global="[CURRENTTIME], [TODAY],[TEMPLATEROOT]"
+		authorities="">
+		<Transform.SQL ElementName="publishRoot">
+			
+			SELECT person_id AS publishPersonId,
+				student.id as publishStudentId,
+				registrationnumber
+			FROM person,
+				student
+			WHERE person.id = student.person_id
+				AND student.id = [StudentId];
+						
+			<Transform.SubSQL ElementName="belongstoZZZ">		
+				SELECT period_id as periodId,belongs_to as roleUsed 
+				FROM degree_program,degree_program_progress
+				WHERE
+  				degree_program_progress.degree_program_id = degree_program.id
+				and person_id = [publisPersonId]				
+			</Transform.SubSQL>		
+			<Transform.SubSQL ElementName="studentPeriodsZZZ">										
+				SELECT concat(string_agg(concat('*',trim(to_char(period_id,'999'))),'**'),'**') as periodsAsStudent 
+				FROM degree_program,degree_program_progress
+				WHERE
+				degree_program_progress.degree_program_id = degree_program.id
+				and belongs_to='STUDENT'
+				and person_id = [publishPersonId]		
+			</Transform.SubSQL>		
+			<Transform.SubSQL ElementName="doccandPeriodsZZZ">										
+				SELECT concat(string_agg(concat('*',trim(to_char(period_id,'999'))),'**'),'**') as periodsAsDoccand 
+				FROM degree_program,degree_program_progress
+				WHERE
+				degree_program_progress.degree_program_id = degree_program.id
+				and belongs_to='DOCCAND'
+				and person_id = [publishPersonId]		
+			</Transform.SubSQL>	
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+			<Transform.SubSQL ElementName="degree">
+				SELECT DISTINCT course_of_study.defaulttext AS studyTxt, course_of_study.degree_lid AS degreeId,
+course_of_study.orgunit_lid AS WahlfachbereichID, 
+course_of_study.major_field_of_study_lid AS VertiefungID,
+course_of_study.regular_number_of_semesters AS Regelstudienzeit, 
+degree.defaulttext AS degreeTxt, degree.uniquename AS abschl, 
+period.startdate as SemAnfDate,
+period.enddate as SemendDate,
+to_char(period.startdate,'DD.MM.YYYY') AS SemAnf,
+to_char(period.enddate,'DD.MM.YYYY') AS SemEnd,
+degree_program_progress.k_reason_of_leave_id As BeurlabungsgruendID,
+degree_program_progress.studysemester As StgSem, period.term_year AS Sem, period.term_type_id AS SemType,
+k_form_of_studies.defaulttext AS Studienform
+
+FROM course_of_study 
+LEFT JOIN k_form_of_studies ON course_of_study.k_form_of_studies_id = k_form_of_studies.id, 
+degree_program_progress, 
+period, 
+degree_program, 
+degree, 
+person, 
+student 
+
+WHERE student.id = [publishStudentId] 
+AND period.id = degree_program_progress.period_id  
+AND degree_program_progress.degree_program_id=degree_program.id 
+AND degree_program_progress.course_of_study_id =course_of_study.id 
+AND degree.lid = course_of_study.degree_lid 
+AND degree_program.person_id = person.id 
+AND person.id = student.person_id
+
+order by period.enddate desc
+			<Transform.SubSQL ElementName="Vertiefung">
+			SELECT uniquename, shorttext, defaulttext, longtext 
+			FROM major_field_of_study 
+			WHERE lid = [VertiefungID]
+			</Transform.SubSQL>
+		</Transform.SubSQL>
+	<Transform.SubSQL ElementName="acc">SELECT username FROM account WHERE account.person_id = [personalID];</Transform.SubSQL>									
+</Transform.SQL>
+	</Report>
+</publishDetail>
+

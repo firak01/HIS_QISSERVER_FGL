@@ -1,0 +1,232 @@
+<publishDetail VMErrorFile="hisreports/reports/vm/error.vm" 
+	active="y">
+	<Report tanRequired="n" directPDF="y" database="hisinone"
+		WriteXMLFileTo1="[LOGROOT]//export.xml"		
+		global="[CURRENTTIME], [TODAY],[TEMPLATEROOT]"
+		authorities=""
+		extDataAccess="y"
+		outFormat="XML">	
+		
+		<Transform.SQL ElementName="Student" storeFields="publishStudentId, publishPersonId">												
+					select distinct s.id as publishStudentId,
+					p.id as publishPersonId,
+  p.surname as Nachname, p.firstname as Vorname
+, gender.form_of_address as Anrede, (SELECT fieldvalue FROM foreigntext WHERE reftable = 'k_gender' AND refid = gender.id AND refcolumn = 'form_of_address') AS AnredeEng
+, p.birthdate as GebDat, p.birthcity as GebOrt
+, p.nameprefix as prefix
+, p.namesuffix as suffix
+, t.shorttext as titel
+, street AS Strasse, postcode AS PLZ, city AS Ort
+, s.registrationnumber as Mtknr, s.enrollmentdate as ImmaDat
+FROM student s 
+JOIN person p ON p.id = s.person_ID 
+left join title t on t.id = p.title_id
+JOIN k_gender gender ON gender.id = p.k_gender_id
+LEFT JOIN (
+    	SELECT person_ID, street, postcode, city, ROW_NUMBER() OVER (PARTITION BY person_ID ORDER BY 1) rowNr
+    	FROM address a
+    		JOIN address_k_notificationcategory akn ON akn.address_id = a.id 
+    		JOIN k_notificationcategory kn ON kn.id = akn.k_notificationcategory_id
+    	WHERE 1=1 
+    		AND a.addresstype = 'Postaddress'
+    		AND kn.uniquename = 'STU'
+    	) addr ON addr.person_ID = p.id AND addr.rowNr = 1 
+WHERE 1=1
+and s.id in ([where.StudentId])	
+		<Transform.SubSQL ElementName="reportPeriod">
+			SELECT DISTINCT period.term_year As Sem, period.term_type_id As SemType, period.startdate AS beginn, date(period.enddate) AS ende
+			FROM period
+			WHERE period.id = [where.reportPeriodId]	
+	</Transform.SubSQL>
+	<Transform.SubSQL ElementName="StudyStatus">
+					SELECT DISTINCT k_studystatus.id, k_studystatus.hiskey_id As KeyStatus, k_studystatus.defaulttext, k_studystatus.uniquename As Uniquename, k_studystatus.priority
+					FROM degree_program_progress, degree_program, period,  k_studystatus
+					WHERE  degree_program.person_id=[publishPersonId]  AND degree_program_progress.degree_program_id=degree_program.id 
+					AND period.id = degree_program_progress.period_id
+					AND period.term_year = [Sem]
+					AND period.term_type_id = [SemType]
+					AND degree_program_progress.k_studystatus_id=k_studystatus.id
+					ORDER BY k_studystatus.priority ASC LIMIT 1;
+				</Transform.SubSQL>	
+				
+				<Transform.SubSQL ElementName="Beurlaubung">
+				select count (distinct period_id)  as UrlUA from degree_program_progress, degree_program, student				
+				WHERE student.id = [publishStudentId]
+				AND degree_program.person_id=[publishPersonId] 
+				AND degree_program_progress.k_studystatus_id=4
+				AND degree_program_progress.degree_program_id=degree_program.id 
+				AND student.person_id=degree_program.person_id;
+				</Transform.SubSQL>
+				
+				<Transform.SubSQL ElementName="AllFinalExams" storeFields="publishPersonId">
+					<!-- ermittle das Semester der Anmeldung zur Bacherlorarbeit and ex.k_examination_type_id IN(2) -->	
+					select ep.term_type_id as termTypeId, ep.term_year as termYear,s.person_id as publishPersonId, ex.id as examinationId, u.id as unitId
+					from examplan ep, 
+					student s, 
+					unit u, 
+					examination ex 
+						where s.person_id IN ([publishPersonId])
+						and s.person_id=ep.person_id
+						and u.id=ep.unit_id
+						and u.id=ex.unit_id
+						and ex.k_examination_type_id IN(2)
+						
+						<Transform.SubSQL ElementName="Pruefung"  storeFields="publishPersonId">
+							select elementnr, k_elementtype_id, shorttext, defaulttext, longtext ,date_of_work as AbschlDatum
+							from examplan ex
+							join unit u on (ex.unit_id = u.id)  
+							where person_id in ([publishPersonId])
+							and unit_id in ([unitId]);
+						</Transform.SubSQL>
+						
+						<Transform.SubSQL ElementName="Studiengang" storeFields="publishPersonId">
+							select distinct
+							d.longtext as abschl
+							, d.shorttext as abschlK
+							, sub.defaulttext as Fach
+							, cos.defaulttext as studiengang
+							, cos.uniquename as studiengangUnique
+							, case when EXISTS(
+							    SELECT *
+							    FROM degree_program dp2
+							    JOIN degree_program_progress dpp2 ON dp2.id = dpp2.degree_program_id
+							    JOIN k_reason_of_finishing krf2 ON krf2.id = dpp2.k_reason_of_finishing_id
+							    WHERE dp2.id = dp.id AND krf2.longtext is not null) then 'Exmatrikulation im angegebenen Semester' else '' end as exmaimsem
+							, case when EXISTS(
+							    SELECT *
+							    FROM degree_program dp2
+							    JOIN degree_program_progress dpp2 ON dp2.id = dpp2.degree_program_id
+							    WHERE dpp2.finished is not null) then 'Exmatrikulationsdatum' else '' end as exmadatum
+							from degree_program dp
+							join degree_program_progress dpp on dpp.degree_program_id = dp.id
+							join "period" p on p.id = dpp.period_id
+							join course_of_study cos on cos.id = dpp.course_of_study_id
+							join "degree" d on d.lid = cos.degree_lid
+							join subjectobj sob on sob.id = cos.subject_lid 
+							join subject sub on sub.lid = sob.id 
+							where 1=1
+							and dp.person_id = [publishPersonId]
+							and p.term_type_id = [termTypeId]
+							and p.term_year = [termYear]
+							;
+							</Transform.SubSQL>
+							
+						<Transform.SubSQL ElementName="Studienverlauf" storeFields="publishPersonId">	
+							select distinct
+									 dp.person_id as publishPersonId, 
+									 cos.lid as coslid,
+									 cos.defaulttext as studGang
+									, d.longtext  as Abschluss
+									, sub.longtext as Fach
+									, mfos.longtext as Vertiefung
+									, dpp.studysemester as fachsem
+									, cos.regular_number_of_semesters as fristsemester
+									, ke.defaulttext as studientyp
+									, krf.longtext as beendegrund 
+									, case when dpp.finished is null then '' else ('Exmatrikulationsdatum:') end as exmadatum
+									, dpp.finished as beendedatum
+									, ks.defaulttext as status
+									, dpp.studynumber as studiengang
+									  from degree_program_progress dpp 
+									 join degree_program dp on dp.id = dpp.degree_program_id 
+									 join course_of_study cos on cos.id =dpp.course_of_study_id 
+									 join "degree" d on d.lid = cos.degree_lid 
+									 join k_enrollment ke on ke.id =cos.k_enrollment_id 
+									 left join k_reason_of_finishing krf on krf.id = dpp.k_reason_of_finishing_id 
+									 join k_studystatus ks on ks.id = dpp.k_studystatus_id 
+									 join subjectobj sob on sob.id = cos.subject_lid 
+									 join subject sub on sub.lid = sob.id 
+									 join major_field_of_study mfos on mfos.lid = cos.major_field_of_study_lid 
+									 join period peri on peri.id = dpp.period_id
+									 where 1=1
+									 and dp.person_id = 928									 
+									 and peri.term_type_id=[termTypeId]
+									 and peri.term_year=[termYear]
+									 order by dpp.studynumber asc
+	 					</Transform.SubSQL>	
+				</Transform.SubSQL>
+				
+	<Transform.SubSQL ElementName="Semestern" storeFields="publishPersonId">	
+	select distinct
+	dp.person_id as publishPersonId,
+	p.id as pid 
+	, p.longtext as semester
+	, p.term_year 
+	, p.term_type_id
+	from degree_program dp 
+	join degree_program_progress dpp on dpp.degree_program_id = dp.id
+	join course_of_study cos on cos.id = dpp.course_of_study_id
+	join "degree" d on d.lid = cos.degree_lid
+	join "period" p on p.id = dpp.period_id
+	where 1=1
+	and dp.person_id = [publishPersonId]
+	and d.id != 69
+	order by p.term_year desc , p.term_type_id desc
+	;
+
+
+	<Transform.SubSQL ElementName="Studienverlauf" storeFields="publishPersonId,coslid">	
+	select distinct
+	 dp.person_id as publishPersonId, 
+	 cos.lid as coslid,
+	 cos.defaulttext as studGang
+	, d.longtext  as Abschluss
+	, sub.longtext as Fach
+	, mfos.longtext as Vertiefung
+	, dpp.studysemester as fachsemester
+	, cos.regular_number_of_semesters as fristsemester
+	, ke.defaulttext as studientyp
+	, krf.longtext as beendegrund 
+	, case when dpp.finished is null then '' else ('Exmatrikulationsdatum:') end as exmadatum
+	, dpp.finished as beendedatum
+	, ks.defaulttext as status
+	, dpp.studynumber as studiengang
+	  from degree_program_progress dpp 
+	 join degree_program dp on dp.id = dpp.degree_program_id 
+	 join course_of_study cos on cos.id =dpp.course_of_study_id 
+	 join "degree" d on d.lid = cos.degree_lid 
+	 join k_enrollment ke on ke.id =cos.k_enrollment_id 
+	 left join k_reason_of_finishing krf on krf.id = dpp.k_reason_of_finishing_id 
+	 join k_studystatus ks on ks.id = dpp.k_studystatus_id 
+	 join subjectobj sob on sob.id = cos.subject_lid 
+	 join subject sub on sub.lid = sob.id 
+	 join major_field_of_study mfos on mfos.lid = cos.major_field_of_study_lid 
+	 where 1=1
+	 and dp.person_id = [publishPersonId]
+	 and dpp.period_id = [p.id]
+	 order by dpp.studynumber asc
+	 ;	 	
+		<Transform.SubSQL ElementName="SemesterOfExaminationStartUsedZZZ">
+		select ep.term_type_id as termTypeId, ep.term_year as termYear, u.elementnr as unitElementnr, u.id as unitId
+		from examplan ep, 
+		student s,
+		unit u, 
+		examination ex,
+		unit_studies us
+			where s.person_id IN ([publishPersonId])
+			and s.person_id=ep.person_id
+			and u.id=ep.unit_id
+			and u.id=ex.unit_id			
+			and us.unit_id=u.id
+			and us.course_of_study_lid in ([coslid])
+		</Transform.SubSQL>
+	</Transform.SubSQL>
+	
+	<!-- ermittle das Semester der Anmeldung zur Bacherlorarbeit and ex.k_examination_type_id IN(2) -->
+	<Transform.SubSQL ElementName="SemesterOfExaminationStartGeneralZZZ">
+		select ep.term_type_id as termTypeId, ep.term_year as termYear
+		from examplan ep, 
+		student s, 
+		unit u, 
+		examination ex 
+			where s.person_id IN ([publishPersonId])
+			and s.person_id=ep.person_id
+			and u.id=ep.unit_id
+			and u.id=ex.unit_id
+			and ex.k_examination_type_id IN(2)
+		</Transform.SubSQL>
+	</Transform.SubSQL>										
+</Transform.SQL>
+	</Report>
+</publishDetail>
+

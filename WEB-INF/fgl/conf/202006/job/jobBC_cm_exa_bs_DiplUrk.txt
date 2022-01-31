@@ -1,0 +1,2 @@
+Beispiel für einen CustomSettingsProvisioningStep, der eine Semesterauswahl ermöglicht.
+Siehe Anfrage 260753
