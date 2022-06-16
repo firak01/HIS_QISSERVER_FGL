@@ -1,0 +1,45 @@
+{
+    "fromfull": "lindhauer@his.de",
+    "headers": {
+        "date": "Thu, 16 Jun 2022 11:05:16 +0200 (CEST)",
+        "subject": "Exma-Mail an Yasmin Albrecht von Hochschule HIS",
+        "received": [
+            "from listserv.his.de([192.124.237.3])\r\n        by mail.mailinator.com with SMTP (Postfix)\r\n        for albrecht@mailinator.com;\r\n        Thu, 16 Jun 2022 09:05:16 +0000 (UTC)",
+            "from vmqa-h1pre (vmqa-h1pre.his.de [10.13.141.31])\r\n\tby listserv.his.de (Postfix) with ESMTP id A02B8C2043\r\n\tfor <albrecht@mailinator.com>; Thu, 16 Jun 2022 11:05:16 +0200 (CEST)"
+        ],
+        "from": "lindhauer@his.de",
+        "content-type": "multipart/related; \r\n\tboundary=\"----=_Part_27_1526599029.1655370316646\"",
+        "to": "albrecht@mailinator.com",
+        "reply-to": "noreply@his.de"
+    },
+    "subject": "Exma-Mail an Yasmin Albrecht von Hochschule HIS",
+    "ip": "192.124.237.3",
+    "seconds_ago": 136,
+    "requestId": "238085",
+    "parts": [
+        {
+            "headers": {
+                "content-transfer-encoding": "quoted-printable",
+                "content-type": "text/plain; charset=UTF-8"
+            },
+            "body": "Hallo  Frau  Yasmin Albrecht,\r\n\r\nSie haben eine E-Mail mit folgenden Inhalt:\r\n\r\n\r\n\r\n--\r\n  Hochschule für praktische Beispiele\r\n  Fakultät für Forschung und Entwicklung\r\n  \r\n  Zum Campus 34\r\n  30123 Hannover\r\n  \r\n  Tel.: +49 12345 6789 192\r\n  Fax.: +49 12345 6789 193\r\n  E-Mail: mail@hochschule.test\r\n  Web: www.hochschule.test"
+        },
+        {
+            "headers": {
+                "content-transfer-encoding": "7bit",
+                "content-type": "text/html;charset=UTF-8"
+            },
+            "body": "<html>\r\n<head>\r\n\t<style>\r\n\t\tbody {font-family: arial, sans-serif}\r\n\t</style>\r\n</head>\r\n<body>\r\n\t<div style=\"width: 100%; height: 2em; background-color: #EBEBEB; color: grey; padding: 5px; font-size: 2em; border-bottom: 1px solid #cecece;\">Header der HS Hochschule HIS</div>\r\n\t<div style=\"margin: 1em 0\">\r\n\t\tHallo  Frau  Yasmin Albrecht,<br/>\r\n\t\t<br/>\r\n\t\tSie haben eine E-Mail mit folgenden Inhalt:<br/>\r\n\t\t<br/>\r\n\t\t\r\n\t</div>\r\n\t<div style=\"width: 100%; height: 1.5em; background-color: #EBEBEB; color: grey; padding: 5px; border-top: 1px solid #cecece;\">Footer</div>\r\n</body>\r\n</html>"
+        },
+        {
+            "headers": "text/plain; charset=\"utf-8\"",
+            "body": "attachment removed"
+        }
+    ],
+    "from": "lindhauer@his.de",
+    "origfrom": "lindhauer@his.de",
+    "to": "albrecht",
+    "id": "albrecht-1655370318-210614040",
+    "time": 1655370318000,
+    "clickablelinks": null
+}
