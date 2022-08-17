@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<publishDetail VMErrorFile="publish/pmodul/vm/error.vm" WriteXMLFileTo="[LOGROOT]/Anfrage281628.xml" active="y">
+	<Reports tanRequired="n" directPDF="y" database="hisinone" 
+	global="[CURRENTTIME], [TODAY]" 	
+	authorities="RIGHT_CM_STU_STUDENT_VIEW_STUDENT_DATA, RIGHT_CM_STU_STUDENT_VIEW_STUDENT_DATA, ROLE_ADMIN">
+		<Transform.SQL ElementName="Root">
+			SELECT  person.id As publishPersonId,
+			person.surname AS surname, 
+			person.firstname AS firstname, 
+			student.registrationnumber AS mtknr, 
+			person.k_gender_id AS k_gender_id, 
+			person.birthcity AS birthcity, 
+			person.birthdate AS birthdate, 
+			person.academicdegreesuffix AS academicdegreesuffix, 
+			person.academicdegree_id AS academicdegree_id, 
+			person.title_id AS title_id, 
+			person.nameprefix AS nameprefix, 
+			person.namesuffix AS namesuffix, 
+			person.country_lid AS country_lid, 
+			person.hsobjekt_id AS hsobjekt_id, 
+			person.id As personalID, 
+			student.id AS studentID,
+			student.k_studystatus_id As StudyStatus,
+			student.orgunit_lid As WahlfachbereichID,
+			student.term_year As Sem,
+			student.term_type_id As SemType
+			FROM student, person 
+			WHERE student.id IN ([where.StudentId]) 
+			AND student.person_id = person.id			
+			<Transform.SubSQL ElementName="reportPeriod" overwrite="y">
+				SELECT DISTINCT period.term_year As Sem,
+				period.term_type_id As SemType
+				FROM period
+				WHERE period.id = [where.reportPeriodId]
+			</Transform.SubSQL>
+			<Transform.SubSQL ElementName="Initialpasswort">
+				SELECT DISTINCT passwordhash As Passwort,
+				username As Login,
+				is_initialpassword AS Isinitial
+				from account 
+				where 
+				person_id = [personalID] 
+			
+			<!--AND is_initialpassword = 0-->;	
+			
+		<!-- BEISPIEL: So kann man die Eingabe aus dem ServiceCallModificationStep entgegennehmen, aber ggfs. eingegebenen Platzhalter sind nicht vorhanden. -->
+		</Transform.SubSQL>
+			<Transform.SubSQL ElementName="customSettingsInputReceiver">
+				Select id
+				from person p
+				WHERE p.id = [personalID]
+				and p.firstname = [customSettings.VornameFGL]
+			</Transform.SubSQL>
+		</Transform.SQL>
+		
+		<!-- FRAGE: wie kann man die Daten aus dem serviceCallModifiationStep entgegennehmen -->  
+		<!-- </Transform.SubSQL>
+			<Transform.SubSQL ElementName="serviceCallModificationStepInputReceiver">
+				Select id
+				from person p
+				WHERE p.id = [personalID]
+				and p.firstname = [scmsVornameFGL.personFirstnameByScms]
+			</Transform.SubSQL>
+		</Transform.SQL>
+		--> 
+	</Reports>
+</publishDetail>

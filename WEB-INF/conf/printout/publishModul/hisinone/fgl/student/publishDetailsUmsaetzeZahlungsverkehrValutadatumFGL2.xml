@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<publishDetail VMErrorFile="publish/pmodul/vm/error.vm"  WriteXMLFileTo="[LOGROOT]//exportPublishDetailsUmsaetzeZahlungsverkehrValutadatum.xml" active="y">
+	<Reports  ueberschreiben="y" tanRequired="n" directPDF="y" database="hisinone" global="[CURRENTTIME], [TODAY]" 	extDataAccess="y" >
+			
+		<Transform.SQL ElementName="Root">
+			SELECT person.surname AS surname, person.firstname AS firstname, 
+				person.k_gender_id AS k_gender_id, person.allfirstnames AS allfirstnames, person.birthcity AS birthcity, 
+				person.birthdate AS birthdate, person.academicdegreesuffix AS academicdegreesuffix, 
+				person.academicdegree_id AS academicdegree_id, person.title_id AS title_id, 
+				person.nameprefix AS nameprefix, person.namesuffix AS namesuffix, person.artistname AS artistname,
+				person.country_lid AS country_lid, person.birthname AS birthname, person.hsobjekt_id AS hsobjekt_id, 
+				person.id AS personID, 
+				to_char(to_timestamp([startDate], 'YYYY-MM-DD'), 'DD.MM.YYYY') AS startDateFormatted,
+				to_char(to_timestamp([endDate], 'YYYY-MM-DD'), 'DD.MM.YYYY') AS endDateFormatted, 
+				to_char(to_timestamp([beforeDate], 'YYYY-MM-DD'), 'DD.MM.YYYY') AS beforeDateFormatted 
+			FROM person 
+			WHERE person.id=[session_ident_H];
+						
+			<Transform.SubSQL ElementName="CreditundDebitFGL">			
+select pt.posting_date, amount_credit, amount_debit, shorttext, defaulttext, longtext, so.net_total, so.gross_total, so.is_canceled,so.accounting_unit_id,so.document_k_status_id, so.k_financial_document_type_id, so.k_domain_id, si.invoice_number,si.period_id,st.person_id AS personID
+FROM 
+	hisinone.payment_transaction pt 
+	LEFT OUTER JOIN hisinone.financial_account fa ON pt.financial_account_id = fa.id
+	LEFT OUTER JOIN hisinone.subsidiary_ledger sl ON sl.id = pt.subsidiary_ledger_id
+	LEFT OUTER JOIN hisinone.purchase_invoice pi ON pi.id = sl.id 
+	LEFT OUTER JOIN hisinone.subsidiary_ledger so ON so.id = pt.origin_subsidiary_ledger_id 
+	LEFT OUTER JOIN hisinone.payment_assignment pa ON pa.id = so.id 
+	LEFT OUTER JOIN hisinone.sales_invoice si ON si.id = sl.id 
+	LEFT OUTER JOIN hisinone.business_partner bp ON bp.id = COALESCE(si.business_partner_id, pi.business_partner_id, pa.business_partner_id) 	
+	LEFT OUTER JOIN hisinone.person ps ON ps.id = bp.person_id 
+	LEFT OUTER JOIN hisinone.student st ON st.person_id = ps.id
+	where ps.id in (
+		select person_id from student where registrationnumber in(11209014)
+	)
+	ORDER BY sl.posting_date;	
+			</Transform.SubSQL>
+			
+			<Transform.SubSQL ElementName="SummenFGL">
+				select sum(amount_credit) as sum_credit, sum(amount_debit) as sum_debit
+FROM 
+	hisinone.payment_transaction pt 
+	LEFT OUTER JOIN hisinone.financial_account fa ON pt.financial_account_id = fa.id
+	LEFT OUTER JOIN hisinone.subsidiary_ledger sl ON sl.id = pt.subsidiary_ledger_id
+	LEFT OUTER JOIN hisinone.purchase_invoice pi ON pi.id = sl.id 
+	LEFT OUTER JOIN hisinone.subsidiary_ledger so ON so.id = pt.origin_subsidiary_ledger_id 
+	LEFT OUTER JOIN hisinone.payment_assignment pa ON pa.id = so.id 
+	LEFT OUTER JOIN hisinone.sales_invoice si ON si.id = sl.id 
+	LEFT OUTER JOIN hisinone.business_partner bp ON bp.id = COALESCE(si.business_partner_id, pi.business_partner_id, pa.business_partner_id) 	
+	LEFT OUTER JOIN hisinone.person ps ON ps.id = bp.person_id 
+	LEFT OUTER JOIN hisinone.student st ON st.person_id = ps.id
+	where ps.id in (
+		select person_id from student where registrationnumber in(11209014)
+	)
+	;	
+			</Transform.SubSQL>
+  
+	 		<Transform.GlobalObjects file="OwnUniversity.xml" subdir="printout/publishModul/globalObjects/hisinone/" object="Hochschuldaten"/>
+		</Transform.SQL>
+	</Reports>
+</publishDetail>
