@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../../searchConfig.xsd">
+
+	<entity name="CourseOfStudy">
+		<selectColumns>
+			<column label="sul.zul.bewerbung.CourseOfStudy.shorttext">CourseOfStudy.shorttext</column>
+			<column label="sul.zul.bewerbung.CourseOfStudy.uniquename">CourseOfStudy.uniquename</column>
+<!-- 			<column label="sul.zul.bewerbung.CourseOfStudy.defaulttext">CourseOfStudy.defaulttext</column> -->			
+		</selectColumns>
+		
+		<!-- Ohne Einschränkung sind das alle Studiengänge -->
+		<!-- Das Entity CourseOfStudy ist dann auch der falsche Ausgangspunkt für eine Einschränkung auf einen bestimmten Studenten -->
+	</entity>
+	
+	<entity name="Student">
+		<selectColumns>			
+			<column label="Studiengangskurzztext">Student.person.degreePrograms.progress.courseOfStudy.shorttext</column>
+			<column label="Studiengangsuniquename">Student.person.degreePrograms.progress.courseOfStudy.uniquename</column>
+<!-- 			<column label="sul.zul.bewerbung.CourseOfStudy.defaulttext">CourseOfStudy.defaulttext</column> -->
+		</selectColumns>
+
+<!-- ausgehend vom Entity Student bekommt man nur die Studiengänge, die irgendein Student im System auch studiert. -->		
+		
+<!-- 		<staticSearchCriteria> -->
+<!-- FGL: Das nur, wenn das Jahr auch dynamisch geholt werden kann. Nur woher? Berichtssemester -->
+<!-- 			<criteria value="2024"> -->
+<!-- 				Student.term.year -->
+<!-- 			</criteria> -->
+
+<!-- FGL: Einschränken der generischen Suche auf den gerade betrachteten Studenten, d.h. nur seine Studiengänge -->
+<!-- Aber hier alle möglichen Studiengänge anbieten, die Einschränkung auf den gerade betrachteten Studenten findet in einer anderen Suchkonfigurationsdatei statt -->
+<!-- 			<criteria value="#{flowScope.student}"> -->
+<!-- 				Student.id -->
+<!-- 			</criteria> -->
+<!-- 		</staticSearchCriteria> -->
+	</entity>
+</root>

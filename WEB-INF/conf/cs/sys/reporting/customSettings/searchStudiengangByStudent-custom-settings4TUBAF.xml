@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../../searchConfig.xsd">
+
+	<entity name="Student">
+		<selectColumns>			
+			<column label="Studiengangskurzztext">Student.person.degreePrograms.progress.courseOfStudy.shorttext</column>
+			<column label="Studiengangsuniquename">Student.person.degreePrograms.progress.courseOfStudy.uniquename</column>
+<!-- 			<column label="sul.zul.bewerbung.CourseOfStudy.defaulttext">CourseOfStudy.defaulttext</column> -->
+		</selectColumns>
+		
+		
+		<staticSearchCriteria>
+<!-- FGL: Das nur, wenn das Jahr auch dynamisch geholt werden kann. Nur woher? Berichtssemester -->
+<!-- 			<criteria value="2024"> -->
+<!-- 				Student.term.year -->
+<!-- 			</criteria> -->
+
+<!-- Einschränken der generischen Suche auf den gerade betrachteten Studenten, d.h. nur seine Studiengänge -->
+			<criteria value="#{flowScope.student}">
+				Student.id
+			</criteria>
+		</staticSearchCriteria>
+	</entity>
+</root>

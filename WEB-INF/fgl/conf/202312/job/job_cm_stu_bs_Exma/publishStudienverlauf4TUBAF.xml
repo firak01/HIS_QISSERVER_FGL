@@ -1,0 +1,59 @@
+<publishDetail VMErrorFile="hisreports/reports/vm/error.vm" 
+	active="y">
+	<Report tanRequired="n" directPDF="y" database="hisinone"
+		WriteXMLFileTo1="[LOGROOT]//export.xml"		
+		global="[CURRENTTIME], [TODAY],[TEMPLATEROOT]"
+		authorities=""
+		extDataAccess="y"
+		outFormat="XML">	
+		
+		<Transform.SQL ElementName="DegreeProgram" storeFields="publishStudentId, publishPersonId, dpid">
+			select dp.id as dpid, belongs_to, dp.person_id as publishPersonId, s.id as publishStudentId, s.registrationnumber as Mtknr, 
+			enrollmentdate, universitysemester, leavesemester, practicalsemester, kollegsemester, k_studystatus_id, term_year, term_type_id,
+			library_card_number, current_enrollmentdate, 
+			surname, firstname, allfirstnames, k_gender_id, birthname, birthdate, birthcity, academicdegree_id, academicdegreesuffix, title_id, 
+			nameprefix, namesuffix, artistname, country_lid, registration_k_status_id
+			from degree_program as dp
+			join person p ON p.id = dp.person_ID
+			join student s on s.person_id = dp.person_id
+			where s.id in ([where.StudentId])
+			<Transform.subSQL ElementName="DegreeProgramAggregation">
+				select min(startdate) as startdate_min, max(enddate) as enddate_max
+				from degree_program, degree_program_progress 
+				where degree_program_id = degree_program.id 
+				and degree_program_id in 
+				([dpid]) 
+				group by degree_program_id
+			</Transform.subSQL>			
+			<Transform.subSQL ElementName="DegreeProgramProgressReverse" storeFields="dppid,cosid">					
+				select dpp.id as dppid, studynumber, subjectnumber, startdate, enddate, studysemester,
+				k_reason_of_leave_id, k_studystatus_id, k_studentstatus_id, course_of_study_id as cosid, 
+				reregistration_date, period_id
+				from degree_program as dp 
+				join degree_program_progress as dpp on dpp.degree_program_id = dp.id				
+				and degree_program_id in ([dpid])  
+				order by startdate DESC, studynumber, subjectnumber
+				<Transform.subSQL ElementName="CourseOfStudy" storeFields="slid">
+					select cos.id, cos.longtext, cos.shorttext, cos.defaulttext,
+					d.defaulttext as abschlD, d.longtext as abschlL, d.shorttext as abschlK,
+					subject_lid as slid 
+					from course_of_study as cos
+					join "degree" d on d.lid = cos.degree_lid
+					where cos.id in ([cosid])	
+					<Transform.subSQL ElementName="Subject">
+						select id, lid, uniquename, hiskey_id, astat_bund, astat_land, shorttext, defaulttext, longtext
+						from subject
+						where lid in ([slid])
+					</Transform.subSQL>			
+				</Transform.subSQL>
+			</Transform.subSQL>
+			
+			<Transform.SubSQL ElementName="reportPeriod">
+				SELECT DISTINCT period.term_year As Sem, period.term_type_id As SemType, period.startdate AS beginn, date(period.enddate) AS ende
+				FROM period
+				WHERE period.id = [where.reportPeriodId]	
+	</Transform.SubSQL>
+		</Transform.SQL>
+	</Report>
+</publishDetail>
+

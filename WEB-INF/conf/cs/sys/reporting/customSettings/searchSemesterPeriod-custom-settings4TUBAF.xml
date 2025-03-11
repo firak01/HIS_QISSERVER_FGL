@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../../../../searchConfig.xsd">
+      
+	 <entity name="Period">
+		
+		<pageTitle>cm.exa.examplan.Examplan.termTypeValueId</pageTitle>
+		
+		<defaultSortCriteria>
+			Period.term.year DESC,
+			Period.term.termTypeValue.termNumber DESC,
+			Period.term.termTypeValue.longtext
+		</defaultSortCriteria>
+		
+		<selectColumns>
+			<!-- FL: Original -->
+			<!-- 
+			<column label="cm.exa.examplan.Examplan.termTypeValueId">
+				Period.term.termTypeValue.longtext
+			</column> -->
+		
+			<!--FL 20241125: Erweiterung, s. Mail von Frau Berndt vom 22.11.2024 -->
+			<column label="cm.exa.examplan.Examplan.termTypeValueId">
+				Period.defaulttext	
+			</column>
+						
+			<!-- FL: Original -->
+			<!-- 
+			<column label="cm.exa.examplan.Examplan.year">
+				Period.term.year
+			</column> -->
+		</selectColumns>
+	
+		<staticSearchCriteria>
+			<criteria value="=7">Period.periodUsages.periodUsageValue.hiskeyId</criteria>
+		</staticSearchCriteria>
+			
+	</entity>
+</root>
