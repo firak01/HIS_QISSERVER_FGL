@@ -1,0 +1,1295 @@
+<root>
+  <Metadata>
+    <description>Auftragskonfigurationen und Aufträge</description>
+    <created_at>12.03.2025 14:27:06</created_at>
+    <database>hisinone_cust [PostgreSQL] on 127.0.0.1:5432</database>
+    <dbVersion>Release: 2023.12    Build id: 2023.12.12179    HISINONE Hotfix Nr.: 159    QIS Hotfix Nr.: 1</dbVersion>
+    <confpackage>reportingCenterAndJob</confpackage>
+    <beginEntityCollections />
+    <LanguageValue>1</LanguageValue>
+    <DomainValue>1</DomainValue>
+    <Confsrc>2</Confsrc>
+    <JobcategoryValue>0</JobcategoryValue>
+    <JobStep>7</JobStep>
+    <AbstractJob>1</AbstractJob>
+    <DocumentMetadataCategoryValue>1</DocumentMetadataCategoryValue>
+    <DocumentStatusValue>0</DocumentStatusValue>
+    <PurposeValue>0</PurposeValue>
+    <Mimedata>2</Mimedata>
+    <DocumentMetadata>2</DocumentMetadata>
+    <DataSelectionDefinition>0</DataSelectionDefinition>
+    <DataSelection>0</DataSelection>
+    <HqlDataSelectionParameter>0</HqlDataSelectionParameter>
+    <ReportingCenterElement>2</ReportingCenterElement>
+    <ReportingCenterElementConfiguration>2</ReportingCenterElementConfiguration>
+    <ReportingCenterDomainSetting>0</ReportingCenterDomainSetting>
+    <Foreigntext>0</Foreigntext>
+  </Metadata>
+  <UploadOptions>merge checked, addMissing</UploadOptions>
+  <ClearCache>reportingCenterBackendService</ClearCache>
+  <LanguageValue-collection searchColumns="Iso_639_2">
+    <LanguageValue entity="LanguageValue" update="false">
+      <Id>12</Id>
+      <Iso_639_2>ger</Iso_639_2>
+      <ObjGuid>7e32eec0-07b2-4e9b-b99b-6fc37da412e3</ObjGuid>
+    </LanguageValue>
+  </LanguageValue-collection>
+  <DomainValue-collection searchColumns="Uniquename">
+    <DomainValue entity="DomainValue">
+      <Defaultlanguage>12</Defaultlanguage>
+      <Defaulttext>STU</Defaulttext>
+      <HiskeyId>2</HiskeyId>
+      <Id>4</Id>
+      <Longtext>Student</Longtext>
+      <ObjGuid>aa16c558-8d21-4067-b3eb-1d8479166428</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <Shorttext>STU</Shorttext>
+      <Sortorder>2</Sortorder>
+      <Uniquename>STU</Uniquename>
+    </DomainValue>
+  </DomainValue-collection>
+  <Confsrc-collection searchColumns="Uniquename">
+    <Confsrc entity="Confsrc" update="false">
+      <Id>1</Id>
+      <ObjGuid>0b1c0c1c-9997-472d-ab19-f34329ff225c</ObjGuid>
+      <Uniquename>HIS</Uniquename>
+    </Confsrc>
+    <Confsrc entity="Confsrc" update="false">
+      <Id>11</Id>
+      <ObjGuid>c21238c4-8267-4f8f-bec3-8ff02a71bbfa</ObjGuid>
+      <Uniquename>tubaf-STU</Uniquename>
+    </Confsrc>
+  </Confsrc-collection>
+  <DomainValue-collection searchColumns="Uniquename">
+    <DomainValue entity="DomainValue">
+      <Defaultlanguage>12</Defaultlanguage>
+      <Defaulttext>STU</Defaulttext>
+      <HiskeyId>2</HiskeyId>
+      <Id>4</Id>
+      <Longtext>Student</Longtext>
+      <ObjGuid>aa16c558-8d21-4067-b3eb-1d8479166428</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <Shorttext>STU</Shorttext>
+      <Sortorder>2</Sortorder>
+      <Uniquename>STU</Uniquename>
+    </DomainValue>
+  </DomainValue-collection>
+  <JobcategoryValue-collection searchColumns="Uniquename" />
+  <JobStep-collection searchColumns="Uniquename">
+    <VelocityMailTemplateLayoutStep entity="VelocityMailTemplateLayoutStep">
+      <Defaulttext>E-Mail-Layout</Defaulttext>
+      <Description />
+      <Id>1019</Id>
+      <ObjGuid>177270b5-6fcc-4208-8ae9-b0379693bd3f</ObjGuid>
+      <Uniquename>VelocityMailTemplateLayoutStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>5087</Id>
+        <ObjGuid>bbdb574e-06b6-4d36-a272-e7421f993624</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </VelocityMailTemplateLayoutStep>
+    <GenericSearchDataRequestStep entity="GenericSearchDataRequestStep">
+      <Defaulttext>GenericSearchDataRequestStep</Defaulttext>
+      <Description />
+      <Id>201</Id>
+      <ObjGuid>20b35f3b-7789-4704-803d-189a4acbaeb2</ObjGuid>
+      <Uniquename>GenericSearchDataRequestStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>396</Id>
+        <ObjGuid>7c7b49db-ef12-434a-ad8e-d955c1610987</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </GenericSearchDataRequestStep>
+    <SmtpEMailOutputStep entity="SmtpEMailOutputStep">
+      <Defaulttext>SMTP E-Mail-Versand</Defaulttext>
+      <Description />
+      <Id>1018</Id>
+      <ObjGuid>668c5171-dd7e-4f6b-a083-ff4386b4ae6b</ObjGuid>
+      <Uniquename>SmtpEMailOutputStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>5086</Id>
+        <ObjGuid>84050369-3cb9-4cf2-b2c6-9d60ce088251</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </SmtpEMailOutputStep>
+    <CustomSettingsProvisioningStep entity="CustomSettingsProvisioningStep">
+      <Defaulttext>Weitere Einstellungen</Defaulttext>
+      <Description />
+      <Id>187</Id>
+      <ObjGuid>c94716d1-3cb7-4d50-a09d-5ab9c22df8eb</ObjGuid>
+      <Uniquename>CustomSettingsProvisioningStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>382</Id>
+        <ObjGuid>5c683b4e-b5cd-471e-89b6-96ad8ebf8c23</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </CustomSettingsProvisioningStep>
+    <EMailDataTransformationStep entity="EMailDataTransformationStep">
+      <Defaulttext>E-Mail-Hauptdaten</Defaulttext>
+      <Description />
+      <Id>1015</Id>
+      <ObjGuid>e24628e4-667b-4b16-ab5d-92212343dc07</ObjGuid>
+      <Uniquename>EMailDataTransformationStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>5083</Id>
+        <ObjGuid>0240a9e1-aba4-44e4-b527-9e531bfc318d</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </EMailDataTransformationStep>
+    <ServiceCallModificationStep entity="ServiceCallModificationStep">
+      <Defaulttext>ServiceCallModificationStep</Defaulttext>
+      <Description />
+      <Id>1040</Id>
+      <ObjGuid>f4a551a2-7bc9-463c-930f-bef517fde1be</ObjGuid>
+      <Uniquename>ServiceCallModificationStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>5176</Id>
+        <ObjGuid>dd76758b-679f-4346-b60a-5a73141f4485</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </ServiceCallModificationStep>
+    <OpenOfficeLayoutStep entity="OpenOfficeLayoutStep">
+      <Defaulttext>OpenOfficeLayoutStep</Defaulttext>
+      <Description />
+      <Id>194</Id>
+      <ObjGuid>fd8f6433-225e-4431-a47d-b9f867154056</ObjGuid>
+      <Uniquename>OpenOfficeLayoutStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>389</Id>
+        <ObjGuid>8e46b3be-810a-486b-ab21-e9d553eee4d4</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </OpenOfficeLayoutStep>
+  </JobStep-collection>
+  <AbstractJob-collection searchColumns="{Confsrc, Uniquename}">
+    <SerialEMailJob entity="SerialEMailJob">
+      <Defaulttext>TUBAF: Serien-E-Mail (deutsch/englisch) zum Ende einer Rückmelde-Phase mit Frist für Nachrückmeldung, mit Anhang (STU)</Defaulttext>
+      <Description>20250211 - aktuell - 
+TUBAF Massen-E-Mail Auftrag, um das Ende der Rückmeldephase anzukündigen. Rückmelde-Semester, Beginn und Ende der Rückmeldephase sind durch den/die Anwender/-in einzutragen. 
+
+20240422: ServiceCall email statt Spalten in einer Ansicht.
+20240716: Vorlage deutsch/englisch, Anhängen von Dateien möglich.</Description>
+      <ExecutionRights />
+      <Id>1025</Id>
+      <IsActive>true</IsActive>
+      <JobType>SerialEMailJob</JobType>
+      <ObjGuid>7353cb6c-bbcf-44f8-a2e7-6567ab9bb15a</ObjGuid>
+      <Synchronous>false</Synchronous>
+      <Uniquename>cm.stu.SerienEmailRueckmeldung.Nachfrist</Uniquename>
+      <JobStepRelations>
+        <Element entity="JobStepRelation">
+          <Id>2754</Id>
+          <ObjGuid>02adf8c0-a076-4278-a612-ed0eab455f86</ObjGuid>
+          <StepAlias>velocityMailTemplateLayout</StepAlias>
+          <StepSort>4</StepSort>
+          <Job entity="SerialEMailJob" incomplete="y">
+            <Id>1025</Id>
+            <ObjGuid>7353cb6c-bbcf-44f8-a2e7-6567ab9bb15a</ObjGuid>
+          </Job>
+          <Step entity="VelocityMailTemplateLayoutStep" incomplete="y">
+            <Id>1019</Id>
+            <ObjGuid>177270b5-6fcc-4208-8ae9-b0379693bd3f</ObjGuid>
+          </Step>
+        </Element>
+        <Element entity="JobStepRelation">
+          <Id>2756</Id>
+          <ObjGuid>2007b5bd-ae85-42e7-9b89-250bb778d58d</ObjGuid>
+          <StepAlias>emailDataTransformation</StepAlias>
+          <StepSort>6</StepSort>
+          <Job entity="SerialEMailJob" incomplete="y">
+            <Id>1025</Id>
+            <ObjGuid>7353cb6c-bbcf-44f8-a2e7-6567ab9bb15a</ObjGuid>
+          </Job>
+          <Step entity="EMailDataTransformationStep" incomplete="y">
+            <Id>1015</Id>
+            <ObjGuid>e24628e4-667b-4b16-ab5d-92212343dc07</ObjGuid>
+          </Step>
+        </Element>
+        <Element entity="JobStepRelation">
+          <Id>2757</Id>
+          <ObjGuid>4d72fff7-5d9a-4773-9c40-aa5b1f23bc7a</ObjGuid>
+          <StepAlias>smtpEMailOutput</StepAlias>
+          <StepSort>7</StepSort>
+          <Job entity="SerialEMailJob" incomplete="y">
+            <Id>1025</Id>
+            <ObjGuid>7353cb6c-bbcf-44f8-a2e7-6567ab9bb15a</ObjGuid>
+          </Job>
+          <Step entity="SmtpEMailOutputStep" incomplete="y">
+            <Id>1018</Id>
+            <ObjGuid>668c5171-dd7e-4f6b-a083-ff4386b4ae6b</ObjGuid>
+          </Step>
+        </Element>
+        <Element entity="JobStepRelation">
+          <Id>2755</Id>
+          <ObjGuid>6e493c02-312c-4e2e-abdc-881387582903</ObjGuid>
+          <StepAlias>openOfficeLayout</StepAlias>
+          <StepSort>5</StepSort>
+          <Job entity="SerialEMailJob" incomplete="y">
+            <Id>1025</Id>
+            <ObjGuid>7353cb6c-bbcf-44f8-a2e7-6567ab9bb15a</ObjGuid>
+          </Job>
+          <Step entity="OpenOfficeLayoutStep" incomplete="y">
+            <Id>194</Id>
+            <ObjGuid>fd8f6433-225e-4431-a47d-b9f867154056</ObjGuid>
+          </Step>
+        </Element>
+        <Element entity="JobStepRelation">
+          <Id>2753</Id>
+          <ObjGuid>77d5aff7-12cd-4621-8a24-ac5aaa419f01</ObjGuid>
+          <StepAlias>customSettings</StepAlias>
+          <StepSort>3</StepSort>
+          <Job entity="SerialEMailJob" incomplete="y">
+            <Id>1025</Id>
+            <ObjGuid>7353cb6c-bbcf-44f8-a2e7-6567ab9bb15a</ObjGuid>
+          </Job>
+          <Step entity="CustomSettingsProvisioningStep" incomplete="y">
+            <Id>187</Id>
+            <ObjGuid>c94716d1-3cb7-4d50-a09d-5ab9c22df8eb</ObjGuid>
+          </Step>
+        </Element>
+        <Element entity="JobStepRelation">
+          <Id>2752</Id>
+          <ObjGuid>9cb74dfe-7588-4895-bf27-884081312a6f</ObjGuid>
+          <StepAlias>serviceCallModification</StepAlias>
+          <StepSort>2</StepSort>
+          <Job entity="SerialEMailJob" incomplete="y">
+            <Id>1025</Id>
+            <ObjGuid>7353cb6c-bbcf-44f8-a2e7-6567ab9bb15a</ObjGuid>
+          </Job>
+          <Step entity="ServiceCallModificationStep" incomplete="y">
+            <Id>1040</Id>
+            <ObjGuid>f4a551a2-7bc9-463c-930f-bef517fde1be</ObjGuid>
+          </Step>
+        </Element>
+        <Element entity="JobStepRelation">
+          <Id>2751</Id>
+          <ObjGuid>ab6abcc7-1a2c-4285-96ab-8618ced06d98</ObjGuid>
+          <StepAlias>genericSearch</StepAlias>
+          <StepSort>1</StepSort>
+          <Job entity="SerialEMailJob" incomplete="y">
+            <Id>1025</Id>
+            <ObjGuid>7353cb6c-bbcf-44f8-a2e7-6567ab9bb15a</ObjGuid>
+          </Job>
+          <Step entity="GenericSearchDataRequestStep" incomplete="y">
+            <Id>201</Id>
+            <ObjGuid>20b35f3b-7789-4704-803d-189a4acbaeb2</ObjGuid>
+          </Step>
+        </Element>
+      </JobStepRelations>
+      <Category />
+      <Confsrc entity="Confsrc" incomplete="y">
+        <Id>11</Id>
+        <ObjGuid>c21238c4-8267-4f8f-bec3-8ff02a71bbfa</ObjGuid>
+      </Confsrc>
+      <Details entity="JobConf">
+        <Id>5731</Id>
+        <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+        <Confs>
+          <Element entity="JobConfValue">
+            <Confkey>sendPortalMessageSuccess</Confkey>
+            <Confvalue>cs.sys.portal.messages.jobs.SERIAL_EMAIL_JOB_COMPLETION_SUCCESS</Confvalue>
+            <Id>9935</Id>
+            <ObjGuid>00e9313a-6bb3-4b1b-a627-148a97c1e9fc</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>sendPortalMessageCategoryType</Confkey>
+            <Confvalue>SERIAL_EMAIL_JOB_COMPLETION</Confvalue>
+            <Id>9933</Id>
+            <ObjGuid>02c68965-97f2-46d3-af7d-b86a58f90238</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>openOfficeLayout.debug</Confkey>
+            <Confvalue>true</Confvalue>
+            <Id>9924</Id>
+            <ObjGuid>02ed0282-2255-44b5-b67e-a91710bb8099</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>emailDataTransformation.emailDataSubject</Confkey>
+            <Confvalue>Rückmeldung zum/Reregistration for $$NextSemD - Ihre Matrikelnummer/Your Registrationnumber: $$Mtknr (ggfs. Anhang beachten/may regard attachment)</Confvalue>
+            <Id>9925</Id>
+            <ObjGuid>063c77db-a808-4262-9efd-342df3fb5463</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>customSettings.customSettingsDefinition</Confkey>
+            <Confvalue>&lt;custom-settings&gt;&#xD;
+  &lt;settings&gt;&#xD;
+    &lt;select-one name="semester" label="Semester" required="true" defaultValue="e7558afe-9544-4bab-b20b-ba7d0a0d0d4b"&gt;&#xD;
+      &lt;keyTableOptions keyTable="TermTypeValue" format="$${longtext}" /&gt;&#xD;
+    &lt;/select-one&gt;&#xD;
+    &lt;select-one name="year" label="Jahr" required="true" defaultValue="2025"&gt;&#xD;
+      &lt;option label="2022" value="2022" /&gt;&#xD;
+      &lt;option label="2023" value="2023" /&gt;&#xD;
+      &lt;option label="2024" value="2024" /&gt;&#xD;
+      &lt;option label="2025" value="2025" /&gt;&#xD;
+      &lt;option label="2026" value="2026" /&gt;&#xD;
+      &lt;option label="2027" value="2027" /&gt;&#xD;
+      &lt;option label="2028" value="2028" /&gt;&#xD;
+    &lt;/select-one&gt;&#xD;
+    &lt;date name="rueckmeldungEnde" label="Datum Ende der Rückmeldephase (ohne Nachfrist)" required="true" datatype="UNRESTRICTED" /&gt;&#xD;
+    &lt;file name="myFileFGL" label="Möglicher Anhang" configKeySuffix="cm.stu.serial.email" /&gt;&#xD;
+  &lt;/settings&gt;&#xD;
+&lt;/custom-settings&gt;</Confvalue>
+            <Id>9946</Id>
+            <ObjGuid>0d5c5a72-3bf8-4b5a-ac53-e15e48551d30</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>emailDataTransformation.emailDataSenderReadonly</Confkey>
+            <Confvalue>true</Confvalue>
+            <Id>9934</Id>
+            <ObjGuid>254e6b82-cbe4-4304-9f05-812debc3a989</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>emailDataTransformation.emailDataSendToAllRecipientAddresses</Confkey>
+            <Confvalue>true</Confvalue>
+            <Id>9948</Id>
+            <ObjGuid>31b51768-929d-4386-94f0-d107a9d19188</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>genericSearch.serviceCalls</Confkey>
+            <Confvalue>studentOverview,post,university(shared),termInfo(shared),email</Confvalue>
+            <Id>9928</Id>
+            <ObjGuid>333d19ac-0b5a-4fcd-8440-61485146fe1b</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>INSLOTREF.emailDataTransformation.plaintextIn</Confkey>
+            <Confvalue>velocityMailTemplateLayout.plaintextOut</Confvalue>
+            <Id>9936</Id>
+            <ObjGuid>345065f8-f3ec-427b-bef8-99bf1d791c1e</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>emailDataTransformation.emailDataSender</Confkey>
+            <Confvalue>studierendenbuero@zuv.tu-freiberg.de</Confvalue>
+            <Id>9941</Id>
+            <ObjGuid>39a9b609-924e-453f-bbe0-ee851e1e9a3d</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>velocityMailTemplateLayout.velocityMailHtmlTemplateId</Confkey>
+            <Confvalue>STUSerienEMailRueckmeldungNachTUBAF</Confvalue>
+            <Id>9931</Id>
+            <ObjGuid>3f42d51d-3b10-45de-8084-091d4ff82867</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>emailDataTransformation.emailDataAllowSenderSelection</Confkey>
+            <Confvalue>false</Confvalue>
+            <Id>9932</Id>
+            <ObjGuid>463b42e9-352b-496f-bd23-5636f2877dbe</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>openOfficeLayout.execute</Confkey>
+            <Confvalue>false</Confvalue>
+            <Id>9949</Id>
+            <ObjGuid>5848a30d-1d59-4b20-b831-f516b99942e5</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>emailDataTransformation2.emailDataSender</Confkey>
+            <Confvalue>noreply@his.de</Confvalue>
+            <Id>9923</Id>
+            <ObjGuid>7c29de57-e158-498f-bfae-5258997ea1bf</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>emailDataTransformation.emailDataAttachments</Confkey>
+            <Confvalue>customSettings.myFileFGL</Confvalue>
+            <Id>9939</Id>
+            <ObjGuid>81a0b296-ed7a-49de-9dc7-90257361b756</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>velocityMailTemplateLayout.velocityMailHtmlTemplateSelectionEnabled</Confkey>
+            <Confvalue>false</Confvalue>
+            <Id>9940</Id>
+            <ObjGuid>88835475-e1f1-4aae-b8e4-8c3716ce7096</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>customSettings.customSettingsReparseEnabled</Confkey>
+            <Confvalue>true</Confvalue>
+            <Id>9943</Id>
+            <ObjGuid>961cc8fd-0d2f-413e-8115-eefbb3f9aa83</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>sendPortalMessageError</Confkey>
+            <Confvalue>cs.sys.portal.messages.jobs.SERIAL_EMAIL_JOB_COMPLETION_ERROR</Confvalue>
+            <Id>9927</Id>
+            <ObjGuid>ad4ece35-9ad5-4333-8d9b-bd3587d142da</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>emailDataTransformation.emailDataAllowReplyToSelection</Confkey>
+            <Confvalue>true</Confvalue>
+            <Id>9929</Id>
+            <ObjGuid>becdcd0e-fb4c-487c-961a-fc3f3b8f7abc</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>openOfficeLayout.reportIndividualFilenamePattern</Confkey>
+            <Confvalue>testAnhang.pdf</Confvalue>
+            <Id>9945</Id>
+            <ObjGuid>c6771715-ce9c-4b5d-8a21-d9c0a09af2ce</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>velocityMailTemplateLayout.velocityMailPlaintextTemplateSelectionEnabled</Confkey>
+            <Confvalue>false</Confvalue>
+            <Id>9937</Id>
+            <ObjGuid>c9e8873b-f756-459d-ba72-8638df233177</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>emailDataTransformation.emailDataRecipientColumnNames</Confkey>
+            <Confvalue>$$!{emailOverviewMapByNotification[Studium][0].eaddress},$$!{emailOverviewMapByNotification[Studium][1].eaddress}</Confvalue>
+            <Id>9944</Id>
+            <ObjGuid>d6f94682-63eb-46aa-8059-00a8c82226da</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>serviceCallModification.serviceCallDefinitions</Confkey>
+            <Confvalue>[{"guid":"049b0641-0eb3-4e79-b86b-9dc5a4cd069f","serviceCall":"common.contextUrl"},{"guid":"81bb3203-6c74-4d3a-b8a4-71454a6c7cfc","serviceCall":"common.ownbank"}]</Confvalue>
+            <Id>9930</Id>
+            <ObjGuid>d7263139-3de4-4e1c-afdd-76a753bd6ef3</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>sendPortalMessage</Confkey>
+            <Confvalue>true</Confvalue>
+            <Id>9947</Id>
+            <ObjGuid>ea30f5ea-75a7-4f07-aff7-8e02d4a810fa</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>emailDataTransformation.emailDataReplyTo</Confkey>
+            <Confvalue>studierendenbuero@zuv.tu-freiberg.de</Confvalue>
+            <Id>9942</Id>
+            <ObjGuid>ecb6c68b-af23-45a8-a954-d0e4f8563058</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>INSLOTREF.emailDataTransformation.htmlIn</Confkey>
+            <Confvalue>velocityMailTemplateLayout.htmlOut</Confvalue>
+            <Id>9926</Id>
+            <ObjGuid>ffe700ab-5dcc-4f99-9a90-6e1280686bad</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5731</Id>
+              <ObjGuid>ac3045be-e386-456c-a52e-d6244437edf4</ObjGuid>
+            </Configuration>
+          </Element>
+        </Confs>
+      </Details>
+      <Domain entity="DomainValue" incomplete="y">
+        <Id>4</Id>
+        <ObjGuid>aa16c558-8d21-4067-b3eb-1d8479166428</ObjGuid>
+      </Domain>
+      <ExecuteAs />
+    </SerialEMailJob>
+  </AbstractJob-collection>
+  <DocumentMetadataCategoryValue-collection searchColumns="{Uniquename, HiskeyId}">
+    <DocumentMetadataCategoryValue entity="DocumentMetadataCategoryValue">
+      <AdditionalDmsFilenameParams />
+      <AdditionalSubfolderToStore />
+      <Defaultlanguage>12</Defaultlanguage>
+      <Defaulttext>Vorlage</Defaulttext>
+      <HiskeyId>10</HiskeyId>
+      <Id>10</Id>
+      <Longtext>Vorlage</Longtext>
+      <ObjGuid>51eb2ea0-a941-11df-94e2-0800200c9a66</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <Shorttext>Vorlage</Shorttext>
+      <Sortorder>0</Sortorder>
+      <Uniquename>Vorlage</Uniquename>
+      <DocumentDeletePolicy />
+      <DocumentStorageCategory entity="DocumentStorageCategoryValue" incomplete="y">
+        <Id>2</Id>
+        <ObjGuid>fffbbef0-ec68-4c64-bde4-4566465833d9</ObjGuid>
+      </DocumentStorageCategory>
+    </DocumentMetadataCategoryValue>
+  </DocumentMetadataCategoryValue-collection>
+  <DocumentStatusValue-collection searchColumns="Uniquename" />
+  <PurposeValue-collection searchColumns="Uniquename" />
+  <Mimedata-collection>
+    <Mimedata entity="Mimedata">
+      <CreatedAt>2024-10-16 11:46:59</CreatedAt>
+      <Description />
+      <ExternalDmsIdentifier />
+      <Id>7839</Id>
+      <MimeFilename>AllgemeineVorlageDummyFGL20240426.odt</MimeFilename>
+      <MimePath />
+      <MimeType>application/vnd.oasis.opendocument.text</MimeType>
+      <ObjGuid>a332a312-4bfa-45bd-8640-3615706af7b4</ObjGuid>
+      <MimeBlob isBase64encoded="true" isHandledAfterPersist="true">UEsDBBQAAAgAANxSmlhexjIMJwAAACcAAAAIAAAAbWltZXR5cGVhcHBsaWNhdGlvbi92bmQub2Fz&#xD;
+aXMub3BlbmRvY3VtZW50LnRleHRQSwMEFAAACAAA3FKaWAAAAAAAAAAAAAAAABoAAABDb25maWd1&#xD;
+cmF0aW9uczIvcG9wdXBtZW51L1BLAwQUAAAIAADcUppYAAAAAAAAAAAAAAAAGAAAAENvbmZpZ3Vy&#xD;
+YXRpb25zMi9mbG9hdGVyL1BLAwQUAAgICADcUppYAAAAAAAAAAAAAAAAJwAAAENvbmZpZ3VyYXRp&#xD;
+b25zMi9hY2NlbGVyYXRvci9jdXJyZW50LnhtbAMAUEsHCAAAAAACAAAAAAAAAFBLAwQUAAAIAADc&#xD;
+UppYAAAAAAAAAAAAAAAAHwAAAENvbmZpZ3VyYXRpb25zMi9pbWFnZXMvQml0bWFwcy9QSwMEFAAA&#xD;
+CAAA3FKaWAAAAAAAAAAAAAAAABwAAABDb25maWd1cmF0aW9uczIvcHJvZ3Jlc3NiYXIvUEsDBBQA&#xD;
+AAgAANxSmlgAAAAAAAAAAAAAAAAYAAAAQ29uZmlndXJhdGlvbnMyL21lbnViYXIvUEsDBBQAAAgA&#xD;
+ANxSmlgAAAAAAAAAAAAAAAAaAAAAQ29uZmlndXJhdGlvbnMyL3N0YXR1c2Jhci9QSwMEFAAACAAA&#xD;
+3FKaWAAAAAAAAAAAAAAAABgAAABDb25maWd1cmF0aW9uczIvdG9vbGJhci9QSwMEFAAACAAA3FKa&#xD;
+WAAAAAAAAAAAAAAAABoAAABDb25maWd1cmF0aW9uczIvdG9vbHBhbmVsL1BLAwQUAAgICADcUppY&#xD;
+AAAAAAAAAAAAAAAADAAAAG1hbmlmZXN0LnJkZs2TzW6DMBCE7zyFZc7YQC8FBXIoyrlqn8A1hlgF&#xD;
+L/KaEt6+jpNWUaSq6p/U465GM9+OtJvtYRzIi7KowVQ0YyklykhotekrOrsuuaXbOtrYtisfmh3x&#xD;
+aoOlnyq6d24qOV+WhS03DGzPs6IoeJrzPE+8IsHVOHFIDMa0jggJHo1CafXkfBo5zuIJZldRdOug&#xD;
+kHn3ID2L3TqpoLIKYbZSvYe2IJGBQI0JTMqEdIMcuk5LxTOW81E5waHt4sdgvdODojxg8CuOz9je&#xD;
+iAym5V7gvbDuXIPffJVoeu5jenXTxfHfI5RgnDLuT+q7O3n/5/4uz/8Z4q+0dkRsQM6jZ/qQ57Ty&#xD;
+H1VHr1BLBwi092jSBQEAAIMDAABQSwMEFAAICAgA3FKaWAAAAAAAAAAAAAAAAAoAAABzdHlsZXMu&#xD;
+eG1s7V3dkqM6kr7fp3B44uwdNuD/mlM9MXt2T5yJ6e756Z7rCRlkm20MBOByVV/Ns+yj7ZNM6g+E&#xD;
+kDDYuKraVX0iTrfJlJTSl5lKpZD4+Q+P+3DwgNMsiKP7oTOyhwMcebEfRNv74T++/moth3/48B8/&#xD;
+x5tN4OE7P/YOexzlVpY/hTgbQOEou2PE++Ehje5ilAXZXYT2OLvLvbs4wZEodCdz39Gm+JM4vh/u&#xD;
+8jy5G49JAcYxitPt2LXt6Zj9FtybuG1Lj1lobWLLi/cJyoN1WGn0MQyib0Wzx+NxdJzQJp3VajWm&#xD;
+VMHqewVfckhDyuV7Yxxi0lg2dkbOWPDucY7aykd4ZZHooLYtTJnl0jl+zNsWJrxy2TTJGxCYjVOc&#xD;
+xGlejEeKjm1bIrygS3Jjfjrx2xef+JUheti2HqCHrQF6b4fS1kNFmSvjjNbtUaLMcunosF/jtHX3&#xD;
+UY5qQIO5HBvt5ZgGOU4ldq+R3UOhVwxNlk1ynVV8/fuY0CyiOYWyx5v2Rg89cCtD2Gz1qzFlKuQC&#xD;
+GUv9TreFJ9rEhwhGCbwXbx8/JjgNCAmFtNhdpYaqIqJjoxSOPSY8hcvY5fvQ7DIIVbCG8RnScs8o&#xD;
+1SBLu019X9s6jNZkDB4JdMV6CPDxd4WnDHAoLK3omrbhOLb2mRVEoDZxcieVlgXYo3xn6P1y/AmI&#xD;
+9H+fPpaOOt231Q/CW7FzLw2S1jbKuCvQxnvDUDlj4LDwA/Hcw8oEdkohxTTEx1GaNCfDD2KG3MQw&#xD;
+O26Qhy0fe2H24WdmvsXjAftNenM//GMaIFAZ8FSCYR+ET+VzuSihWFscAWpgztkxyLIKRxLkHsDz&#xD;
+gKAsMZxxi6YH/4gCmOvx4NMXjRT/iZI4+73KyJ42C/eU5Xh/iXS/xIc0wOngMz4aBZN4Wsi0B+nT&#xD;
+SCfTJnjE/imBPgbgtanhDr6gKDMKpfC1GSyKZIfmodimVfuEsYUAabxH2oFpC9YnFG21aswJrYo7&#xD;
+5vLXVbXPX4L9l0Okab6kXE2t/gJu5svTfh3rhk8inqjG2IUWPbh8BL/CNJIRMxz8nauSXjcVPo1q&#xD;
+Ij9OIxpT3w9/xXl+Xb1V5NFp4LmCD/58gMnh4Vnld3uS/0uOIEZJ/cuFH5vmRP6cLSJFJ328QYeQ&#xD;
+Ly1Fzbwf2xQlu8AbCl7+20ogXMFpHkD3SN+zPI2/YYj6wxhC7N9NpvMZmg4HJIaDcCYMC8rCXW08&#xD;
+8KKb+O4IVVlxktOpPIot8psXyXYwLkcLpM1wbj3eD+3RxNtriU8KMYdFgwVrSGxlCfJgAWTt4jT4&#xD;
+HpNwi7C6y0bmB9Ipr84KkU/bWmusmjr5IIfQj2OQ7yy2hNygMJOUL0EpouNdGW1KIvwWOuQxaQM0&#xD;
+MvBxzFhRmOyQaICKsU4xgvU2QBR4YNgsvIUYH/COE8sPYBQiUoddCkbWMURy4mTvh2Fq5euKygWR&#xD;
+j0kwSBIScldFF0QPRCsZ0Ulzpwp20qtaXw8ZhkGKCOa0ca5KeXrAojcxaT4nqvBTRU7THA7aR+lZ&#xD;
+8B3ojpvk9FkI094BbeGRj+kDD1YNeQr1/vf/FEMKTgan1jeYfGiHmRhKmxYEzijSzgKkSUF27NEs&#xD;
+KXytaF1Qv+8EhYshCL98rjdI1tshfpQndaXNgoN1V2mzoO4CtdWC9KfPwxLHitNo40kK4IeN+g2j&#xD;
+vntKdjiigFkh8mGet6gs1EuEwT4oxG9pBskh8vIDq5B4Gegl9Bvga7KTqgZLdgLL6UWzqYzfFfpH&#xD;
+UWhZ37BwX6oSpniPgsgiCSmhiW6NKTlkO5WFgSlzgQZ7KMmKlrQcIcpy6xinfgMbIVeaK22jzgwT&#xD;
+FZY4LrBilhuS/HuIZQVnWbc1yAYqRUwCJj1Q7xC6TMzt0oatND4qjcMTxX18wzix8niL8x3J9xH3&#xD;
+cKphuUEe2KuxWM2LCaUCsABOYuml3dfr+w0jX3I4xurgQZHlt/SiRMSpyAxf4cE/Xfuf69h/0ol1&#xD;
+yt/uUQrOEIYsIRHK1KURSvl8Hec5SepA8OK4pePzwBCh9gMK1dm/AIGGNhENbVB4RE/ZKc8o+Tie&#xD;
+iRGOrc8Ejeotp0ludHiabE2tac56ZtZGFDctBwW9FN/kfLX9aPSjXBKFp0nYgtUobsFhFrj03ETk&#xD;
+0jZP2KROz2FaTkL0JFnCQCZfYmdnm9CF5tN6PD5CSHJORxv8RUiqbGmjbdRGZWndt18QXRj2iCN0&#xD;
+JkUdfSFH7BJfSDf82N4TXSplVQqNPMXWlG32j4YAjz0jJSD4hbUorNSN7sFV3AMbM07VFD4X43aB&#xD;
+miRCQedCtFaSP8EK9LFHFQlofY0q0hOcz2lKX4kTJvb+C9FSuvmi9Z2EbaDyPI/hdR7Vjj1Xoi9d&#xD;
+xy8I0IwD3MnzsLVsGGzBGj0c0X1kVuJ/D1kebJ4sEkJDo5WFQc/u5YiD7Q7CtXUcVtOQjCC8hYlc&#xD;
+6ChlaI3Tryn8RQbQa9RQyjZQeXqa+RhIDRH8X1NM9koRrJZ9UgepSy+nzDmQ2XowJrrV3Uc00jIS&#xD;
+aRmtV7YN1Zj9GruG6oRoN8TwDdtJpzmUKN0kl6Bz6UxzsFbMwmqqm6/mGaD7gJZljR0oOAxdKGdx&#xD;
+u0vQTufokz6Ycl3ig5Wi7Sf00jRCvMlr9pIyfyieUkMIaOK7YkMkyWBViFcN/+Zy+Gf02RXNmyua&#xD;
+d8KhK5AbSp/p78U8eVItBOO7ZrwRzeBgEcVw9CrBOQZOD7rQKpMmEobxIaeYhPiBZDUdRaFOpwm6&#xD;
+AO70tYVGc/5s69Wd2Lbv1XYYHFu7x1B7t0A/q5/e4ZbHt4dXCzooPDxdI+/bNiXv/pW7LCjKmGq0&#xD;
+z6R1MwlD6R6cpcEmCjd5llFUVtEkAVShkiRTpenWDrSmweoDIVKcBewlAEfaV8ufEmidOtlypwqR&#xD;
+bQX6437oxyS+VmhsH30kja7U+mXmY8OfpW0wH11GWauUnTwhTsnIwzqA/PVrHEtrwrpThEgQOAdV&#xD;
+tte4fO+uF8vRTFUMvkIen61T3TWk5Vr2ffxfdPylCMJtjiDcc0DqMYJwFaBzKVOwRxnZlE/ITjar&#xD;
+uFkDBGlbAi32PfWO7dR87/Q34ffzSl6ji+VTgkhid4t/1emayW/Oi18WDLDa1ZT3dcIFgwEU4cJZ&#xD;
+FlAJFy5YTY2mq1WvK6oz4o35aGY7rzDmUBX9nPXTpNn7TV7Y+0103u9cb/VqVydu9+X4a117GPSp&#xD;
+cCZnKVRvzmS1Wr6wM3Gno4XtvjZncspy3H5Mp8dX17v6uWmzn5u+sJ+bdvFzVe+xnP3UT4hDK7pW&#xD;
+hKOv/HoBjgT9rBn62QtDP+sJ+rMwvgjD3hCaNyM0f2GE5ucjtOiM0OIShAyFL0do0YzQ4oURWrwj&#xD;
+tGxGaPnCCC3fEVo1I7R6YYRW7wg5djNEJf2lthPtNwrS1yCXXhG/8uDzsfV2KCHZ66u8ktdyp95d&#xD;
+dk4NsCLnwmYqfSZuXw7r/BVDV32P27HnPZxpuaY6OCo6lZyQllgmfZZdUoR/O8Q5PRXW5zu+9LXE&#xD;
+hpcnP9NNCe6M2dUKhpc8C86BwlYcBDtx0uq/DmGI85PtMLbGRlrnVOTLJNRsSuWiiWpBAa+BpfqK&#xD;
+YlM9hSY016Rj6/AeH+h7xAaWXdGmG1XBNZBZWg1qh5328lTr98fH6rHWKI4Kj0RbOEQ+TtkRdfLw&#xD;
+fpjFYeAbWI6BTy5aojtneg4uIh1V+u8ifaeedX0s05rVw66yiPXTqppyBY2WbA3YH9cZyr9bwmAz&#xD;
+b5cGG3LhQVeDoq9dq4Va3AtB955R5O3i1GLJUNnBPGzvHkUmFv79VHu/TmR2XbZDU8/s1ini1I76&#xD;
+XPL28nYPOwpOhAJXUFgM30cnxAT7ViFzVj9+Tm+wIHNGfEiLiYKRxJ0PVhKTYC5OaoSUhH3l9MVf&#xD;
+axds5fUSrIbqfCNRTdUUV28IjYPhSJDPrpeEGXHGh4id1SWP7HmSD6h5DKgJ2pqTFhRTEbrWVeUv&#xD;
+jDJUGGmMy9nZGwnFO3T0pzzB6GcK5goAGou+oMRer78f/uT8JMFWPC7fnqPcrHlVM2UST+JbYCp0&#xD;
+4sfiOD9aA5lO+eSOFl21Cguvmz7cxGEYH0GH1k/sZF2O1kOp8eJugXITwR4t5q5uy8KSKYqFMEKJ&#xD;
+lbbTQDVh0hIt1wyDq4Xhh0XBGdnOXIuCTKmgIAhXR2FiRmFyayiwezY0IBQEBQP6/OoQTM0QTG8N&#xD;
+gpk7NWBQUhQQGOHqKMzMKMxuDYXFYmlAoaQoKDDC1VGYm1GY3xYK7sie6KdmmVJBQRCujsLCjMLi&#xD;
+1lBwl/qpWaYoKDDC1VFYmlFY3hoKM/20IBEUDGbPMimszBCsbg2CxcqEQUlRQGCEq6Pg2A0rNvu2&#xD;
+cJiM7Kl+cpYpFRwE4RIcqiQZnPIET2VpXjvHU03cEfLAGcp1SO1Za5Yt7X/xTqtgtdPbzO6H//+v&#xD;
+//thlcEe6U2yfK6+A91GDbpnocdCQQxAdoDZvRhm9wZhXhYpxpZAswKvG+rJxVBPbg5qZ+QUxxRa&#xD;
+QS0KvG6opxdDPb1BqPULCyPQrRYVLwrz7GKYZzcHsym9rg+ZXz3E84shnt8exKNpt/lZFHjdUC8u&#xD;
+hnpxg1Avus3PosDrhnp5MdTLm4N6Murkuhn764Z5dTHMqxuEuVMYNvkBwjCSD7s0V2LfHNDTkd1t&#xD;
+lhYFXgRsidwi21YB15ByK990NOfd2MtIvefdRnIKNjtsNsEjOXR6Y6/STM2RgXr1QPVOgpaJWQNa&#xD;
+HbDsI7n2FrA0ugk9jq2cRF8Y9pE1exMYdrdH57ntsY+02FvA0hiI63Hs8A7E5Rj2kfN6Exh2t0f3&#xD;
+ue2xj+TWW8By0g3HyXNi2EfW6k1gOJp1RJEWeDYc+0hJvQUcG5e1eiRbL2z7wrKPvNPbwLKjTU6f&#xD;
+1yb7SSy9BSRn3a1y1pNVGjJHUZzjjJzX2gTbA/+aZ0Gw+LnaTRzn5LceDIE9+YrxAwoPmFzvyh6K&#xD;
+gpk0BuR60EqZSGiKRerzY+9AwRh3kRBHvknAQC/guFDwCJcS6Jox3mjLvv0s5XjMo8MrKUeBgMtp&#xD;
+QeSleE/VYEbEYrx33iFNceQ96fJ6ju244D05Z/UkalEBt1T+y8desCfn+ELQ/4xCxCl70LVmahDl&#xD;
+eAvi+8E2IJ8IdwqqyCVukJeTI6kOP6/HyaR/HwY/j+Wf9f5R5/AB9LxgVGkaAtNhntHkt1nQm2dB&#xD;
+nPiQlyfzi0f1LGzDB6Z5kW0agMvgh1c5H/00bf1TnpXG+eetd4Cr8Hks2Uu/fD74SgjDChs7yJtV&#xD;
+uD8G6xSzIgUzZatwgWjfHOFa5dPLDApTsZAcYK2V29A/TeVIc+6ZzdXKnW4OeeTQaU1OZ4km9uR0&#xD;
+wbqkk/kKtSg4UQuiyQS3aXGqFlxCsTYtztSCHniV5kFlBef1gq7j4KaCu6eEniX/pgMSNxYtpj1j&#xD;
+HbOZg5b0+9PjuoJXH8KvmOo3ix2Ayn+S0+/gQQPPEoSaPVdc4qdkX4YFBqOnZ4+3xQF715FmY0rY&#xD;
+8ftP3NVoYfTnvAmYLnIrTgMYf8QntjjNUxTkmrPgK3tWndvLs+CLmW7WhyLK4cLivPlqtpQPj7fy&#xD;
+YIVi2OQ/HQef3qZTHXGNsnJw7NFMuoddZksP66eSTc/DBK3ePqDUALFVfFQOsstMdOirXwiXyXxK&#xD;
+MjPQ3nAdsEeThV7QLELk+83ql8hZPGPt0WO1p0ynOVbbA/mYOaMInSyKZljc2lrIYDsSpOIT7zAO&#xD;
+oHWUn10e42h40IZc0K5jkW+bkIcb+eSaGBZusCCEPU8hYhSGUZ5crPv3cZOJic7upCtmx/IIiIcK&#xD;
+Iycpl+fASFbGuNunkJTvSSspw6ow9U618DduV3/DvUrN2xR+qJu/gbDPzzyU4Fp3DZ+L1Z8O1A6i&#xD;
+++5i3l3Mj+1itBW1MOvJaw0jDNfJOO2t2nm36nervmGrrmdKPvlJ7Wtk5E4iovo0EVWkEKSHsrHT&#xD;
+C4yk77exe/I2h1BzadnYuHbhBP49neqKRvrITkV09Y47eeCkNQ+TkOf6yj5Xx47nupJ6mpZ/KIoz&#xD;
+8Nypdz9ckVTUFxzk+G7AC5ef9eHV4BB7LO9xP2SJmXz4weWZRoldJB8TJfoqfkpDcGpUPpZBT8Ow&#xD;
+uKZhGZ+q/7evnz42Vj1pqHqsx1k8FqlNQfg3UEsHCO9NBmfoEQAAfZ0AAFBLAwQUAAgICADcUppY&#xD;
+AAAAAAAAAAAAAAAACAAAAG1ldGEueG1sjZPLjtMwFIb3PEUU2Ca+5G6lmQ1CLEAg0RHLkWufpoY0&#xD;
+jhx3Mrw9zq1kOl1QRZVy/u8/N52UDy/nxnsG0yvd7nwSYt+DVmip2nrnP+4/Bbn/UL0r9fGoBDCp&#xD;
+xeUMrQ3OYLnnrG3PZmnnX0zLNO9Vz1p+hp5ZwXQH7WphW5pNhZaI1jv/ZG3HEBoNMxFqUyOKcYzm&#xD;
+95V+aVT7+8oPwxAO0cSSoijQpK6oFFeuu5hmoqRA0MDYT49ISNDKjvP87wgjux2gNlI291py7UfI&#xD;
+1eSWB88Khve+t4y/WXjkV+t2x8RVOaUXBrh1RODMUFFMSEBwQOI9LlhUMFqENCrRHXS219CC4Vab&#xD;
+6os6GPg25UdZmIZxSD78VG6koX96yVNvoz91Rv8CYRGQwj3RMc+FTAVOaMJJdjxk7j8FmUPKI6Cc&#xD;
+k6WBf8Xm4iCVdecTyIuZGqu+Jx/3JPkc068k/rGY3kCvveKPaKCvCCH4xrAopRRs2Q2NAxwHNN0T&#xD;
+yihlSRbiFM+/Eq3YnL4zyh3vulPnywKa7wl2C2WkCJNkKbbhZuP18Hvr2u2tEt4Ut/zQQCD0pbU7&#xD;
+313EFFRnXr8J6sO429totyHpNWZ4bXh3WgWyKoM2cg1mawpxcrywYK5KmixS665iOCkLfceFq3NL&#xD;
+pi4zqkr06v7QvW+9+gtQSwcIOoIgpvcBAAApBAAAUEsDBBQACAgIANxSmlgAAAAAAAAAAAAAAAAM&#xD;
+AAAAc2V0dGluZ3MueG1s7Rxdd9q48v3+ihxe93QDSdqGnCZ7ZLCBNHzYGNLkTbaF8SJLPrIch/76&#xD;
+HYmPdgm0uYDuuQ/MA8aWPCON5kvySF/+ek3p2QsRecLZbaX2Z7VyRljIo4TFt5WR73y4rvx1958v&#xD;
+fDJJQnIT8bBICZMfciIlVMnP4HWW3yyKbyuFYDcc50l+w3BK8hsZ3vCMsNVrNz/XvtHElk84v61M&#xD;
+pcxuzs/VC4saf3IRn19Uq1fni/tV7VeasNm6flmWf5aXum6tXq+f69JV1ZCzSRK/t2GL2ouGLRv5&#xD;
+E2suK3crPqy6f/dl+cri8iGRJFW8OVs+VsRuK9C7m5eElGuuVba99+93xlAfCYJ9nlVWJXKeQQnl&#xD;
+LK7cXVxcVatfzt+ieT/qBzKRW3EfiPcxieR0K+Kry2rt+jDkbZLE0+3Nvri8qH3cD/twykuPRCA5&#xD;
+pDHFLCb5BoWAc0owq9xJUZD9aHSYJXiZky6PyC7sE0zzd6P/kOLsQ8Ii8kqit8zaLmT6HRB4MX8f&#xD;
+yzvRRlNzKRLFbCXPF/sP5U7Zu6h/vPq8P95d6nJZv6h+2hdtngSUHF9bNFoj+q0xezsVRanhYcyw&#xD;
+uJQ83Y7846fanoLxzHnqA6pNkZtyIQ+ySg94zgvZ4LRI2aZmL7HXDsVucT47mmq/5YuDQ8nF9rZ/&#xD;
+3tPqdfIhoSSUJHIEPDDQ8q+EZB6WCTeAG7EQuk8in7zKPrjpCeVgVmIczg0QWyAegukDSwBewuFM&#xD;
+llzMju8mGpwxosZ6lJMhw5kHNwY61IkZMM8CjzpDE0lEt6AyUf7PSQjdNPrvIbjl4c/OZlfx0n9t&#xD;
+rwDx0vsjrMWDQihxY/9NqDUQXAKTHS42LdoxGD0Afwn87b1VsJUr7Sah4DmfyDNd90zys0HT2Y+a&#xD;
+nQYkikjUxBIHOCe7yZ6/QxQLIWD4VrjUdcgLEe6PEVRnNsoiLLdFQYdZYhRFAyywj8E9DTMcQouQ&#xD;
+HEosdmrP/jrqUI6lVJR6PMUiTt54lWNIzogFSj01mQLGVWh5Pj4drfGokHwxMsdnFwzNmAiZhJhq&#xD;
+R9OfTEA9TXTFwuEsFrxgWhaUV2gKXBri2xaJM+AOpiDBJgdnQ8kbPE0x2xH1v0PDl+ZuSGSxGdgq&#xD;
+9J+urIRhMa/cPVnBH+fVWvZ0ef8SXtTTqGG5YUoLuFaDueV69hP6fwL/kf4dpvXvwcVzteNYc/z4&#xD;
+Ea7eC/y3vfhfVR8RslF3Olrd2whNh+oawU+35vXH5RPyXStDrS4KY+sFtbsoKK0UtV3UQZaL2h2E&#xD;
+XatY3ldR63rx3HbRBq0NsG1UBiFy0AjNry1FuuE2cOO723lGCO6voXGdhnoO16a6ui6qGmHYJrjr&#xD;
+f5b+1f0A1qDmuQKvSv3em+549z4dJagbo3vUzW2/HpHLq3eRs9z11Tq06Sc4gXFwf19lOzQ76ndU&#xD;
+rY2G8RLTQ4xIiUrUjFEPWS0Emt514Qrm4cG1HNR8Qt0S9L5RVeU2aoaoVyKp6ndLKLdHUE+9D88R&#xD;
+ukJNG8qtpsZTopqu51p1TXc29j37tYuccYG/3dOw6nV90LqnbxYNaS8j6Qi5vov8y/vsGWzm0zcv&#xD;
+Cy6u0MiuD8fOvTUcu2iUjsGuvtaiFn0JYmv4/K03CNu63iuyey9Bqz73H+uzZ9dqQr2XcJcNbJQe&#xD;
+aPxjz/Z6P/jZCBsMJW31t19qhqmfP2Jn0Gj6aVS9aH6Oo45zjWqxMtDI6urXdFXU+TeBRREYUPQ1&#xD;
+Xpc318PnLHyWsmoeArsO9j1yLYlaIwT9qiJnhMLSosq+j5A1VXYf7i+VfQc/MEO73rOvUVSCP4B7&#xD;
+qOeilq3e+47aofIbc9RS1GEcAc9TadVQq4qel/7DVeXtGQqVH3G66vnfqK3xZKqc7C13JzjBCU5w&#xD;
+ghOc4AQnOMEJTnCCE5zgBCc4wQlOcIIjwxDZvYE/tqyxU7fHY6vrjacTf1S3Pa+LvPa4DFrjK71e&#xD;
+7vNP48ePIkjrl0FcopFzf+9TzxnRet8d1Rwntnr4sTcPLnsvz8yNR+37LIBr1LqOR7bXapSWPZrR&#xD;
+R298P/FnTs/znn7zHfT2ds9v6TSJmY+DoeTZgOeJyuE5/rfu5cfpAc6IcARPt36lPkZyVf6VCIby&#xD;
+BLNBwUJZ4F/15wBCKjsAh9ClBk8zQXKVqn70DEqUZXQ+yolQOQLHH5Qm73F5X+QymcxVal3+mMhp&#xD;
+F7MCU52eZoBtQ/xC/GmRBgwn9Pg9UuhblAeYNpf7C1Tek4kUlGGKKW3gLB8QEQIdHJNPn/5XOSJb&#xD;
+BA3Ua28xU1wbL3Zb9FmD8txEQuoii0bpvk/SjBrJqNECDYMiC0FU+lE/+DvvswGMjYkO5UQlLhIB&#xD;
+VEgoV7bzF7lIh+YyLpJg73lgQqB1/uJwnkOBSrE1QWLpBDosImoHkNJOncC9IztzmsTTD2BaOS0U&#xD;
+Y/d1CA84IGtzYCYZzXBuHVCwX4FxDNMHgiMj2W7d/JGLSDmzbsKUM1hs97HmDjWR1Q3K06fROrnS&#xD;
+AIV+IVVS9QN5IfRJ5VnmJqlpy+MREACVmIikFDkYB6CodMlYErmTiFx5ONLR2tRhJruIKOWlVmGw&#xD;
+QA3MQmLAga+NqurVb1I7D08gXRLwuc4kbRBKDew+W9L6qUPvoXcMx6T2ZzwKnGVmmLjctrdM4gcL&#xD;
+/ZW8MRU/J56+J++dszyJfrS8z8C5gmc10Ho9BB4v1UYZM+hzj0CYk0DAyxf6acwOKGKIRRbFEOzC&#xD;
+2CtZa2AaFtTU9MeDYfI43+ySjkIvP19/3DMSfeA48sDFcWbE6zRokqF8PXVb7WN6FFBVgKPTftzM&#xD;
+hoJXGJaQPBPBwZX/xosf7FeXgVaXQCQVGlIeJNW+zIVgQ9+UiYtBY6d5B8KH3MDWDyVy28StVv1c&#xD;
+u9p76+qPuMcXWG3DihdaZIBpXSynFhhEZTT1qouhgLTDXoiQFnSLCHMutMEphekvsdNMzpUrUxJw&#xD;
+/FEHSVttMTQxi5dzSvIeb5IJLqiJwVAmJyPRIAnVpNTYxM3UlE0j7zO9CmWWyAO4KjYMRZLJX9LZ&#xD;
+X5Q0Gb00aJgMKEQz0Hu72hDM5L9SjEO5pgwXJa9GO7RUwa7ebmfGmSj85kyVLwheLp4sdqIvNt/m&#xD;
+amHI2EJnIfRuuFUkq9cLDUwu1Arx2vfCEM1U6I+lz387FTxkMZ9nP01nhlOhFlnXk1Ej3Aykitkg&#xD;
+RstXURvSdwYWEZNcTQ36k4mSj3cs6x204xyMXsGL3GYRg2mUmVU3PT9TpySkIB8GSWiTZwJ/e55N&#xD;
+CcOSjLwHAyPehnB8bX8sok4zwLk0E8/oKYbaVVqqs3r0BxcQZkMuolVINc2Rb486OcruZZj/KaHt&#xD;
+sIVV9blSGPvNFtajxLSp0kVBJkSA6jcHnSN+/lCjsbGSBjZAkBiLaGXmTBi13g8brU5BcrhaYLNM&#xD;
+zHubYLAbODP7RVRPOhEDidAUdh8zsOcwafwt5eZ+Mac98As1zP3CmdHPH2rSrNTEVA+USxHcxDqm&#xD;
+Rq9DpvVWf0NEVMw0gJEgU07BMJsait8dUHBgLyD2B1Oi+mKqA+B288zMITWLcVBxkDFJWjbe8x9M&#xD;
+td8j6gxBYsIfLfCrL2QmldnBrwcdI7NUWcM5N5qKnvXuyYudBxCdvzn08XzXcZh3/wBQSwcI1SH4&#xD;
+NZoKAABQUwAAUEsDBBQACAgIANxSmlgAAAAAAAAAAAAAAAALAAAAY29udGVudC54bWzlW91y27gV&#xD;
+vu9TsMq2V6UoSpZlaWPvpHHT7ayVeCJlZjc7Ox6IBCmMSYAFQMtKpzN5kE6vdvoIvdq7vEmeZA/A&#xD;
+H5GSKJL+SX/smcgmcHDOdz6cAxyAyvNvbsPAuMFcEEZPO3a31zEwdZhLqH/aeTd/ZZ50vjn7zXPm&#xD;
+ecTBE5c5cYipNB1GJfw2YDQVk6T3tBNzOmFIEDGhKMRiIp0JizDNRk2K0hNtK21h7LSzlDKaWJYa&#xD;
+kEh0Gfetfq93ZCXPmbTHmlq6FYHpMQAbRkiSRVAyehsQep2bXa1W3dVAm7TH47GlezNR18nlopgH&#xD;
+Wsp1LBxgZUxYdte2MtkQS9QUn5ItQhJyHTSmUQsXR0t8K5sOVrLFsTySB2ZgaHEcMS5zPjhaNbWk&#xD;
+ZCGYisZcPnCbDx+4JYpu/MYE3fgVU+8sEW9MlRYu8YwWzWdJCxdH0zhcYN7YfSTRzkRDuqwO5suK&#xD;
+E4l5Qdw5KO6gwMmFveZpDJj6eTZ5jIdiXzqBib6VdJcYPJz0Y0sL5TMGEDfhzf18JfJYTIEkWL1S&#xD;
+sPg2wpyoLhToYZOShnIcotVBFHbPUjK5j0sZBtUrhurNRAN2B7TpwljQUETrERxkaZMD3auGMTMU&#xD;
+JoEVmrNoUhhdVBciuazw5cSaQqf+mF5sVl0eNg0NJVtKWoeTqHHCJdIl10HfbTPXYYDJXG/b+y1A&#xD;
+LgsrQtW2lAZ8o9b1fN6FWyn9/fRi5ixxiDbCpF4Y4AmJ6GZP87nr7g0tGDewYLeBdcC8IXj1LM8I&#xD;
+IQZy34j5W0v1mWqJtzZprSirS7lsn00JLpQFg85ZVgMk0yOsvMGDWsD0kINNFzuBOHueLFh5s5E8&#xD;
+q+k67bzgBEGWwNqcCYQkWG/ai0NVj+ljCvMLC5hYESFKEhGRDsTwDYKxaq2wGpg23lEC5Q02prM9&#xD;
+KH6PIia+3hZMWg+DWwuJw/uge8liTjA3XuNVJbCCTANMIaDndB8mj9xitw7QBYF9Sq9VxgxRUQlq&#xD;
+S64JWXomW5iHYV4j+0qwAQDOQrSXmKaTNUXU3xvGaUej4Xb1+McNtdczEs5iusf8pufRwuoNrDuz&#xD;
+dbhg++grdNaoqXShgQf3Z3AOG45QaWi8TUNpf2xuye0JTeQyTvUp4rTzCkv5uHG7hWdfBN4VuPFd&#xD;
+DLvFzRfF338g/DPYi13E3fuDt6r2xLQdxRLUSOKYWk++WerPkquXdm4r9SxCHPkcRcusAxrUWVw/&#xD;
+mGlaZJ5kivNBZgTlEOaSAC8eg/KP+4SakkWnnV7X7juQD5vmBZNSlUg9J08TfeK/lTEKTBEhR98P&#xD;
+eCgQWI+D0zI2l5j4S6hJ7F7vd7qV8WgJWwLo0Y8r4rJV8pToVApNRYnSCOgpozjrU2cYMGKq5ea0&#xD;
+E3BTLnKn4GgAXrNIbDdkxDBBpK5cht1hbwBOWLWSdq87PkkkrR0rVjWZuWLlS5njBXKufa5KfjiH&#xD;
+BgwOfZIDHcm0FQzpzwOR0H+QSNgGmJeEE8hbKHChAPRGw0W/U+jZOLwl0xz84JHB70JEdt92hy0g&#xD;
+Ht0F4svkBkxc9XtXeaoGRJSlLqAhkTiUkO3j2h53e6PBJjvlOgJrXOVfjgUj2KjN9E7JhYzG7lZf&#xD;
+cmPUvUPMN2R2eBdmvwVwkPn1tOkc4xhdmwsMJzys1Pu4xcQfPxi8Bsl1Muh5JzXJlcg0d2D0hVaG&#xD;
+NKUeNu1O/ouWNTSwe7gN+PGXX9baQrR7/wGMI3cxaI5xvlPkKGvt57a5wZ29tKXBtlE+39n/WhvE&#xD;
+zsJtYXBnN2trsGWczXcW+dYG2wXNDDtyJ24ENMLOmJtNn4uWkw7skvQCP6leswFQocUh1XtK8ifU&#xD;
+bDFV1Wyn0OajKKmKC2h3LG07YlUW/2nHgrnr/EERZuj3M7HApmAe0Afbmql3OqFqyBh3CpdvPFSg&#xD;
+eVhQ7zEnFoXyXHVGERxmXCyIT9OaOukGR7Qxgf8aY7o5sOw2JqBcIqIArU0WS130B/gGB7qm193J&#xD;
+FP0lCGIhk1uZ/RZaKJtnh6v7aVFBeV8l58nLrHvreUX8mCeVSjX5OkxN5uUvWxPR4lqdZIJuh/CT&#xD;
+8IjdNEJK00GXKJDiBvMPmDhLSoSqXPYagYCLOZy6deeWD6NsEKEuvjUlkTBU4hD8lXgXXbFCToum&#xD;
+ztkulJSCfTqrMMI/vt6yvIU1o6W6ZC/5kmh0liiSmFvtuvRF+772cvFeXaKrN4xpGb6jRKd+8s4w&#xD;
+j5YaPu7BWr+GtX5L1v6PqBnUUDN4utQc1VBz9HSpGdZQM3y61BzXUHP8dKkZ1VAzerrUnNRQc/J0&#xD;
+qRnXUDN+utTYvbpysPc/T06FWFLPl4wkx83tqvvw8aLyIKFL+4y86L6ngOhs9ziQ6lZ367vqixfs&#xD;
+uZhJgJZqSJdQkNiGbbz684Vx/m46/SEPLOusvw2koG/TUEaZ8Lmf/wMo7Hzul7u9pVvmgyccIkyN&#xD;
+canjKj39HdB8OXxgfcdV+tIxC8auQ8SvIS8Ql8Vwurp6i73M06urOXPsEVTSo/7R8XA0sNWdkJqj&#xD;
+9KwdIbprfQ5mkjm0cqk8Emh6a2JtI8HUbYkjVb88MJ9wOPpWfTtnhbmLqXGNwf5h7BCHKAh8HCpR&#xD;
+ahRduISk/qCSBBT6WGIhsexuYrMSBOx/7wkODJUsWBg05obG8eZ8bpzDOkEM79Mv3FAAu93uBVrD&#xD;
+rM0kjj5//FfXeB8bS7TA9A+Gi0Ii1Ujj+ykkSRxGhsrV2Je5e4jSKp4r3AWC1HdHjAV4Q8IQ1uqi&#xD;
+lygWPvYxmE9NdEtT2sj1cyS054D7TyEigTmDmcbmi9iT/NPPPqh2CVZufSA+Nqaf/u0HsPzATDXi&#xD;
+tp+nwd50zreQCvfhhPjs2TNjN1Ar5OFscIk4/J2yk7gEk4jm6jWyutbTF2xq+oxuSS/OJN9ih0QE&#xD;
+1qGX+v7ytfrK5OGYTFBuflpOwqCGBLX0dsGTyPv0M/XBMR2O71fYuTY+f/znTMYuicPPH/8xKTn0&#xD;
+1Ve//Zt26g3sGep7kFMU/XH9mkniEUez8GM69Kcfez91IZVdjoX4ewPEUEx/92Y6fdFAdFzvXP+R&#xD;
+nbPbOVc3HduzXfnTJmqbaaxUXFpPNrtx4Xp885RuvRX/PeXsV1BLBwhCOQhZFAkAAN8yAABQSwME&#xD;
+FAAACAAA3FKaWMUxy/8oCwAAKAsAABgAAABUaHVtYm5haWxzL3RodW1ibmFpbC5wbmeJUE5HDQoa&#xD;
+CgAAAA1JSERSAAABagAAAgAIAwAAAJyB1nAAAAL9UExURQIAAAAADwQJDQwCAggHCA0JBQwNCwAB&#xD;
+EAULFQUPHQkMEQ0RFRYHABUKAxANCRkRCxARExQYHhkbHgAPIQEQIg4YJBAdKhkeJA8hMBwkLRIh&#xD;
+MRYoNx4rOyEPACgWBykZCiEaEyIcGCUgHCghGzAhDzMjEjgnFzssHD8wHyMkJSElKCkmIikoJi8u&#xD;
+LSUtNSEwPz8wITAwMCIxQSg3RzE/TDtARzNDUzdGWDtGUjpKW0QzJEY3Kkc4KUs8LEM5MUM9OERE&#xD;
+P1BANFhGN1xLO2BRP0NFUENQW09RXEVVZEZYZ0pVYU1ZZUtba1ZfalNicVhmdVppeWRURGdYRmBZ&#xD;
+TmtbS2xgVHFhUXRnWX5uXmhoaWZpfnZyb3l0cQEEggoTiRgLgBYaihYokiYZhCkgiig3lzAhij0x&#xD;
+jTAxkDY8lTA/mzs8lDxDmkc3jUA7klE/kElImE5QmlRIlFFTnFRbn1lUmVpYnVFZoFtnpmJVmGBd&#xD;
+om9gm2R0hGd2iGh4hmp6inhonXp9gWNlo2d0q3lsoHRypnF9rXxzo2+AkHaBjXyDhX2FjHqIlniA&#xD;
+rXmFsIBvYIh2Z4x9bYt/coFvoIZ4o42EepCCdJKGeZeIdqeSfY+OjoGNmIuSlpmPg5+QgZqSiZCQ&#xD;
+kZOUmJWZnZuXlZyYlZuamIaGp4CLsYWWpYiWpoeUtZKJqZOco5+Qq5qdoJCduJairJ6hpZulrpOj&#xD;
+tJalu5qktJqjuaKVg6KZj6yejqSblaGdmbOeiqWWrKScsKidsLCfsK+ikamhmKCkqKWprKiloK2q&#xD;
+pq2sqqKouayxtKy0vLGtqbmvpLaps7m0rLOzsrK1u7S5vLuxtru2ury4srq4up+xwKe0wKC1yra8&#xD;
+wLq+wLHAwL7AwLXC3r7O48CzosK3rsC4psC2uMC5tcC8u8DAscDAvNLEu+DRvsDAwMDHzMPQ3NvU&#xD;
+zNPT08vZ6dbb49zj6tzl8OXWxeTf2unk2/jq2uPj4+Tp7uvs7OX0+/Hs5v//6/Pz8/H1+/769P7+&#xD;
+/tHvdAIAAAfmSURBVHja7dkNkFVVAcDxO+yAFFlTQ6jIBuNYDA2kWZHIMCZ9YRrCKCY5b8EiN77X&#xD;
+lXFhTabHh1hoXysBxTBLwhoQSGAfEIgjEKyDIMtQ+7yFwPHVrRSmDIwwpnvfCllSrAXmuL//DO++&#xD;
+e5a7MD8O5917Njqu16gIAWrUQo1aqFGjFmrUQo0atVCjFmrUqIUatVC/vqmP6Yx0eurDSYgT/c+F&#xD;
+w62g1hkoTk5PfeTr7Z4qlH73wEtOXjg32rPw8uJ//ub7otkt/x/Kr3vlWBusFbM6pd684vH6UBh4&#xD;
+yZb6EBfX1W8Lc6PVA7qsSDbXbwqPLY6TxauSLfU74h31Wxatq58/f1PyeHoW5m8Lu+tXZNTrVhWK&#xD;
+9Tu+tyrJxh5buKmA+tTU5zQP7dSr/WWFgR16te8bD+10UbuH5kbffVu7a27q0Ce6a067xt3nTv1m&#xD;
+1PvND82LOnS5vk+PaMi3y3p3XL4vmrX5rb3aX5uUd+odTX2m7B29otnpWHbR1ID638zqoW968mvn&#xD;
+NA/sUrixc3z/8kejWekC8rELi1dd8OX6Jw+U3/mNjo3dBydX9FuQGsZP9Oi6892DigP67ovu+Wi3&#xD;
+ZOFXk/JBoWe/p8sGF7tfva9s1oDsIrP6VNQvZNTnJ+nrwG7xZzqHYe/9yAnqzVeWRYOL13e7ol/x&#xD;
+3PP6vP9TC6PVcejf8YfF8vTsE+kM7t83m77lg5NL+z7zljuTiwdlMz27qC0u2K2c1efHGfVl8Y2d&#xD;
+90ZTf9xC3TUM+3Tof2F4NIoeLL7n8nDz8nnRmuKwaHYx6fnBcPOidAbf8M5tN3QL5UPiS/vtLvtS&#xD;
+cvHV6UwfNji9KDarT71WPzW0a4m6W3JT53BV9L4eg1PqOdEHFvSI3v6dOO7ZNU5+0iO6YPmCaHXy&#xD;
+riiKPrz2oui85XujWU9cGXW6p9Ayq8vuSrpfuzea3XIR6lPd7IUku2EoJIX0EApJHBfj0q/0XdaJ&#xD;
++8Y4JMW49CZOiqWvJcXw0kKRvYbSsRAKxbht3u79N48wceZ5qpv0fx2IY8+Zr4baHshrtgcim6hv&#xD;
+POpjh3VGOmZn7/V8B6Kz9WD+0tZQuPuO7LBh/C+SZNekL+an3BeWVOUnLd0+ceLD2ZenVOYnNoS6&#xD;
+yplhRn5Z5bRQqKuctqyyJklKx+rmutub2y7z/upJ01oxqzfmG0vGE0el6E3Tc3vS55jaW0K4t25k&#xD;
+YxJmFCaMLv1L1FWE9bmV63Nrkh80hM/nmptuza0MX8g1hnG5pcltIwtTtrbhGb2/YVfu16d/WpyQ&#xD;
+qyk9LdaOyi7antuTvtbeUliSjBudDScTxpa2n+sqCmFETQv1gZqR0+pm5FYWp3yupu7ulHrXiNtr&#xD;
+QptePtZXHDz9rF5W+aPMMtRmszqk1OmTem1F/o6MOl09GltmdfKtikJhxLQS9dJd+dqRVY+k1Pnp&#xD;
+FVXbU+pCba6xTUs3jV/5Kj4WT87qkM3qsDOdx43JbaPDhLFJkg/ZrN6eW7krd18yfc3+fFNu5sZ0&#xD;
+AZnSNGJmRh2mVxSSupq6mkfGbhjbNGbruD2TGyY3tJWByQ1N4+9ddrDV1BuqxjSki06+Mt+cNE0a&#xD;
+szRbM6rzVfdunDg2n89nH4tTqpYUwrJbq2eGZdU7p5c+FqsbZzSnx7Bz8qil4eQfPv7h8Vv/6W/z&#xD;
+xh5ITzdUVlb+qtV3IEnLMYSkmC3R4eVjxdJ5yxZg9lJIWnYBW05Lb/6xUr/ixwJtYCC07mbvWZ2R&#xD;
+XrAHYrsJtVCjFmrUqIUatVCjRi3UqIUaNWqhRi3UqIUaNWqhRi3UqFELNWqhRo1aqFELNWrUQo1a&#xD;
+qFGjFmrUQo1aqFGjFmrUQo0atVCjFmrUqIUatVCjRi3UqIUaNWqhRi3UqFELNWqhRi3UqFELNWqh&#xD;
+Ro1aqFELNWrUQo1aqFGjFmrUQo0atVCjFmrUQo0atVCjFmrUqIUatVCjRi3UqIUaNWqhRi3UqFEL&#xD;
+NWqhRi3UqFELNWqhRo1aqFELNWrUQo1aqFGjFmrUQo0atVCjFmrUqIUatVCjFmrUqIUatVCjRi3U&#xD;
+qIUaNWqhRi3UqFELNWqhRo1aqFELNWqhRo1aqFELNWrUQo1aqFGjFmrUQo0atVCjFmrUqIUatVCj&#xD;
+FmrUqIUatVCjRi3UqIUaNWqhRi3UqFELNWqhRo1aqFELNWrUQo1aqFELNWrUQo1aqFGjFmrUQo0a&#xD;
+tVCjFmrUqIUatVCjRi3UqIUatVCjRi3UqIUaNWqhRi3UqFELNWqhRo1aqFELNWrUQo1aqFELNWrU&#xD;
+Qo1aqFGjFmrUQo0atVCjFmrUqIUatVCjRi3UqIUaNWqhRi3UqIUaNWqhRi3UqFELNWqhRo1aqFEL&#xD;
+NWrUQo1aqFGjFmrUQo1aqFGjFmrUQo0atVCjFmrUqIUatVCjRi3UqIUaNWqhRi3UqIUaNWqhRi3U&#xD;
+qFELNWqhRo1aqFELNWrUQo1aqFGjFmrUQo0atVCjFmrUQo0atVCjFmrUqIUatVCjRi3UqIUaNWqh&#xD;
+Rv3/7/nCkezwp5cNHUF9NvrtkqObsuPPjz97YugPH0d9Nvrjh7a9eHTR/CNfef6Th9au+/1Pn0vH&#xD;
+hqM+OwvI/UPmfX/Oc8P/+tk/X7P3wdIQ6rPSb/5yfPjPfpnyptTXpfAvoj5bHV215dDfHth0+IEj&#xD;
+aw8+vfjQgUPpWr34d6jd7Ak1aqFGLdSoUQs1aqFGjVpnqr8D5pAEx9R8wX0AAAAASUVORK5CYIJQ&#xD;
+SwMEFAAICAgA3FKaWAAAAAAAAAAAAAAAABUAAABNRVRBLUlORi9tYW5pZmVzdC54bWytlE1uwyAQ&#xD;
+hfc5hcW2MqTtpkJxsqjUE6QHoHhwkGBA/ETJ7YutOHFVJYrb7Bgz/t57A/Zqc7Cm2kOI2mFDnumS&#xD;
+VIDStRq7hnxuP+o3slkvVlagVhATHxdVeQ/juWxIDsidiDpyFBYiT5I7D9g6mS1g4j/7+aB0riYG&#xD;
+XskJbRwcRm7o+AhSLmMrUuk+CcHBQ9D9ljDcKaUl8AlhUFovqksEpQ3UpT0cLwZUNqb2Iu0awq76&#xD;
+ugwBWi3qdPTQEOG90XIwxPbY0mEGdBqdpmKDsDke3h0q3eUwYOMLE1KCgVK6wGQOoaeWjFcs/U/r&#xD;
+zpwxY2+BZk3llDBPfHxGQ6vuEC5dT33uWRoxHQ3EG/Pqz4fNxlpI4uHQCCmVT+/xbssZpdu35m/c&#xD;
+7S7bLxTaRJbGJfXYXRHRVnTA+v2ismK/fivrb1BLBwizTF1BQAEAAJEEAABQSwECFAAUAAAIAADc&#xD;
+UppYXsYyDCcAAAAnAAAACAAAAAAAAAAAAAAAAAAAAAAAbWltZXR5cGVQSwECFAAUAAAIAADcUppY&#xD;
+AAAAAAAAAAAAAAAAGgAAAAAAAAAAAAAAAABNAAAAQ29uZmlndXJhdGlvbnMyL3BvcHVwbWVudS9Q&#xD;
+SwECFAAUAAAIAADcUppYAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAAACFAAAAQ29uZmlndXJhdGlv&#xD;
+bnMyL2Zsb2F0ZXIvUEsBAhQAFAAICAgA3FKaWAAAAAACAAAAAAAAACcAAAAAAAAAAAAAAAAAuwAA&#xD;
+AENvbmZpZ3VyYXRpb25zMi9hY2NlbGVyYXRvci9jdXJyZW50LnhtbFBLAQIUABQAAAgAANxSmlgA&#xD;
+AAAAAAAAAAAAAAAfAAAAAAAAAAAAAAAAABIBAABDb25maWd1cmF0aW9uczIvaW1hZ2VzL0JpdG1h&#xD;
+cHMvUEsBAhQAFAAACAAA3FKaWAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAATwEAAENvbmZpZ3Vy&#xD;
+YXRpb25zMi9wcm9ncmVzc2Jhci9QSwECFAAUAAAIAADcUppYAAAAAAAAAAAAAAAAGAAAAAAAAAAA&#xD;
+AAAAAACJAQAAQ29uZmlndXJhdGlvbnMyL21lbnViYXIvUEsBAhQAFAAACAAA3FKaWAAAAAAAAAAA&#xD;
+AAAAABoAAAAAAAAAAAAAAAAAvwEAAENvbmZpZ3VyYXRpb25zMi9zdGF0dXNiYXIvUEsBAhQAFAAA&#xD;
+CAAA3FKaWAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAAAA9wEAAENvbmZpZ3VyYXRpb25zMi90b29s&#xD;
+YmFyL1BLAQIUABQAAAgAANxSmlgAAAAAAAAAAAAAAAAaAAAAAAAAAAAAAAAAAC0CAABDb25maWd1&#xD;
+cmF0aW9uczIvdG9vbHBhbmVsL1BLAQIUABQACAgIANxSmli092jSBQEAAIMDAAAMAAAAAAAAAAAA&#xD;
+AAAAAGUCAABtYW5pZmVzdC5yZGZQSwECFAAUAAgICADcUppY700GZ+gRAAB9nQAACgAAAAAAAAAA&#xD;
+AAAAAACkAwAAc3R5bGVzLnhtbFBLAQIUABQACAgIANxSmlg6giCm9wEAACkEAAAIAAAAAAAAAAAA&#xD;
+AAAAAMQVAABtZXRhLnhtbFBLAQIUABQACAgIANxSmljVIfg1mgoAAFBTAAAMAAAAAAAAAAAAAAAA&#xD;
+APEXAABzZXR0aW5ncy54bWxQSwECFAAUAAgICADcUppYQjkIWRQJAADfMgAACwAAAAAAAAAAAAAA&#xD;
+AADFIgAAY29udGVudC54bWxQSwECFAAUAAAIAADcUppYxTHL/ygLAAAoCwAAGAAAAAAAAAAAAAAA&#xD;
+AAASLAAAVGh1bWJuYWlscy90aHVtYm5haWwucG5nUEsBAhQAFAAICAgA3FKaWLNMXUFAAQAAkQQA&#xD;
+ABUAAAAAAAAAAAAAAAAAcDcAAE1FVEEtSU5GL21hbmlmZXN0LnhtbFBLBQYAAAAAEQARAHAEAADz&#xD;
+OAAAAAA=</MimeBlob>
+      <PreviewBlob />
+    </Mimedata>
+    <Mimedata entity="Mimedata">
+      <CreatedAt>2025-02-12 11:26:26</CreatedAt>
+      <Description />
+      <ExternalDmsIdentifier />
+      <Id>9191</Id>
+      <MimeFilename>STUSerienEMailRueckmeldungAblauf_20250212.html</MimeFilename>
+      <MimePath />
+      <MimeType>text/html</MimeType>
+      <ObjGuid>f7b12155-0ea5-4a7b-bcfb-eda325378f8a</ObjGuid>
+      <MimeBlob isBase64encoded="true" isHandledAfterPersist="true">PCFET0NUWVBFIGh0bWw+DQo8aHRtbD4NCjxoZWFkPg0KCTxtZXRhIGh0dHAtZXF1aXY9ImNvbnRl&#xD;
+bnQtdHlwZSIgY29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ii8+DQoJPHRpdGxlPlLD&#xD;
+vGNrbWVsZGVhdWZmb3JkZXJ1bmc8L3RpdGxlPg0KCTxtZXRhIG5hbWU9ImdlbmVyYXRvciIgY29u&#xD;
+dGVudD0iTGlicmVPZmZpY2UgNy42LjQuMSAoV2luZG93cykiLz4NCgk8bWV0YSBuYW1lPSJjcmVh&#xD;
+dGVkIiBjb250ZW50PSIwMDowMDowMCIvPg0KCTxtZXRhIG5hbWU9ImNoYW5nZWQiIGNvbnRlbnQ9&#xD;
+IjIwMjUtMDEtMTZUMDg6MzI6MDkuMTI4MDAwMDAwIi8+DQoJPG1ldGEgbmFtZT0iIiBjb250ZW50&#xD;
+PSIiLz4NCgk8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRo&#xD;
+LCBpbml0aWFsLXNjYWxlPTEuMCIvPg0KCTxtZXRhIG5hbWU9ImNyZWF0ZWQiIGNvbnRlbnQ9IjAw&#xD;
+OjAwOjAwIj4NCjwvaGVhZD4NCjxib2R5IGxhbmc9ImRlLURFIiBkaXI9Imx0ciI+DQo8cD48c3Ry&#xD;
+b25nPkFibGF1ZiBkZXIgUsO8Y2ttZWxkZWZyaXN0IHp1bQ0KJHtlbnRyeS5jdXN0b21TZXR0aW5n&#xD;
+cy5zZW1lc3Rlcn0gJHtlbnRyeS5jdXN0b21TZXR0aW5ncy55ZWFyfTwvc3Ryb25nPjwvcD4NCjxw&#xD;
+Pjxici8+Cjxici8+Cg0KPC9wPg0KPHA+I3NldCgkYW5yZWRlID0gJ1NlaHIgZ2VlaHJ0ZXIvZSBI&#xD;
+ZXJyL0ZyYXUgJykgI2lmKCR7ZW50cnkuR2VzY2hsfQ0KPT0gJ23DpG5ubGljaCcpICNzZXQoJGFu&#xD;
+cmVkZSA9ICdTZWhyIGdlZWhydGVyIEhlcnIgJykNCiNlbHNlaWYoJHtlbnRyeS5HZXNjaGxlY2h0&#xD;
+fSA9PSAnd2VpYmxpY2gnKSAjc2V0KCRhbnJlZGUgPSAnU2Vocg0KZ2VlaHJ0ZSBGcmF1ICcpICNl&#xD;
+bmQgJGFucmVkZSAke2VudHJ5Lk5hY2huYW1lfSw8L3A+DQo8cD5kaWUgUsO8Y2ttZWxkZWZyaXN0&#xD;
+IGbDvHIgZGFzIDxzdHJvbmc+JHtlbnRyeS5jdXN0b21TZXR0aW5ncy5zZW1lc3Rlcn0NCiR7ZW50&#xD;
+cnkuY3VzdG9tU2V0dGluZ3MueWVhcn08L3N0cm9uZz4gaXN0IGFtDQo8c3Ryb25nPiR7cGxhY2Vo&#xD;
+b2xkZXIucGFyc2UoJyQke2N1c3RvbVNldHRpbmdzLnJ1ZWNrbWVsZHVuZ0VuZGV9Jyl9DQo8L3N0&#xD;
+cm9uZz48c3Ryb25nPjxzcGFuIHN0eWxlPSJmb250LXdlaWdodDogbm9ybWFsIj5hYmdlbGF1ZmVu&#xD;
+PC9zcGFuPjwvc3Ryb25nPjxzdHJvbmc+PHNwYW4gc3R5bGU9ImZvbnQtd2VpZ2h0OiBub3JtYWwi&#xD;
+Pi48L3NwYW4+PC9zdHJvbmc+PC9wPg0KPHA+R2Vtw6TDnyDCpyAxMSBBYnNhdHogMSBkZXIgSW1t&#xD;
+YXRyaWt1bGF0aW9uc29yZG51bmcgZGVyIFRVDQpCZXJnYWthZGVtaWUgRnJlaWJlcmcgdm9tIDE5&#xD;
+LiBBcHJpbCAyMDEwIGluIGRlciBnZWx0ZW5kZW4gRmFzc3VuZw0KbcO8c3NlbiBTaWUgc2ljaCB6&#xD;
+dSBqZWRlbSBTZW1lc3RlciBmb3JtLSB1bmQgZnJpc3RnZXJlY2h0IHp1bQ0KV2VpdGVyc3R1ZGl1&#xD;
+bSBhbm1lbGRlbiAoUsO8Y2ttZWxkdW5nKS48YnIvPgpEYXMgV2VpdGVyc3R1ZGl1bSBlcmZvbGd0&#xD;
+DQpkdXJjaCBaYWhsdW5nIGRlciBHZWLDvGhyZW4gdW5kIEJlaXRyw6RnZS48YnIvPgo8YnIvPgo8&#xD;
+YnIvPgoNCjwvcD4NCjxwPlNpZSBlcmhhbHRlbiBoaWVybWl0IEdlbGVnZW5oZWl0IHNpY2ggZsO8&#xD;
+ciBkYXMNCjxzdHJvbmc+JHtlbnRyeS5jdXN0b21TZXR0aW5ncy5zZW1lc3Rlcn0gJHtlbnRyeS5j&#xD;
+dXN0b21TZXR0aW5ncy55ZWFyfTwvc3Ryb25nPg0KPGI+bm9jaCA8L2I+PHN0cm9uZz5iaXMgenVt&#xD;
+ICR7cGxhY2Vob2xkZXIucGFyc2UoJyQke0FrdFNlbUVuZH0nKX08L3N0cm9uZz4NCnp1bSBTdHVk&#xD;
+aXVtIHp1csO8Y2t6dW1lbGRlbi48L3A+DQo8cD5Tb2xsdGUgZsO8ciBTaWUgZWluZSBSw7xja21l&#xD;
+bGRlc3BlcnJlIGltIFN5c3RlbSBoaW50ZXJsZWd0IHNlaW4sDQptw7xzc3RlbiBTaWUgZGllIGRh&#xD;
+ZsO8ciBuw7Z0aWdlbiBVbnRlcmxhZ2VuIGViZW5mYWxscyBiaXMgenVtDQo8c3Ryb25nPiR7cGxh&#xD;
+Y2Vob2xkZXIucGFyc2UoJyQke0FrdFNlbUVuZH0nKX0gPC9zdHJvbmc+bmFjaHJlaWNoZW4uPC9w&#xD;
+Pg0KPHA+RGllIEF1ZnNjaGzDvHNzZWx1bmcgZGVyIHp1IHphaGxlbmRlbiBHZWLDvGhyZW4gc293&#xD;
+aWUgZGFzDQpTY2hyZWliZW4genVyIGZlaGxlbmRlbiBSw7xja21lbGR1bmcgZmluZGVuIFNpZSBp&#xD;
+bSA8YSBocmVmPSIkZW50cnkuY29udGV4dFVybC9wYWdlcy9jcy9zeXMvcG9ydGFsL2hpc2lub25l&#xD;
+U3RhcnRQYWdlLmZhY2VzP3BhZ2U9U3R1ZGllcmVuZGUiPlN0dWRpZW5zZXJ2aWNlPC9hPg0KZGVz&#xD;
+IEhvY2hzY2h1bHBvcnRhbHMgZGVyIFRVIEJlcmdha2FkZW1pZSBGcmVpYmVyZyAoUmVnaXN0ZXJr&#xD;
+YXJ0ZToNCjxzdHJvbmc+WmFobHVuZ2VuIHNvd2llIEJlc2NoZWlkZS9CZXNjaGVpbmlndW5nZW48&#xD;
+L3N0cm9uZz4pLjwvcD4NCjxwPldlaXRlcmUgSW5mb3JtYXRpb24genVyIFLDvGNrbWVsZHVuZyB1&#xD;
+bmQgenVyIEV4bWF0cmlrdWxhdGlvbg0Ka8O2bm5lbiBTaWUgYXVjaCBhdWYgdW5zZXJlciBJbnRl&#xD;
+cm5ldHNlaXRlIG5hY2hsZXNlbjoNCjxhIGhyZWY9Imh0dHBzOi8vdHUtZnJlaWJlcmcuZGUvc3R1&#xD;
+ZGl1bS9pbS1zdHVkaXVtL3N0dWRpZW5vcmdhbmlzYXRpb24iPlN0dWRpZW5vcmdhbmlzYXRpb248&#xD;
+L2E+LjwvcD4NCjxwIHN0eWxlPSJtYXJnaW4tYm90dG9tOiAwY20iPk1pdCBmcmV1bmRsaWNoZW4g&#xD;
+R3LDvMOfZW48L3A+DQo8cCBzdHlsZT0ibWFyZ2luLXRvcDogMC4xY20iPklociBTdHVkaWVyZW5k&#xD;
+ZW5iw7xybzwvcD4NCjxoci8+Cg0KPHA+PHN0cm9uZz5FeHBpcnkgb2YgdGhlIHJlLXJlZ2lzdHJh&#xD;
+dGlvbiBkZWFkbGluZSBmb3IgdGhlDQoke2VudHJ5LmN1c3RvbVNldHRpbmdzLnNlbWVzdGVyfSAk&#xD;
+e2VudHJ5LmN1c3RvbVNldHRpbmdzLnllYXJ9PC9zdHJvbmc+PC9wPg0KPHA+PGJyLz4KPGJyLz4K&#xD;
+DQo8L3A+DQo8cCBzdHlsZT0ibWFyZ2luLXRvcDogMC4xY207IG1hcmdpbi1ib3R0b206IDAuNGNt&#xD;
+Ij5EZWFyDQoke2VudHJ5LlZvcm5hbWV9ICR7ZW50cnkuTmFjaG5hbWV9LDwvcD4NCjxwPnRoZSBk&#xD;
+ZWFkbGluZSBmb3IgcmUtcmVnaXN0cmF0aW9uIGZvciB0aGUNCjxzdHJvbmc+JHtlbnRyeS5jdXN0&#xD;
+b21TZXR0aW5ncy5zZW1lc3Rlcn0gJHtlbnRyeS5jdXN0b21TZXR0aW5ncy55ZWFyfTwvc3Ryb25n&#xD;
+Pg0KZXhwaXJlZCBvbg0KPHN0cm9uZz4ke3BsYWNlaG9sZGVyLnBhcnNlKCckJHtjdXN0b21TZXR0&#xD;
+aW5ncy5ydWVja21lbGR1bmdFbmRlfScpfS48L3N0cm9uZz48L3A+DQo8cD5BY2NvcmRpbmcgdG8g&#xD;
+U2VjdGlvbiAxMSBTdWJzZWN0aW9uIDEgb2YgdGhlIFRVIEJlcmdha2FkZW1pZQ0KRnJlaWJlcmcn&#xD;
+cyBlbnJvbGxtZW50IHJlZ3VsYXRpb25zIG9mIEFwcmlsIDE5LCAyMDEwIGluIHRoZSBjdXJyZW50&#xD;
+DQp2ZXJzaW9uLCB5b3UgbXVzdCByZWdpc3RlciBmb3IgZnVydGhlciBzdHVkaWVzIGluIHRoZSBj&#xD;
+b3JyZWN0IGZvcm0NCmFuZCB3aXRoaW4gdGhlIGRlYWRsaW5lIGZvciBlYWNoIHNlbWVzdGVyDQoo&#xD;
+cmUtcmVnaXN0cmF0aW9uKS48YnIvPgpDb250aW51ZWQgc3R1ZGllcyBhcmUgY2FycmllZCBvdXQg&#xD;
+YnkgcGF5aW5nDQp0aGUgZmVlcyBhbmQgY29udHJpYnV0aW9ucy48L3A+DQo8cCBzdHlsZT0ibWFy&#xD;
+Z2luLWJvdHRvbTogMGNtIj48YnIvPgoNCjwvcD4NCjxwPllvdSBhcmUgaGVyZWJ5IGdpdmVuIHRo&#xD;
+ZSBvcHBvcnR1bml0eSB0byByZS1yZWdpc3RlciBmb3IgdGhlDQo8c3Ryb25nPiR7ZW50cnkuY3Vz&#xD;
+dG9tU2V0dGluZ3Muc2VtZXN0ZXJ9ICR7ZW50cnkuY3VzdG9tU2V0dGluZ3MueWVhcn08L3N0cm9u&#xD;
+Zz4NCjxiPmJ5PC9iPjxzdHJvbmc+ICR7cGxhY2Vob2xkZXIucGFyc2UoJyQke0FrdFNlbUVuZH0n&#xD;
+KX08L3N0cm9uZz4uPC9wPg0KPHA+SWYgYSByZS1yZWdpc3RyYXRpb24gYmxvY2sgaGFzIGJlZW4g&#xD;
+c3RvcmVkIGluIHRoZSBzeXN0ZW0gZm9yIHlvdSwNCnlvdSB3b3VsZCBhbHNvIGhhdmUgdG8gc3Vi&#xD;
+bWl0IHRoZSBuZWNlc3NhcnkgZG9jdW1lbnRzIGJ5DQo8c3Ryb25nPiR7cGxhY2Vob2xkZXIucGFy&#xD;
+c2UoJyQke0FrdFNlbUVuZH0nKX08L3N0cm9uZz4uPC9wPg0KPHA+VGhlIGJyZWFrZG93biBvZiB0&#xD;
+aGUgZmVlcyB0byBiZSBwYWlkIGFuZCB0aGUgbGV0dGVyIGFib3V0IHRoZSBsYWNrDQpvZiByZS1y&#xD;
+ZWdpc3RyYXRpb24gY2FuIGJlIGZvdW5kIGluIHRoZSA8YSBocmVmPSIkZW50cnkuY29udGV4dFVy&#xD;
+bC9wYWdlcy9jcy9zeXMvcG9ydGFsL2hpc2lub25lU3RhcnRQYWdlLmZhY2VzP3BhZ2U9U3R1ZGll&#xD;
+cmVuZGUiPlN0dWRlbnQgU2VydmljZTwvYT4gb24gdGhlIFVuaXZlcnNpdHkgcG9ydGFsIG9mIHRo&#xD;
+ZSBUVSBCZXJnYWthZGVtaWUNCkZyZWliZXJnICh0YWI6IDxiPlBheW1lbnRzPC9iPjxzdHJvbmc+&#xD;
+IGFuZCBSZXF1ZXN0ZWQNClJlcG9ydHMvUmVwb3J0czwvc3Ryb25nPikuPC9wPg0KPHA+WW91IGNh&#xD;
+biBhbHNvIGZpbmQgZnVydGhlciBpbmZvcm1hdGlvbiBvbiByZS1yZWdpc3RyYXRpb24gYW5kDQpk&#xD;
+ZS1yZWdpc3RyYXRpb24gb24gb3VyIHdlYnNpdGU6IDxhIGhyZWY9Imh0dHBzOi8vdHUtZnJlaWJl&#xD;
+cmcuZGUvZW4vc3R1ZHkvc3R1ZHkvc3R1ZHktb3JnYW5pemF0aW9uIj5TdHVkeQ0Kb3JnYW5pemF0&#xD;
+aW9uPC9hPi4gDQo8L3A+DQo8cD5CZXN0IHJlZ2FyZHM8YnIvPgpZb3VyIFN0dWRlbnQgT2ZmaWNl&#xD;
+PC9wPg0KPHA+PGJyLz4KPGJyLz4KDQo8L3A+DQo8cD48YnIvPgo8YnIvPgoNCjwvcD4NCjxwPjxi&#xD;
+ci8+Cjxici8+Cg0KPC9wPg0KPHA+PGJyLz4KPGJyLz4KDQo8L3A+DQo8cD48YnIvPgo8YnIvPgoN&#xD;
+CjwvcD4NCjxwPjxici8+Cjxici8+Cg0KPC9wPg0KPC9ib2R5Pg0KPC9odG1sPg==</MimeBlob>
+      <PreviewBlob />
+    </Mimedata>
+  </Mimedata-collection>
+  <DocumentMetadata-collection>
+    <DocumentMetadata entity="DocumentMetadata">
+      <CreatedAt>2024-10-30 13:30:52</CreatedAt>
+      <DmsMetadata>his_object_guid,7353cb6c-bbcf-44f8-a2e7-6567ab9bb15a;filename,AllgemeineVorlageDummyFGL20240426;his_object_id,1025;his_category,Vorlage;his_document_metadata_guid,f1e8cea5-3942-4aab-b6f4-67f2e678a870;his_document_metadata_id,7939;his_created_at_timestamp,1729072019000;his_mimedata_guid,a332a312-4bfa-45bd-8640-3615706af7b4;his_expiry_date,;his_mimedata_id,7839;his_object_type,cs.sys.steps.steps.SerialEMailJob</DmsMetadata>
+      <DocumentAccessExpiryDate />
+      <DocumentAccessTime />
+      <DocumentAccessed />
+      <ExpiryDate />
+      <GroupId />
+      <Id>7939</Id>
+      <IsEAdministrativeAct>false</IsEAdministrativeAct>
+      <LogicalFilename>testAnhang</LogicalFilename>
+      <ObjGuid>f1e8cea5-3942-4aab-b6f4-67f2e678a870</ObjGuid>
+      <RightsContext />
+      <SentByMail />
+      <Sortorder />
+      <TransmissionDate />
+      <ValidationResult />
+      <CreatedBy entity="Person" incomplete="y">
+        <Id>410</Id>
+        <ObjGuid>0b00f2f4-a7a2-46ca-a264-41d721586d40</ObjGuid>
+      </CreatedBy>
+      <DocumentDeletePolicy />
+      <DocumentMetadataCategoryValue entity="DocumentMetadataCategoryValue" incomplete="y">
+        <Id>10</Id>
+        <ObjGuid>51eb2ea0-a941-11df-94e2-0800200c9a66</ObjGuid>
+      </DocumentMetadataCategoryValue>
+      <Mimedata entity="Mimedata" incomplete="y">
+        <Id>7839</Id>
+        <ObjGuid>a332a312-4bfa-45bd-8640-3615706af7b4</ObjGuid>
+      </Mimedata>
+      <Purpose />
+      <Status />
+      <Target entity="SerialEMailJob">
+        <Id>1025</Id>
+        <ObjGuid>7353cb6c-bbcf-44f8-a2e7-6567ab9bb15a</ObjGuid>
+      </Target>
+    </DocumentMetadata>
+    <DocumentMetadata entity="DocumentMetadata">
+      <CreatedAt>2025-02-12 11:26:26</CreatedAt>
+      <DmsMetadata>his_object_guid,7353cb6c-bbcf-44f8-a2e7-6567ab9bb15a;filename,STUSerienEMailRueckmeldungAblauf_20250212;his_object_id,1025;his_category,Vorlage;his_document_metadata_guid,fb111578-d850-44ff-897a-3790026946a4;his_document_metadata_id,9120;his_created_at_timestamp,1739355986329;his_mimedata_guid,f7b12155-0ea5-4a7b-bcfb-eda325378f8a;his_expiry_date,;his_mimedata_id,9191;his_object_type,cs.sys.steps.steps.SerialEMailJob</DmsMetadata>
+      <DocumentAccessExpiryDate />
+      <DocumentAccessTime />
+      <DocumentAccessed />
+      <ExpiryDate />
+      <GroupId />
+      <Id>9120</Id>
+      <IsEAdministrativeAct>false</IsEAdministrativeAct>
+      <LogicalFilename>STUSerienEMailRueckmeldungNachTUBAF</LogicalFilename>
+      <ObjGuid>fb111578-d850-44ff-897a-3790026946a4</ObjGuid>
+      <RightsContext />
+      <SentByMail />
+      <Sortorder />
+      <TransmissionDate />
+      <ValidationResult />
+      <CreatedBy entity="Person" incomplete="y">
+        <Id>410</Id>
+        <ObjGuid>0b00f2f4-a7a2-46ca-a264-41d721586d40</ObjGuid>
+      </CreatedBy>
+      <DocumentDeletePolicy />
+      <DocumentMetadataCategoryValue entity="DocumentMetadataCategoryValue" incomplete="y">
+        <Id>10</Id>
+        <ObjGuid>51eb2ea0-a941-11df-94e2-0800200c9a66</ObjGuid>
+      </DocumentMetadataCategoryValue>
+      <Mimedata entity="Mimedata" incomplete="y">
+        <Id>9191</Id>
+        <ObjGuid>f7b12155-0ea5-4a7b-bcfb-eda325378f8a</ObjGuid>
+      </Mimedata>
+      <Purpose />
+      <Status />
+      <Target entity="SerialEMailJob">
+        <Id>1025</Id>
+        <ObjGuid>7353cb6c-bbcf-44f8-a2e7-6567ab9bb15a</ObjGuid>
+      </Target>
+    </DocumentMetadata>
+  </DocumentMetadata-collection>
+  <Confsrc-collection searchColumns="Uniquename">
+    <Confsrc entity="Confsrc" update="false">
+      <Id>1</Id>
+      <ObjGuid>0b1c0c1c-9997-472d-ab19-f34329ff225c</ObjGuid>
+      <Uniquename>HIS</Uniquename>
+    </Confsrc>
+    <Confsrc entity="Confsrc" update="false">
+      <Id>11</Id>
+      <ObjGuid>c21238c4-8267-4f8f-bec3-8ff02a71bbfa</ObjGuid>
+      <Uniquename>tubaf-STU</Uniquename>
+    </Confsrc>
+  </Confsrc-collection>
+  <DataSelectionDefinition-collection ignoreOnMerge="Active" />
+  <DataSelection-collection />
+  <HqlDataSelectionParameter-collection />
+  <ReportingCenterElement-collection>
+    <ApplicationDialogReportingCenterElement entity="ApplicationDialogReportingCenterElement">
+      <DialogKey>cm.stu.search-student-reports</DialogKey>
+      <Id>133</Id>
+      <NavigationItems>admittedApplicants2</NavigationItems>
+      <ObjGuid>625e295b-a0e8-426c-a533-d9e37f8c0ddb</ObjGuid>
+      <Domains>
+        <Element entity="DomainValue" incomplete="y">
+          <Id>4</Id>
+          <ObjGuid>aa16c558-8d21-4067-b3eb-1d8479166428</ObjGuid>
+        </Element>
+      </Domains>
+      <Parent />
+    </ApplicationDialogReportingCenterElement>
+    <JobReportingCenterElement entity="JobReportingCenterElement">
+      <Id>690</Id>
+      <ObjGuid>faf58f7e-ccc3-4701-bc22-63617fd8c7a9</ObjGuid>
+      <Job entity="SerialEMailJob" incomplete="y">
+        <Id>1025</Id>
+        <ObjGuid>7353cb6c-bbcf-44f8-a2e7-6567ab9bb15a</ObjGuid>
+      </Job>
+      <Parent entity="ApplicationDialogReportingCenterElement" incomplete="y">
+        <Id>133</Id>
+        <ObjGuid>625e295b-a0e8-426c-a533-d9e37f8c0ddb</ObjGuid>
+      </Parent>
+    </JobReportingCenterElement>
+  </ReportingCenterElement-collection>
+  <ReportingCenterElementConfiguration-collection searchColumns="{ReportingCenterElement,Confsrc}" startNewPass="true">
+    <ReportingCenterElementConfiguration entity="ReportingCenterElementConfiguration">
+      <Active>true</Active>
+      <Defaultlanguage>12</Defaultlanguage>
+      <Id>256</Id>
+      <InheritConditions>true</InheritConditions>
+      <InheritSortorder>true</InheritSortorder>
+      <ObjGuid>d34dcd5e-7d7b-4e78-9576-199e75c2a9b1</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <Sortorder />
+      <Title>Bescheide, Serienbriefe erstellen</Title>
+      <Conditions />
+      <ConfigurationProperties />
+      <Confsrc entity="Confsrc" incomplete="y">
+        <Id>1</Id>
+        <ObjGuid>0b1c0c1c-9997-472d-ab19-f34329ff225c</ObjGuid>
+      </Confsrc>
+      <ReportingCenterElement entity="ApplicationDialogReportingCenterElement" incomplete="y">
+        <Id>133</Id>
+        <ObjGuid>625e295b-a0e8-426c-a533-d9e37f8c0ddb</ObjGuid>
+      </ReportingCenterElement>
+    </ReportingCenterElementConfiguration>
+    <ReportingCenterElementConfiguration entity="ReportingCenterElementConfiguration">
+      <Active>true</Active>
+      <Defaultlanguage>12</Defaultlanguage>
+      <Id>717</Id>
+      <InheritConditions>false</InheritConditions>
+      <InheritSortorder>true</InheritSortorder>
+      <ObjGuid>2def96a6-64be-48c2-aade-d89b57be1bad</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <Sortorder />
+      <Title />
+      <Conditions />
+      <ConfigurationProperties />
+      <Confsrc entity="Confsrc" incomplete="y">
+        <Id>11</Id>
+        <ObjGuid>c21238c4-8267-4f8f-bec3-8ff02a71bbfa</ObjGuid>
+      </Confsrc>
+      <ReportingCenterElement entity="JobReportingCenterElement" incomplete="y">
+        <Id>690</Id>
+        <ObjGuid>faf58f7e-ccc3-4701-bc22-63617fd8c7a9</ObjGuid>
+      </ReportingCenterElement>
+    </ReportingCenterElementConfiguration>
+  </ReportingCenterElementConfiguration-collection>
+  <ReportingCenterDomainSetting-collection />
+  <Foreigntext-collection searchColumns="{Table, Objectid, Column, Language}" startNewPass="true" />
+  <EntitiesToDelete>
+    <EntityToDelete entityName="DocumentMetadata" guid="a9e7e083-cffc-476d-b1fb-e3dbc341a0cf" deletionTimestamp="1739174108074" />
+    <EntityToDelete entityName="DocumentMetadata" guid="979ccbec-aaca-4602-ab83-0b4330a8bd6f" deletionTimestamp="1739174272035" />
+    <EntityToDelete entityName="DocumentMetadata" guid="fafcf64b-41ef-4bc6-8c0e-51b202773c7f" deletionTimestamp="1739174785267" />
+    <EntityToDelete entityName="DocumentMetadata" guid="170c48ab-1df8-4301-8d1d-ee5138b7843c" deletionTimestamp="1739175116447" />
+    <EntityToDelete entityName="DocumentMetadata" guid="72232013-1e30-47de-9f3d-f432f1c78c24" deletionTimestamp="1739175992721" />
+    <EntityToDelete entityName="DocumentMetadata" guid="9da3766a-8652-4203-95c3-6693b349d2f7" deletionTimestamp="1739176081563" />
+    <EntityToDelete entityName="DocumentMetadata" guid="1b3e86ed-f7e5-4780-9ae3-ddb86fdec971" deletionTimestamp="1739176178102" />
+    <EntityToDelete entityName="DocumentMetadata" guid="ad819906-5382-486b-a20c-29d92848f183" deletionTimestamp="1739176329124" />
+    <EntityToDelete entityName="DocumentMetadata" guid="3d96bb0e-cd61-480a-8465-f0d2b893458e" deletionTimestamp="1739187433889" />
+    <EntityToDelete entityName="DocumentMetadata" guid="e6bff4cc-3e7a-4f7b-bfa4-5182b9e471e0" deletionTimestamp="1739188056680" />
+    <EntityToDelete entityName="DocumentMetadata" guid="08befe89-1c04-4986-beed-95a8bb102bdf" deletionTimestamp="1739188579074" />
+    <EntityToDelete entityName="DocumentMetadata" guid="a13191ee-e547-43e6-9370-cd3e3f062907" deletionTimestamp="1739189190269" />
+    <EntityToDelete entityName="DocumentMetadata" guid="1f32b23e-9caa-453c-bde7-5542176327be" deletionTimestamp="1739190591889" />
+    <EntityToDelete entityName="DocumentMetadata" guid="c94ef2f2-46b4-445b-8828-c8bbbecac563" deletionTimestamp="1739190723072" />
+    <EntityToDelete entityName="DocumentMetadata" guid="e55b05f0-c31d-4945-bc2e-b96affaf5165" deletionTimestamp="1739191122335" />
+    <EntityToDelete entityName="DocumentMetadata" guid="d8db7304-af0f-4ec6-aa44-29bace812475" deletionTimestamp="1739264064941" />
+    <EntityToDelete entityName="DocumentMetadata" guid="ab477a39-e124-4d45-90dc-603f7fdb1de1" deletionTimestamp="1739264374660" />
+    <EntityToDelete entityName="DocumentMetadata" guid="d043729a-1f6f-43d4-af98-ab8c6b94bbf1" deletionTimestamp="1739269443367" />
+    <EntityToDelete entityName="DocumentMetadata" guid="c1b392f3-a17e-40f1-b5ce-cfe11cdaf311" deletionTimestamp="1739270762492" />
+    <EntityToDelete entityName="DocumentMetadata" guid="3ff27457-4eb3-4ddb-a8e6-ea6c731b9ae9" deletionTimestamp="1739271298709" />
+    <EntityToDelete entityName="DocumentMetadata" guid="53105a8a-fdcc-4d25-954b-d9433ac4fcd7" deletionTimestamp="1739271587546" />
+    <EntityToDelete entityName="DocumentMetadata" guid="f2ce5317-360c-49c7-814a-d061f6d2ec63" deletionTimestamp="1739271633604" />
+    <EntityToDelete entityName="DocumentMetadata" guid="5c6f7aab-889b-49e4-ab49-bf8b1d8b051b" deletionTimestamp="1739271859929" />
+    <EntityToDelete entityName="DocumentMetadata" guid="2c7bc59f-eaaa-48a7-bb19-91aa6f2f3695" deletionTimestamp="1739272274919" />
+    <EntityToDelete entityName="DocumentMetadata" guid="c0da2bff-ee35-4a7d-8923-586f6adf7fd5" deletionTimestamp="1739272329095" />
+    <EntityToDelete entityName="DocumentMetadata" guid="46ffefef-d395-45d4-b4e3-a40232cd31f6" deletionTimestamp="1739355111537" />
+    <EntityToDelete entityName="DocumentMetadata" guid="e5f13493-f5fe-4767-a9d2-06dd0896e384" deletionTimestamp="1739355159579" />
+    <EntityToDelete entityName="DocumentMetadata" guid="a627c315-d1aa-4909-9107-2329eabbbedb" deletionTimestamp="1739355951399" />
+    <EntityToDelete entityName="DocumentMetadata" guid="2e25140d-c937-4e13-83f6-6066b0e865f4" deletionTimestamp="1739355986468" />
+    <EntityToDelete entityName="DocumentMetadata" guid="f49ea1a9-8edd-4ff4-aa80-4ef0d9a36ace" deletionTimestamp="1739357318307" />
+    <EntityToDelete entityName="DocumentMetadata" guid="d5cc2ee5-a9c5-4a09-902d-3aa361f2f287" deletionTimestamp="1739357318311" />
+    <EntityToDelete entityName="DocumentMetadata" guid="6f885fdd-8703-44cb-ad42-83df1c3fa6e0" deletionTimestamp="1739357346239" />
+    <EntityToDelete entityName="DocumentMetadata" guid="fac639fc-ea82-4ea3-83a3-e26c36bcfc8e" deletionTimestamp="1739427553020" />
+    <EntityToDelete entityName="DocumentMetadata" guid="68721125-f40a-4926-8f41-7ef205533dca" deletionTimestamp="1739463443982" />
+    <EntityToDelete entityName="DocumentMetadata" guid="e67291e0-6d23-4c9f-b322-3aa234ca86d6" deletionTimestamp="1739463644341" />
+    <EntityToDelete entityName="DocumentMetadata" guid="6c9cf7a7-4072-4647-ac23-be57f4241ab8" deletionTimestamp="1739463748633" />
+    <EntityToDelete entityName="DocumentMetadata" guid="dfd44738-1412-4a44-8c3f-d43f5ef09b49" deletionTimestamp="1739463871145" />
+    <EntityToDelete entityName="DocumentMetadata" guid="5f3bd585-b535-4ffc-ba5f-972461d4840a" deletionTimestamp="1739464166837" />
+    <EntityToDelete entityName="DocumentMetadata" guid="042a9592-9f99-4474-ab84-229d267f2490" deletionTimestamp="1739464619069" />
+    <EntityToDelete entityName="DocumentMetadata" guid="01936090-5e4a-4148-83c0-da0c950c3811" deletionTimestamp="1739465091171" />
+    <EntityToDelete entityName="DocumentMetadata" guid="f313d9b3-1a84-43e9-97ca-9a4fa01ee417" deletionTimestamp="1739465345193" />
+    <EntityToDelete entityName="DocumentMetadata" guid="bf1980dc-3c4b-40ef-9f3d-420d55b6528b" deletionTimestamp="1739465475230" />
+    <EntityToDelete entityName="DocumentMetadata" guid="4e1e959a-39e0-44c5-b9f5-640deaf77162" deletionTimestamp="1739465614332" />
+    <EntityToDelete entityName="DocumentMetadata" guid="68149dbd-b95c-4707-8855-a003efc0fc65" deletionTimestamp="1739465758394" />
+    <EntityToDelete entityName="DocumentMetadata" guid="02211ef3-06f7-45a9-b2ff-22e1fce96dc2" deletionTimestamp="1739465882920" />
+    <EntityToDelete entityName="DocumentMetadata" guid="4282f6f4-5d04-4a86-ae95-84a3f766670f" deletionTimestamp="1739466329689" />
+    <EntityToDelete entityName="DocumentMetadata" guid="4e665eac-a5d4-4313-9078-5b0c1a62a195" deletionTimestamp="1739466391497" />
+    <EntityToDelete entityName="DocumentMetadata" guid="ae5a940b-5cf9-4db3-a1c0-181fb07ecb96" deletionTimestamp="1739467339197" />
+    <EntityToDelete entityName="DocumentMetadata" guid="4db23ed1-2f85-4e6d-a332-5d6a52dccb66" deletionTimestamp="1739467658000" />
+    <EntityToDelete entityName="DocumentMetadata" guid="d5a63e09-5c9b-4517-ad0c-b59429482c00" deletionTimestamp="1739468025917" />
+    <EntityToDelete entityName="DocumentMetadata" guid="88294bd8-a83c-4262-9ee7-d22a454bccdc" deletionTimestamp="1739468141107" />
+    <EntityToDelete entityName="DocumentMetadata" guid="5688708c-dd5d-45d4-ad69-3353a893c0ec" deletionTimestamp="1739468851690" />
+    <EntityToDelete entityName="DocumentMetadata" guid="53464b6d-a59d-4f06-927a-83a37e53addf" deletionTimestamp="1739534281223" />
+    <EntityToDelete entityName="DocumentMetadata" guid="d7d3bed4-dba4-44bc-8d40-9cf6464adf0e" deletionTimestamp="1739534281227" />
+    <EntityToDelete entityName="DocumentMetadata" guid="eedb653d-ae3f-4fd6-b08c-edb506c2d520" deletionTimestamp="1739534724998" />
+    <EntityToDelete entityName="DocumentMetadata" guid="c8db9311-57b9-498c-a985-986908040d7d" deletionTimestamp="1739534904439" />
+    <EntityToDelete entityName="DocumentMetadata" guid="6a998c7c-b675-48bd-a73f-a05ab71fa229" deletionTimestamp="1739535073148" />
+    <EntityToDelete entityName="DocumentMetadata" guid="6ebbdcb6-25fb-473e-b3f5-0c076ab4d8c6" deletionTimestamp="1739535333538" />
+    <EntityToDelete entityName="DocumentMetadata" guid="fda4bb46-7f70-4b97-8897-c30df344c38e" deletionTimestamp="1739535950630" />
+    <EntityToDelete entityName="DocumentMetadata" guid="7d3873a8-5645-4432-8ade-3e6891ec9a56" deletionTimestamp="1739536179498" />
+    <EntityToDelete entityName="DocumentMetadata" guid="44c8cdcb-047a-4505-8d92-43cb5fddb22b" deletionTimestamp="1739536490018" />
+    <EntityToDelete entityName="DocumentMetadata" guid="900a9f6b-ee59-4b09-abb2-cab96db04593" deletionTimestamp="1739536758227" />
+    <EntityToDelete entityName="DocumentMetadata" guid="6531889f-05b4-41cf-b909-a5fe23e409b1" deletionTimestamp="1739536896406" />
+    <EntityToDelete entityName="DocumentMetadata" guid="47af52e6-eb43-4503-a1ab-a04f0c0a7b8f" deletionTimestamp="1739537323604" />
+    <EntityToDelete entityName="DocumentMetadata" guid="44e56f2e-09f3-4683-aa67-68dffc413bdf" deletionTimestamp="1739537468470" />
+    <EntityToDelete entityName="DocumentMetadata" guid="84b38435-c5a1-4475-841b-ea299935c37e" deletionTimestamp="1739538398974" />
+    <EntityToDelete entityName="DocumentMetadata" guid="3996dda2-0981-4195-a2fb-05e9f961c7cc" deletionTimestamp="1739538671162" />
+    <EntityToDelete entityName="DocumentMetadata" guid="0c7d2b9c-20fc-4050-bff3-808a47470d4d" deletionTimestamp="1739538757766" />
+    <EntityToDelete entityName="DocumentMetadata" guid="386ae3f2-9de7-4688-9785-d7a57d0eceb4" deletionTimestamp="1739539005838" />
+    <EntityToDelete entityName="DocumentMetadata" guid="64c4bbef-1355-4410-bfcd-61a62a9add3a" deletionTimestamp="1739539063958" />
+    <EntityToDelete entityName="DocumentMetadata" guid="a03a4abb-799c-4b6a-9bbd-25479b583cbf" deletionTimestamp="1739539227495" />
+    <EntityToDelete entityName="DocumentMetadata" guid="f97ee93e-65a8-4d46-8085-61c54b2c31bb" deletionTimestamp="1739539291872" />
+    <EntityToDelete entityName="DocumentMetadata" guid="4d7f39ed-2a58-4992-b35f-04d84aea22cb" deletionTimestamp="1739539397472" />
+    <EntityToDelete entityName="DocumentMetadata" guid="dad03684-da16-4885-a587-74fa4dc1d02c" deletionTimestamp="1739539684831" />
+    <EntityToDelete entityName="DocumentMetadata" guid="a102e117-c41a-4115-8d16-547db315650d" deletionTimestamp="1739543763719" />
+    <EntityToDelete entityName="DocumentMetadata" guid="4a446cf7-631c-4efc-a993-d86a99fac268" deletionTimestamp="1739868437271" />
+    <EntityToDelete entityName="DocumentMetadata" guid="6ff83707-f930-457d-8e6d-aa52caf889f7" deletionTimestamp="1739869791707" />
+    <EntityToDelete entityName="DocumentMetadata" guid="7d35e428-a7c1-4530-93f2-0a8cd5c24bc8" deletionTimestamp="1739871944873" />
+    <EntityToDelete entityName="DocumentMetadata" guid="1433cee0-69d7-4fc4-9cfa-44f1183e280a" deletionTimestamp="1739872389445" />
+    <EntityToDelete entityName="DocumentMetadata" guid="9f006f8e-d5ed-4226-81d2-0f4c2ba82ce1" deletionTimestamp="1739875248265" />
+    <EntityToDelete entityName="DocumentMetadata" guid="8383e08d-7874-468b-a930-da83be80c0e8" deletionTimestamp="1739875248268" />
+    <EntityToDelete entityName="DocumentMetadata" guid="8f0d285b-a28c-4328-9e7e-d85daa8dca9a" deletionTimestamp="1739875328169" />
+    <EntityToDelete entityName="DocumentMetadata" guid="51af4c8f-abb0-4b20-8d63-3905dfad0371" deletionTimestamp="1739875877665" />
+    <EntityToDelete entityName="DocumentMetadata" guid="cb2656c9-36ce-4e70-900e-893e6e729c58" deletionTimestamp="1739875877669" />
+    <EntityToDelete entityName="DocumentMetadata" guid="c8f9a91d-3c0d-45c1-b528-2075b94a0f21" deletionTimestamp="1739875985151" />
+    <EntityToDelete entityName="DocumentMetadata" guid="fac27b96-359f-497f-ad69-d91bdc61ae46" deletionTimestamp="1739875985155" />
+    <EntityToDelete entityName="DocumentMetadata" guid="b0b74cf7-f453-48e8-98c9-d5306e3f0d40" deletionTimestamp="1739876404705" />
+    <EntityToDelete entityName="DocumentMetadata" guid="c1aefe62-51fd-44ed-b179-ba5b4610b405" deletionTimestamp="1739876404708" />
+    <EntityToDelete entityName="DocumentMetadata" guid="6ad0438b-29d5-4bc9-bcf0-0887b0cf3066" deletionTimestamp="1739876712036" />
+    <EntityToDelete entityName="DocumentMetadata" guid="0f07cdd8-3f54-4f5f-944c-2556d5ad3e4b" deletionTimestamp="1739876712040" />
+    <EntityToDelete entityName="DocumentMetadata" guid="6a0520c5-0e5b-4b7f-8081-518bdc997f5d" deletionTimestamp="1739876883529" />
+    <EntityToDelete entityName="DocumentMetadata" guid="a7b04b35-fcc6-404b-9254-eb65672fd4a6" deletionTimestamp="1739876883534" />
+    <EntityToDelete entityName="DocumentMetadata" guid="0cd7cebf-2581-405c-b7d6-3d1eb4fb4bb8" deletionTimestamp="1739877689806" />
+    <EntityToDelete entityName="DocumentMetadata" guid="c6465986-2bc5-4460-a2e2-e45bc03bd915" deletionTimestamp="1739877689808" />
+    <EntityToDelete entityName="DocumentMetadata" guid="66b9a80f-b967-44df-8583-69835d2a842d" deletionTimestamp="1739877757322" />
+    <EntityToDelete entityName="DocumentMetadata" guid="2168cb7b-f6cd-4fbb-b6e6-dbda70490000" deletionTimestamp="1739877757325" />
+    <EntityToDelete entityName="DocumentMetadata" guid="69425d56-1629-4216-8b2d-082a030d23b4" deletionTimestamp="1739882048007" />
+    <EntityToDelete entityName="DocumentMetadata" guid="576332c6-fdc8-408d-a27b-3b2271262df1" deletionTimestamp="1739882048010" />
+    <EntityToDelete entityName="DocumentMetadata" guid="4bed4809-37a2-4930-8b6b-3dabd67075a3" deletionTimestamp="1740480650285" />
+    <EntityToDelete entityName="DocumentMetadata" guid="b6aebe78-0131-4749-a342-cf282093d363" deletionTimestamp="1740495807950" />
+    <EntityToDelete entityName="DocumentMetadata" guid="bbf8d6c4-06c4-4a5f-87f1-8f042e8ff16b" deletionTimestamp="1740496348583" />
+    <EntityToDelete entityName="DocumentMetadata" guid="5c5606b8-dab4-43a0-9fa5-eebbdaccb534" deletionTimestamp="1740496998733" />
+    <EntityToDelete entityName="DocumentMetadata" guid="a1085aef-2be4-4af0-abdb-e6bc5eb358bd" deletionTimestamp="1740497158294" />
+    <EntityToDelete entityName="DocumentMetadata" guid="d9c6e0f8-880a-484e-9cde-6fb23ac6278e" deletionTimestamp="1740497211922" />
+    <EntityToDelete entityName="DocumentMetadata" guid="352c1232-751a-4e34-85d8-ff44f50503ce" deletionTimestamp="1740497314976" />
+    <EntityToDelete entityName="DocumentMetadata" guid="f73e7d12-9fd6-4036-874b-8433e6084e64" deletionTimestamp="1740497601435" />
+    <EntityToDelete entityName="DocumentMetadata" guid="77b836d9-2025-4158-8a93-a925aeb899fd" deletionTimestamp="1740497879360" />
+    <EntityToDelete entityName="DocumentMetadata" guid="d108fe6d-8bc2-4d34-87d5-c799e9187744" deletionTimestamp="1740497963572" />
+    <EntityToDelete entityName="DocumentMetadata" guid="cbbee88a-a648-423b-bec6-47b2aae5377a" deletionTimestamp="1740498105773" />
+    <EntityToDelete entityName="DocumentMetadata" guid="ca19c6e3-9a03-447c-8a6a-98d0668b5139" deletionTimestamp="1741158521785" />
+    <EntityToDelete entityName="DocumentMetadata" guid="ef543238-b815-4235-9820-78bb8cec47e1" deletionTimestamp="1741158521791" />
+    <EntityToDelete entityName="Foreigntext" guid="4ab00e14-b3a3-45a4-a0a8-c363e0092506" deletionTimestamp="1741171166516" />
+    <EntityToDelete entityName="Foreigntext" guid="b4543d78-0adc-4644-96b4-537f4eebcb8a" deletionTimestamp="1741171166521" />
+    <EntityToDelete entityName="DocumentMetadata" guid="24328660-4ade-4718-956e-d4777244fe88" deletionTimestamp="1741251855238" />
+    <EntityToDelete entityName="DocumentMetadata" guid="2445fbfd-4d29-465a-a307-2ec9d5a24f33" deletionTimestamp="1741681978394" />
+    <EntityToDelete entityName="DocumentMetadata" guid="dbb7f6e2-a227-481c-a6a9-bfbdb3e70eff" deletionTimestamp="1741684027429" />
+    <EntityToDelete entityName="DocumentMetadata" guid="06eceb56-31ec-4949-a7ec-10eb5082e71d" deletionTimestamp="1741684027434" />
+    <EntityToDelete entityName="DocumentMetadata" guid="1dde644f-f2c8-49b0-8746-69678e35fc1c" deletionTimestamp="1741684027439" />
+    <EntityToDelete entityName="DocumentMetadata" guid="3481bf9c-02bd-4808-876f-464569eb77d2" deletionTimestamp="1741684027444" />
+    <EntityToDelete entityName="DocumentMetadata" guid="8505c5f9-0651-4a55-87d7-8298ea45d3f0" deletionTimestamp="1741684027449" />
+    <EntityToDelete entityName="JobReportJob" guid="c10344d0-536b-4fd5-bbf5-3be0bbe7f0c3" deletionTimestamp="1741684027454" />
+    <EntityToDelete entityName="DocumentMetadata" guid="aff7c2c3-6498-463b-a4c4-b3359cef0be5" deletionTimestamp="1741684517096" />
+    <EntityToDelete entityName="DocumentMetadata" guid="c76e92e1-2eb9-466f-9515-be60d0add21d" deletionTimestamp="1741685273236" />
+    <EntityToDelete entityName="DocumentMetadata" guid="280b999d-c321-4b63-9dee-b741aaee4dc6" deletionTimestamp="1741686115219" />
+    <EntityToDelete entityName="DocumentMetadata" guid="742e7e1a-89f3-4661-959b-7b4c7ed45f93" deletionTimestamp="1741687443922" />
+    <EntityToDelete entityName="DocumentMetadata" guid="3b45287d-e2f7-4569-a845-45f1684dbcd5" deletionTimestamp="1741687866760" />
+    <EntityToDelete entityName="DocumentMetadata" guid="493b3824-c364-4d13-bf7f-7094ec4d628f" deletionTimestamp="1741688240364" />
+    <EntityToDelete entityName="DocumentMetadata" guid="4d732eda-c7e8-452a-afc6-b079b8bcb142" deletionTimestamp="1741688394739" />
+    <EntityToDelete entityName="DocumentMetadata" guid="ccfcbe91-a7f6-41ba-975d-2c19a367c28f" deletionTimestamp="1741688486059" />
+    <EntityToDelete entityName="Foreigntext" guid="dacd7902-b9b0-4cb6-ab1e-e256f3ea64ab" deletionTimestamp="1741701342030" />
+    <EntityToDelete entityName="Foreigntext" guid="0d9eb2d2-d581-4ddb-8315-c59e52dd887e" deletionTimestamp="1741701342034" />
+    <EntityToDelete entityName="Foreigntext" guid="20aa86d8-7695-4aa5-8e37-47f6c5b19504" deletionTimestamp="1741708014014" />
+    <EntityToDelete entityName="Foreigntext" guid="57193443-4f95-4fbf-97b9-e78371f62b17" deletionTimestamp="1741708014019" />
+    <EntityToDelete entityName="Foreigntext" guid="3ee3851b-ef67-4820-8c8f-cd7168685068" deletionTimestamp="1741708267919" />
+    <EntityToDelete entityName="Foreigntext" guid="a2413001-df39-4bd3-84b2-1c08e0db97bc" deletionTimestamp="1741708267923" />
+    <EntityToDelete entityName="Foreigntext" guid="8c1be866-9b90-4085-a8c3-67bb50789761" deletionTimestamp="1741708291626" />
+    <EntityToDelete entityName="Foreigntext" guid="e50a63c8-6672-4bcb-b311-7f98dda4887c" deletionTimestamp="1741708291632" />
+    <EntityToDelete entityName="Foreigntext" guid="208def67-2b90-4c97-bea2-b12dd33d2ad4" deletionTimestamp="1741708446539" />
+    <EntityToDelete entityName="Foreigntext" guid="fd53c7b1-0a62-4e1e-9509-07c7221bb0bf" deletionTimestamp="1741708446543" />
+    <EntityToDelete entityName="DocumentMetadata" guid="ce480ef4-da2c-4cf0-b8bf-57e57d887bba" deletionTimestamp="1741785484242" />
+    <EntityToDelete entityName="DocumentMetadata" guid="23875073-7ab8-4fec-bae8-451bcf377d3b" deletionTimestamp="1741785484245" />
+  </EntitiesToDelete>
+</root>
