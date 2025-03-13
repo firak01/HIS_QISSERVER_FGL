@@ -6,7 +6,8 @@ where registrationnumber in (52612);
 select * from degree_program
 Limit 100;
 
--- Studienverlauf eines Studierenden
+-- Studienverlauf eines Studierenden, z.B. 52612, 71857
+set search_path=hisinone;
 select degree_program_id, *
 from degree_program, degree_program_progress 
 where degree_program_id = degree_program.id 
