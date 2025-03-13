@@ -1,7 +1,7 @@
 <root>
   <Metadata>
     <description>Auftragskonfigurationen und Aufträge</description>
-    <created_at>13.03.2025 08:27:42</created_at>
+    <created_at>13.03.2025 09:15:54</created_at>
     <database>hisinone_cust [PostgreSQL] on 127.0.0.1:5432</database>
     <dbVersion>Release: 2023.12    Build id: 2023.12.12179    HISINONE Hotfix Nr.: 159    QIS Hotfix Nr.: 1</dbVersion>
     <confpackage>reportingCenterAndJob</confpackage>
@@ -247,26 +247,6 @@
             </Configuration>
           </Element>
           <Element entity="JobConfValue">
-            <Confkey>documentManagementOutput.saveNotificationDocuments</Confkey>
-            <Confvalue>true</Confvalue>
-            <Id>8524</Id>
-            <ObjGuid>2665a046-98c0-46e3-a2bd-5575530cf2be</ObjGuid>
-            <Configuration entity="JobConf" incomplete="y">
-              <Id>5582</Id>
-              <ObjGuid>3799fb09-cb31-4a79-b386-4260df7be370</ObjGuid>
-            </Configuration>
-          </Element>
-          <Element entity="JobConfValue">
-            <Confkey>ooo.debug</Confkey>
-            <Confvalue>true</Confvalue>
-            <Id>8526</Id>
-            <ObjGuid>383c40fb-2abc-4443-a46e-dd8fff3ddc7a</ObjGuid>
-            <Configuration entity="JobConf" incomplete="y">
-              <Id>5582</Id>
-              <ObjGuid>3799fb09-cb31-4a79-b386-4260df7be370</ObjGuid>
-            </Configuration>
-          </Element>
-          <Element entity="JobConfValue">
             <Confkey>documentCategoryGuid</Confkey>
             <Confvalue>370b742a-d1d1-4381-8449-c76e6dab6337</Confvalue>
             <Id>8525</Id>
@@ -288,9 +268,19 @@
           </Element>
           <Element entity="JobConfValue">
             <Confkey>search.searchConfigFile</Confkey>
-            <Confvalue>searchStudentReports.xml</Confvalue>
+            <Confvalue>searchStudentReportsBasic.xml</Confvalue>
             <Id>8523</Id>
             <ObjGuid>7839e787-bc5a-410d-ac8b-cac0d88a0383</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5582</Id>
+              <ObjGuid>3799fb09-cb31-4a79-b386-4260df7be370</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>INSLOTREF.documentManagementOutput.in</Confkey>
+            <Confvalue>ooo.out</Confvalue>
+            <Id>10080</Id>
+            <ObjGuid>7d9c9415-47da-41a3-9527-31d5b01392c1</ObjGuid>
             <Configuration entity="JobConf" incomplete="y">
               <Id>5582</Id>
               <ObjGuid>3799fb09-cb31-4a79-b386-4260df7be370</ObjGuid>
@@ -317,10 +307,10 @@
             </Configuration>
           </Element>
           <Element entity="JobConfValue">
-            <Confkey>INSLOTREF.documentManagementOutput.in</Confkey>
-            <Confvalue>ooo.out</Confvalue>
-            <Id>8527</Id>
-            <ObjGuid>be3328d3-471d-4ce2-925e-8105b774d9d7</ObjGuid>
+            <Confkey>reportLanguage</Confkey>
+            <Confvalue>de</Confvalue>
+            <Id>10081</Id>
+            <ObjGuid>e3539f5a-e2e1-4730-8249-18483f0a9f01</ObjGuid>
             <Configuration entity="JobConf" incomplete="y">
               <Id>5582</Id>
               <ObjGuid>3799fb09-cb31-4a79-b386-4260df7be370</ObjGuid>
@@ -971,5 +961,7 @@ bnRlbnQueG1sUEsFBgAAAAARABEAZQQAAMlFAAAAAA==</MimeBlob>
     <EntityToDelete entityName="Foreigntext" guid="fd53c7b1-0a62-4e1e-9509-07c7221bb0bf" deletionTimestamp="1741708446543" />
     <EntityToDelete entityName="DocumentMetadata" guid="ce480ef4-da2c-4cf0-b8bf-57e57d887bba" deletionTimestamp="1741785484242" />
     <EntityToDelete entityName="DocumentMetadata" guid="23875073-7ab8-4fec-bae8-451bcf377d3b" deletionTimestamp="1741785484245" />
+    <EntityToDelete entityName="DocumentMetadata" guid="729de35a-5ada-4636-a4a3-7209367432eb" deletionTimestamp="1741852389840" />
+    <EntityToDelete entityName="DocumentMetadata" guid="c7e523d3-6043-47ef-84f0-7599810ff471" deletionTimestamp="1741852442410" />
   </EntitiesToDelete>
 </root>
