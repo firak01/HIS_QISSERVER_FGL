@@ -32,7 +32,7 @@ where id in
 
 -- Aggregation der Daten aus dem Studienverlauf eines Studierenden für eine degree_program_id 
 set search_path=hisinone;
-select min(startdate), max(enddate)
+select min(startdate), max(enddate), max(finished)
 from degree_program, degree_program_progress 
 where degree_program_id = degree_program.id 
 and degree_program_id in 
