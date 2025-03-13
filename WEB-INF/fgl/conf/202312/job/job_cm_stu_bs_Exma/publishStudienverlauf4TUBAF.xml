@@ -18,7 +18,7 @@
 			join student s on s.person_id = dp.person_id
 			where s.id in ([where.StudentId])
 			<Transform.subSQL ElementName="DegreeProgramAggregation">
-				select min(startdate) as startdate_min, max(enddate) as enddate_max
+				select min(startdate) as startdate_min, max(enddate) as enddate_max, max(finished) as exmadate
 				from degree_program, degree_program_progress 
 				where degree_program_id = degree_program.id 
 				and degree_program_id in 
