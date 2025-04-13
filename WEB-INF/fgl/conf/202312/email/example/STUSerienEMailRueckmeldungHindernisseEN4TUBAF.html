@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rückmeldeaufforderung</title>
+  </head>
+<body>
+
+<p><strong>!!! BEISPIEL E-MAIL TODO ENGLISCH !!!</strong></p>
+<p><strong>Rückmeldung zum ${entry.customSettings.semester} ${entry.customSettings.year}</strong></p>
+<br>
+<p>
+	#set($anrede = 'Sehr geehrter/e Herr/Frau ')
+	#if(${entry.Geschl} == 'männlich')
+		#set($anrede = 'Sehr geehrter Herr ')
+	#elseif(${entry.Geschlecht} == 'weiblich')
+		#set($anrede = 'Sehr geehrte Frau ')
+	#end
+	$anrede ${entry.Nachname},</p>
+	
+<p>hiermit weise ich Sie darauf hin, dass Sie sich gemäß § 11 Absatz 1 der Immatrikulationsordnung der TU Bergakademie Freiberg vom 19. April 2010 zu jedem Semester form- und fristgerecht zum Studium anzumelden haben.<BR>Das Weiterstudium ist mit der Entrichtung der Semestergebühren und Beiträge möglich.<BR>(Hinweis: Zwischen Einzahlungstag und Zahlungseingang an der Universität liegen i.d.R. 3 Werktage)</p>
+
+<p>Die Durchsicht Ihrer Unterlagen mit Abschluss der Rückmeldefrist <strong>${placeholder.parse('$${customSettings.rueckmeldungStart}')} bis ${placeholder.parse('$${customSettings.rueckmeldungEnde}')}</strong>&nbsp;ergab, dass von Ihnen folgende Unterlagen fehlen:</p> 
+<p>$customSettings.reasonForRejection</p>
+
+<p>Sollte der vollständige Betrag nicht fristgerecht bis zum <strong>${placeholder.parse('$${customSettings.rueckmeldungEnde}')}</strong>&nbsp;auf dem Konto der Hochschule eingegangen sein, wird für die verspätete Rückmeldung eine Säumnisgebühr fällig.</p>
+
+<p>Sie erhalten hiermit Gelegenheit, die fehlenden Unterlagen nachzureichen und sich für das <strong>${entry.customSettings.semester} ${entry.customSettings.year}</strong> noch <strong>bis zum ${placeholder.parse('$${customSettings.rueckmeldungNach}')}</strong>&nbsp;zum Studium zurückzumelden.</p>
+
+<p>Sollten Sie von dieser Nachfrist keinen Gebrauch machen, erfolgt gemäß  10 Absatz 1 der Immatrikulationsordnung Ihre Exmatrikulation zum <strong>${placeholder.parse('$${customSettings.rueckmeldungNach}')}</strong>.</p>
+<p>Eine ordnungsgemäße Abmeldung vom Studium ist dennoch erforderlich.<BR>Dies gilt auch, wenn Sie Ihr Studium inzwischen erfolgreich abgeschlossen haben.</p>
+<p>Beiliegend erhalten Sie das Formular "Abmeldung vom Studium", das Sie bitte von den angeführten Struktureinheiten abzeichnen lassen<BR>und anschließend im Studierendenbüro, zusammen mit Ihrem Studierendenausweis, einreichen.<BR>Erst dann wird Ihnen die Exmatrikulationsbescheinigung ausgehändigt.</p>
+
+<p><strong>Rechtsbehelfsbelehrung</strong><BR>Gegen diesen Bescheid kann innerhalb eines Monats nach Bekanntgabe Widerspruch erhoben werden.<BR>Der Widerspruch ist bei der TU Bergakademie Feiberg, Akademiestraße 6, 09599 Freiberg, schriftlich, in elektronischer Form nach § 3a Absatz 2 des Verwaltungsverfahrensgesetzes oder zur Niederschrift einzulegen.</p>
+
+<p>Kind regards</p>
+<p>On behalf of</p>
+<BR>
+<p>G. Koehler<BR>Abteilungsleiter Studentische und Akademische Angelegenheiten</p>
+</body>
+</html>
+
+

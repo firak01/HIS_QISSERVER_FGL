@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rückmeldeaufforderung</title>
+  </head>
+<body>
+
+<p><strong>!!! BEISPIEL E-MAIL !!!</strong></p>
+<p><strong>Rückmeldung zum ${entry.customSettings.semester} ${entry.customSettings.year}</strong></p>
+<br>
+<p>
+	#set($anrede = 'Sehr geehrter/e Herr/Frau ')
+	#if(${entry.Geschl} == 'männlich')
+		#set($anrede = 'Sehr geehrter Herr ')
+	#elseif(${entry.Geschlecht} == 'weiblich')
+		#set($anrede = 'Sehr geehrte Frau ')
+	#end
+	$anrede ${entry.Nachname},</p>
+	
+<p>wir möchten Sie hiermit auf die Rückmeldung zum kommenden Semester hinweisen. Wenn Sie Ihr Studium an der Universität fortsetzen möchten, müssen Sie sich für jedes Semester zurückmelden. 
+Die Rückmeldung erfolgt durch Überweisung des vollständigen Sozialbeitrags.</p>
+
+<p>Die Rückmeldung für das <strong>${entry.customSettings.semester} ${entry.customSettings.year}</strong> beginnt am <strong>${placeholder.parse('$${customSettings.rueckmeldungStart}')}</strong>&nbsp;und endet am&nbsp;<strong>${placeholder.parse('$${customSettings.rueckmeldungEnde}')}</strong>. 
+Sollte der vollständige Betrag nicht fristgerecht bis zum <strong>${placeholder.parse('$${customSettings.rueckmeldungEnde}')}</strong> auf dem Konto der Hochschule eingegangen sein, wird für die verspätete Rückmeldung eine Säumnisgebühr fällig.</p>
+
+<p>Die Aufschlüsselung der zu zahlenden Gebühren und weitere Informationen finden Sie im <a href="$entry.contextUrl/pages/startFlow.xhtml?_flowId=studyservice-flow">Studienservice</a> Ihres Campusmanagement-Systems. (Registerkarte <strong>Zahlungen</strong>)</p>
+<p>Weitere Information zur Rückmeldung können Sie auch auf unserer
+Internetseite nachlesen: <a href="https://tu-freiberg.de/studium/im-studium/studienorganisation/rueckmeldung-zum-studium">Rückmeldung
+zum Studium | TU Bergakademie Freiberg</a> 
+</p>
+
+<br>
+
+<p>Mit freundlichen Grüßen</p>
+<p>Team Studierendenservice</p>
+
+</body>
+</html>
+
+

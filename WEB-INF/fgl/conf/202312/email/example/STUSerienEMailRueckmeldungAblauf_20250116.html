@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>Rückmeldeaufforderung</title>
+	<meta name="generator" content="LibreOffice 7.6.4.1 (Windows)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="2025-01-16T08:32:09.128000000"/>
+	<meta name="" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="created" content="00:00:00">
+</head>
+<body lang="de-DE" dir="ltr"><p><strong>!!! BEISPIEL E-MAIL !!!</strong></p>
+<p><strong>Ablauf der Rückmeldefrist zum
+${entry.customSettings.semester} ${entry.customSettings.year}</strong></p>
+<p><br/>
+<br/>
+
+</p>
+<p>#set($anrede = 'Sehr geehrter/e Herr/Frau ') #if(${entry.Geschl}
+== 'männlich') #set($anrede = 'Sehr geehrter Herr ')
+#elseif(${entry.Geschlecht} == 'weiblich') #set($anrede = 'Sehr
+geehrte Frau ') #end $anrede ${entry.Nachname},</p>
+<p>die Rückmeldefrist für das <strong>${entry.customSettings.semester}
+${entry.customSettings.year}</strong> ist am
+<strong>${placeholder.parse('$${customSettings.rueckmeldungEnde}')}
+</strong><strong><span style="font-weight: normal">abgelaufen</span></strong><strong><span style="font-weight: normal">.</span></strong></p>
+<p>Gemäß § 11 Absatz 1 der Immatrikulationsordnung der TU
+Bergakademie Freiberg vom 19. April 2010 in der geltenden Fassung
+müssen Sie sich zu jedem Semester form- und fristgerecht zum
+Weiterstudium anmelden (Rückmeldung).<br/>
+Das Weiterstudium erfolgt
+durch Zahlung der Gebühren und Beiträge.<br/>
+<br/>
+<br/>
+
+</p>
+<p>Sie erhalten hiermit Gelegenheit sich für das
+<strong>${entry.customSettings.semester} ${entry.customSettings.year}</strong>
+<b>noch </b><strong>bis zum ${placeholder.parse('$${AktSemEnd}')}</strong>
+zum Studium zurückzumelden.</p>
+<p>Sollte für Sie eine Rückmeldesperre im System hinterlegt sein,
+müssten Sie die dafür nötigen Unterlagen ebenfalls bis zum
+<strong>${placeholder.parse('$${AktSemEnd}')} </strong>nachreichen.</p>
+<p>Die Aufschlüsselung der zu zahlenden Gebühren sowie das
+Schreiben zur fehlenden Rückmeldung finden Sie im <a href="$entry.contextUrl/pages/startFlow.xhtml%3F_flowId=studyservice-flow">Studienservice</a>
+des Hochschulportals der TU Bergakademie Freiberg (Registerkarte:
+<strong>Zahlungen sowie Bescheide/Bescheinigungen</strong>).</p>
+<p>Weitere Information zur Rückmeldung und zur Exmatrikulation
+können Sie auch auf unserer Internetseite nachlesen:
+<a href="https://tu-freiberg.de/studium/im-studium/studienorganisation">Studienorganisation</a>.</p>
+<p style="margin-bottom: 0cm">Mit freundlichen Grüßen</p>
+<p style="margin-top: 0.1cm">Ihr Studierendenbüro</p>
+<hr/>
+
+<p><strong>Expiry of the re-registration deadline for the
+${entry.customSettings.semester} ${entry.customSettings.year}</strong></p>
+<p><br/>
+<br/>
+
+</p>
+<p style="margin-top: 0.1cm; margin-bottom: 0.4cm">Dear
+${entry.Vorname} ${entry.Nachname},</p>
+<p>the deadline for re-registration for the
+<strong>${entry.customSettings.semester} ${entry.customSettings.year}</strong>
+expired on
+<strong>${placeholder.parse('$${customSettings.rueckmeldungEnde}')}.</strong></p>
+<p>According to Section 11 Subsection 1 of the TU Bergakademie
+Freiberg's enrollment regulations of April 19, 2010 in the current
+version, you must register for further studies in the correct form
+and within the deadline for each semester
+(re-registration).<br/>
+Continued studies are carried out by paying
+the fees and contributions.</p>
+<p style="margin-bottom: 0cm"><br/>
+
+</p>
+<p>You are hereby given the opportunity to re-register for the
+<strong>${entry.customSettings.semester} ${entry.customSettings.year}</strong>
+<b>by</b><strong> ${placeholder.parse('$${AktSemEnd}')}</strong>.</p>
+<p>If a re-registration block has been stored in the system for you,
+you would also have to submit the necessary documents by
+<strong>${placeholder.parse('$${AktSemEnd}')}</strong>.</p>
+<p>The breakdown of the fees to be paid and the letter about the lack
+of re-registration can be found in the <font color="#000080"><u>Student
+Service</u></font> on the University portal of the TU Bergakademie
+Freiberg (tab: <b>Payments</b><strong> and Requested
+Reports/Reports</strong>).</p>
+<p>You can also find further information on re-registration and
+de-registration on our website: <a href="https://tu-freiberg.de/en/study/study/study-organization">Study
+organization</a>. 
+</p>
+<p>Best regards<br/>
+Your Student Office</p>
+<p><br/>
+<br/>
+
+</p>
+<p><br/>
+<br/>
+
+</p>
+<p><br/>
+<br/>
+
+</p>
+<p><br/>
+<br/>
+
+</p>
+<p><br/>
+<br/>
+
+</p>
+<p><br/>
+<br/>
+
+</p>
+</body>
+</html>

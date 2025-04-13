@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>Rückmeldeaufforderung</title>
+	<meta name="generator" content="LibreOffice 7.6.4.1 (Windows)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="2024-11-18T11:18:45.543000000"/>
+	<meta name="" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body lang="de-DE" dir="ltr"><p><strong>!!! BEISPIEL E-MAIL !!!</strong></p>
+<p><strong>Start der </strong><strong>Rückmeldung zum
+${entry.customSettings.semester} ${entry.customSettings.year}</strong></p>
+<p><br/>
+<br/>
+
+</p>
+<p>#set($anrede = 'Sehr geehrter/e Herr/Frau ') #if(${entry.Geschl}
+== 'männlich') #set($anrede = 'Sehr geehrter Herr ')
+#elseif(${entry.Geschlecht} == 'weiblich') #set($anrede = 'Sehr
+geehrte Frau ') #end $anrede ${entry.Nachname},</p>
+<p>wir möchten Sie hiermit auf die Rückmeldung zum kommenden
+Semester hinweisen. Wenn Sie Ihr Studium an der Universität
+fortsetzen möchten, müssen Sie sich zurückmelden. Die Rückmeldung
+erfolgt durch Zahlung der Semestergebühren und Beiträge.</p>
+<p>Die Rückmeldung für das <strong>${entry.customSettings.semester}
+${entry.customSettings.year}</strong> beginnt am
+<strong>${placeholder.parse('$${customSettings.rueckmeldungStart}')}</strong>&nbsp;und
+endet am&nbsp;<strong>${placeholder.parse('$${customSettings.rueckmeldungEnde}')}</strong>.
+</p>
+<p>Die Aufschlüsselung der zu zahlenden Gebühren/Beiträge und
+weitere Informationen finden Sie im <a href="$entry.contextUrl/pages/startFlow.xhtml%3F_flowId=studyservice-flow">Studienservice</a>
+des Hochschulportals der TU Bergakademie Freiberg. (Registerkarte:
+<strong>Zahlungen</strong>).</p>
+<p style="margin-bottom: 0.1cm">Mit freundlichen Grüßen</p>
+<p style="margin-bottom: 0.3cm">Ihr Studierendenbüro</p>
+<hr/>
+
+<p style="margin-bottom: 0.3cm"><br/>
+<br/>
+
+</p>
+<p style="margin-bottom: 0.3cm"><b>Start of re-registration for the
+</b><strong><b>${entry.customSettings.semester}
+${entry.customSettings.year}</b></strong></p>
+<p style="margin-bottom: 0.3cm"><br/>
+<br/>
+
+</p>
+<p style="margin-top: 0.1cm; margin-bottom: 0.4cm">Dear
+${entry.Vorname} ${entry.Nachname},</p>
+<p style="line-height: 100%; margin-top: 0.1cm; margin-bottom: 0.4cm">
+we would like to draw your attention to the re-registration for the
+coming semester. If you want to continue your studies at the
+university, you must re-register. Re-registration is done by paying
+the semester fees and contributions. 
+</p>
+<p style="margin-top: 0.1cm; margin-bottom: 0.4cm">Re-registration
+for the <strong>${entry.customSettings.semester}
+${entry.customSettings.year}</strong> begins on
+<strong>${placeholder.parse('$${customSettings.rueckmeldungStart}')}</strong>&nbsp;
+and ends on
+&nbsp;<strong>${placeholder.parse('$${customSettings.rueckmeldungEnde}')}</strong>.
+</p>
+<p style="margin-top: 0.1cm; margin-bottom: 0.4cm">The breakdown of
+the fees to be paid and further information can be found in the
+<font color="#000080"><u>Student Service</u></font> on the University
+portal of the TU Bergakademie Freiberg (tab: <b>Payments</b>). 
+</p>
+<p style="margin-bottom: 0.1cm">Best regards 
+</p>
+<p style="margin-bottom: 0.1cm">Your Student Office 
+</p>
+</body>
+</html>

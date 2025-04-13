@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rückmeldeaufforderung</title>
+  </head>
+<body>
+
+<p><strong>!!! BEISPIEL E-MAIL !!!</strong></p>
+<p><strong>Fehler beim SEPA-Lastschrifteinzug für die Rückmeldung
+zum ${entry.customSettings.semester} ${entry.customSettings.year}</strong></p>
+<p><br/>
+<br/>
+<p>
+	#set($anrede = 'Sehr geehrter/e Herr/Frau ')
+	#if(${entry.Geschl} == 'männlich')
+		#set($anrede = 'Sehr geehrter Herr ')
+	#elseif(${entry.Geschlecht} == 'weiblich')
+		#set($anrede = 'Sehr geehrte Frau ')
+	#end
+	$anrede ${entry.Nachname},</p>
+	
+<p>die von Ihnen veranlasste Abbuchung der Semestergebühr für das <strong>${entry.customSettings.semester} ${entry.customSettings.year}</strong> </p>
+
+<p>die von Ihnen veranlasste Abbuchung der Semestergebühr für das
+<strong>${entry.customSettings.semester} ${entry.customSettings.year}</strong>
+konnte nicht durchgeführt werden, womit Ihre Rückmeldung zum
+${entry.customSettings.semester} ${entry.customSettings.year} durch
+das Studierendenbüro storniert werden musste.</p>
+<p>Die Überweisung der Semestergebühr sowie die angefallenen
+Bankgebühren, für die nicht ausgeführte Abbuchung muss von Ihnen
+neu veranlasst werden.</p>
+<p>Die Aufschlüsselung der zu zahlenden Gebühren finden Sie im
+<a href="$entry.contextUrl/pages/startFlow.xhtml%3F_flowId=studyservice-flow">Studienservice</a>
+des Hochschulportals der TU Bergakademie Freiberg (Registerkarte
+<strong>Zahlungen</strong>).</p>
+<p>Bitte nutzen Sie für die Zahlung <u>unbedingt folgende
+Bankverbindung</u>:</p>
+<p><b>Empfänger:</b> Hauptkasse des Freistaates Sachsen<br/>
+<b>Bank:</b>
+$entry.ownbank.bank.bankName<br/>
+<b>IBAN:</b>
+$entry.ownbank.iban<br/>
+<b>BIC:</b>
+$entry.ownbank.bank.swiftcode<br/>
+<b>Verwendungszweck:</b>
+PK-Nr.:7095.0106.2140-S, $entry.Vorname $entry.Nachname, $entry.Mtknr</p>
+
+<p>Nach Eingang der Zahlung wird Ihre Rückmeldung zum
+${entry.customSettings.semester} ${entry.customSettings.year}
+durchgeführt.</p>
+
+<p>Mit freundlichen Grüßen</p>
+<p>Team Studierendenservice</p>
+
+</body>
+</html>
+
+

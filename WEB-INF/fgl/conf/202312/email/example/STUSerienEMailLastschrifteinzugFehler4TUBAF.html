@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rückmeldeaufforderung</title>
+  </head>
+<body>
+
+<p><strong>!!! BEISPIEL E-MAIL !!!</strong></p>
+<p><strong>Rückmeldung zum ${entry.customSettings.semester} ${entry.customSettings.year}</strong></p>
+<br>
+<p>
+	#set($anrede = 'Sehr geehrter/e Herr/Frau ')
+	#if(${entry.Geschl} == 'männlich')
+		#set($anrede = 'Sehr geehrter Herr ')
+	#elseif(${entry.Geschlecht} == 'weiblich')
+		#set($anrede = 'Sehr geehrte Frau ')
+	#end
+	$anrede ${entry.Nachname},</p>
+	
+<p>die von Ihnen veranlasste Abbuchung der Semestergebühr für das <strong>${entry.customSettings.semester} ${entry.customSettings.year}</strong> </p>
+
+<p>Die Rückmeldung für das <strong>${entry.customSettings.semester} ${entry.customSettings.year}</strong> über das Hochschulportal konnte nicht durchgeführt werden, womit Ihre Rückmeldung zum ${entry.customSettings.semester} ${entry.customSettings.year} durch das Studierendenbüro aufgehoben werden musste.</p>
+<p>Die Überweidung der Semestergebühr muss von Ihnen neu veranlasst werden.</p>
+<p>Außerdem müssen Ihnen die angefallenen Bankgebühren in Höhe von 3,00 EUR in Rechnung gestellt werden.</p>
+<p>Bitte überweisen Sie die Semestergebühr einschließlich der angefallenen Bankgebühren umgehend.</p>
+<p>Die Aufschlüsselung der zu zahlenden Gebühren und weitere Informationen finden Sie im <a href="$entry.contextUrl/pages/startFlow.xhtml?_flowId=studyservice-flow">Studienservice</a> Ihres Campusmanagement-Systems. (Registerkarte <strong>Zahlungen</strong>)</p>
+<br>
+<p>Bitte nutzen Sie zur Zahlung des Semesterbeitrags folgende Bankverbindung:</p>
+<p>Empfänger: Hauptkasse des Freistaates Sachsen<br />
+Bank: $entry.ownbank.bank.bankName<br /> 
+IBAN: $entry.ownbank.iban<br />
+BIC/SWIFT-Code: $entry.ownbank.bank.swiftcode<br />
+Verwendungszweck: $entry.Mtknr</p>
+<br>
+<p>Nach Eingang der Zahlung an der TU Bergakademie Feiberg (ca. 4 Tage nach Zahlungseingang) wird Ihre Rückmeldung zum ${entry.customSettings.semester} ${entry.customSettings.year} vollzogen.</p>
+
+<p>Mit freundlichen Grüßen</p>
+<p>Team Studierendenservice</p>
+
+</body>
+</html>
+
+

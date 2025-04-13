@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>Rückmeldeaufforderung</title>
+	<meta name="generator" content="LibreOffice 7.6.4.1 (Windows)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="2024-11-18T11:35:00.231000000"/>
+	<meta name="" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body lang="de-DE" dir="ltr"><p><strong>Fehler beim SEPA-Lastschrifteinzug für die Rückmeldung
+zum ${entry.customSettings.semester} ${entry.customSettings.year}</strong></p>
+<p><br/>
+<br/>
+
+</p>
+<p>#set($anrede = 'Sehr geehrter/e Herr/Frau ') #if(${entry.Geschl}
+== 'männlich') #set($anrede = 'Sehr geehrter Herr ')
+#elseif(${entry.Geschlecht} == 'weiblich') #set($anrede = 'Sehr
+geehrte Frau ') #end $anrede ${entry.Nachname},</p>
+<p>die von Ihnen veranlasste Abbuchung der Semestergebühr für das
+<strong>${entry.customSettings.semester} ${entry.customSettings.year}</strong>
+konnte nicht durchgeführt werden, womit Ihre Rückmeldung zum
+${entry.customSettings.semester} ${entry.customSettings.year} durch
+das Studierendenbüro storniert werden musste.</p>
+<p>Die Überweisung der Semestergebühr sowie die angefallenen
+Bankgebühren, für die nicht ausgeführte Abbuchung muss von Ihnen
+neu veranlasst werden.</p>
+<p>Die Aufschlüsselung der zu zahlenden Gebühren und Beiträge
+finden Sie im <a href="$entry.contextUrl/pages/cs/sys/portal/hisinoneStartPage.faces?page=Studierende">Studienservice</a>
+des Hochschulportals der TU Bergakademie Freiberg (Registerkarte:
+<strong>Zahlungen</strong>).</p>
+<p>Bitte nutzen Sie für die erneute Zahlung <u>unbedingt folgende
+Bankverbindung</u>:</p>
+<p><b>Empfänger:</b> Hauptkasse des Freistaates Sachsen<br/>
+<b>Bank:</b>
+$entry.ownbank.bank.bankName<br/>
+<b>IBAN:</b>
+$entry.ownbank.iban<br/>
+<b>BIC:</b>
+$entry.ownbank.bank.swiftcode<br/>
+<b>Verwendungszweck:</b>
+PK-Nr.:7095.0106.2140-S, $entry.Vorname $entry.Nachname, $entry.Mtknr</p>
+<p>Nach Eingang der Zahlung wird Ihre Rückmeldung zum
+${entry.customSettings.semester} ${entry.customSettings.year}
+durchgeführt.</p>
+<p style="margin-bottom: 0cm">Mit freundlichen Grüßen</p>
+<p style="margin-bottom: 0.3cm">Ihr Studierendenbüro</p>
+<hr/>
+
+<p style="margin-bottom: 0.3cm"><b>Error in SEPA direct debit for
+re-registration for the </b><strong><b>${entry.customSettings.semester}
+${entry.customSettings.year}</b></strong></p>
+<p style="margin-bottom: 0.3cm"><br/>
+<br/>
+Dear ${entry.Vorname}
+${entry.Nachname},</p>
+<p style="margin-bottom: 0.3cm">the debit of the semester fee for the
+<b>${entry.customSettings.semester} ${entry.customSettings.year} </b>that
+you requested could not be carried out, which meant that your
+re-registration for the ${entry.customSettings.semester}
+${entry.customSettings.year} had to be cancelled by the Student
+Office.<br/>
+<br/>
+You must re-initiate the transfer of the semester
+fee and the bank fees incurred for the debit that was not carried
+out.<br/>
+<br/>
+The breakdown of the fees and contributions to be
+paid can be found in the <a href="$entry.contextUrl/pages/cs/sys/portal/hisinoneStartPage.faces?page=Studierende">Student Service</a> on the University portal of the TU Bergakademie Freiberg
+(tab: <b>Payments</b>).<br/>
+<br/>
+<br/>
+
+</p>
+<p style="margin-bottom: 0.3cm">Please be sure to use the following
+bank details for the renewed payment:</p>
+<p style="margin-bottom: 0.3cm"><br/>
+<b>Recipient:</b> Hauptkasse
+des Freistaates Sachsen<br/>
+<b>Bank:</b>
+$entry.ownbank.bank.bankName<br/>
+<b>IBAN:</b>
+$entry.ownbank.iban<br/>
+<b>BIC:
+</b>$entry.ownbank.bank.swiftcode<br/>
+<b>Purpose:
+</b>PK-Nr.:7095.0106.2140-S, $entry.Firstname $entry.Lastname,
+$entry.Mtknr<br/>
+<br/>
+<br/>
+
+</p>
+<p style="margin-bottom: 0.3cm">After receipt of the payment, your
+re-registration for ${entry.customSettings.semester}
+${entry.customSettings.year} will be carried out.</p>
+<p style="margin-bottom: 0.3cm"><br/>
+Best regards<br/>
+Your Student
+Office</p>
+<p style="margin-bottom: 0.3cm"><br/>
+<br/>
+
+</p>
+<p style="margin-bottom: 0.3cm"><br/>
+<br/>
+
+</p>
+<p style="margin-bottom: 0.3cm"><br/>
+<br/>
+
+</p>
+<p style="margin-bottom: 0.3cm"><br/>
+<br/>
+
+</p>
+<p style="margin-bottom: 0.3cm"><br/>
+<br/>
+
+</p>
+<p style="margin-bottom: 0.3cm"><br/>
+<br/>
+
+</p>
+<p style="margin-bottom: 0.3cm"><br/>
+<br/>
+
+</p>
+</body>
+</html>

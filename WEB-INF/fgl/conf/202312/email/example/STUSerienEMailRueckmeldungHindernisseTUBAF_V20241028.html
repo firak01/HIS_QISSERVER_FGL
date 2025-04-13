@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rückmeldeaufforderung</title>
+  </head>
+<body>
+
+<p><strong>!!! BEISPIEL E-MAIL !!!</strong></p>
+<p><strong>Ablauf der Rückmeldefrist zum
+${entry.customSettings.semester} ${entry.customSettings.year}</strong></p>
+<p>
+<BR/>
+<p>
+	#set($anrede = 'Sehr geehrter/e Herr/Frau ')
+	#if(${entry.Geschl} == 'männlich')
+		#set($anrede = 'Sehr geehrter Herr ')
+	#elseif(${entry.Geschlecht} == 'weiblich')
+		#set($anrede = 'Sehr geehrte Frau ')
+	#end
+	$anrede ${entry.Nachname},</p>
+<p>die Rückmeldefrist für das kommende Semester
+<strong>${entry.customSettings.semester} ${entry.customSettings.year}</strong>
+endet am <strong>${placeholder.parse('$${customSettings.rueckmeldungEnde}')}</strong></p>
+<p>Gemäß § 11 Absatz 1 der Immatrikulationsordnung der TU
+Bergakademie Freiberg vom 19. April 2010 in der geltenden Fassung
+müssen Sie sich zu jedem Semester form- und fristgerecht zum
+Weiterstudium anmelden (Rückmeldung).<br/>
+Das Weiterstudium erfolgt
+durch Zahlung der Gebühren und Beiträge.<br/>
+<br/>
+<br/>
+</p>
+<p>Sie erhalten hiermit Gelegenheit sich für das
+<strong>${entry.customSettings.semester} ${entry.customSettings.year}</strong>
+noch <strong>bis zum ${placeholder.parse('$${AktSemEnd}')}</strong> zum
+Studium zurückzumelden.</p>
+<p>Sollte für Sie eine Rückmeldesperre im System hinterlegt sein,
+müssten Sie die dafür nötigen Unterlagen ebenfalls bis zum
+<strong>${placeholder.parse('$${AktSemEnd}')}
+</strong>nachreichen.</p>
+<p><br/>
+<br/>
+</p>
+<p>Die Aufschlüsselung der zu zahlenden Gebühren sowie das
+Schreiben zur fehlenden Rückmeldung finden Sie im <a href="$entry.contextUrl/pages/startFlow.xhtml%3F_flowId=studyservice-flow">Studienservice</a>
+des Hochschulportals der TU Bergakademie Freiberg (Registerkarte
+<strong>Zahlungen </strong><strong><span style="font-weight: normal">sowie
+</span></strong><strong>Bescheide/Bescheinigungen</strong>).</p>
+<p>Weitere Information zur Rückmeldung und zur Exmatrikulation
+können Sie auch auf unserer Internetseite – Studienorganisation
+nachlesen:
+<a href="https://tu-freiberg.de/studium/im-studium/studienorganisation">https://tu-freiberg.de/studium/im-studium/studienorganisation</a>
+</p>
+<p>Mit freundlichen Grüßen</p>
+<p>Team Studierendenservice</p>
+</body>
+</html>
+
+
