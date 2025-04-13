@@ -1,0 +1,140 @@
+#parse("dbinterface/hisinone/head.vm")
+
+<xsl:template match="${params.ACTION}-collection">
+	## Muss in Klasse StudyBeforeCreator noch ausgewertet werden
+	#parse("dbinterface/hisinone/setVar.vm")
+	
+	#set ($lookuptable = "term_type")
+	#set ($refcolumn = "shorttext")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "k_study_interruption_type")
+	#set ($refcolumn = "uniquename")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "country")
+	#set ($refcolumn = "uniquename")
+	#set ($id = "lid")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	
+	
+	## Astat eigene HS aus hskonst holen
+	<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+		<dbi:data>
+			<sospos:sospos>
+				<sospos:hskonst>
+					<sospos:hsnr />
+				</sospos:hskonst>
+			</sospos:sospos>
+		</dbi:data>
+		<dbi:condition>
+			<sospos:sospos>
+				<sospos:hskonst>
+                    <sospos:aikz>A</sospos:aikz>
+				</sospos:hskonst>
+			</sospos:sospos>
+		</dbi:condition>
+	</dbi:dbaction>
+	
+	<xsl:for-each select="${params.ACTION}">
+		<dbi:try>
+    		#parse("dbinterface/hisinone/person-lookup.vm")
+    		<dbi:if dbi:is-not-set="person.id">
+    			<dbi:echo dbi:level="WARN">WARN-1 (sospos-stgext3) mtknr=<xsl:value-of select="mtknr"/> ignored: no person found!</dbi:echo>
+    		</dbi:if>
+    		<dbi:if dbi:is-set="person.id">
+                #if ($DEBUG && $DEBUG == "y")
+                	<dbi:echo>DEBUG-1 (sospos-stgext3) person.id=[person.id]</dbi:echo>
+    			#end
+    			 <!-- university_astat aus sos.erhskfz und sos.erhsart ermitteln -->
+    			<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+                	<dbi:data>
+                		<hisinone:hisinone>
+                			<hisinone:university>
+                				<hisinone:astat />
+                			</hisinone:university>
+                		</hisinone:hisinone>
+                	</dbi:data>
+                	<dbi:condition>
+                		<hisinone:hisinone>
+                			<hisinone:university>
+    							<hisinone:universitytype dsd:compOperator="equal"><xsl:value-of select="erhsart"/></hisinone:universitytype>
+    							<hisinone:vehicle_registration_plate dsd:compOperator="equal"><xsl:value-of select="erhskfz"/></hisinone:vehicle_registration_plate>
+                			</hisinone:university>
+                		</hisinone:hisinone>
+                	</dbi:condition>	
+                </dbi:dbaction>	
+				
+				<dbi:set dbi:variable="k_study_interruption_type_id" dsd:var="k_study_interruption_type_lookup[{stuntart}]" dbi:ignore="empty" />
+                
+				<dbi:call dbi:function="de.his.xml.functions.TermTypeGetter">
+    				<dbi:param dbi:name="termcategory">$!termCategory</dbi:param>
+        			<dbi:param dbi:name="termnumber"><xsl:value-of select="substring(normalize-space(erhssem), 5, 1)" /></dbi:param>
+					<dbi:param dbi:name="verbose">$!verbose</dbi:param>
+    				<dbi:return dbi:variable="first_term_type_id" />
+        		</dbi:call>
+				<dbi:set dbi:variable="country_lid" dsd:var="country_lookup[{erhsstaat}]" dbi:ignore="empty" />
+    			<dbi:if dbi:is-not-set="country_lid">
+					<dbi:set dbi:variable="country_lid" dsd:var="country_lookup[D]" />
+                </dbi:if>
+				<dbi:set dbi:variable="country_lid_deutschland" dsd:var="country_lookup[D]" />
+				<dbi:call dbi:function="de.his.xml.functions.TermTypeGetter">
+    				<dbi:param dbi:name="termcategory">$!termCategory</dbi:param>
+        			<dbi:param dbi:name="termnumber"><xsl:value-of select="substring(normalize-space(erstsemhs), 5, 1)" /></dbi:param>
+					<dbi:param dbi:name="verbose">$!verbose</dbi:param>
+    				<dbi:return dbi:variable="ownuniversity_term_type_id" />
+        		</dbi:call>
+				<dbi:call dbi:function="de.his.xml.functions.TermTypeGetter">
+    				<dbi:param dbi:name="termcategory">$!termCategory</dbi:param>
+        			<dbi:param dbi:name="termnumber"><xsl:value-of select="substring(normalize-space(erhssembrd), 5, 1)" /></dbi:param>
+					<dbi:param dbi:name="verbose">$!verbose</dbi:param>
+    				<dbi:return dbi:variable="first_study_in_germany_term_type_id" />
+        		</dbi:call>
+        		
+				<dbi:echo>DEBUG-1 (stgext3TUBAF) Person.id=[person.id];</dbi:echo> 
+				<dbi:echo>DEBUG-2 (stgext3TUBAF) first_term_year=[erhssem=]; first_term_year=<xsl:value-of select="substring(normalize-space(erhssem), 1, 4)" />;</dbi:echo>
+				<dbi:echo>DEBUG-3 (stgext3TUBAF) first_term_type_id=[first_term_type_id]; first_term_type_i=<xsl:value-of select="first_term_type_id" />;</dbi:echo>
+				<dbi:echo>DEBUG-4 (stgext3TUBAF) ownuniversity_term_type_id=[ownuniversity_term_type_id]; ownuniversity_term_type_id=<xsl:value-of select="ownuniversity_term_type_id" />;</dbi:echo>
+				<dbi:echo>DEBUG-5 (stgext3TUBAF) ownuniversity_term_year=[ownuniversity_term_year]; ownuniversity_term_year=<xsl:value-of select="substring(normalize-space(erstsemhs), 1, 4)" />;</dbi:echo>
+				<dbi:echo>DEBUG-6 (stgext3TUBAF) first_study_in_germany_term_type_id=[first_study_in_germany_term_type_id]; first_study_in_germany_term_type_id=<xsl:value-of select="first_study_in_germany_term_type_id" />;</dbi:echo>
+				<dbi:echo>DEBUG-7 (stgext3TUBAF) first_study_in_germany_term_year=[erhssembrd]; first_study_in_germany_term_year=<xsl:value-of select="substring(normalize-space(erhssembrd), 1, 4)" />;</dbi:echo>
+				<dbi:echo>DEBUG-8 (stgext3TUBAF) firstuniversity_astat=[university.astat]; firstuniversity_astat=<xsl:value-of select="firstuniversity_astat" />;</dbi:echo>
+				<dbi:echo>DEBUG-9 (stgext3TUBAF) ownuniversity_astat=[hskonst.hsnr]; ownuniversity_astat=<xsl:value-of select="hskonst.hsnr" />;</dbi:echo>
+				<dbi:echo>DEBUG-A (stgext3TUBAF) discontinuationsemester=[stuntsem]; discontinuationsemester=<xsl:value-of select="stuntsem"/>;</dbi:echo>
+				<dbi:echo>DEBUG-B (stgext3TUBAF) k_study_interruption_type_id=[k_study_interruption_type_id]; k_study_interruption_type_id=<xsl:value-of select="k_study_interruption_type_id" />;</dbi:echo>				
+				<dbi:if dbi:is-set="country_lid">
+                    <dbi:call dbi:function="de.his.xml.functions.StudyBeforeCreator">
+        				<dbi:param dbi:name="person_id" dsd:var="person.id" ></dbi:param>
+            			<dbi:param dbi:name="first_term_year"><xsl:value-of select="substring(normalize-space(erhssem), 1, 4)" /></dbi:param>
+            			<dbi:param dbi:name="first_term_type_id" dsd:var="first_term_type_id" />
+        				<dbi:param dbi:name="ownuniversity_term_type_id" dsd:var="ownuniversity_term_type_id" /> 
+        				<dbi:param dbi:name="ownuniversity_term_year"><xsl:value-of select="substring(normalize-space(erstsemhs), 1, 4)" /></dbi:param>
+        				<dbi:param dbi:name="first_study_in_germany_term_type_id" dsd:var="first_study_in_germany_term_type_id" /> 
+        				<dbi:param dbi:name="first_study_in_germany_term_year"><xsl:value-of select="substring(normalize-space(erhssembrd), 1, 4)" /></dbi:param>
+            			<dbi:param dbi:name="country_lid" dsd:var="country_lid" />
+						<dbi:param dbi:name="country_lid_deutschland" dsd:var="country_lid_deutschland" />
+    					<dbi:param dbi:name="firstuniversity_astat" dsd:var="university.astat" ></dbi:param> ## study_before.university_lid - Vorsicht aktiven Satz verwenden
+        				<dbi:param dbi:name="ownuniversity_astat" dsd:var="hskonst.hsnr" ></dbi:param>
+        				<dbi:param dbi:name="discontinuationsemester"><xsl:value-of select="stuntsem"/></dbi:param>
+    					<dbi:param dbi:name="k_study_interruption_type_id" dsd:var="k_study_interruption_type_id" ></dbi:param>
+    					<dbi:param dbi:name="astatWeitereStandorte">$!astatWeitereStandorte</dbi:param>
+    					<dbi:param dbi:name="verbose">$!verbose</dbi:param>
+            		</dbi:call>
+                </dbi:if>
+                #if ($DEBUG && $DEBUG == "y")
+                	<dbi:echo>DEBUG-2 (sospos-stgext3) mtknr=<xsl:value-of select="mtknr"/>; person.id=[person.id]; ([timeElapsed])</dbi:echo>
+    			#end
+    		</dbi:if>
+            #if ($TIMER && $TIMER == "y")
+            	<dbi:echo dbi:timeElapsed="y" />
+    		#end
+		</dbi:try>
+	</xsl:for-each>
+    #if (($DEBUG && $DEBUG == "y") || ($TIMER && $TIMER == "y"))
+    	<dbi:echo dbi:statistics="y">DEBUG (sospos-stgext3): ++++ [_statistics]</dbi:echo>
+	#end
+</xsl:template>
+	
+#parse("dbinterface/hisinone/foot.vm")

@@ -1,0 +1,285 @@
+#parse("dbinterface/hisinone/head.vm")
+
+
+<xsl:template match="${params.ACTION}-collection">
+	
+	#parse("dbinterface/hisinone/setVar.vm")
+	
+	#set ($lookuptable = "k_domain")
+	#set ($refcolumn = "hiskey_id")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "k_follow_up_function")
+	#set ($refcolumn = "hiskey_id")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+
+	<!-- Original W = 1 nun 90002, H = 2,  S = 3, G = 4, D = 5-->
+    <dbi:dbaction dbi:action="select" dbi:select-type="static-table" dbi:variable="static-table-wvl_kennz">
+        <dbi:static-table>
+            <dbi:entry dbi:key="W">90002</dbi:entry>
+			<dbi:entry dbi:key="H">90003</dbi:entry>
+			<dbi:entry dbi:key="S">90004</dbi:entry>
+			<dbi:entry dbi:key="G">90005</dbi:entry>
+			<dbi:entry dbi:key="D">90006</dbi:entry>
+        </dbi:static-table>
+    </dbi:dbaction> 
+
+    <dbi:dbaction dbi:action="select" dbi:select-type="static-table" dbi:variable="static-table-tsys">
+        <dbi:static-table>
+            <dbi:entry dbi:key="SOS">2</dbi:entry>
+			<dbi:entry dbi:key="ZUL">3</dbi:entry>
+			<dbi:entry dbi:key="POS">4</dbi:entry>
+        </dbi:static-table>
+    </dbi:dbaction> 
+	
+    <dbi:dbaction dbi:action="select" dbi:select-type="static-table" dbi:variable="static-table-tsys-follow_up">
+        <dbi:static-table>
+            <dbi:entry dbi:key="SOS">101</dbi:entry> ## "Studierendendaten bearbeiten"
+			<dbi:entry dbi:key="POS">109</dbi:entry> ## "Leistungen bearbeiten studierendenweise"
+			##<dbi:entry dbi:key="ZUL">200</dbi:entry>
+        </dbi:static-table>
+    </dbi:dbaction> 
+	<!-- hiskey_id = 7001 (Migriert aus GX) aus k_status für holen  -->
+	<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+    	<dbi:data>
+    		<hisinone:hisinone>
+    			<hisinone:k_status>
+    				<hisinone:id />
+    			</hisinone:k_status>
+    		</hisinone:hisinone>
+    	</dbi:data>
+    	<dbi:condition>
+    		<hisinone:hisinone>
+    			<hisinone:k_status>
+    				<hisinone:hiskey_id dsd:compOperator="equal">14001</hisinone:hiskey_id>
+    			</hisinone:k_status>
+    		</hisinone:hisinone>
+    	</dbi:condition>
+	</dbi:dbaction>	
+	
+	<xsl:for-each select="${params.ACTION}">
+		<dbi:try>
+    		<dbi:set dbi:variable="k_domain_hiskey_id" />
+    		<dbi:set dbi:variable="k_domain_id" />
+    		<dbi:set dbi:variable="hiskey_id" />
+    		<dbi:set dbi:variable="person.id" />	
+    		<dbi:set dbi:variable="object_id" />	
+    		<dbi:set dbi:variable="k_reason_of_follow_up.id" />	
+    		<dbi:set dbi:variable="created_by_person_id" />	
+    		<dbi:set dbi:variable="person_id" />
+			<dbi:set dbi:variable="person_ok">n</dbi:set>
+    		<dbi:set dbi:variable="object_type">person</dbi:set>
+    		<dbi:set dbi:variable="k_follow_up_function_hiskey_id" />
+    		<dbi:set dbi:variable="k_follow_up_function_id" />
+    		#parse("dbinterface/hisinone/person-lookup.vm")
+    		<dbi:if dbi:is-not-set="person.id">
+    			<dbi:echo dbi:level="WARN">WARN-1 mtknr=<xsl:value-of select="mtknr"/> ignored: no person found!</dbi:echo>
+    		</dbi:if>
+    		<dbi:if dbi:is-set="person.id">
+                #if ($DEBUG && $DEBUG == "y")
+                	<dbi:echo>DEBUG-1 (sospos-wvl_tubaf) person.id=[person.id]</dbi:echo>
+    			#end
+    			<dbi:set dbi:variable="object_id" dsd:var="person.id"/>
+    			<dbi:set dbi:variable="hiskey_id" dsd:var="static-table-wvl_kennz[{k_wvl_kennz.his_wvl_kennz}]">0</dbi:set>
+    			#if($sonderwvl && $sonderwvl == "y")
+    				<xsl:variable name="wvlart"><xsl:value-of select="wvl.wvlart"/></xsl:variable>
+    				<xsl:if test="normalize-space($wvlart) = '03' or normalize-space($wvlart) = '04'">
+    					<dbi:set dbi:variable="hiskey_id" >99</dbi:set>
+    				</xsl:if>
+    			#end		
+    			<dbi:set dbi:variable="k_domain_hiskey_id" dsd:var="static-table-tsys[{wvl.tsys}]">2</dbi:set>
+    			<dbi:set dbi:variable="k_domain_id" dsd:var="k_domain_lookup[[k_domain_hiskey_id]]"></dbi:set>
+        
+    			<dbi:set dbi:variable="k_wvl_dtxt"><xsl:value-of select="k_wvl.dtxt" /></dbi:set>
+				
+				<!--FGL: neue Variable k_wvl_ktxt -->
+				<dbi:set dbi:variable="k_wvl_ktxt"><xsl:value-of select="k_wvl_xxx_ktxt" /></dbi:set>
+    			<dbi:set dbi:variable="k_wvl_kennz_ktxt"><xsl:value-of select="k_wvl_kennz.ktxt" /></dbi:set>
+				
+				#if ($DEBUG && $DEBUG == "y")
+                	<dbi:echo>DEBUG-1 (sospos-wvl_tubaf) k_wvl_ktxt=<xsl:value-of select="k_wvl_ktxt" />; k_wvl_ktxt=[k_wvl_ktxt]</dbi:echo>
+				#end
+				
+				
+				<!--FGL: neue Variable k_wvl_ltxt -->
+				<dbi:set dbi:variable="k_wvl_ltxt"><xsl:value-of select="k_wvl_xxx_ltxt" /></dbi:set>
+    			<dbi:set dbi:variable="k_wvl_kennz_ltxt"><xsl:value-of select="k_wvl_kennz.ltxt" /></dbi:set>
+				
+				#if ($DEBUG && $DEBUG == "y")
+                	<dbi:echo>DEBUG-1 (sospos-wvl_tubaf) k_wvl_ltxt=<xsl:value-of select="k_wvl_ltxt" />; k_wvl_ltxt=[k_wvl_ltxt]</dbi:echo>
+    			#end
+								
+				<dbi:set dbi:variable="compositename" dbi:parse="true">[k_wvl_dtxt] ([k_wvl_kennz_ktxt])</dbi:set>
+				#if ($DEBUG && $DEBUG == "y")
+                	<dbi:echo>DEBUG-1 (sospos-wvl_tubaf) compositename=<xsl:value-of select="compositename" />; compositename=[compositename]</dbi:echo>
+    			#end
+				
+        		<dbi:dbaction dbi:action="sync" dbi:lookup="k_reason_of_follow_up.id">
+        			<dbi:data>
+        				<hisinone:hisinone>
+        					<hisinone:k_reason_of_follow_up>
+    							<hisinone:uniquename><xsl:value-of select="wvl.wvlart"/></hisinone:uniquename>
+								<!--FL: Verwende nun eigene Variable, die ggfs. vorher im SQL speziell gefüllt werden, z.B. k_wvl_ltxt -->
+								<!--FL: 20241202 tausche wg. der Datenqualitaet Langtext und Kurztext -->								
+								<!--FL: Nein, gewuenscht wird den compositenamen (also den spaeteren Defaulttext) in den Kurztext zu verwenden. -->
+								<hisinone:shorttext dsd:var="compositename" />								
+								<hisinone:longtext dsd:var="k_wvl_ltxt"/>
+								
+								<!-- FL: Und dann den Defaulttext wie den Kurztext aussehen lassen -->
+								<!--     <hisinone:defaulttext dsd:var="k_wvl_ktxt"/> -->
+								<!-- FL: Nein, dann passieren in der Suchmaske die unerwünschten Doppelungen -->
+    							<hisinone:defaulttext dsd:var="compositename"/>
+									
+    							<hisinone:k_language_id>12</hisinone:k_language_id>
+    							<hisinone:hiskey_id dsd:var="hiskey_id"/>
+    							<hisinone:k_domain_id dsd:var="k_domain_id"/>
+    						</hisinone:k_reason_of_follow_up>
+        				</hisinone:hisinone>
+        			</dbi:data> 
+            		<dbi:condition>
+            			<hisinone:hisinone>
+            				<hisinone:k_reason_of_follow_up>
+            					<hisinone:uniquename dsd:compOperator="equal"><xsl:value-of select="wvl.wvlart" /></hisinone:uniquename>/>
+    							<hisinone:hiskey_id dsd:compOperator="equal" dsd:var="hiskey_id"/>
+    							<hisinone:k_domain_id dsd:compOperator="equal" dsd:var="k_domain_id"/>
+    						</hisinone:k_reason_of_follow_up>
+            			</hisinone:hisinone>
+            		</dbi:condition>	
+    			</dbi:dbaction>
+             	#if ($DEBUG && $DEBUG == "y")
+        			<dbi:echo>DEBUG-2 (sospos-wvl_tubaf) wvl.wvlart=<xsl:value-of select="wvl.wvlart" />; k_wvl_kennz.his_wvl_kennz=<xsl:value-of select="k_wvl_kennz.his_wvl_kennz" />; wvl.tsys=<xsl:value-of select="wvl.tsys" />; hiskey_id=[hiskey_id]; k_domain_id=[k_domain_id]; k_reason_of_follow_up.id=[k_reason_of_follow_up.id]</dbi:echo>
+                #end
+          		<dbi:if dbi:is-not-set="k_reason_of_follow_up.id">
+            			<dbi:echo dbi:level="WARN">WARN-2 mtknr=<xsl:value-of select="mtknr"/>; wvl.wvlnr=<xsl:value-of select="wvl.wvlnr"/> ignored: no k_reason_of_follow_up.id for wvl.wvlart=<xsl:value-of select="wvl.wvlart" />; k_wvl_kennz.his_wvl_kennz=<xsl:value-of select="k_wvl_kennz.his_wvl_kennz" />; wvl.tsys=<xsl:value-of select="wvl.tsys" /> found!</dbi:echo>
+            	</dbi:if>
+    			<dbi:if dbi:is-set="k_reason_of_follow_up.id">
+					<xsl:variable name="identnr_bearb1"><xsl:value-of select="identnr_bearb1"/></xsl:variable>
+					<xsl:variable name="personid_bearb1"><xsl:value-of select="personid_bearb1"/></xsl:variable>
+					<xsl:variable name="identnr_bearb2"><xsl:value-of select="identnr_bearb2"/></xsl:variable>
+					<xsl:variable name="personid_bearb2"><xsl:value-of select="personid_bearb2"/></xsl:variable>
+					## Ist Bearbeiter (wvl.bearb1) als Person migriert worden?
+    				<xsl:if test="normalize-space($identnr_bearb1) != ''">
+    					#set ($externaltabpk = "identnr_bearb1")
+    					#parse("dbinterface/hisinone/getPersonIdByExternalRelation.vm")
+						<dbi:set dbi:variable="created_by_person_id" dsd:var="person.id"/>
+					</xsl:if>
+					<xsl:if test="normalize-space($personid_bearb1) != ''">
+						<dbi:if dbi:is-not-set="created_by_person_id">
+    						## Bearbeiter ist nicht als Person migriert worden, aber vielleicht ist der Bearbeiter in HISinOne neu angelegt worden
+    						## und die person.id aus HISinOne in sospos.bearb.bereich2 hinterlegt?
+        					#set ($personId = "personid_bearb1")
+        					#parse("dbinterface/hisinone/checkPersonId.vm")
+    						<dbi:set dbi:variable="created_by_person_id" dsd:var="person.id"/>
+						</dbi:if>
+                    </xsl:if>
+            		<dbi:if dbi:is-not-set="created_by_person_id">
+            			<dbi:echo dbi:level="WARN">WARN-3 mtknr=<xsl:value-of select="mtknr"/>; wvl.wvlnr=<xsl:value-of select="wvl.wvlnr"/> ignored: no person for wvl.bearb1=<xsl:value-of select="bearb1"/> found!</dbi:echo>
+            		</dbi:if>
+        			<dbi:if dbi:is-set="created_by_person_id">
+						<xsl:choose>						## Handelt es sich um eine Wiedervorlagengruppe? 
+    						## Wenn ja, dann wird die person_id (= Empfänger) leer gelassen -> Wiedervorlage für alle sichtbar -> Vorsicht: keine Erinnerungsfunktion!
+    						<xsl:when test="normalize-space(bearbgrp) = 'J'">
+                                <dbi:set dbi:variable="person_ok">y</dbi:set>
+							</xsl:when>
+							<xsl:otherwise>
+								## Keine Wiedervorlagengruppe -> Versuchen Person.id zu ermitteln
+        						## Ist Bearbeiter (wvl.bearb2) als Person migriert worden?
+                				<xsl:if test="normalize-space($identnr_bearb2) != ''">
+                					#set ($externaltabpk = "identnr_bearb2")
+                					#parse("dbinterface/hisinone/getPersonIdByExternalRelation.vm")
+        							<dbi:set dbi:variable="person_id" dsd:var="person.id"/>
+                                </xsl:if>
+            					<xsl:if test="normalize-space($personid_bearb2) != ''">
+            						<dbi:if dbi:is-not-set="person_id">
+                						## Bearbeiter ist nicht als Person migriert worden, aber vielleicht ist der Bearbeiter in HISinOne neu angelegt worden
+                						## und die person.id aus HISinOne in sospos.bearb.bereich2 hinterlegt?
+                    					#set ($personId = "personid_bearb2")
+                    					#parse("dbinterface/hisinone/checkPersonId.vm")
+                						<dbi:set dbi:variable="person_id" dsd:var="person.id"/>
+            						</dbi:if>
+                                </xsl:if>
+								<dbi:if dbi:is-set="person_id">
+									<dbi:set dbi:variable="person_ok">y</dbi:set>
+                                </dbi:if>
+                        		<dbi:if dbi:is-not-set="person_id">
+                        			<dbi:echo dbi:level="WARN">WARN-4 mtknr=<xsl:value-of select="mtknr"/>; wvl.wvlnr=<xsl:value-of select="wvl.wvlnr"/> ignored: no person for wvl.bearb2=<xsl:value-of select="bearb2"/> found!</dbi:echo>
+                        		</dbi:if>
+						    </xsl:otherwise>
+						</xsl:choose>
+        				<dbi:if dbi:is-true="person_ok = 'y'">
+        					<dbi:set dbi:variable="k_follow_up_function_hiskey_id" dsd:var="static-table-tsys-follow_up[{wvl.tsys}]">101</dbi:set>
+    						<dbi:set dbi:variable="k_follow_up_function_id" dsd:var="k_follow_up_function_lookup[[k_follow_up_function_hiskey_id]]"></dbi:set>
+        					<xsl:variable name="labnr"><xsl:value-of select="wvl.labnr"/></xsl:variable>
+        					<xsl:if test="normalize-space($labnr) != '' and normalize-space($labnr) != '0'">
+        						<dbi:set dbi:variable="object_id" />
+                        		<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+                        			<dbi:data>
+                        				<hisinone:hisinone>
+                        					<hisinone:examplan>
+                        						<hisinone:id />
+                        					</hisinone:examplan>
+                        				</hisinone:hisinone>
+                        			</dbi:data>
+                        			<dbi:condition>
+                        				<dbi:crossjoin dbi:condition="examplan.id=external_relation.tabpk"/>
+                        				<hisinone:hisinone>
+                        					<hisinone:external_relation>
+                        						<hisinone:externalsystem dsd:compOperator="equal">sospos</hisinone:externalsystem>
+                        						<hisinone:externaltable dsd:compOperator="equal">lab</hisinone:externaltable>/>
+                        						<hisinone:externaltabpk dsd:compOperator="equal"><xsl:value-of select="wvl.labnr" /></hisinone:externaltabpk>
+                        						<hisinone:tablename dsd:compOperator="equal">examplan</hisinone:tablename>/>
+                        					</hisinone:external_relation>
+                        				</hisinone:hisinone>
+                        			</dbi:condition>
+                        		</dbi:dbaction>
+        						<dbi:set dbi:variable="object_id" dsd:var="examplan.id"/>
+        						<dbi:set dbi:variable="object_type">examplan</dbi:set>
+								<dbi:set dbi:variable="k_follow_up_function_id" dsd:var="k_follow_up_function_lookup[115]"></dbi:set> ## "Einzelbearbeitung der Leistung"
+        					</xsl:if>
+                    		<dbi:if dbi:is-not-set="object_id">
+                    			<dbi:echo dbi:level="WARN">WARN-5 mtknr=<xsl:value-of select="mtknr"/>; wvl.wvlnr=<xsl:value-of select="wvl.wvlnr"/> ignored: no examplan_id for wvl.labnr=<xsl:value-of select="wvl.labnr"/> found!</dbi:echo>
+                    		</dbi:if>
+        					<dbi:if dbi:is-set="object_id">
+								<dbi:if dbi:is-set="k_follow_up_function_id">
+                            		<dbi:dbaction dbi:action="sync" dbi:lookup="follow_up.id">
+                            			<dbi:data>
+                            				<hisinone:hisinone>
+                            					<hisinone:follow_up>
+                									<hisinone:person_id  dsd:var="person_id" />
+                    								<hisinone:due_date><xsl:value-of select="wvl.datum"/></hisinone:due_date>
+                									<hisinone:follow_up_k_status_id dsd:var="k_status.id" />
+                    								<hisinone:k_reason_of_follow_up_id  dsd:var="k_reason_of_follow_up.id" />
+                									<hisinone:optional_reason><xsl:value-of select="wvl.txt"/></hisinone:optional_reason>
+                									<hisinone:k_follow_up_function_id dsd:var="k_follow_up_function_id" />
+                									<hisinone:object_id  dsd:var="object_id" />
+                									<hisinone:object_type  dsd:var="object_type" />
+                									<hisinone:created_at><xsl:value-of select="wvl.andatum"/></hisinone:created_at>
+                									<hisinone:created_by_person_id dsd:var="created_by_person_id" />
+                								</hisinone:follow_up>
+                            				</hisinone:hisinone>
+                            			</dbi:data>
+                            			#defaultCondition("follow_up" "follow_up.id" "sospos" "wvl" "wvl.wvlnr")
+                            		</dbi:dbaction> 
+                            		#onInsert("follow_up" "follow_up.id" "sospos" "wvl" "wvl.wvlnr")   	
+                                 	#if ($DEBUG && $DEBUG == "y")
+                            			<dbi:echo>DEBUG-3 (sospos-wvl) personid_bearb2=<xsl:value-of select="personid_bearb2" />; person_id=[person_id]; personid_bearb1=<xsl:value-of select="personid_bearb1" />; created_by_person_id=[created_by_person_id]; object_id=[object_id]; wvl.wvl_kennz=<xsl:value-of select="wvl.wvl_kennz" />; wvl.wvlart=<xsl:value-of select="wvl.wvlart" />; wvl.andatum=<xsl:value-of select="wvl.andatum" />; hiskey_id=[hiskey_id]; k_domain_id=[k_domain_id]; k_reason_of_follow_up.id=[k_reason_of_follow_up.id]</dbi:echo>
+                                    #end
+                                    #if ($TIMER && $TIMER == "y")
+                                    	<dbi:echo dbi:timeElapsed="y" />
+    								#end
+                                </dbi:if>
+    						</dbi:if>
+        				</dbi:if>
+    				</dbi:if>
+    			</dbi:if> 
+			</dbi:if> 
+		</dbi:try>
+	</xsl:for-each>
+    #if (($DEBUG && $DEBUG == "y") || ($TIMER && $TIMER == "y"))
+    	<dbi:echo dbi:statistics="y">DEBUG (sospos-wvl): ++++ [_statistics]</dbi:echo>
+	#end
+</xsl:template>
+	
+#parse("dbinterface/hisinone/foot.vm")

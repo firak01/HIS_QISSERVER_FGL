@@ -1,0 +1,171 @@
+#*
+Übernahme von Studenten von HISinOne nach sospos
+FL: 20241220 - Bei der Remigration der TUBAF sollen keine Nutzertabellen Einträge erzeugt werden
+*#
+#parse("dbinterface/hisinone/head.vm")
+
+<xsl:template match="${params.ACTION}-collection">
+	
+	#parse("dbinterface/hisinone/setVar.vm")
+	
+	#if ($student_to_zul && $student_to_zul == "y")
+    	#set ($stammtab = "bew")
+		#set ($nr = "bewnr")
+		#set ($rolle = "B")
+	#else
+    	#set ($stammtab = "sos")
+		#set ($nr = "mtknr")
+    	#set ($rolle = "S")
+	#end
+	
+	
+	## sospos:ustatus aus k_accountauth.hiskey_id ermitteln
+	<dbi:dbaction dbi:action="select" dbi:select-type="static-table" dbi:variable="static-table-ustatus">
+      <dbi:static-table>
+          <dbi:entry dbi:key="1">U</dbi:entry>
+		  <dbi:entry dbi:key="2">H</dbi:entry>
+		  <dbi:entry dbi:key="3">I</dbi:entry>
+		  <dbi:entry dbi:key="4">M</dbi:entry>
+		  <dbi:entry dbi:key="5">C</dbi:entry>
+      </dbi:static-table>
+    </dbi:dbaction>
+	
+	##s_var-Schalter 224 auslesen: Bei wert2 = J accounts in nutzer und sos_acc anlegen
+	<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+		<dbi:data>
+			<sospos:sospos>
+				<sospos:s_var>
+					<sospos:varnr />
+				</sospos:s_var>
+			</sospos:sospos>
+		</dbi:data>
+		<dbi:condition>
+			<sospos:sospos>
+				<sospos:s_var>
+					<sospos:wert2 dsd:compOperator="equal">J</sospos:wert2>
+					<sospos:varnr dsd:compOperator="equal">224</sospos:varnr>
+				</sospos:s_var>
+			</sospos:sospos>
+		</dbi:condition>
+	</dbi:dbaction>
+	<dbi:set dbi:variable="create_sos_acc" dsd:var="s_var.varnr" />
+	##s_var-Schalter 143 auslesen: in wert3 steht der Wert mit dem rechnerid gefüllt werden soll
+	<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+		<dbi:data>
+			<sospos:sospos>
+				<sospos:s_var>
+					<sospos:wert3 />
+				</sospos:s_var>
+			</sospos:sospos>
+		</dbi:data>
+		<dbi:condition>
+			<sospos:sospos>
+				<sospos:s_var>
+					<sospos:varnr dsd:compOperator="equal">143</sospos:varnr>
+				</sospos:s_var>
+			</sospos:sospos>
+		</dbi:condition>
+	</dbi:dbaction>
+	<dbi:set dbi:variable="rechnerid" dsd:var="s_var.wert3" />
+	
+	<xsl:for-each select="${params.ACTION}">
+		<dbi:try>
+			<dbi:set dbi:variable="setUpdatedAt" />
+    		<dbi:set dbi:variable="nutzer.identnr" />
+    		<dbi:set dbi:variable="identroll.identnr" />
+    		<dbi:set dbi:variable="sos_acc.mtknr" />
+    		
+    		#if ($rolle == "S")
+    			#parse("dbinterface/sospos/getMtknr.vm")
+    			<dbi:set dbi:variable="identificationnumber" dsd:var="sos.mtknr" dbi:ignore="empty" />
+    		#else				
+    			#parse("dbinterface/sospos/checkBewnr.vm")
+                <dbi:set dbi:variable="identificationnumber" dsd:var="bew.bewnr" dbi:ignore="empty" />
+    		#end
+    		<dbi:if dbi:is-not-set="setUpdatedAt">
+            	<dbi:if dbi:is-set="identificationnumber">				
+                		<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+                			<dbi:data>
+                				<sospos:sospos>
+                					<sospos:identroll>
+                						<sospos:identnr />
+                					</sospos:identroll>
+                				</sospos:sospos>
+                			</dbi:data>
+                			<dbi:condition>
+                				<sospos:sospos>
+                					<sospos:identroll>
+                						<sospos:verbindung_integer dsd:compOperator="equal" dsd:var="sos.mtknr" />
+                						<sospos:rolle dsd:compOperator="equal">S</sospos:rolle>
+                					</sospos:identroll>
+                				</sospos:sospos>
+                			</dbi:condition>
+                		</dbi:dbaction>					
+            		<dbi:set dbi:variable="ident.identnr" dsd:var="identroll.identnr" />
+            	</dbi:if>
+                #if ($DEBUG && $DEBUG == "y")
+                	<dbi:echo>DEBUG-1 running student with identroll.identnr = [ident.identnr]</dbi:echo>
+    			#end
+        		<dbi:if dbi:is-set="identroll.identnr">
+					<dbi:set dbi:variable="ustatus" dsd:var="static-table-ustatus[{k_accountauth_hiskey_id}]">I</dbi:set>
+    				##Datensatz in nutzer
+					<!-- FL: 20241220 kein Fuellen der Nutzertabelle -->
+					<!--
+            		<dbi:dbaction dbi:action="sync">
+            			<dbi:data>
+            				<sospos:sospos>
+            					<sospos:nutzer>
+            						<sospos:identnr dsd:var="identroll.identnr" />
+            						<sospos:onl_login><xsl:value-of select="username" /></sospos:onl_login>
+    								<sospos:ustatus dsd:var="ustatus" />
+    								<sospos:password><xsl:value-of select="passwordhash" /></sospos:password>
+									<sospos:rechnerid dsd:var="rechnerid" />
+            					</sospos:nutzer>
+            				</sospos:sospos>
+            			</dbi:data>
+            			<dbi:condition>
+                        	<sospos:sospos>
+                        		<sospos:nutzer>
+									<sospos:identnr dsd:var="identroll.identnr" />
+                         		</sospos:nutzer>
+                        	</sospos:sospos>
+                        </dbi:condition>
+					</dbi:dbaction>
+					-->
+    			   <dbi:if dbi:is-set="create_sos_acc">
+            			##Datensatz in sos_acc
+                		<dbi:dbaction dbi:action="sync">
+                			<dbi:data>
+                				<sospos:sospos>
+                					<sospos:sos_acc>
+                						<sospos:mtknr dsd:var="sos.mtknr" />
+                						<sospos:uid><xsl:value-of select="username" /></sospos:uid>
+        								<sospos:ustatus dsd:var="ustatus" />
+        								<sospos:upw><xsl:value-of select="passwordhash" /></sospos:upw>
+										<sospos:rechnerid dsd:var="rechnerid" />
+                					</sospos:sos_acc>
+                				</sospos:sospos>
+                			</dbi:data>
+                			<dbi:condition>
+                            	<sospos:sospos>
+                            		<sospos:sos_acc>
+    									<sospos:mtknr dsd:var="sos.mtknr" />
+                             		</sospos:sos_acc>
+                            	</sospos:sospos>
+                            </dbi:condition>
+                		</dbi:dbaction>
+                   </dbi:if>
+                </dbi:if>
+        	</dbi:if>
+			#parse("dbinterface/sospos/setPersonUpdatedAt.vm")
+			<dbi:on-error>
+				<dbi:echo dbi:level="WARN">ERROR-1 (account) Bei der Verarbeitung ist ein Fehler aufgetreten: registrationnumber=<xsl:value-of select="registrationnumber" />; person.id = <xsl:value-of select="person.id" />; student_id = <xsl:value-of select="student_id" /> </dbi:echo>
+				<dbi:set dbi:variable="setUpdatedAt">y</dbi:set>
+				#parse("dbinterface/sospos/setPersonUpdatedAt.vm")
+            </dbi:on-error>
+        </dbi:try>
+	</xsl:for-each>
+
+</xsl:template>
+
+#parse("dbinterface/hisinone/foot.vm")

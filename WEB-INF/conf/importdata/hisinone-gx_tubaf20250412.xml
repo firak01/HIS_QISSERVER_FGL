@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Übernahme des Gebührenfeldes von dem dBB20 BEARBD2 - FIELDBEARBD2SEMGEB nach gebn in Tabelle bew der sospos-DB
+
+FL 20241220: Remigration Studierender wg. SOSPOS aktiviert. 
+            Merke: Velocityscript wurde auch ueberschrieben, damit nur sos_acc gefuellt wird.
+-->
+
+
+<!DOCTYPE importdata SYSTEM "importdata.dtd">
+<importdata select-type="multi" importdatabase="sospos">
+   <globals>
+		<params name="globals">
+            <param ueberschreiben="y" name="gebn" value="30.00" />
+			<param ueberschreiben="y" active="y" name="request_status" value=" AND applicant.person_id IN  
+				(SELECT DISTINCT applicant.person_id 
+				FROM 
+					application, 
+					applicant, 
+					requestgroup, 
+					request, 
+					k_request_status,
+					term_type
+				WHERE 
+					application.applicant_id = applicant.id AND
+					requestgroup.application_id = application.id AND
+					request.requestgroup_id = requestgroup.id AND
+					request.k_request_status_id = k_request_status.id AND 
+					application.term_type_id = term_type.id AND
+					k_request_status.hiskey_id IN (2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 17, 101, 102, 103, 104, 105)
+					[app_standardbewerbungssemester_restriction]
+				) "/>
+				
+				<param active="n" ueberschreiben="y" name="stud_restriction" value="AND student.registrationnumber IN (5100001)" />
+		</params>
+   </globals>
+ 
+   
+   <entry name="hisinone-student-to-ZUL" active="y" description="Übernahme von Bewerbern nach ZUL-GX" databases="hisinone,sospos">
+      <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
+         <admin>
+            <execute />
+         </admin>
+      </rights>
+      <dbconnection name="hisinone" />
+       <params>
+       		<!-- Kein Check, ob Nachname, Vorname, Geburtsdatum und Geburtsort für den Bewerber in HISinOne und in SOSPOS identisch sind:
+       		     <param name="checkForCorrectness" value="n" /> -->
+            <param name="checkForCorrectness" value="y" />
+      </params>
+	  
+      <actions sendlevel="3" >  
+        <!-- Migration einzelner Bewerbungsbestandteile: Dezimalfeld in bestimmte Spalten (hier antr.hzbnote) -->
+         <action name="gebn" active="y" xslt="dbinterface/update-column.vm">
+         	<select>
+				<!-- Für FIELDBEARBD2SEMGEB : decimalfield -->
+				SELECT DISTINCT person.id, person.surname AS surname, person.firstname AS firstname, person.allfirstnames As allfirstnames
+				, person.k_gender_id AS k_gender_id, person.birthcity AS birthcity, person.birthname AS birthname, person.birthdate AS birthdate
+				, applicant.applicantnumber AS applicantnumber
+				<!--, request.requestnumber AS requestnumber-->
+				, requestsubjectgroup.subjectnumber As subjectnumber
+				, acfi_bew.decimalvalue AS value 
+				FROM applicant 
+				JOIN person ON (applicant.person_id = person.id) 
+				LEFT OUTER JOIN personinfo ON (person.id = personinfo.person_id) 
+				JOIN application ON (application.applicant_id = applicant.id) 
+				JOIN requestgroup ON (requestgroup.application_id = application.id) 
+				JOIN request ON (request.requestgroup_id = requestgroup.id) 
+				JOIN requestsubjectgroup ON (requestsubjectgroup.request_id = request.id) 
+				JOIN requestsubjectgroup_requestsubject ON (requestsubjectgroup_requestsubject.requestsubjectgroup_id = requestsubjectgroup.id)
+					JOIN requestsubject ON (requestsubjectgroup_requestsubject.requestsubject_id = requestsubject.id) 
+						JOIN requestsubject_application_content_input raci_bew on (raci_bew.requestsubject_id = requestsubject.id)
+							JOIN application_content_input aci_bew on (aci_bew.id = raci_bew.application_content_input_id)
+								JOIN application_content_field_input acfi_bew on (acfi_bew.application_content_input_id = aci_bew.id)
+								JOIN application_content_field acf_bew on (acfi_bew.application_content_field_id = acf_bew.id
+										AND acf_bew.uniquename = upper('fieldbearbd2gebsum') )
+				WHERE 1=1
+				[request_status]
+				[appl_restriction]
+				[delta_app_restriction]
+			</select>
+			<param name="database" value="sospos" />
+			<param name="table" value="bew" />
+			<param name="updatecolumn" value="gebn" />
+			<param name="conditioncolumn" value="bewnr" />
+			<param name="TIMER" value="y" />
+			<param name="targetobject" value="bew" />
+			<param name="DEBUG" value="n" />
+         </action>  
+		
+
+		
+	  </actions>
+		
+   </entry>
+   
+   
+   		 <entry name="hisinone-student" active="y" description="Übernahme von Studierenden nach SOS-GX" databases="hisinone,sospos">
+      <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
+         <admin>
+            <execute />
+         </admin>
+      </rights>
+      <dbconnection name="hisinone" />
+       <params>
+       		<param active="y" name="role_restriction" value="AND role.hiskey_id IN (5, 8) " /> <!-- 5=Student, 8=Gasthoerer -->
+       		<param active="y" name="no_deleted_restriction" value="AND NOT EXISTS (SELECT * FROM orgrole, role WHERE orgrole.person_id=person.id AND orgrole.role_id=role.id AND role.hiskey_id=3000) "/>
+       		<!-- Kein Check, ob Nachname, Vorname, Geburtsdatum und Geburtsort für den Studierenden in HISinOne und in SOSPOS identisch sind:
+       		     <param name="checkForCorrectness" value="n" /> -->
+            <param name="checkForCorrectness" value="y" />
+      </params>
+      <actions sendlevel="3" sqlblocksize="100000">
+		<action name="account" active="y" xslt="dbinterface/sospos/account.vm">
+            <select>
+			SELECT DISTINCT person.id, person.surname AS surname, person.firstname AS firstname, person.allfirstnames As allfirstnames
+			, person.k_gender_id AS k_gender_id, person.birthcity AS birthcity, person.birthname AS birthname, person.birthdate AS birthdate
+			, student.registrationnumber AS registrationnumber, student.id AS student_id
+			, person.id AS person_id
+			, account.id AS account_id, account.username AS username, account.passwordhash AS passwordhash
+			, k_accountauth.hiskey_id AS k_accountauth_hiskey_id
+			FROM (student 
+			JOIN person ON (student.person_id = person.id) 
+			JOIN account ON (account.person_id = person.id) 
+			LEFT JOIN k_purpose ON (account.k_purpose_id = k_purpose.id)
+			JOIN orgrole ON (orgrole.person_id = person.id) 
+			JOIN role ON (orgrole.role_id = role.id [role_restriction]) 
+			JOIN k_accountauth ON (k_accountauth.id = account.k_accountauth_id)
+			)
+			WHERE (k_purpose.hiskey_id = 2 OR account.k_purpose_id IS NULL)
+				[stud_restriction]
+				[delta_stud_restriction]
+				[account_restriction]
+				[no_deleted_restriction]
+			AND student.registrationnumber IS NOT NULL
+			ORDER BY person.id
+			</select>
+			<param name="TIMER" value="y" />
+            <param name="targetobject" value="nutzer" />
+            <param name="DEBUG" value="y" />
+         </action>
+		
+		  <action name="stay_abroad-new" ueberschreiben="y" active="y" xslt="dbinterface/sospos/stay_abroad-new.vm">
+            <select>
+			SELECT DISTINCT person.id, person.surname AS surname, person.firstname AS firstname, person.allfirstnames As allfirstnames
+			, person.k_gender_id AS k_gender_id, person.birthcity AS birthcity, person.birthname AS birthname, person.birthdate AS birthdate
+			, student.registrationnumber AS registrationnumber, student.id AS student_id
+			, stay_abroad.id AS hisinone_stay_abroad_id, number_of_month
+			, country.lid AS country_lid, country.uniquename AS country, stay_abroad.startdate AS startdate, stay_abroad.enddate AS enddate
+			, k_stayabroad_type.uniquename AS uniquename_stayabroad_type, k_mobility_program.uniquename AS uniquename_mobility_program
+			FROM stay_abroad
+			JOIN student ON (stay_abroad.person_id = student.person_id)
+			JOIN person ON (student.person_id = person.id) 
+			JOIN orgrole ON (orgrole.person_id = person.id) 
+			JOIN role ON (orgrole.role_id = role.id [role_restriction])
+			JOIN country ON (stay_abroad.country_lid = country.lid)
+			JOIN k_stayabroad_type ON (stay_abroad.k_stayabroad_type_id = k_stayabroad_type.id)
+			JOIN k_mobility_program ON (stay_abroad.k_mobility_program_id = k_mobility_program.id)
+			WHERE 1=1
+				[stud_restriction]
+				[delta_stud_restriction]
+				[no_deleted_restriction]
+			AND student.registrationnumber IS NOT NULL
+			ORDER BY person.id, registrationnumber
+			</select>
+			<param name="TIMER" value="y" />
+			<param name="targetobject" value="stay_abroad" />
+            <param name="DEBUG" value="n" />
+         </action>
+	  </actions>
+	  </entry>
+   
+</importdata>
+ 
+     

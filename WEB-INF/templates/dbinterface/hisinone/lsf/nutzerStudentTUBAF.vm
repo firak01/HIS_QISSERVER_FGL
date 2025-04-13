@@ -1,0 +1,72 @@
+#parse("dbinterface/hisinone/head.vm")
+
+
+<xsl:template match="${params.ACTION}-collection">
+	
+	#parse("dbinterface/hisinone/setVar.vm")
+	
+	#if (!$personid)
+		#set ($personid = $srctableid)
+	#end
+	#if (!$persontable)
+		#set ($persontable = $srctable)
+	#end
+	
+    #set ($lookuptable = "k_externalsystem")
+    #parse("dbinterface/hisinone/intern-lookup.vm")
+		
+	#set ($lookuptable = "k_accountauth")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#if ($k_purpose_hiskeyid)
+    	<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+        	<dbi:data>
+        		<hisinone:hisinone>
+        			<hisinone:k_purpose>
+        				<hisinone:id />
+        			</hisinone:k_purpose>
+				</hisinone:hisinone>
+        	</dbi:data>
+        	<dbi:condition>
+        		<hisinone:hisinone>
+        			<hisinone:k_purpose>
+        				<hisinone:hiskey_id>$k_purpose_hiskeyid</hisinone:hiskey_id>
+        			</hisinone:k_purpose>
+        		</hisinone:hisinone>
+        	</dbi:condition>
+    	</dbi:dbaction>
+	#end 
+	
+	<xsl:for-each select="${params.ACTION}">
+		<dbi:try>
+			<!--FGL: neue Variable wie k_wvl_ktxt -->
+			<!--<dbi:set dbi:variable="password"><xsl:value-of select="xzx" /></dbi:set>
+			 #if ($DEBUG && $DEBUG == "y")
+            	<dbi:echo>DEBUG (nutzer) person.id=[person.id]; login=<xsl:value-of select="login"/>; passwordx=<xsl:value-of select="passwordx"/>; password=[passwordx];</dbi:echo>
+			 #end -->
+			 
+    		#parse("dbinterface/hisinone/person-lookup.vm")
+            #if ($DEBUG && $DEBUG == "y")
+            	<dbi:echo>DEBUG-1 (nutzerStudentTUBAF) person.id=[person.id]; login=<xsl:value-of select="login"/>; k_purpose_hiskeyid=<xsl:value-of select="k_purpose_hiskeyid"/>; k_purpose_hiskeyid=[k_purpose_hiskeyid]; externalsystem=<xsl:value-of select="externalsystem" />; externalsystem=[externalsystem];</dbi:echo>
+            #end
+    		<dbi:if dbi:is-set="person.id">
+				<xsl:variable name="login"><xsl:value-of select="login"/></xsl:variable>
+								
+				#if ($DEBUG && $DEBUG == "y")
+					<dbi:echo>DEBUG-2 (nutzerStudentTUBAF) person.id=[person.id]; login=<xsl:value-of select="login"/>; k_purpose_hiskeyid=<xsl:value-of select="k_purpose_hiskeyid"/>; k_purpose_hiskeyid=[k_purpose_hiskeyid]</dbi:echo>
+				#end
+				<xsl:if test= "normalize-space($login) != '' " >
+            		<!-- account-Satz aktualisieren oder einfuegen -->
+        			#parse("dbinterface/hisinone/accountStudentTUBAF-sync.vm")
+                </xsl:if>
+    		</dbi:if>	
+            #if ($TIMER && $TIMER == "y")
+            	<dbi:echo dbi:timeElapsed="y" />
+    		#end
+		</dbi:try>
+	</xsl:for-each>
+    #if (($DEBUG && $DEBUG == "y") || ($TIMER && $TIMER == "y"))
+    	<dbi:echo dbi:statistics="y">DEBUG (nutzer): ++++ [_statistics]</dbi:echo>
+    #end
+</xsl:template>	
+#parse("dbinterface/hisinone/foot.vm")

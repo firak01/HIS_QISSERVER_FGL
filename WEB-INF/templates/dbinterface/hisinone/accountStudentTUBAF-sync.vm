@@ -1,0 +1,115 @@
+<!-- account-Satz aktualisieren oder einfuegen -->
+<dbi:set dbi:variable="username" />
+<dbi:set dbi:variable="login" />
+<dbi:set dbi:variable="k_accountauth_id" dsd:var="k_accountauth_lookup[{ustatus}]" dbi:ignore="empty" />	
+<dbi:if dbi:is-not-set="k_accountauth_id">
+	<dbi:set dbi:variable="k_accountauth_id" dsd:var="k_accountauth_lookup[U]" dbi:ignore="empty" />	
+</dbi:if>
+<dbi:set dbi:variable="login"><xsl:value-of select="login" /></dbi:set>	
+<dbi:if dbi:is-set="login">
+	<dbi:call dbi:function="de.his.xml.functions.CheckAccount">
+		<dbi:return dbi:variable="username" />
+	</dbi:call>
+</dbi:if>
+#if ($DEBUG && $DEBUG == "y")
+	<dbi:echo>DEBUG-0 (accountTUBAF_sync) Person.id=[person.id]: login=<xsl:value-of select="login" />; username=[username]; password=[password]</dbi:echo>
+#end			
+<dbi:if dbi:is-not-set="username">
+	<dbi:echo dbi:level="WARN">WARN (accountTUBAF_sync)  Person.id=[person.id]: login=<xsl:value-of select="login" /> ignored: username invalid!</dbi:echo>
+</dbi:if>
+
+<dbi:if dbi:is-set="username">
+	 #if ($DEBUG && $DEBUG == "y")
+    	##<dbi:echo>DEBUG-1 (account_sync) Person.id=[person.id]: login=<xsl:value-of select="login" />; password=$password; auth_externalsystem=$auth_externalsystem</dbi:echo>-->
+		<dbi:echo>DEBUG-1 (accountTUBAF_sync) Version nur fuer Migration der TUBAF Studenten</dbi:echo>
+		<dbi:echo>DEBUG-2 (accountTUBAF_sync) Person.id=[person.id]: login=<xsl:value-of select="login" />; password=<xsl:value-of select="password" />; password=[password] ; k_accountauth_id=[k_accountauth_id] ; auth_externalsystem=$auth_externalsystem</dbi:echo>	
+	 #end
+	
+	<dbi:set dbi:variable="is_initialpassword">1</dbi:set>
+	
+	<!-- originalvariante -->
+	<!--<xsl:variable name="password" select="password" />-->
+		
+	<!-- variante mit festem Kennwort  --> 
+	<dbi:set dbi:variable="password">tubafInitial!</dbi:set>
+	
+	<!-- Variante mit SQL Abfrage -->	
+	<!--klapt nicht 
+	<xsl:choose>
+		<xsl:when test="password!=''">
+			<dbi:echo>DEBUG-4a (accountTUBAF_sync2) Person.id=[person.id]: login=<xsl:value-of select="login" />; password=<xsl:value-of select="password" />; password=[password] ; k_accountauth_id=[k_accountauth_id] ; auth_externalsystem=$auth_externalsystem</dbi:echo>
+			<dbi:set dbi:variable="password"><xsl:value-of select="password" /></dbi:set>				
+		</xsl:when>
+		<xsl:otherwise>
+			<dbi:echo>DEBUG-4b (accountTUBAF_sync2) Person.id=[person.id]: login=<xsl:value-of select="login" />; password=<xsl:value-of select="password" />; password=[password] ; k_accountauth_id=[k_accountauth_id] ; auth_externalsystem=$auth_externalsystem</dbi:echo>
+			<dbi:set dbi:variable="password">tubafInitial!</dbi:set>			
+		</xsl:otherwise>
+	</xsl:choose>-->
+	<dbi:echo>DEBUG-3 (accountTUBAF_sync) Person.id=[person.id]: login=<xsl:value-of select="login" />; password=<xsl:value-of select="password" />; password=[password] ; k_accountauth_id=[k_accountauth_id] ; auth_externalsystem=$auth_externalsystem</dbi:echo>
+
+	<!-- Variante mit dem extra gehashten Kennwort -->
+	<!-- In Velocity steht nix zum Hashen zur Verfügung. Ergo per SQL von aussen gehasht uebergeben.-->
+	<!-- geht das? -->
+	
+   
+    <!--FL: aber bei der TUBAF wird anders gehasht ... <xsl:if test="starts-with($password, '$apr1')">-->
+	<!--<xsl:if test="starts-with($password, '$6$')">    	
+		##<dbi:echo>DEBUG-XXXXXXX (account_sync) Person.id=[person.id]: login=<xsl:value-of select="login" />; password=<xsl:value-of select="password" /></dbi:echo>
+		<dbi:set dbi:variable="k_accountauth_id">2</dbi:set>	
+    </xsl:if>-->
+	
+	<!-- variante mit festem Kennwort  --> 
+	<dbi:set dbi:variable="externalsystemZZZ">RZ</dbi:set>
+	<dbi:echo>DEBUG-3 (accountTUBAF_sync) Person.id=[person.id]: login=<xsl:value-of select="login" />; externalsystem=<xsl:value-of select="externalsystem" />; externalsystem=[externalsystem]; externalsystemZZZ=<xsl:value-of select="externalsystemZZZ" />; externalsystemZZZ=[externalsystemZZZ]</dbi:echo>
+	
+	<!-- variante mit festem Verwendungszweck  -->
+	<dbi:set dbi:variable="k_purposeIdZZZ">2</dbi:set>
+	<dbi:echo>DEBUG-4 (accountTUBAF_sync) Person.id=[person.id]: login=<xsl:value-of select="login" />; k_purposeid=<xsl:value-of select="k_purpose.id" />; k_purposeid=[k_purpose.id]; k_purposeid=<xsl:value-of select="k_purposeIdZZZ" />; k_purposeid=[k_purposeIdZZZ]</dbi:echo>
+	
+	
+	<dbi:set dbi:variable="k_accountauth_id">3</dbi:set><!-- initial -->
+	<xsl:variable name="ustatus" select="ustatus" />		
+	<dbi:dbaction dbi:action="sync" dbi:lookup="account.id">
+		<dbi:data>
+			<hisinone:hisinone>
+				<hisinone:account>
+					<hisinone:person_id dsd:var="person.id" />
+					<hisinone:username dsd:var="login" />
+					#if ($auth_externalsystem != "y")
+    					<hisinone:passwordhash dsd:var="password" />
+					#end
+					<hisinone:is_initialpassword dsd:var="is_initialpassword" />
+					<hisinone:k_accountauth_id dsd:var="k_accountauth_id" />
+					<!--fehler im Standard 'Dollarzeichen ist falsch' Fehlermeldung im Log: Not hits for key $     ..... <hisinone:k_externalsystem_id dsd:var="k_externalsystem_lookup[${externalsystemZZZ}]" /> -->
+					<hisinone:k_externalsystem_id dsd:var="k_externalsystem_lookup[[externalsystemZZZ]]" />
+					<!--original <hisinone:k_purpose_id dsd:var="k_purpose.id" /> -->
+					<hisinone:k_purpose_id dsd:var="k_purposeIdZZZ" />
+				</hisinone:account>
+			</hisinone:hisinone>
+		</dbi:data>				
+		<dbi:alldata>
+			<hisinone:hisinone>
+				<hisinone:account>
+					#parse("dbinterface/hisinone/hisinone-aikz-umwandlung.vm")
+					<!-- 1 ist "nicht blocked" -->
+					<hisinone:k_blocked_id>1</hisinone:k_blocked_id>
+				</hisinone:account>
+			</hisinone:hisinone>
+		</dbi:alldata>
+		<dbi:condition>
+			<hisinone:hisinone>
+				<hisinone:account>
+					<hisinone:person_id dsd:var="person.id" />
+					<hisinone:username dsd:var="login" />
+					#if ($auth_externalsystem != "y")
+    					<hisinone:passwordhash dsd:var="password" />
+    					<hisinone:is_initialpassword dsd:var="is_initialpassword" />
+    					<hisinone:k_accountauth_id dsd:var="k_accountauth_id" />
+					#end
+				</hisinone:account>
+			</hisinone:hisinone>
+		</dbi:condition>
+	</dbi:dbaction>
+    #onInsert("account" "account.id" "$database" "$srctable" "$srctableid")
+    #onUpdate("account" "account.id" "$database" "$srctable" "$srctableid")
+</dbi:if>

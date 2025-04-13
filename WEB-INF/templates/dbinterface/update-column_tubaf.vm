@@ -1,0 +1,126 @@
+#parse("dbinterface/hisinone/head.vm")
+#*
+update-column_tubaf.vm
+Es kann eine Spalte in einer Tabelle in einer Datenbank upgedatet werden.
+Dabei werden folgende Parameter ausgewertet:
+	<param name="database" value="sospos" />
+	<param name="table" value="bew" />
+	<param name="updatecolumn" value="bem" />
+	<param name="conditioncolumn" value="bewnr" /> Wie heißt das Feld mit der Identifikationsnummer, z.B. bewnr, mtknr, identnr
+Upgedatet wird das selektierte Feld AS "value". Beispiel: additional_application_data.fieldvalue AS value
+Besondere Verarbeitung 
+		-- für antr.hzbnote
+		-- für Parameter exponent
+		-- für stg.smester und stg.stgnr
+		
+JB_20200612: Hinzufügen Gebühreninformation aus dem dBB 20 BEARBD2 - FIELDBEARBD2GEBSEM
+*#
+
+
+<xsl:template match="${params.ACTION}-collection">
+	
+	<xsl:for-each select="${params.ACTION}">
+		<dbi:try>
+			<dbi:set dbi:variable="setUpdatedAt" />
+    		#if ($conditioncolumn == "mtknr")
+    			#parse("dbinterface/sospos/getMtknr.vm")
+    			<dbi:set dbi:variable="identificationnumber" dsd:var="sos.mtknr" dbi:ignore="empty" />
+    		#elseif ($conditioncolumn == "bewnr")
+				#parse("dbinterface/sospos/checkBewnr.vm")
+				<dbi:set dbi:variable="identificationnumber" dsd:var="bew.bewnr" dbi:ignore="empty" />
+			#elseif ($table == "application" && $conditioncolumn == "applicant_id")
+                <dbi:dbaction dbi:action="select" dbi:select-type="intern">
+                	<dbi:data>
+        				<${database}:${database}>
+        					<${database}:applicant>
+								<${database}:id />
+        					</${database}:applicant>
+        				</${database}:${database}>
+                	</dbi:data>
+                	<dbi:condition>
+         				<${database}:${database}>
+        					<${database}:applicant>
+								<${database}:applicantnumber dsd:compOperator="equal"><xsl:value-of select="bewnr" /></${database}:applicantnumber>
+        					</${database}:applicant>
+        				</${database}:${database}>
+                	</dbi:condition>	
+                </dbi:dbaction>
+				<dbi:set dbi:variable="identificationnumber" dsd:var="applicant.id"/>
+			#end
+            #if ($DEBUG && $DEBUG == "y")
+            	<dbi:echo>DEBUG-1 (update-column) Datenbank= $database ; Tabelle= $table; updatecolumn = $updatecolumn ; $conditioncolumn =[identificationnumber]; value=<xsl:value-of select="value" />; error=[setUpdatedAt];</dbi:echo>
+            #end
+    		<dbi:if dbi:is-not-set="setUpdatedAt">
+            	<dbi:if dbi:is-set="identificationnumber">
+					<xsl:variable name="value" select="value" />
+					<dbi:set dbi:variable="updatevalue"><xsl:value-of select="value" /></dbi:set>
+					<xsl:if test="normalize-space($value) != ''">
+						#if($table && $table == "antr" && $updatecolumn && $updatecolumn == "hzbnote")
+                            <dbi:set dbi:variable="updatevalue"><xsl:value-of select="substring(translate(value, '.', ''), 0, 3)" /></dbi:set>
+    					#elseif($exponent)
+							#if ($exponent == '1' )
+            					## Punkte * 10
+    							<xsl:variable name="newvalue" select="value * 10" />
+							#end
+							## weitere Nachkommastellen abtrennen
+                    		<dbi:call dbi:function="de.his.xml.functions.FloatToInt">
+                                <dbi:param dbi:name="number"><xsl:value-of select="$newvalue" /></dbi:param>
+                        		<dbi:return dbi:variable="updatevalue" />
+                        	</dbi:call>
+						#elseif($updatecolumn && $updatecolumn == "remark")
+							<dbi:set dbi:variable="updatevalue"><xsl:value-of select="concat('Eine Zahlung in Höhe von ',value,'€ ist eingegangen.')" /></dbi:set>
+						#elseif($updatecolumn && $updatecolumn == "external_information")
+							<dbi:set dbi:variable="updatevalue"><xsl:value-of select="concat('Ihre Zahlung in Höhe von ',value,'€ ist bei uns eingegangen.')" /></dbi:set>
+						#else
+							<dbi:set dbi:variable="updatevalue"><xsl:value-of select="value" /></dbi:set>
+						#end
+					</xsl:if>
+					<dbi:set dbi:variable="semester"><xsl:value-of select="term_year" /><xsl:value-of select="termnumber" /></dbi:set>
+            		<xsl:variable name="stgnr"><xsl:value-of select="studynumber" /><xsl:value-of select="subjectnumber" /></xsl:variable>
+					## Update
+            		<dbi:dbaction dbi:action="update">
+            			<dbi:data>
+            				<${database}:${database}>
+            					<${database}:${table}>
+									<${database}:${updatecolumn} dsd:setNullIfEmpty="y" dsd:var="updatevalue" />
+            					</${database}:${table}>
+            				</${database}:${database}>
+            			</dbi:data>
+            			<dbi:condition>
+                        	<${database}:${database}>
+                        		<${database}:${table}>
+                                    <${database}:${conditioncolumn} dsd:var="identificationnumber"/>
+									#if ($table && $table == "antr")
+										<sospos:antrnr><xsl:value-of select="requestnumber" /></sospos:antrnr>
+										<sospos:fachnr><xsl:value-of select="subjectnumber" /></sospos:fachnr>
+									#end
+									#if ($table && $table == "stg")
+										<sospos:semester dsd:var="semester"/>
+										<xsl:if test="normalize-space($stgnr) != ''">
+                                            <sospos:stgnr><xsl:value-of select="studynumber" /><xsl:value-of select="subjectnumber" /></sospos:stgnr>
+                                        </xsl:if>
+									#end
+                         		</${database}:${table}>
+                        	</${database}:${database}>
+                        </dbi:condition>
+            		</dbi:dbaction>	
+    			</dbi:if>
+    		</dbi:if>
+    		#if ($TIMER && $TIMER == "y")
+            	<dbi:echo dbi:timeElapsed="y" />
+			#end
+			<dbi:on-error>
+				<dbi:echo dbi:level="WARN">ERROR-1 (update-column) Bei der Verarbeitung ist ein Fehler aufgetreten: identificationnumber=[identificationnumber]; person.id = <xsl:value-of select="person.id" /></dbi:echo>
+				<dbi:set dbi:variable="setUpdatedAt">y</dbi:set>
+				#if ($database && $database == "sospos")
+					#parse("dbinterface/sospos/setPersonUpdatedAt.vm")
+				#end
+            </dbi:on-error>
+		</dbi:try>
+	</xsl:for-each>
+    #if (($DEBUG && $DEBUG == "y") || ($TIMER && $TIMER == "y"))
+    	<dbi:echo dbi:statistics="y">DEBUG (update-column): ++++ [_statistics]</dbi:echo>
+    #end
+</xsl:template>
+
+#parse("dbinterface/hisinone/foot.vm")
