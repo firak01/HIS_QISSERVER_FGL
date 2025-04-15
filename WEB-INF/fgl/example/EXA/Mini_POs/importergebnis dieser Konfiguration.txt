@@ -1,0 +1,546 @@
+<actions>
+  <LanguageValue-collection updated="0" unchanged="2" inserted="0" />
+  <RemarkOnExamValue-collection updated="0" unchanged="0" inserted="0" />
+  <WorkstatusValue-collection updated="0" unchanged="3" inserted="0" />
+  <RoundingMethodValue-collection updated="0" unchanged="1" inserted="0" />
+  <GradingTypePurposeValue-collection updated="0" unchanged="1" inserted="0" />
+  <GradingTypeValue-collection updated="0" unchanged="0" inserted="1">
+    <entity name="GradingTypeValue" dname="Bewertungsart" key="G - Berechnung mit 2 NachK" objGuid="3dca9978-2bcb-4fd3-8f6e-d34d436e49cc">
+      <action originalId="GradingTypeValue.20">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="CreditsThreshold" value="3.99" />
+        <attribute name="Defaultlanguage" value="12" />
+        <attribute name="Defaulttext" value="Berechnung mit 2 NachK" />
+        <attribute name="Longtext" value="Berechnung  mit zwei Nachkommastellen" />
+        <attribute name="LowerLimit" value="0" />
+        <attribute name="ObjectLocale" value="de" />
+        <attribute name="RoundingPosition" value="2" />
+        <attribute name="Shorttext" value="2 Nachkomm" />
+        <attribute name="TypeOfGrading" value="0" />
+        <attribute name="Uniquename" value="G" />
+        <attribute name="UpperLimit" value="5" />
+        <attribute name="Purpose" value="GradingTypePurposeValue(id=1, objGuid=c0007f8a-7945-49d0-bf01-84c0e1d8ec25)" />
+        <attribute name="RoundingMethod" value="RoundingMethodValue(id=1, objGuid=6037e9b8-426c-48a3-b948-da3f35e97c5e)" />
+      </diffs>
+    </entity>
+  </GradingTypeValue-collection>
+  <GradeToStatus-collection updated="0" unchanged="0" inserted="3">
+    <entity name="GradeToStatus" dname="n/a" key="GradeToStatus[id=&lt;null&gt;,objGuid=1ee4141a-751f-44cf-8bf8-b7d37608d5c7]" objGuid="1ee4141a-751f-44cf-8bf8-b7d37608d5c7">
+      <action originalId="GradeToStatus.60">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Sortorder" value="0" />
+        <attribute name="Gradingtype" value="GradingTypeValue(id=19, objGuid=3dca9978-2bcb-4fd3-8f6e-d34d436e49cc)" />
+        <attribute name="Workstatus" value="WorkstatusValue(id=8, objGuid=7d412053-5125-4bfc-9fe2-d6a73c99437d)" />
+      </diffs>
+    </entity>
+    <entity name="GradeToStatus" dname="n/a" key="GradeToStatus[id=&lt;null&gt;,objGuid=69b733dc-511a-4599-bba8-1a28c2bd297a]" objGuid="69b733dc-511a-4599-bba8-1a28c2bd297a">
+      <action originalId="GradeToStatus.61">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="FromValue" value="0" />
+        <attribute name="Sortorder" value="1" />
+        <attribute name="ToValue" value="3.99" />
+        <attribute name="Gradingtype" value="GradingTypeValue(id=19, objGuid=3dca9978-2bcb-4fd3-8f6e-d34d436e49cc)" />
+        <attribute name="Workstatus" value="WorkstatusValue(id=1, objGuid=a3342890-0eb7-42ca-a0b5-5dbd10251025)" />
+      </diffs>
+    </entity>
+    <entity name="GradeToStatus" dname="n/a" key="GradeToStatus[id=&lt;null&gt;,objGuid=81ee04be-5ccd-44c9-ac72-cb6bea99639b]" objGuid="81ee04be-5ccd-44c9-ac72-cb6bea99639b">
+      <action originalId="GradeToStatus.62">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="FromValue" value="4" />
+        <attribute name="Sortorder" value="2" />
+        <attribute name="ToValue" value="5" />
+        <attribute name="Gradingtype" value="GradingTypeValue(id=19, objGuid=3dca9978-2bcb-4fd3-8f6e-d34d436e49cc)" />
+        <attribute name="Workstatus" value="WorkstatusValue(id=6, objGuid=bc3d224c-ccfb-4af2-b7b4-377ba1c60b2a)" />
+      </diffs>
+    </entity>
+  </GradeToStatus-collection>
+  <GradingTypeValueAllowed-collection updated="0" unchanged="0" inserted="0" />
+  <GradingTypeText-collection updated="0" unchanged="0" inserted="5">
+    <entity name="GradingTypeText" dname="n/a" key="gut" objGuid="29d612f0-1779-4dcb-a5e5-0314d209aa12">
+      <action originalId="GradingTypeText.17">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Defaultlanguage" value="12" />
+        <attribute name="Defaulttext" value="gut" />
+        <attribute name="FromValue" value="1.6" />
+        <attribute name="Longtext" value="gut" />
+        <attribute name="ObjectLocale" value="de" />
+        <attribute name="Shorttext" value="gut" />
+        <attribute name="ToValue" value="2.59" />
+        <attribute name="Gradingtype" value="GradingTypeValue(id=19, objGuid=3dca9978-2bcb-4fd3-8f6e-d34d436e49cc)" />
+      </diffs>
+    </entity>
+    <entity name="GradingTypeText" dname="n/a" key="ausreichend" objGuid="2f2eb6bf-0d65-43b0-a010-182e643ca9d4">
+      <action originalId="GradingTypeText.19">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Defaultlanguage" value="12" />
+        <attribute name="Defaulttext" value="ausreichend" />
+        <attribute name="FromValue" value="3.6" />
+        <attribute name="Longtext" value="ausreichend" />
+        <attribute name="ObjectLocale" value="de" />
+        <attribute name="Shorttext" value="ausreichend" />
+        <attribute name="ToValue" value="4.09" />
+        <attribute name="Gradingtype" value="GradingTypeValue(id=19, objGuid=3dca9978-2bcb-4fd3-8f6e-d34d436e49cc)" />
+      </diffs>
+    </entity>
+    <entity name="GradingTypeText" dname="n/a" key="sehr gut" objGuid="619d62b7-b78d-4931-a70a-fb669a7c8b04">
+      <action originalId="GradingTypeText.16">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Defaultlanguage" value="12" />
+        <attribute name="Defaulttext" value="sehr gut" />
+        <attribute name="FromValue" value="1" />
+        <attribute name="Longtext" value="sehr gut" />
+        <attribute name="ObjectLocale" value="de" />
+        <attribute name="Shorttext" value="sehr gut" />
+        <attribute name="ToValue" value="1.59" />
+        <attribute name="Gradingtype" value="GradingTypeValue(id=19, objGuid=3dca9978-2bcb-4fd3-8f6e-d34d436e49cc)" />
+      </diffs>
+    </entity>
+    <entity name="GradingTypeText" dname="n/a" key="nicht ausreichend" objGuid="d9be18aa-f8bb-4ff6-9c9c-04591a12c734">
+      <action originalId="GradingTypeText.20">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Defaultlanguage" value="12" />
+        <attribute name="Defaulttext" value="nicht ausreichend" />
+        <attribute name="FromValue" value="4.1" />
+        <attribute name="Longtext" value="nicht ausreichend" />
+        <attribute name="ObjectLocale" value="de" />
+        <attribute name="Shorttext" value="nicht ausreichend" />
+        <attribute name="ToValue" value="5" />
+        <attribute name="Gradingtype" value="GradingTypeValue(id=19, objGuid=3dca9978-2bcb-4fd3-8f6e-d34d436e49cc)" />
+      </diffs>
+    </entity>
+    <entity name="GradingTypeText" dname="n/a" key="befriedigend" objGuid="de344f15-5136-4710-8ea2-4dfe4e489507">
+      <action originalId="GradingTypeText.18">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Defaultlanguage" value="12" />
+        <attribute name="Defaulttext" value="befriedigend" />
+        <attribute name="FromValue" value="2.6" />
+        <attribute name="Longtext" value="befriedigend" />
+        <attribute name="ObjectLocale" value="de" />
+        <attribute name="Shorttext" value="befriedigend" />
+        <attribute name="ToValue" value="3.59" />
+        <attribute name="Gradingtype" value="GradingTypeValue(id=19, objGuid=3dca9978-2bcb-4fd3-8f6e-d34d436e49cc)" />
+      </diffs>
+    </entity>
+  </GradingTypeText-collection>
+  <GradingTypeConversion-collection updated="0" unchanged="0" inserted="0" />
+  <RemarkToStatus-collection updated="0" unchanged="0" inserted="0" />
+  <CountryGradingType-collection updated="0" unchanged="0" inserted="0" />
+  <TimelimitGroupingRelative-collection updated="0" unchanged="0" inserted="0" />
+  <UnitOfTimeValue-collection updated="0" unchanged="0" inserted="0" />
+  <TypeOfTimelimitRelativeValue-collection updated="0" unchanged="0" inserted="0" />
+  <TimelimitRelative-collection updated="0" unchanged="0" inserted="0" />
+  <AdditionalattributeType-collection updated="0" unchanged="0" inserted="0" />
+  <AdditionalattributeValueList-collection updated="0" unchanged="0" inserted="0" />
+  <PurposeValue-collection updated="0" unchanged="0" inserted="0" />
+  <ZulConsequenceValue-collection updated="0" unchanged="0" inserted="0" />
+  <ZulMissingDataValue-collection updated="0" unchanged="0" inserted="0" />
+  <UnitrelationtypeValue-collection updated="0" unchanged="2" inserted="0" />
+  <CompulsoryValue-collection updated="0" unchanged="0" inserted="0" />
+  <TimelimitGrouping-collection updated="0" unchanged="0" inserted="0" />
+  <ExamformValue-collection updated="0" unchanged="0" inserted="0" />
+  <ExaminationTypeValue-collection updated="0" unchanged="0" inserted="0" />
+  <EventtypeValue-collection updated="0" unchanged="0" inserted="0" />
+  <FrequencyOfOfferValue-collection updated="0" unchanged="0" inserted="0" />
+  <ElementtypeValue-collection updated="0" unchanged="2" inserted="0" />
+  <UnitStatusValue-collection updated="0" unchanged="1" inserted="0" />
+  <UnitOfTimeValue-collection updated="0" unchanged="0" inserted="0" />
+  <PersonUnitFunctionValue-collection updated="0" unchanged="0" inserted="0" />
+  <UnitOrgunitRelationValue-collection updated="0" unchanged="1" inserted="0" />
+  <UnitExpansionFieldValue-collection updated="0" unchanged="0" inserted="0" />
+  <UnitTemplate-collection updated="0" unchanged="1" inserted="0" />
+  <UnitPurposeValue-collection updated="0" unchanged="0" inserted="0" />
+  <PrintingGroupValue-collection updated="0" unchanged="0" inserted="0" />
+  <CertificateTitleValue-collection updated="0" unchanged="0" inserted="0" />
+  <SeatFactorValue-collection updated="0" unchanged="0" inserted="0" />
+  <Ruleentity-collection updated="0" unchanged="0" inserted="0" />
+  <Unit-collection updated="0" unchanged="0" inserted="2">
+    <entity name="Unit" dname="n/a" key="Diplom-Archäometrie (Nr=9999)" objGuid="1c31efea-aa8c-4d96-9f60-cf752efa95a2">
+      <action originalId="Unit.1077">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="AppointmentManagementCentralized" value="false" />
+        <attribute name="CalculateEctsSum" value="0" />
+        <attribute name="CreatedAt" value="2025-01-08 11:45:19" />
+        <attribute name="Defaultlanguage" value="12" />
+        <attribute name="Defaulttext" value="Diplom-Archäometrie" />
+        <attribute name="Elementnr" value="9999" />
+        <attribute name="Elementtype" value="ElementtypeValue(id=3, objGuid=91909e9c-e9f7-475c-b11d-6c59268ee0cd)" />
+        <attribute name="FreetrialCheck" value="1" />
+        <attribute name="LinkingAllowed" value="0" />
+        <attribute name="Longtext" value="Diplom-Archäometrie" />
+        <attribute name="ModeForDoc" value="1" />
+        <attribute name="ModeForStu" value="1" />
+        <attribute name="ObjectLocale" value="de" />
+        <attribute name="OfficialStatistics" value="1" />
+        <attribute name="RequirementForStu" value="0" />
+        <attribute name="Shorttext" value="Dipl.-Arch" />
+        <attribute name="Status" value="UnitStatusValue(id=2001, objGuid=14b35229-0841-4b66-ad41-3dd6f2abb7b6)" />
+        <attribute name="Switchover" value="0" />
+        <attribute name="UnitTemplate" value="UnitTemplate(id=1, objGuid=c5b0d7b0-48e4-11e1-b86c-0800200c9a66)" />
+        <attribute name="ValidFrom" value="1900-01-01" />
+        <attribute name="ValidTo" value="2100-12-31" />
+        <attribute name="VersionedObj" value="UnitObj(id=null, objGuid=c2f814a6-ab2c-4a8b-8a24-9b0e75771caa)" />
+        <diffs path="UnitOrgunits.Element[0]" originalId="UnitOrgunit.196">
+          <attribute name="OrgunitObj" value="OrgunitObj(id=100008, objGuid=b431a362-2bc3-4f89-b182-0b26f650856a)" />
+          <attribute name="Unit" value="Unit(id=null, objGuid=1c31efea-aa8c-4d96-9f60-cf752efa95a2)" />
+          <attribute name="UnitOrgunitRelation" value="UnitOrgunitRelationValue(id=1, objGuid=f67ac0be-e982-4662-a5c3-79c303c682dd)" />
+          <attribute name="ValidFrom" value="1900-01-01" />
+          <attribute name="ValidTo" value="2100-12-31" />
+        </diffs>
+        <attribute name="UnitOrgunits" values="[UnitOrgunit[id=&lt;null&gt;,objGuid=28f93bf8-4268-4e84-b0b5-34f3de04f43b,validity=base.Validity(validFrom=Mon Jan 01 00:00:00 CET 1900, validTo=Fri Dec 31 00:00:00 CET 2100)]]" />
+        <diffs path="DefaultUnitrelation" originalId="Unitrelation.1962">
+          <attribute name="AlternativeRecommendedSemester" value="" />
+          <attribute name="AutomaticallyCreated" value="0" />
+          <attribute name="CreatedAt" value="2025-01-08 11:45:19" />
+          <attribute name="FirsttrialSemester" value="20" />
+          <attribute name="GenerationWeight" value="0" />
+          <attribute name="GradingType" value="GradingTypeValue(id=19, objGuid=3dca9978-2bcb-4fd3-8f6e-d34d436e49cc)" />
+          <attribute name="MaxAttempts" value="1" />
+          <attribute name="MaxPassedAttempts" value="1" />
+          <attribute name="RecommendedSemester" value="9" />
+          <attribute name="RelationType" value="UnitrelationtypeValue(id=3, objGuid=39e2cbc4-4c4a-455a-8409-bba7d0bde4f4)" />
+          <attribute name="Sortorder" value="1" />
+        </diffs>
+        <attribute name="DefaultUnitrelation" value="Unitrelation(id=null, objGuid=736a6181-4d97-4010-84f2-230affa0dacc)" />
+      </diffs>
+    </entity>
+    <entity name="Unit" dname="n/a" key="11|012|ArM|-|H|2001" objGuid="938db8f0-b5a4-4a70-bcce-035f575698c0">
+      <action originalId="Unit.1903">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="AppointmentManagementCentralized" value="false" />
+        <attribute name="CalculateEctsSum" value="0" />
+        <attribute name="CreatedAt" value="2025-01-08 11:45:32" />
+        <attribute name="Defaultlanguage" value="12" />
+        <attribute name="Defaulttext" value="11|012|ArM|-|H|2001" />
+        <attribute name="Elementtype" value="ElementtypeValue(id=4, objGuid=f4c5bcef-a72a-4d0d-925a-5b71296bc757)" />
+        <attribute name="FreetrialCheck" value="0" />
+        <attribute name="LinkingAllowed" value="0" />
+        <attribute name="Longtext" value="11|012|ArM|-|H|2001" />
+        <attribute name="ModeForDoc" value="0" />
+        <attribute name="ModeForStu" value="0" />
+        <attribute name="ObjectLocale" value="de" />
+        <attribute name="RequirementForStu" value="0" />
+        <attribute name="Shorttext" value="11|012|ArM|-|H|2001" />
+        <attribute name="Status" value="UnitStatusValue(id=2001, objGuid=14b35229-0841-4b66-ad41-3dd6f2abb7b6)" />
+        <attribute name="Switchover" value="0" />
+        <attribute name="Uniquename" value="11|012|ArM|-|H|2001" />
+        <attribute name="UnitTemplate" value="UnitTemplate(id=1, objGuid=c5b0d7b0-48e4-11e1-b86c-0800200c9a66)" />
+        <attribute name="ValidFrom" value="1900-01-01" />
+        <attribute name="ValidTo" value="2100-12-31" />
+        <attribute name="VersionedObj" value="UnitObj(id=null, objGuid=8ca479d3-e3a8-49fc-b859-d6232caf2399)" />
+        <diffs path="UnitOrgunits.Element[0]" originalId="UnitOrgunit.1022">
+          <attribute name="OrgunitObj" value="OrgunitObj(id=100008, objGuid=b431a362-2bc3-4f89-b182-0b26f650856a)" />
+          <attribute name="Unit" value="Unit(id=null, objGuid=938db8f0-b5a4-4a70-bcce-035f575698c0)" />
+          <attribute name="UnitOrgunitRelation" value="UnitOrgunitRelationValue(id=1, objGuid=f67ac0be-e982-4662-a5c3-79c303c682dd)" />
+          <attribute name="ValidFrom" value="1900-01-01" />
+          <attribute name="ValidTo" value="2100-12-31" />
+        </diffs>
+        <attribute name="UnitOrgunits" values="[UnitOrgunit[id=&lt;null&gt;,objGuid=19591b5c-1a5b-4523-a613-103cce8a643c,validity=base.Validity(validFrom=Mon Jan 01 00:00:00 CET 1900, validTo=Fri Dec 31 00:00:00 CET 2100)]]" />
+        <diffs path="DefaultUnitrelation" originalId="Unitrelation.2791">
+          <attribute name="AlternativeRecommendedSemester" value="" />
+          <attribute name="AutomaticallyCreated" value="0" />
+          <attribute name="CreatedAt" value="2025-01-08 11:45:32" />
+          <attribute name="RelationType" value="UnitrelationtypeValue(id=3, objGuid=39e2cbc4-4c4a-455a-8409-bba7d0bde4f4)" />
+          <attribute name="Sortorder" value="1" />
+        </diffs>
+        <attribute name="DefaultUnitrelation" value="Unitrelation(id=null, objGuid=54aac9e7-6747-43f9-a151-b21fac23d28b)" />
+      </diffs>
+    </entity>
+  </Unit-collection>
+  <UnitProperty-collection updated="0" unchanged="0" inserted="0" />
+  <Unitrelation-collection updated="0" unchanged="0" inserted="1">
+    <entity name="Unitrelation" dname="n/a" key=" (Abschlusszuordnung, child: Diplom-Archäometrie (Nr=9999), parent: 11|012|ArM|-|H|2001)" objGuid="d89018d1-5b36-4ec0-8589-060fb5702c41">
+      <action originalId="Unitrelation.2792">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="AlternativeRecommendedSemester" value="" />
+        <attribute name="AutomaticallyCreated" value="0" />
+        <attribute name="Child" value="Unit(id=1019, objGuid=1c31efea-aa8c-4d96-9f60-cf752efa95a2)" />
+        <attribute name="CreatedAt" value="2025-01-08 11:45:32" />
+        <attribute name="Parent" value="Unit(id=1020, objGuid=938db8f0-b5a4-4a70-bcce-035f575698c0)" />
+        <attribute name="RelationType" value="UnitrelationtypeValue(id=10, objGuid=8eaa2883-8a98-45bf-bd2d-508a78afdd12)" />
+        <attribute name="Sortorder" value="9999" />
+      </diffs>
+    </entity>
+  </Unitrelation-collection>
+  <UnitStudies-collection updated="0" unchanged="0" inserted="0" />
+  <CertificateTreeElement-collection updated="0" unchanged="0" inserted="0" />
+  <UnitExpansionField-collection updated="0" unchanged="0" inserted="0" />
+  <ExternalRelation-collection updated="0" unchanged="0" inserted="8">
+    <entity name="ExternalRelation" dname="n/a" key="ExternalRelation[id=&lt;null&gt;,objGuid=0749fe24-9538-4571-9e3f-dc49b96f96cd]" objGuid="0749fe24-9538-4571-9e3f-dc49b96f96cd">
+      <action originalId="ExternalRelation.39518">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="CreatedAt" value="2025-01-08 11:45:19" />
+        <attribute name="Externalsystem" value="sospos" />
+        <attribute name="Externaltable" value="pord" />
+        <attribute name="Externaltabpk" value="6436" />
+        <attribute name="Tablename" value="unit_orgunit" />
+        <attribute name="Tabpk" value="36" />
+      </diffs>
+    </entity>
+    <entity name="ExternalRelation" dname="n/a" key="ExternalRelation[id=&lt;null&gt;,objGuid=14a39635-cd90-49d9-a8bf-183904cb1103]" objGuid="14a39635-cd90-49d9-a8bf-183904cb1103">
+      <action originalId="ExternalRelation.39220">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="CreatedAt" value="2025-01-08 11:45:15" />
+        <attribute name="Externalsystem" value="sospos" />
+        <attribute name="Externaltable" value="notentxt" />
+        <attribute name="Externaltabpk" value="G-G-160.00" />
+        <attribute name="Tablename" value="grading_type_text" />
+        <attribute name="Tabpk" value="1" />
+      </diffs>
+    </entity>
+    <entity name="ExternalRelation" dname="n/a" key="ExternalRelation[id=&lt;null&gt;,objGuid=1cfdd445-8fb2-4e86-ae1c-5b2f42880322]" objGuid="1cfdd445-8fb2-4e86-ae1c-5b2f42880322">
+      <action originalId="ExternalRelation.39222">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="CreatedAt" value="2025-01-08 11:45:15" />
+        <attribute name="Externalsystem" value="sospos" />
+        <attribute name="Externaltable" value="notentxt" />
+        <attribute name="Externaltabpk" value="G-G-360.00" />
+        <attribute name="Tablename" value="grading_type_text" />
+        <attribute name="Tabpk" value="2" />
+      </diffs>
+    </entity>
+    <entity name="ExternalRelation" dname="n/a" key="ExternalRelation[id=&lt;null&gt;,objGuid=2708e278-b8b0-4fbf-8358-473fbb517e28]" objGuid="2708e278-b8b0-4fbf-8358-473fbb517e28">
+      <action originalId="ExternalRelation.39219">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="CreatedAt" value="2025-01-08 11:45:15" />
+        <attribute name="Externalsystem" value="sospos" />
+        <attribute name="Externaltable" value="notentxt" />
+        <attribute name="Externaltabpk" value="G-G-100.00" />
+        <attribute name="Tablename" value="grading_type_text" />
+        <attribute name="Tabpk" value="3" />
+      </diffs>
+    </entity>
+    <entity name="ExternalRelation" dname="n/a" key="ExternalRelation[id=&lt;null&gt;,objGuid=2f4e0cc9-dd97-4f63-bf5d-f2bd411694d4]" objGuid="2f4e0cc9-dd97-4f63-bf5d-f2bd411694d4">
+      <action originalId="ExternalRelation.39221">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="CreatedAt" value="2025-01-08 11:45:15" />
+        <attribute name="Externalsystem" value="sospos" />
+        <attribute name="Externaltable" value="notentxt" />
+        <attribute name="Externaltabpk" value="G-G-260.00" />
+        <attribute name="Tablename" value="grading_type_text" />
+        <attribute name="Tabpk" value="5" />
+      </diffs>
+    </entity>
+    <entity name="ExternalRelation" dname="n/a" key="ExternalRelation[id=&lt;null&gt;,objGuid=4b009772-6d3a-4b07-a0b8-22d83b98731a]" objGuid="4b009772-6d3a-4b07-a0b8-22d83b98731a">
+      <action originalId="ExternalRelation.39196">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="CreatedAt" value="2025-01-08 11:45:15" />
+        <attribute name="Externalsystem" value="sospos" />
+        <attribute name="Externaltable" value="k_partng" />
+        <attribute name="Externaltabpk" value="G" />
+        <attribute name="Tablename" value="grading_type" />
+        <attribute name="Tabpk" value="19" />
+      </diffs>
+    </entity>
+    <entity name="ExternalRelation" dname="n/a" key="ExternalRelation[id=&lt;null&gt;,objGuid=9a3e116b-111b-4d91-83db-8cbb806ce44b]" objGuid="9a3e116b-111b-4d91-83db-8cbb806ce44b">
+      <action originalId="ExternalRelation.39223">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="CreatedAt" value="2025-01-08 11:45:15" />
+        <attribute name="Externalsystem" value="sospos" />
+        <attribute name="Externaltable" value="notentxt" />
+        <attribute name="Externaltabpk" value="G-G-410.00" />
+        <attribute name="Tablename" value="grading_type_text" />
+        <attribute name="Tabpk" value="4" />
+      </diffs>
+    </entity>
+    <entity name="ExternalRelation" dname="n/a" key="ExternalRelation[id=&lt;null&gt;,objGuid=fad8204a-3ae4-42a8-bac5-38b8d98fcb3b]" objGuid="fad8204a-3ae4-42a8-bac5-38b8d98fcb3b">
+      <action originalId="ExternalRelation.39517">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="CreatedAt" value="2025-01-08 11:45:19" />
+        <attribute name="Externalsystem" value="sospos" />
+        <attribute name="Externaltable" value="pord" />
+        <attribute name="Externaltabpk" value="6436" />
+        <attribute name="Tablename" value="unit" />
+        <attribute name="Tabpk" value="1019" />
+      </diffs>
+    </entity>
+  </ExternalRelation-collection>
+  <SearchCriteriaSet-collection updated="0" unchanged="0" inserted="0" />
+  <UnitSearchCriteriaSet-collection updated="0" unchanged="0" inserted="0" />
+  <Foreigntext-collection updated="0" unchanged="0" inserted="15">
+    <entity name="Foreigntext" dname="n/a" key="Foreigntext[id=&lt;null&gt;,objGuid=02b27052-37a0-4341-a16f-ff9f07817a49]" objGuid="02b27052-37a0-4341-a16f-ff9f07817a49">
+      <action originalId="Foreigntext.10301">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Column" value="longtext" />
+        <attribute name="Language" value="5" />
+        <attribute name="Objectid" value="5" />
+        <attribute name="Table" value="grading_type_text" />
+        <attribute name="Value" value="satisfactory" />
+      </diffs>
+    </entity>
+    <entity name="Foreigntext" dname="n/a" key="Foreigntext[id=&lt;null&gt;,objGuid=2c132ba3-8f84-43db-aa04-04989867ffac]" objGuid="2c132ba3-8f84-43db-aa04-04989867ffac">
+      <action originalId="Foreigntext.10300">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Column" value="defaulttext" />
+        <attribute name="Language" value="5" />
+        <attribute name="Objectid" value="5" />
+        <attribute name="Table" value="grading_type_text" />
+        <attribute name="Value" value="satisfactory" />
+      </diffs>
+    </entity>
+    <entity name="Foreigntext" dname="n/a" key="Foreigntext[id=&lt;null&gt;,objGuid=3cfdb51d-c394-4d1f-b54f-a113657f8a65]" objGuid="3cfdb51d-c394-4d1f-b54f-a113657f8a65">
+      <action originalId="Foreigntext.10306">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Column" value="defaulttext" />
+        <attribute name="Language" value="5" />
+        <attribute name="Objectid" value="4" />
+        <attribute name="Table" value="grading_type_text" />
+        <attribute name="Value" value="unsatisfactory" />
+      </diffs>
+    </entity>
+    <entity name="Foreigntext" dname="n/a" key="Foreigntext[id=&lt;null&gt;,objGuid=4659bac0-7697-4f0d-ad74-2be8c2d8d2ca]" objGuid="4659bac0-7697-4f0d-ad74-2be8c2d8d2ca">
+      <action originalId="Foreigntext.10297">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Column" value="defaulttext" />
+        <attribute name="Language" value="5" />
+        <attribute name="Objectid" value="1" />
+        <attribute name="Table" value="grading_type_text" />
+        <attribute name="Value" value="good" />
+      </diffs>
+    </entity>
+    <entity name="Foreigntext" dname="n/a" key="Foreigntext[id=&lt;null&gt;,objGuid=47f770f5-715a-47c5-9c85-320bceaa7eac]" objGuid="47f770f5-715a-47c5-9c85-320bceaa7eac">
+      <action originalId="Foreigntext.10298">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Column" value="longtext" />
+        <attribute name="Language" value="5" />
+        <attribute name="Objectid" value="1" />
+        <attribute name="Table" value="grading_type_text" />
+        <attribute name="Value" value="good" />
+      </diffs>
+    </entity>
+    <entity name="Foreigntext" dname="n/a" key="Foreigntext[id=&lt;null&gt;,objGuid=5f4aecfd-704b-4659-a8f9-abc713ba4356]" objGuid="5f4aecfd-704b-4659-a8f9-abc713ba4356">
+      <action originalId="Foreigntext.10294">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Column" value="defaulttext" />
+        <attribute name="Language" value="5" />
+        <attribute name="Objectid" value="3" />
+        <attribute name="Table" value="grading_type_text" />
+        <attribute name="Value" value="very good" />
+      </diffs>
+    </entity>
+    <entity name="Foreigntext" dname="n/a" key="Foreigntext[id=&lt;null&gt;,objGuid=60502f60-a947-41cf-918b-288591cd4ab9]" objGuid="60502f60-a947-41cf-918b-288591cd4ab9">
+      <action originalId="Foreigntext.10307">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Column" value="longtext" />
+        <attribute name="Language" value="5" />
+        <attribute name="Objectid" value="4" />
+        <attribute name="Table" value="grading_type_text" />
+        <attribute name="Value" value="unsatisfactory" />
+      </diffs>
+    </entity>
+    <entity name="Foreigntext" dname="n/a" key="Foreigntext[id=&lt;null&gt;,objGuid=62e6d974-6ecd-4f5d-970f-c6bb95e2a22a]" objGuid="62e6d974-6ecd-4f5d-970f-c6bb95e2a22a">
+      <action originalId="Foreigntext.10295">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Column" value="longtext" />
+        <attribute name="Language" value="5" />
+        <attribute name="Objectid" value="3" />
+        <attribute name="Table" value="grading_type_text" />
+        <attribute name="Value" value="very good" />
+      </diffs>
+    </entity>
+    <entity name="Foreigntext" dname="n/a" key="Foreigntext[id=&lt;null&gt;,objGuid=936b7388-e953-425a-8e51-38bac50e638c]" objGuid="936b7388-e953-425a-8e51-38bac50e638c">
+      <action originalId="Foreigntext.10296">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Column" value="shorttext" />
+        <attribute name="Language" value="5" />
+        <attribute name="Objectid" value="1" />
+        <attribute name="Table" value="grading_type_text" />
+        <attribute name="Value" value="good" />
+      </diffs>
+    </entity>
+    <entity name="Foreigntext" dname="n/a" key="Foreigntext[id=&lt;null&gt;,objGuid=9f884754-25a4-40e0-9332-28e32a4f9d5c]" objGuid="9f884754-25a4-40e0-9332-28e32a4f9d5c">
+      <action originalId="Foreigntext.10304">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Column" value="longtext" />
+        <attribute name="Language" value="5" />
+        <attribute name="Objectid" value="2" />
+        <attribute name="Table" value="grading_type_text" />
+        <attribute name="Value" value="sufficient" />
+      </diffs>
+    </entity>
+    <entity name="Foreigntext" dname="n/a" key="Foreigntext[id=&lt;null&gt;,objGuid=c774deb2-9817-4e55-be1e-40113ac6a35c]" objGuid="c774deb2-9817-4e55-be1e-40113ac6a35c">
+      <action originalId="Foreigntext.10305">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Column" value="shorttext" />
+        <attribute name="Language" value="5" />
+        <attribute name="Objectid" value="4" />
+        <attribute name="Table" value="grading_type_text" />
+        <attribute name="Value" value="unsatisfactory" />
+      </diffs>
+    </entity>
+    <entity name="Foreigntext" dname="n/a" key="Foreigntext[id=&lt;null&gt;,objGuid=cff3d879-6938-4f6d-b3e9-abfcb8a6aa68]" objGuid="cff3d879-6938-4f6d-b3e9-abfcb8a6aa68">
+      <action originalId="Foreigntext.10303">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Column" value="defaulttext" />
+        <attribute name="Language" value="5" />
+        <attribute name="Objectid" value="2" />
+        <attribute name="Table" value="grading_type_text" />
+        <attribute name="Value" value="sufficient" />
+      </diffs>
+    </entity>
+    <entity name="Foreigntext" dname="n/a" key="Foreigntext[id=&lt;null&gt;,objGuid=d56f815d-f218-478f-a6ef-3da3b401f889]" objGuid="d56f815d-f218-478f-a6ef-3da3b401f889">
+      <action originalId="Foreigntext.10299">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Column" value="shorttext" />
+        <attribute name="Language" value="5" />
+        <attribute name="Objectid" value="5" />
+        <attribute name="Table" value="grading_type_text" />
+        <attribute name="Value" value="satisfactory" />
+      </diffs>
+    </entity>
+    <entity name="Foreigntext" dname="n/a" key="Foreigntext[id=&lt;null&gt;,objGuid=fbc285ef-a3e0-477b-b6c3-5d11f00cd20b]" objGuid="fbc285ef-a3e0-477b-b6c3-5d11f00cd20b">
+      <action originalId="Foreigntext.10293">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Column" value="shorttext" />
+        <attribute name="Language" value="5" />
+        <attribute name="Objectid" value="3" />
+        <attribute name="Table" value="grading_type_text" />
+        <attribute name="Value" value="very good" />
+      </diffs>
+    </entity>
+    <entity name="Foreigntext" dname="n/a" key="Foreigntext[id=&lt;null&gt;,objGuid=fdb91db4-9ee8-47de-88a8-431029feea7f]" objGuid="fdb91db4-9ee8-47de-88a8-431029feea7f">
+      <action originalId="Foreigntext.10302">Insert (delayed)</action>
+      <executed_at>14.04.2025 13:30:47</executed_at>
+      <diffs>
+        <attribute name="Column" value="shorttext" />
+        <attribute name="Language" value="5" />
+        <attribute name="Objectid" value="2" />
+        <attribute name="Table" value="grading_type_text" />
+        <attribute name="Value" value="sufficient" />
+      </diffs>
+    </entity>
+  </Foreigntext-collection>
+</actions>
