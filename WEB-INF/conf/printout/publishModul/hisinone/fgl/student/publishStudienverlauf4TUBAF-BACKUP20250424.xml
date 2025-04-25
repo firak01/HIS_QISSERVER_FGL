@@ -7,19 +7,18 @@
 		extDataAccess="y"
 		outFormat="XML">	
 		
-		<Transform.SQL ElementName="DegreeProgram" storeFields="publishStudentId, publishPersonId, dpid">		
-			select dp.id as dpid, min(dpp.startdate) as startdateMIN, dp.belongs_to, dp.person_id as publishPersonId, s.id as publishStudentId, s.registrationnumber as Mtknr, 
-			enrollmentdate, universitysemester, leavesemester, practicalsemester, kollegsemester, s.term_year, s.term_type_id,
-			s.library_card_number, s.current_enrollmentdate
+		<Transform.SQL ElementName="DegreeProgram" storeFields="publishStudentId, publishPersonId, dpid">
+			select dp.id as dpid, belongs_to, dp.person_id as publishPersonId, s.id as publishStudentId, s.registrationnumber as Mtknr, 
+			enrollmentdate, universitysemester, leavesemester, practicalsemester, kollegsemester, k_studystatus_id, term_year, term_type_id,
+			library_card_number, current_enrollmentdate, 
+			surname, firstname, allfirstnames, k_gender_id, birthname, birthdate, birthcity, academicdegree_id, academicdegreesuffix, title_id, 
+			nameprefix, namesuffix, artistname, country_lid, registration_k_status_id
 			from degree_program as dp
-			join degree_program_progress as dpp on dpp.degree_program_id = dp.id
 			join person p ON p.id = dp.person_ID
 			join student s on s.person_id = dp.person_id
 			where s.id in ([where.StudentId])
-			GROUP BY s.id, dp.id
-			order BY startdateMIN ASC
 			<Transform.subSQL ElementName="DegreeProgramAggregation">
-				select min(startdate) as startdate_min, max(enddate) as enddate_max, max(finished) as exmadate
+				select min(startdate) as startdate_min, max(enddate) as enddate_max, finished as exmadate
 				from degree_program, degree_program_progress 
 				where degree_program_id = degree_program.id 
 				and degree_program_id in 
