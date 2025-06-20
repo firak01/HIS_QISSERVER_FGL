@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../../../../searchConfig.xsd">
+      
+	 <entity name="Period">
+		
+		<pageTitle>cm.exa.examplan.Examplan.termTypeValueId</pageTitle>
+		
+		<defaultSortCriteria>
+			Period.term.year DESC,
+			Period.term.termTypeValue.termNumber DESC,
+			Period.term.termTypeValue.defaulttext
+		</defaultSortCriteria>
+		
+		<selectColumns>
+			<column label="period.id">
+				Period.id
+			</column>
+			
+			<column label="cm.exa.examplan.Examplan.termTypeValueDefaulttext">
+				Period.term.termTypeValue.defaulttext
+			</column>
+			
+			<column label="cm.exa.examplan.Examplan.year">
+				Period.term.year
+			</column>
+						
+			
+						
+				<!-- FGL: Das gibt es nicht.... -->
+<!-- 			<column label="cm.exa.examplan.Examplan.termId"> -->
+<!-- 				Period.term.id -->
+<!-- 			</column> -->
+						
+			<column label="cm.exa.examplan.Examplan.termTypeValueId">
+				Period.term.termTypeValue.id
+			</column>
+			
+			<!-- FGL: Das klappt... ist aber noch sinnlos -->
+<!-- 			<column label="cm.exa.examplan.Examplan.termTypeValueNextDefaulttext"> -->
+<!-- 				Period.periodUsages.period.periodcontainers.periods{id=2}.startdate -->
+<!-- 			</column> -->
+
+			<column label="cm.exa.examplan.Examplan.termTypeValueNextDefaulttext">
+				Period.periodUsages.period.periodcontainers.periods{id=127}.id
+			</column>
+			
+			<!-- FGL: Das klappt... ist dann leider noch ein statischer id Wert -->
+			<column label="cm.exa.examplan.Examplan.termTypeValueNextDefaulttext">
+				Period.periodUsages.period.periodcontainers.periods{id=127}.term.termTypeValue.defaulttext
+			</column>
+			
+			<column label="cm.exa.examplan.Examplan.termTypeValueNextDefaulttext">
+				Period.periodUsages.period.periodcontainers.periods{id=127}.term.year
+			</column>
+			
+			<column label="cm.exa.examplan.Examplan.termTypeValueId">
+				Period.periodUsages.period.periodcontainers.periods{id=127}.term.year
+			</column>
+			
+<!-- 			<column label="cm.exa.examplan.Examplan.termTypeValueNextYear"> -->
+<!-- 				Period{id=236}.term.year -->
+<!-- 			</column> -->
+
+		</selectColumns>
+	
+		<staticSearchCriteria>
+			<criteria value="=7">Period.periodUsages.periodUsageValue.hiskeyId</criteria>
+			<!--<criteria value=">=124">Period.id</criteria> -->
+			<criteria value="#{flowScope.reportPeriodId}">Period.id</criteria>			
+		</staticSearchCriteria>
+			
+	</entity>
+</root>
