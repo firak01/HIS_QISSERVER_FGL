@@ -1,0 +1,396 @@
+#parse("dbinterface/hisinone/head.vm")
+
+<xsl:template match="${params.ACTION}-collection">
+	
+	<dbi:dbaction dbi:action="select" dbi:select-type="static-table" dbi:variable="static-petgp_lookup">
+		#set($mapping = $mappingPetgp)
+		#parse("dbinterface/hisinone/parametric_static-table.vm")
+    </dbi:dbaction>
+	
+	#set ($lookuptable = "k_elementtype")
+	#set ($refcolumn = "uniquename")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "k_examination_type")
+	#set ($refcolumn = "uniquename")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "k_examination_type")
+	#set ($lookupmap = "k_examination_type_hiskey_id")
+	#set ($refcolumn = "hiskey_id")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "k_examform")
+	#set ($refcolumn = "uniquename")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "k_examform")
+	#set ($lookupmap = "k_examform_hiskey_id")
+	#set ($refcolumn = "hiskey_id")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+
+    <dbi:call dbi:function="de.his.xml.functions.GlobalConfigGetter">
+       <dbi:param dbi:name="confKey">core.psv.self.own_university</dbi:param>
+       <dbi:return dbi:variable="own_university"/>
+    </dbi:call>
+    <dbi:if dbi:is-true="own_university = 'null'">
+    	<dbi:set dbi:variable="own_university"/>
+    	<dbi:echo dbi:level="WARN">WARN (TUBAF sospos-duplicate_unit) In der globalen Konfiguration fehlt der Eintrag für die eigene Hochschule (confkey = core.psv.self.own_university)!</dbi:echo>
+    </dbi:if>
+	
+	<xsl:for-each select="${params.ACTION}">	
+		<dbi:try>
+    		<!--  Überprüfen, ob für diesen pord-Satz schon eine unit existiert -->
+    		<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+        		<dbi:data>
+        			<hisinone:hisinone>
+        				<hisinone:external_relation>
+        				</hisinone:external_relation>
+        			</hisinone:hisinone>
+        			<hisinone:hisinone>
+        				<hisinone:unit>
+        					<hisinone:id />
+        				</hisinone:unit>
+        			</hisinone:hisinone>
+         		</dbi:data>
+        		<dbi:condition>										
+        			<dbi:crossjoin dbi:condition="unit.id=external_relation.tabpk"/>	
+    				<hisinone:hisinone>
+    					<hisinone:external_relation>
+    						<hisinone:externalsystem dsd:compOperator="equal">sospos</hisinone:externalsystem>
+    						<hisinone:externaltable dsd:compOperator="equal">pord</hisinone:externaltable>
+    						<hisinone:externaltabpk dsd:compOperator="equal"><xsl:value-of select="pordnr" /></hisinone:externaltabpk>
+    						<hisinone:tablename dsd:compOperator="equal">unit</hisinone:tablename>
+    					</hisinone:external_relation>					
+    				</hisinone:hisinone>
+    			</dbi:condition>
+    		</dbi:dbaction>
+    		#if ($DEBUG && $DEBUG == "y")
+            	<dbi:echo>DEBUG-1 (TUBAF sospos-duplicate_unit) pordnr=<xsl:value-of select="pordnr" />; unit.id=[unit.id]</dbi:echo>
+    		#end
+    		<dbi:if dbi:is-set="unit.id">
+    		<!--  Überprüfen, ob schon eine Kopie erstellt wurde -->	
+        		<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+            		<dbi:data>
+            			<hisinone:hisinone>
+            				<hisinone:external_relation>
+    							<hisinone:id />
+            				</hisinone:external_relation>
+            			</hisinone:hisinone>
+             		</dbi:data>
+            		<dbi:condition>											
+        				<hisinone:hisinone>
+        					<hisinone:external_relation>
+        						<hisinone:externalsystem dsd:compOperator="equal">sospos</hisinone:externalsystem>
+        						<hisinone:externaltable dsd:compOperator="equal">pordcopy</hisinone:externaltable>
+        						<hisinone:externaltabpk dsd:compOperator="equal"><xsl:value-of select="pordnr" /></hisinone:externaltabpk>
+        						<hisinone:tablename dsd:compOperator="equal">unit</hisinone:tablename>
+        					</hisinone:external_relation>					
+        				</hisinone:hisinone>
+        			</dbi:condition>
+        		</dbi:dbaction>
+    			
+    			<dbi:if dbi:is-not-set="external_relation.id">
+    			<!-- Kopie erstellen -->
+					<dbi:set dbi:variable="k_exam_type_id" dsd:var="k_examination_type_lookup[{part}]" dbi:ignore="empty" />
+					<dbi:if dbi:is-not-set="k_exam_type_id">
+						<dbi:set dbi:variable="k_exam_type_id" dsd:var="k_examination_type_hiskey_id_lookup[1]" />
+					</dbi:if>
+					<dbi:set dbi:variable="k_examform_id" dsd:var="k_examform_lookup[{pform}]" dbi:ignore="empty" />
+					<dbi:if dbi:is-not-set="k_examform_id">
+						<dbi:set dbi:variable="k_examform_id" dsd:var="k_examform_hiskey_id_lookup[99]" />
+					</dbi:if>
+					## Elementtype ermitteln
+					<dbi:set dbi:variable="petgp" dsd:var="static-petgp_lookup[{petgp}]"  dbi:ignore="empty" />
+					<dbi:set dbi:variable="k_elementtype_id" dsd:var="k_elementtype_lookup[[petgp]]"  dbi:ignore="empty" />
+					
+            		<xsl:variable name="diplkz"><xsl:value-of select="diplkz"/></xsl:variable>
+            		<xsl:choose>
+            			<xsl:when test="$diplkz='J'">
+            				<dbi:set dbi:variable="exam_written">1</dbi:set>
+            			</xsl:when>
+            			<xsl:when test="$diplkz='N'">
+            				<dbi:set dbi:variable="exam_written">0</dbi:set>
+            			</xsl:when>
+            			<xsl:otherwise>
+            				<dbi:set dbi:variable="exam_written"></dbi:set>
+            			</xsl:otherwise>
+            		</xsl:choose>
+       
+            		##Prüfung erzeugen und an das Modul hängen
+    				<dbi:set dbi:variable="unitcopyid" />	
+            		<dbi:call dbi:function="de.his.xml.functions.CreateNewUnitBasedOnAndAddAsChildFunction">
+            			<dbi:param dbi:name="examformValue" dsd:var="k_examform_id" ></dbi:param>
+            			<dbi:param dbi:name="examinationTypeValue" dsd:var="k_exam_type_id" ></dbi:param>
+            			<dbi:param dbi:name="elementTypeValue" dsd:var="k_elementtype_id" ></dbi:param>
+						<dbi:param dbi:name="examWrittenValue" dsd:var="exam_written" ></dbi:param>
+            			<dbi:param dbi:name="idOfBasisUnit" dsd:var="unit.id" ></dbi:param>	
+            			<dbi:return dbi:variable="unitcopyid" />
+                	</dbi:call>
+            		#if ($DEBUG && $DEBUG == "y")
+                    	<dbi:echo>DEBUG-2 (TUBAF sospos-duplicate_unit) pordnr=<xsl:value-of select="pordnr" />; unit.id=[unit.id]; unitcopyid=[unitcopyid]</dbi:echo>
+					#end
+					
+    				<!-- Datensatz in external_relation erstellen -->
+                	<dbi:dbaction dbi:action="sync" dbi:lookup="external_relation.id">
+                		<dbi:data>
+                			<hisinone:hisinone>
+                				<hisinone:external_relation>
+                					<hisinone:tablename>unit</hisinone:tablename>
+        							<hisinone:tabpk dsd:var="unitcopyid" />
+                					<hisinone:externalsystem>sospos</hisinone:externalsystem>
+                					<hisinone:externaltable>pordcopy</hisinone:externaltable>
+                					<hisinone:externaltabpk><xsl:value-of select="pordnr" /></hisinone:externaltabpk>
+                				</hisinone:external_relation>
+                			</hisinone:hisinone>
+                		</dbi:data>
+                        <dbi:condition>
+                        	<hisinone:hisinone>
+                        		<hisinone:external_relation>
+    								<hisinone:tablename dsd:compOperator="equal">unit</hisinone:tablename>
+                    				<hisinone:externaltabpk dsd:compOperator="equal" dsd:var="unitcopyid" />
+    								<hisinone:externalsystem dsd:compOperator="equal">sospos</hisinone:externalsystem>
+    								<hisinone:externaltable dsd:compOperator="equal">pordcopy</hisinone:externaltable>
+    								<hisinone:externaltabpk dsd:compOperator="equal"><xsl:value-of select="pordnr" /></hisinone:externaltabpk>
+                        		</hisinone:external_relation>
+                        	</hisinone:hisinone>
+            			</dbi:condition>
+                	</dbi:dbaction>
+					
+					
+					<!-- START FGL -->
+					<!-- FGL: Aus dem Original, einer Pruefung wird als Kopie das Modul.-->
+					<!--      1. Kennzeichen in der neuen Unit irgendwie, das es bei der Migration extra entstanden ist.-->
+					<!--      2. Korrigiere nun das Original, welches weiterhin eine Prfuefung ist.
+					             a) Es darf in Prufeungen keine CREDITS geben. Diese bleiben im Modul -->
+				
+					##  VERSUCHE DEN AKTUELLEN TIMESTAMP ZU BEKOMMEN
+					##1. TRY: set a calendar object
+					set( $calNow = $date.getCalendar() )
+
+					##2. TRY					
+					##<dbi:call dbi:function="de.his.xml.functions.StringToDate">
+    				##	<dbi:param dbi:name="timestamp"><xsl:value-of select="'14.07.2025'"/></dbi:param>
+    				##	<dbi:return dbi:variable="activity_date" />
+                    ##</dbi:call>
+					
+					<!-- DIE AUSGANGSUNIT - Ist eine PRÜFUNG -->
+					<!-- Zu 1.-->
+					<!-- In der neuen Unit kennzeichnen, das diese erst jetzt erstellt wurde -->										
+					#if ($DEBUG && $DEBUG == "y")
+                    	<dbi:echo>DEBUG-3a (TUBAF sospos-duplicate_unit) KOMMENTAR: Versuche update action für unitcopyid=[unitcopyid], calNow=[calNow], activity_date=[activity_date], TODAY=[TODAY]</dbi:echo>
+					#end
+					
+					<dbi:set dbi:variable="commententry" dbi:parse="true">Migration: Prüfung als Grundlage für Modulerstellung: unitcopyid=[unitcopyid], ggfs. erzeugte unit.id=[unit.id], am: [TODAY]</dbi:set>
+					<dbi:dbaction dbi:action="update">
+            		<dbi:data>
+            			<hisinone:hisinone>
+            				<hisinone:unit>
+            					<hisinone:comment>
+									[commententry]
+								</hisinone:comment>
+            				</hisinone:unit>
+            			</hisinone:hisinone>
+            		</dbi:data>
+            		<dbi:condition>
+            			<hisinone:hisinone>
+            				<hisinone:unit>
+            					<hisinone:id dsd:compOperator="equal">[unitcopyid]</hisinone:id>            				
+            				</hisinone:unit>
+            			</hisinone:hisinone>
+            		</dbi:condition>
+            	</dbi:dbaction>
+				
+				<!-- In der neuen Unit die bisherige Modulnummer um 1 Zeichen erweitern -->
+				<!-- FL: Das ist normalerweise eine 1 - Nun ist es zu TESTZWECKEN ein X -->
+				#if ($DEBUG && $DEBUG == "y")
+                    <dbi:echo>DEBUG-3b (TUBAF sospos-duplicate_unit) pordnr=<xsl:value-of select="pordnr" />; unit.id=[unit.id]; unitcopyid=[unitcopyid]</dbi:echo>
+				#end				
+				<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+            		<dbi:data>
+            			<hisinone:hisinone>
+            				<hisinone:unit>
+    							<hisinone:elementnr />
+            				</hisinone:unit>
+            			</hisinone:hisinone>
+             		</dbi:data>
+            		<dbi:condition>											
+        				<hisinone:hisinone>
+        					<hisinone:unit>
+        						<hisinone:id dsd:compOperator="equal">[unitcopyid]</hisinone:id>
+        					</hisinone:unit>					
+        				</hisinone:hisinone>
+        			</dbi:condition>
+        		</dbi:dbaction>
+			<dbi:set dbi:variable="myUnitElementnr">[unit.elementnr]</dbi:set>
+			<dbi:set dbi:variable="myUnitElementnrX" dbi:parse="true">[myUnitElementnr]X</dbi:set>
+				
+				#if ($DEBUG && $DEBUG == "y")
+                    <dbi:echo>DEBUG-3c (TUBAF sospos-duplicate_unit) myUnitElementnr=<xsl:value-of select="myUnitElementnr" />; bisherige unit myUnitElementnr=[myUnitElementnr]; myUnitElementnrX=<xsl:value-of select="myUnitElementnrX" />; neue unit myUnitElementnr=[myUnitElementnrX];</dbi:echo>
+				#end
+				<dbi:dbaction dbi:action="update">
+            		<dbi:data>
+            			<hisinone:hisinone>
+            				<hisinone:unit>
+            					<hisinone:elementnr dsd:var="myUnitElementnrX" />									
+            				</hisinone:unit>
+            			</hisinone:hisinone>
+            		</dbi:data>
+            		<dbi:condition>
+            			<hisinone:hisinone>
+            				<hisinone:unit>
+            					<hisinone:id dsd:compOperator="equal">[unitcopyid]</hisinone:id>            				
+            				</hisinone:unit>
+            			</hisinone:hisinone>
+            		</dbi:condition>
+            	</dbi:dbaction>
+				
+				
+				
+				<!-- Das Duplikat -->
+				<dbi:set dbi:variable="commententry02" dbi:parse="true">Migration: Modul, mit unit.id=[unit.id], ggfs. zuletzt aus erstellt als Duplikat der Prüfung mit unitcopyid=[unitcopyid], am: [TODAY]</dbi:set>
+					<dbi:dbaction dbi:action="update">
+            		<dbi:data>
+            			<hisinone:hisinone>
+            				<hisinone:unit>
+            					<hisinone:comment>
+									[commententry02]
+								</hisinone:comment>
+            				</hisinone:unit>
+            			</hisinone:hisinone>
+            		</dbi:data>
+            		<dbi:condition>
+            			<hisinone:hisinone>
+            				<hisinone:unit>
+            					<hisinone:id dsd:compOperator="equal">[unit.id]</hisinone:id>            				
+            				</hisinone:unit>
+            			</hisinone:hisinone>
+            		</dbi:condition>
+            	</dbi:dbaction>
+            		
+				<!-- Zu 2. -->
+			    <!-- 2a) credits 0 setzen -->
+				#if ($DEBUG && $DEBUG == "y")
+                   	<dbi:echo>DEBUG-4 (TUBAF sospos-duplicate_unit) CREDIT/BONUS: Versuche update action für unitcopyid=[unitcopyid]...select von default_unitrelation_id</dbi:echo>
+				#end
+				<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+            		<dbi:data>
+            			<hisinone:hisinone>
+            				<hisinone:unit>
+            					<hisinone:default_unitrelation_id />
+            				</hisinone:unit>
+            			</hisinone:hisinone>
+            		</dbi:data>
+            		<dbi:condition>
+            			<hisinone:hisinone>
+            				<hisinone:unit>
+            					<hisinone:id dsd:compOperator="equal">[unitcopyid]</hisinone:id>
+            				</hisinone:unit>
+            			</hisinone:hisinone>
+            		</dbi:condition>
+            	</dbi:dbaction>
+            	<dbi:set dbi:variable="unitrelation_id" dsd:var="unit.default_unitrelation_id" />
+				
+				#if ($DEBUG && $DEBUG == "y")
+                   	<dbi:echo>DEBUG-5 (TUBAF sospos-duplicate_unit) CREDIT/BONUS: Versuche update action für unitcopyid=[unitcopyid] ... update unitrelation mit unitrelation_id=[unitrelation_id]</dbi:echo>
+				#end
+				
+				<dbi:dbaction dbi:action="update">
+            		<dbi:data>
+            			<hisinone:hisinone>
+            				<hisinone:unitrelation>
+            					<hisinone:bonus>
+									0
+								</hisinone:bonus>
+            				</hisinone:unitrelation>
+            			</hisinone:hisinone>
+            		</dbi:data>
+            		<dbi:condition>
+            			<hisinone:hisinone>
+            				<hisinone:unitrelation>
+            					<hisinone:id dsd:compOperator="equal">[unitrelation_id]</hisinone:id>            				
+            				</hisinone:unitrelation>
+            			</hisinone:hisinone>
+            		</dbi:condition>
+            	</dbi:dbaction>
+				<!-- ENDE FGL -->
+				
+				
+					<!-- ++++++++++++++++++++++ -->
+    				<dbi:if dbi:is-set="external_relation.id">
+            			<!-- unit_orgunit einfügen -->
+            			<dbi:set dbi:variable="orgunit.lid" />	
+            			<xsl:variable name="fb"><xsl:value-of select="fb"/></xsl:variable>
+            			<xsl:if test="normalize-space($fb) != ''">
+            				<!-- orgunit.lid ermittelt aus pord.fb -->
+                    		<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+                    			<dbi:data>
+                    				<hisinone:hisinone>
+                    					<hisinone:orgunit>
+                    						<hisinone:lid />
+                    					</hisinone:orgunit>
+                    				</hisinone:hisinone>
+                    			</dbi:data>
+                    			<dbi:condition>
+                    				<dbi:crossjoin dbi:condition="orgunit.id=external_relation.tabpk"/>	
+                    				<hisinone:hisinone>
+                    					<hisinone:external_relation>
+                    						<hisinone:externalsystem dsd:compOperator="equal">sospos</hisinone:externalsystem>
+                    						<hisinone:externaltable dsd:compOperator="equal">k_fb</hisinone:externaltable>
+                    						<hisinone:externaltabpk dsd:compOperator="equal"><xsl:value-of select="fb" /></hisinone:externaltabpk>
+                    						<hisinone:tablename dsd:compOperator="equal">orgunit</hisinone:tablename>
+                    					</hisinone:external_relation>					
+                    				</hisinone:hisinone>									
+                    			</dbi:condition>
+                    		</dbi:dbaction>
+                			<dbi:if dbi:is-set="orgunit.lid">
+                    			<dbi:dbaction dbi:action="sync" dbi:lookup="unit_orgunit.id">
+                    				<dbi:data>
+                    					<hisinone:hisinone>
+                    						<hisinone:unit_orgunit>
+                    							<hisinone:unit_id dsd:var="unitcopyid" />			
+                    							<hisinone:orgunit_lid dsd:var="orgunit.lid" />		
+                    							<hisinone:k_unit_orgunit_relation_id>1</hisinone:k_unit_orgunit_relation_id>			
+                    							<hisinone:lock_version>0</hisinone:lock_version>			
+                    						</hisinone:unit_orgunit>
+                    					</hisinone:hisinone>
+                    				</dbi:data>
+                					#defaultCondition("unit_orgunit" "unit_orgunit.id" "sospos" "pordcopy" "pordnr")
+                    			</dbi:dbaction>
+                				#onInsert("unit_orgunit" "unit_orgunit.id" "sospos" "pordcopy" "pordnr")
+                			</dbi:if>
+            			</xsl:if>
+            			<dbi:if dbi:is-not-set="orgunit.lid">
+                			<dbi:if dbi:is-set="own_university">				
+                			<!-- Standardeintrag -->
+                    			<dbi:dbaction dbi:action="sync" dbi:lookup="unit_orgunit.id">
+                    				<dbi:data>
+                    					<hisinone:hisinone>
+                    						<hisinone:unit_orgunit>
+                    							<hisinone:unit_id dsd:var="unitcopyid" />			
+                    							<hisinone:orgunit_lid dsd:var="own_university" />	<!--  alles der HS -->			
+                    							<hisinone:k_unit_orgunit_relation_id>1</hisinone:k_unit_orgunit_relation_id>			
+                    							<hisinone:lock_version>0</hisinone:lock_version>			
+                    						</hisinone:unit_orgunit>
+                    					</hisinone:hisinone>
+                    				</dbi:data>
+            						#defaultCondition("unit_orgunit" "unit_orgunit.id" "sospos" "pordcopy" "pordnr")
+                    			</dbi:dbaction>
+                				#onInsert("unit_orgunit" "unit_orgunit.id" "sospos" "pordcopy" "pordnr")
+                			</dbi:if>
+            			</dbi:if>
+						
+						
+        			</dbi:if>
+    			</dbi:if>
+			</dbi:if>
+		</dbi:try>
+	</xsl:for-each>
+</xsl:template>
+	
+#parse("dbinterface/hisinone/foot.vm")
