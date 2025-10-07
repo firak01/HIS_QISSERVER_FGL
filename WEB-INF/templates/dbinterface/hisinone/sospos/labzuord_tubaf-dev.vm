@@ -1,0 +1,248 @@
+#parse("dbinterface/hisinone/head.vm")
+
+    <xsl:template match="${params.ACTION}-collection">
+		
+	#parse("dbinterface/hisinone/setVar.vm")
+	
+	#parse("dbinterface/hisinone/hisinone-k_internal_accreditationtype-lookup.vm")
+	
+    <dbi:dbaction dbi:action="select" dbi:select-type="static-table" dbi:variable="static-unitrelationtype_lookup">
+    	<dbi:static-table>
+    		<dbi:entry dbi:key="F1">3</dbi:entry>
+    	</dbi:static-table>
+    </dbi:dbaction>
+    
+    #set ($lookuptable = "k_unitrelationtype")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+
+	#parse("dbinterface/hisinone/k_unitrelationtype-lookup.vm")
+
+    #set ($lookuptable = "term_type")
+    #set ($refcolumn = "shorttext")
+    #parse("dbinterface/hisinone/intern-lookup.vm")
+    <dbi:dbaction dbi:action="select" dbi:select-type="intern">
+    	<dbi:data>
+    		<hisinone:hisinone>
+    			<hisinone:k_workstatus>
+    				<hisinone:id />
+    			</hisinone:k_workstatus>
+    		</hisinone:hisinone>
+    	</dbi:data>
+    	<dbi:condition>
+    		<hisinone:hisinone>
+    			<hisinone:k_workstatus>
+    				<hisinone:hiskey_id dsd:compOperator="equal">4</hisinone:hiskey_id>
+    			</hisinone:k_workstatus>
+    		</hisinone:hisinone>
+    	</dbi:condition>
+	</dbi:dbaction>	
+	<dbi:set dbi:variable="workstatus_pv" dsd:var="k_workstatus.id" />	
+	#if ($DEBUG && $DEBUG == "y")
+		<dbi:echo>DEBUG-1 (labzuord) createMissingParentExamplan = $createMissingParentExamplan</dbi:echo>
+	#end
+	<xsl:for-each select="${params.ACTION}">
+		<dbi:try>
+    		<!--  Überprüfe, ob für diesen labzuord-Satz bereits die child_examplan_id existiert -->
+    		<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+        		<dbi:data>
+        			<hisinone:hisinone>
+        				<hisinone:external_relation>
+        				</hisinone:external_relation>
+        			</hisinone:hisinone>
+        			<hisinone:hisinone>
+        				<hisinone:examplan>
+        					<hisinone:id />
+        					<hisinone:person_id />
+        				</hisinone:examplan>
+        			</hisinone:hisinone>
+         		</dbi:data>
+        		<dbi:condition>
+        			<dbi:crossjoin dbi:condition="examplan.id=external_relation.tabpk"/>
+        			<hisinone:hisinone>
+        				<hisinone:external_relation>
+        					<hisinone:externalsystem dsd:compOperator="equal">sospos</hisinone:externalsystem>/>
+        					<hisinone:externaltable dsd:compOperator="equal">lab</hisinone:externaltable>/>
+        					<hisinone:externaltabpk dsd:compOperator="equal"><xsl:value-of select="labnr" /></hisinone:externaltabpk>
+    						<hisinone:tablename dsd:compOperator="equal">examplan</hisinone:tablename>/>
+        				</hisinone:external_relation>					
+        			</hisinone:hisinone>									
+        		</dbi:condition>	
+    		</dbi:dbaction>
+            #if ($DEBUG && $DEBUG == "y")
+    			<dbi:echo>DEBUG-2 (labzuord) mtknr=<xsl:value-of select="mtknr" />/labnr=<xsl:value-of select="labnr" />: 'examplan.person_id'=[examplan.person_id] 'examplan.id'=[examplan.id]</dbi:echo>
+            #end
+    		
+    		<dbi:if dbi:is-set="examplan.id">
+    			<dbi:set dbi:variable="child_examplan_id" dsd:var="examplan.id" />		
+    			<dbi:set dbi:variable="examplan_person_id" dsd:var="examplan.person_id" />
+    			<dbi:set dbi:variable="examplan_ruecktritt"><xsl:value-of select="prueck" /></dbi:set>		
+    			<!--  Überprüfe, ob für diesen labzuord-Satz bereits die parent_examplan_id existiert -->
+        		<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+            		<dbi:data>
+            			<hisinone:hisinone>
+            				<hisinone:external_relation>
+            				</hisinone:external_relation>
+            			</hisinone:hisinone>
+            			<hisinone:hisinone>
+            				<hisinone:examplan>
+            					<hisinone:id />
+            				</hisinone:examplan>
+            			</hisinone:hisinone>
+             		</dbi:data>
+            		<dbi:condition>
+            			<dbi:crossjoin dbi:condition="examplan.id=external_relation.tabpk"/>
+            			<hisinone:hisinone>
+            				<hisinone:external_relation>
+            					<hisinone:externalsystem dsd:compOperator="equal">sospos</hisinone:externalsystem>/>
+            					<hisinone:externaltable dsd:compOperator="equal">lab</hisinone:externaltable>/>
+            					<hisinone:externaltabpk dsd:compOperator="equal"><xsl:value-of select="labnrzu" /></hisinone:externaltabpk>
+        						<hisinone:tablename dsd:compOperator="equal">examplan</hisinone:tablename>/>
+            				</hisinone:external_relation>					
+            			</hisinone:hisinone>									
+            		</dbi:condition>	
+        		</dbi:dbaction>
+                #if ($DEBUG && $DEBUG == "y")
+        			<dbi:echo>DEBUG-3 (labzuord) mtknr=<xsl:value-of select="mtknr" />/labnr=<xsl:value-of select="labnr" />: 'examplan.person_id'=[examplan.person_id] 'child_examplan_id'=[child_examplan_id] 'examplan.id'=[examplan.id]</dbi:echo>
+					<dbi:echo>TUBAF DEBUG-3a (labzuord) mtknr=<xsl:value-of select="mtknr" />/labnr=<xsl:value-of select="labnr" />: 'examplan.person_id'=[examplan.person_id] 'child_examplan_id'=[child_examplan_id] 'examplan.id'=[examplan.id] 'k_unitrelationtype_id'=[{$artzuord}]</dbi:echo>
+                #end
+    
+    			<dbi:if dbi:is-not-set="examplan.id">
+    				<!-- unit mit pordnrzu suchen -->
+    				<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+    		    		<dbi:data>
+    		    			<hisinone:hisinone>
+    		    				<hisinone:external_relation>
+    		    				</hisinone:external_relation>
+    		    			</hisinone:hisinone>
+    		    			<hisinone:hisinone>
+    		    				<hisinone:unit>
+    		    					<hisinone:id />
+    		    				</hisinone:unit>
+    		    			</hisinone:hisinone>
+    		     		</dbi:data>
+    		    		<dbi:condition>
+    		    			<dbi:crossjoin dbi:condition="unit.id=external_relation.tabpk"/>
+    		    			
+    		    			<hisinone:hisinone>
+    		    				<hisinone:external_relation>
+    		    					<hisinone:externalsystem dsd:compOperator="equal">sospos</hisinone:externalsystem>/>
+    		    					<hisinone:externaltable dsd:compOperator="equal">pord</hisinone:externaltable>/>
+    		    					<hisinone:externaltabpk dsd:compOperator="equal"><xsl:value-of select="pordnrzu" /></hisinone:externaltabpk>
+    								<hisinone:tablename dsd:compOperator="equal">unit</hisinone:tablename>/>
+    		    				</hisinone:external_relation>					
+    		    			</hisinone:hisinone>									
+    		    		</dbi:condition>	
+    				</dbi:dbaction>
+    				<dbi:if dbi:is-set="unit.id">
+    					<!-- examplan mit unit.id/mtknr suchen -->
+    					<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+    			    		<dbi:data>
+    			    			<hisinone:hisinone>
+    			    				<hisinone:examplan>
+    			    					<hisinone:id />
+    			    				</hisinone:examplan>
+    			    			</hisinone:hisinone>
+    			     		</dbi:data>
+    			    		<dbi:condition>
+    			    			<hisinone:hisinone>
+    			    				<hisinone:examplan>
+    			    					<hisinone:unit_id dsd:compOperator="equal" dsd:var="unit.id" />
+    			    					<hisinone:person_id dsd:compOperator="equal" dsd:var="examplan_person_id" />
+    			    				</hisinone:examplan>					
+    			    			</hisinone:hisinone>									
+    			    		</dbi:condition>	
+    					</dbi:dbaction>
+    					#if ($createMissingParentExamplan && $createMissingParentExamplan == "y")
+	        				<dbi:if dbi:is-not-set="examplan.id">
+	        					<!-- examplan für Dummy einfügen -->
+	                        	#parse("dbinterface/hisinone/getTermTypeId.vm")
+	                        	#if ($DEBUG && $DEBUG == "y")
+	        						<dbi:echo>DEBUG-4 (labzuord) labnr=<xsl:value-of select="labnr" />: <xsl:value-of select="semester" /> term_type_id = [term_type_id];workstatus_pv=[workstatus_pv]</dbi:echo>
+	                        	#end
+							
+		        				<!-- Satz in examrelation erzeugen-->
+		                        <dbi:dbaction dbi:action="sync" dbi:lookup="examrelation.id">
+		                        	<dbi:data>
+		                        		<hisinone:hisinone>
+		                        			<hisinone:examrelation>
+		        								<hisinone:k_unitrelationtype_id dsd:var="k_unitrelationtype.id" />
+		        								<hisinone:bonus>0</hisinone:bonus>
+		        								<hisinone:malus>0</hisinone:malus>
+		        								<hisinone:bookingpoints>0</hisinone:bookingpoints>
+		        								<hisinone:k_workstatus_id dsd:var="workstatus_pv" />
+												<hisinone:k_internal_accreditationtype_id dsd:var="k_internal_accreditationtype_id" />
+		                        			</hisinone:examrelation>
+		                        		</hisinone:hisinone>
+		                        	</dbi:data>
+            						#defaultCondition4("examrelation" "examrelation.id" "sospos" "labzuord" "labnr" "pordnrzu" "artzuordnung")
+            					</dbi:dbaction> 
+            					#onInsert4("examrelation" "examrelation.id" "sospos" "labzuord" "labnr" "pordnrzu" "artzuordnung")   
+		                        	
+            					<dbi:dbaction dbi:action="sync" dbi:lookup="examplan.id">
+            						<dbi:data>
+            							<hisinone:hisinone>
+            								<hisinone:examplan>
+            									<hisinone:unit_id dsd:var="unit.id" />
+            									<hisinone:person_id dsd:var="examplan_person_id" />
+            									<hisinone:cancelation dsd:var="examplan_ruecktritt" />
+                            					<hisinone:term_year><xsl:value-of select="substring(normalize-space(semester), 1, 4)" /></hisinone:term_year>
+                            					<hisinone:term_type_id dsd:var="term_type_id" />
+            								</hisinone:examplan>
+            							</hisinone:hisinone>
+            						</dbi:data> 
+                            		<dbi:alldata>
+                            			<hisinone:hisinone>
+                            				<hisinone:examplan>
+                            					<hisinone:default_examrelation_id dsd:var="examrelation.id" />
+            									<hisinone:change_lock>0</hisinone:change_lock>
+                            					<hisinone:lock_version>0</hisinone:lock_version>
+                            				</hisinone:examplan>
+                            			</hisinone:hisinone>
+                            		</dbi:alldata>
+            						#defaultCondition4("examplan" "examplan.id" "sospos" "labzuord" "labnr" "pordnrzu" "artzuordnung")
+            					</dbi:dbaction> 
+            					#onInsert4("examplan" "examplan.id" "sospos" "labzuord" "labnr" "pordnrzu" "artzuordnung")   
+	        				</dbi:if>
+						#end
+    				</dbi:if>
+    			</dbi:if>
+    			<dbi:if dbi:is-set="examplan.id">
+        			<!-- labzuord-Satz Daten übernehmen in die Tabelle 'examrelation' -->
+    			<dbi:dbaction dbi:action="sync" dbi:lookup="examrelation.id">
+    				<dbi:data>
+    					<hisinone:hisinone>
+    						<hisinone:examrelation>
+    							<hisinone:child_examplan_id dsd:var="child_examplan_id" />
+    							<hisinone:parent_examplan_id dsd:var="examplan.id"/>
+    							<hisinone:bonus><xsl:value-of select="bonus"/></hisinone:bonus>
+    							<hisinone:malus><xsl:value-of select="malus"/></hisinone:malus>
+    							<xsl:variable name="artzuord"><xsl:value-of select="artzuordnung"/></xsl:variable>
+    							<!--<hisinone:k_unitrelationtype_id dsd:var="k_unitrelationtype_lookup[{$artzuord}]" />-->
+								<hisinone:k_unitrelationtype_id dsd:var="1" /><!--FGL20251006: hier hart vergeben 1 = AZ -->
+								<hisinone:k_internal_accreditationtype_id dsd:var="k_internal_accreditationtype_id" />
+    						</hisinone:examrelation>
+    					</hisinone:hisinone>
+    				</dbi:data> 
+            		<dbi:alldata>
+            			<hisinone:hisinone>
+            				<hisinone:examrelation>
+            					<hisinone:lock_version>0</hisinone:lock_version>
+            				</hisinone:examrelation>
+            			</hisinone:hisinone>
+            		</dbi:alldata>
+    				#defaultCondition4("examrelation" "examrelation.id" "sospos" "labzuord" "labnr" "labnrzu" "artzuordnung")
+    			</dbi:dbaction> 
+    			#onInsert4("examrelation" "examrelation.id" "sospos" "labzuord" "labnr" "labnrzu" "artzuordnung")
+        		</dbi:if>
+    		</dbi:if>
+            #if ($TIMER && $TIMER == "y")
+            	<dbi:echo dbi:timeElapsed="y" />
+            #end
+		</dbi:try>
+	</xsl:for-each>
+    #if (($DEBUG && $DEBUG == "y") || ($TIMER && $TIMER == "y"))
+    	<dbi:echo dbi:statistics="y">DEBUG (labzuord): ++++ [_statistics]</dbi:echo>
+    #end
+</xsl:template>
+	
+#parse("dbinterface/hisinone/foot.vm")
