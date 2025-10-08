@@ -158,6 +158,7 @@
 	                        	#parse("dbinterface/hisinone/getTermTypeId.vm")
 	                        	#if ($DEBUG && $DEBUG == "y")
 	        						<dbi:echo>DEBUG-4 (labzuord) labnr=<xsl:value-of select="labnr" />: <xsl:value-of select="semester" /> term_type_id = [term_type_id];workstatus_pv=[workstatus_pv]</dbi:echo>
+									<dbi:echo>TUBAF DEBUG-4a (labzuord) mtknr=<xsl:value-of select="mtknr" />/labnr=<xsl:value-of select="labnr" />: 'examplan.person_id'=[examplan.person_id] 'child_examplan_id'=[child_examplan_id] 'examplan.id'=[examplan.id] 'k_unitrelationtype_id'=[{$artzuord}]</dbi:echo>
 	                        	#end
 							
 		        				<!-- Satz in examrelation erzeugen-->
@@ -165,7 +166,8 @@
 		                        	<dbi:data>
 		                        		<hisinone:hisinone>
 		                        			<hisinone:examrelation>
-		        								<hisinone:k_unitrelationtype_id dsd:var="k_unitrelationtype.id" />
+		        								<!--<hisinone:k_unitrelationtype_id dsd:var="k_unitrelationtype.id" /> -->
+												<hisinone:k_unitrelationtype_id>1</hisinone:k_unitrelationtype_id>  <!-- 1 = AZ --><!--FGL 20251006 hier hart vergeben 1 = AZ -->
 		        								<hisinone:bonus>0</hisinone:bonus>
 		        								<hisinone:malus>0</hisinone:malus>
 		        								<hisinone:bookingpoints>0</hisinone:bookingpoints>
@@ -208,6 +210,9 @@
     			</dbi:if>
     			<dbi:if dbi:is-set="examplan.id">
         			<!-- labzuord-Satz Daten übernehmen in die Tabelle 'examrelation' -->
+				 #if ($DEBUG && $DEBUG == "y")        			
+					<dbi:echo>TUBAF DEBUG-5a (labzuord) mtknr=<xsl:value-of select="mtknr" />/labnr=<xsl:value-of select="labnr" />: 'examplan.person_id'=[examplan.person_id] 'child_examplan_id'=[child_examplan_id] 'examplan.id'=[examplan.id] 'k_unitrelationtype_id'=[{$artzuord}]</dbi:echo>
+                #end
     			<dbi:dbaction dbi:action="sync" dbi:lookup="examrelation.id">
     				<dbi:data>
     					<hisinone:hisinone>
@@ -216,9 +221,9 @@
     							<hisinone:parent_examplan_id dsd:var="examplan.id"/>
     							<hisinone:bonus><xsl:value-of select="bonus"/></hisinone:bonus>
     							<hisinone:malus><xsl:value-of select="malus"/></hisinone:malus>
-    							<xsl:variable name="artzuord"><xsl:value-of select="artzuordnung"/></xsl:variable>
+    							<!--<xsl:variable name="artzuord"><xsl:value-of select="artzuordnung"/></xsl:variable>-->
     							<!--<hisinone:k_unitrelationtype_id dsd:var="k_unitrelationtype_lookup[{$artzuord}]" />-->
-								<hisinone:k_unitrelationtype_id dsd:var="1" /><!--FGL20251006: hier hart vergeben 1 = AZ -->
+								<hisinone:k_unitrelationtype_id>1</hisinone:k_unitrelationtype_id>  <!-- 1 = AZ --><!--FGL 20251006 hier hart vergeben 1 = AZ -->
 								<hisinone:k_internal_accreditationtype_id dsd:var="k_internal_accreditationtype_id" />
     						</hisinone:examrelation>
     					</hisinone:hisinone>
