@@ -12,7 +12,38 @@ CREATE TABLE ich.po_migration (
 -- Optional: Die Sequenz mit der Tabelle verknüpfen (empfohlen)
 ALTER SEQUENCE ich.po_migration_reihenfolge_seq OWNED BY ich.po_migration.reihenfolge;
 
+--------------------------------
+-- ABARBEITUNGSREIHENFOLGE
+--------------------------------
+--Sortierung für PO-Migration, die erledigten nach vorne
+--Der oberste mit dem Sortierer = 0 wird genommen.
+select *, CASE migriert
+			WHEN true THEN 1
+			ELSE 0
+		 END AS sortierer
+from ich.po_migration
+order by sortierer ASC, reihenfolge ASC;
+
+--Sortierung für Studi- und Leistungsmigration, die erledigten nach vorne
+--Der oberste mit dem sortierer = 1 wird genommen.
+select *, CASE migriert
+			WHEN true THEN 1
+			ELSE 0
+		 END AS sortierer
+from ich.po_migration
+order by sortierer DESC, reihenfolge DESC;
+
 ----------------------------------
+--- MIGRIERT STATUS ÄNDERN, alle wieder zurueck ab der Reihenfolge
+update ich.po_migration
+SET migriert = false
+WHERE reihenfolge >= 4;
+
+--- REIHENFOLGE GGFS. ÄNDERN, durch Dreickstauschtausch möglich wenn man keine Lücken in der Reihenfolge haben will.
+update ich.po_migration
+SET reihenfolge = 99
+WHERE reihenfolge = 4;
+
 --- TABELLE FÜLLEN
 INSERT INTO ich.po_migration (
     tubaf_po
@@ -27,22 +58,23 @@ INSERT INTO ich.po_migration (
     '88-039---2022'
 );
 
---- Sortierte ansehen, die erledigten nach vorne
-select *, CASE migriert
-			WHEN true THEN 1
-			ELSE 0
-		 END AS sortierer
-from ich.po_migration
-order by sortierer DESC, reihenfolge ASC;
+INSERT INTO ich.po_migration (
+    tubaf_po
+) VALUES (
+    '88-039---2023'
+);
 
---- MIGRIERT STATUS ÄNDERN, alle wieder zurueck
-update ich.po_migration
-SET migriert = false
-WHERE reihenfolge >= 1;
+INSERT INTO ich.po_migration (
+    tubaf_po
+) VALUES (
+    '88-039-ING--2023'
+);
 
---- REIHENFOLGE GGFS. ÄNDERN, durch Dreickstauschtausch möglich wenn man keine Lücken in der Reihenfolge haben will.
-update ich.po_migration
-SET reihenfolge = 3 
-WHERE reihenfolge = 1;
+INSERT INTO ich.po_migration (
+    tubaf_po
+) VALUES (
+    '11-104---2020'
+);
+
 
 
