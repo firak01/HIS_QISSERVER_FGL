@@ -1,0 +1,129 @@
+<root>
+  <Metadata>
+    <description>Datenselektionsdefinitionen</description>
+    <created_at>27.11.2025 08:27:47</created_at>
+    <database>auslieferung2_hisinone [PostgreSQL] on 10.13.141.63:5432</database>
+    <dbVersion>Release: 2024.12    Build id: 2024.12.12472    HISINONE Hotfix Nr.: 170    QIS Hotfix Nr.: 1</dbVersion>
+    <confpackage>dataSelectionDefinition</confpackage>
+    <beginEntityCollections />
+    <LanguageValue>0</LanguageValue>
+    <Confsrc>1</Confsrc>
+    <DataSelectionDefinition>1</DataSelectionDefinition>
+    <DataSelection>1</DataSelection>
+    <HqlDataSelectionParameter>1</HqlDataSelectionParameter>
+    <Foreigntext>0</Foreigntext>
+  </Metadata>
+  <UploadOptions>merge checked, addMissing</UploadOptions>
+  <LanguageValue-collection searchColumns="Iso_639_2" />
+  <Confsrc-collection searchColumns="Uniquename">
+    <Confsrc entity="Confsrc" update="false">
+      <Id>3</Id>
+      <ObjGuid>4c8aab66-26a6-4781-9581-349d9537e409</ObjGuid>
+      <Uniquename>MUSTER-HS</Uniquename>
+    </Confsrc>
+  </Confsrc-collection>
+  <DataSelectionDefinition-collection ignoreOnMerge="Active">
+    <DataSelectionDefinition entity="DataSelectionDefinition">
+      <Active>true</Active>
+      <Defaulttext>Früheres Studium in BRD</Defaulttext>
+      <Description>Datenselektion die das frühere Studium in BRD ausliest. Registerkarte "Früheres/Externes Studium"</Description>
+      <Id>6</Id>
+      <ObjGuid>1f1a9743-4812-4407-9b6d-651da9a737e3</ObjGuid>
+      <Confsrc entity="Confsrc" incomplete="y">
+        <Id>3</Id>
+        <ObjGuid>4c8aab66-26a6-4781-9581-349d9537e409</ObjGuid>
+      </Confsrc>
+    </DataSelectionDefinition>
+  </DataSelectionDefinition-collection>
+  <DataSelection-collection>
+    <HqlDataSelection entity="HqlDataSelection">
+      <Defaulttext>fruehStudiumBrd</Defaulttext>
+      <Description />
+      <Id>10</Id>
+      <MapKeysColumnsRaw />
+      <ObjGuid>0cff0c37-6281-431d-92a5-5a53c5359e2a</ObjGuid>
+      <Query>select studyBefore.firstStudyInGermanyTerm.year AS jahrBrd,  firstStudyInGermanyTerm_termTypeValue.defaulttext AS semBrd, ftU.value AS EnSemBrd
+from Student AS student
+left join student.person as person
+left join person.studyBefore as studyBefore
+left join studyBefore.firstStudyInGermanyTerm.termTypeValue as firstStudyInGermanyTerm_termTypeValue
+left join Foreigntext ftU on (ftU.table = 'term_type' AND ftU.column = 'defaulttext'
+and ftU.language = 5  AND ftU.objectid =  firstStudyInGermanyTerm_termTypeValue.id)
+where 
+ person.id = :personId</Query>
+      <Sortorder>0</Sortorder>
+      <Uniquename>fruehStudiumBrd</Uniquename>
+      <DataSelectionDefinition entity="DataSelectionDefinition" incomplete="y">
+        <Id>6</Id>
+        <ObjGuid>1f1a9743-4812-4407-9b6d-651da9a737e3</ObjGuid>
+      </DataSelectionDefinition>
+      <Parent />
+    </HqlDataSelection>
+  </DataSelection-collection>
+  <HqlDataSelectionParameter-collection>
+    <HqlDataSelectionParameter entity="HqlDataSelectionParameter">
+      <Id>5</Id>
+      <ObjGuid>1a1c11c6-6df3-4cbe-9818-f244d0db4b9d</ObjGuid>
+      <ParameterName>personId</ParameterName>
+      <ParameterType>java.lang.Long</ParameterType>
+      <ParameterValue>personId</ParameterValue>
+      <HqlDataSelection entity="HqlDataSelection" incomplete="y">
+        <Id>10</Id>
+        <ObjGuid>0cff0c37-6281-431d-92a5-5a53c5359e2a</ObjGuid>
+      </HqlDataSelection>
+    </HqlDataSelectionParameter>
+  </HqlDataSelectionParameter-collection>
+  <Foreigntext-collection searchColumns="{Table, Objectid, Column, Language}" startNewPass="true" />
+  <EntitiesToDelete>
+    <EntityToDelete entityName="Foreigntext" guid="0d67cdb6-f6fe-48f9-89ed-447732f586fa" deletionTimestamp="1761740161733" />
+    <EntityToDelete entityName="Foreigntext" guid="3980bf1c-e8fd-4312-9130-cefceeea14ac" deletionTimestamp="1761750648382" />
+    <EntityToDelete entityName="Foreigntext" guid="c01d41b6-9592-4dae-b6ea-3b15615dea4d" deletionTimestamp="1761750648441" />
+    <EntityToDelete entityName="Foreigntext" guid="c3759965-d309-48f8-a65c-f06a8a1def54" deletionTimestamp="1761750648475" />
+    <EntityToDelete entityName="Foreigntext" guid="d5def21b-5100-4c79-8dab-42cd9947c1c7" deletionTimestamp="1761750663631" />
+    <EntityToDelete entityName="Foreigntext" guid="b244c3a0-c2ef-47ae-a73a-ead12cb99e40" deletionTimestamp="1761750663671" />
+    <EntityToDelete entityName="Foreigntext" guid="efed4772-61e6-4e45-ab20-aa5681f6956d" deletionTimestamp="1761750663784" />
+    <EntityToDelete entityName="Foreigntext" guid="8ce1af4e-72ae-4d8f-8c2a-0e2efd3d87c4" deletionTimestamp="1762250912652" />
+    <EntityToDelete entityName="Foreigntext" guid="bdc7b13c-98ad-42f6-9582-4bbb581e62a3" deletionTimestamp="1762588602110" />
+    <EntityToDelete entityName="Foreigntext" guid="74dfc0b2-7a2e-4572-a586-3af5d33273d5" deletionTimestamp="1762588602201" />
+    <EntityToDelete entityName="Foreigntext" guid="25d66cc5-9a53-46cd-a6fd-b4beb5f8407c" deletionTimestamp="1762947086558" />
+    <EntityToDelete entityName="Foreigntext" guid="bdc88703-0c99-46ef-8efa-98ad99a70506" deletionTimestamp="1762947086572" />
+    <EntityToDelete entityName="Foreigntext" guid="a2f1a10a-8e46-4bf9-b6ea-f951162665fa" deletionTimestamp="1762947086585" />
+    <EntityToDelete entityName="Foreigntext" guid="d7422a1a-d49f-445c-8cac-4c28e33ef09c" deletionTimestamp="1764068081743" />
+    <EntityToDelete entityName="Foreigntext" guid="f33bc1fd-485b-4fa7-a5e9-286e13a9f16f" deletionTimestamp="1764219862177" />
+    <EntityToDelete entityName="Foreigntext" guid="cc1a1566-eaad-4c54-8882-9a20df848b15" deletionTimestamp="1764219862180" />
+    <EntityToDelete entityName="Foreigntext" guid="38def34b-e7dc-4b4a-b110-1c4421290cf4" deletionTimestamp="1764219862210" />
+    <EntityToDelete entityName="Foreigntext" guid="73f1c242-004f-436c-8d74-d5291642b4d3" deletionTimestamp="1764219862212" />
+    <EntityToDelete entityName="Foreigntext" guid="eb0d3464-6ddb-4d0e-9035-e8cb0fbcc37c" deletionTimestamp="1764219875925" />
+    <EntityToDelete entityName="Foreigntext" guid="86b88d2a-c991-4214-b2ac-fcf5b34fdcfd" deletionTimestamp="1764219875928" />
+    <EntityToDelete entityName="Foreigntext" guid="28d91ceb-8d74-44ef-813b-8478f476b870" deletionTimestamp="1764219875935" />
+    <EntityToDelete entityName="Foreigntext" guid="e5313ed5-36a6-4eef-bae3-3d08d3c5055a" deletionTimestamp="1764219876217" />
+    <EntityToDelete entityName="Foreigntext" guid="a18265e4-9d83-417b-97c9-c69ee78672b3" deletionTimestamp="1764219876220" />
+    <EntityToDelete entityName="Foreigntext" guid="972ae824-a97a-4612-809a-1ea8e67337f8" deletionTimestamp="1764219876223" />
+    <EntityToDelete entityName="Foreigntext" guid="03b99d99-71e9-4daa-8bbc-8ef3d443422b" deletionTimestamp="1764219877291" />
+    <EntityToDelete entityName="Foreigntext" guid="27884a58-0452-49f1-9331-5c6dd8403b68" deletionTimestamp="1764219877293" />
+    <EntityToDelete entityName="Foreigntext" guid="9f26908f-c3d1-436e-88a4-c24b8845d843" deletionTimestamp="1764219877295" />
+    <EntityToDelete entityName="Foreigntext" guid="d3d8ffb5-76a5-4582-9288-5eddaf26f04a" deletionTimestamp="1764219877298" />
+    <EntityToDelete entityName="Foreigntext" guid="c752d612-676f-4fd4-8a12-ca0cfddc1822" deletionTimestamp="1764219877299" />
+    <EntityToDelete entityName="Foreigntext" guid="c3e2cf2c-9a2d-4937-b868-e4ff0c90a561" deletionTimestamp="1764219877302" />
+    <EntityToDelete entityName="Foreigntext" guid="1dce4e5f-a51e-4ee1-85cf-290826bf35e2" deletionTimestamp="1764219877304" />
+    <EntityToDelete entityName="Foreigntext" guid="ddd001f3-3f52-4591-91d3-9dff5b193c2f" deletionTimestamp="1764219877307" />
+    <EntityToDelete entityName="Foreigntext" guid="a3362f29-37b2-4eab-ad0c-509962d35d13" deletionTimestamp="1764219877310" />
+    <EntityToDelete entityName="Foreigntext" guid="2b6ce3b6-2a8d-4eb7-ab12-5e9a59bca3ce" deletionTimestamp="1764219877313" />
+    <EntityToDelete entityName="Foreigntext" guid="0d2bafef-e0c4-4225-9af8-96f225097889" deletionTimestamp="1764219877314" />
+    <EntityToDelete entityName="Foreigntext" guid="a52be8cc-11a5-43be-a1e2-176c573c32b4" deletionTimestamp="1764219877316" />
+    <EntityToDelete entityName="Foreigntext" guid="29ce0d5d-ab02-4d67-8866-51bc9f7d3882" deletionTimestamp="1764219877318" />
+    <EntityToDelete entityName="Foreigntext" guid="850d126a-9385-4709-8c16-2fb688f9e832" deletionTimestamp="1764219877320" />
+    <EntityToDelete entityName="Foreigntext" guid="493e9469-668c-451a-8249-32cb5e9c0877" deletionTimestamp="1764219877321" />
+    <EntityToDelete entityName="Foreigntext" guid="4d4b9e67-e681-40a2-b739-f4a2d75ff217" deletionTimestamp="1764219877323" />
+    <EntityToDelete entityName="Foreigntext" guid="166446e3-3e66-4a6c-ad1d-734c9c6329da" deletionTimestamp="1764219877325" />
+    <EntityToDelete entityName="Foreigntext" guid="79ee1296-228d-45f7-be68-300247fb73d0" deletionTimestamp="1764219877326" />
+    <EntityToDelete entityName="Foreigntext" guid="db80916c-eb7d-493a-9e0f-25a875f827d4" deletionTimestamp="1764219877328" />
+    <EntityToDelete entityName="Foreigntext" guid="f81a8662-b6e5-4e15-9be0-4c11270d99e9" deletionTimestamp="1764219877329" />
+    <EntityToDelete entityName="Foreigntext" guid="b92542c3-7788-4ba8-9c99-12b88fc9dd56" deletionTimestamp="1764219877751" />
+    <EntityToDelete entityName="Foreigntext" guid="bcf40015-8e44-4ed6-bd10-fa52aa7bec98" deletionTimestamp="1764219877756" />
+    <EntityToDelete entityName="Foreigntext" guid="3546aa64-54d5-4df7-9bc0-d745ad591d5b" deletionTimestamp="1764219877758" />
+    <EntityToDelete entityName="Foreigntext" guid="ef693fa2-0039-48c7-93ac-27bfae067be1" deletionTimestamp="1764219877760" />
+    <EntityToDelete entityName="Foreigntext" guid="8fec85be-6d8d-4643-a187-084c14b47fec" deletionTimestamp="1764219877762" />
+    <EntityToDelete entityName="Foreigntext" guid="ca4bec11-9c6d-405c-88dd-68443728e93c" deletionTimestamp="1764219877765" />
+  </EntitiesToDelete>
+</root>
