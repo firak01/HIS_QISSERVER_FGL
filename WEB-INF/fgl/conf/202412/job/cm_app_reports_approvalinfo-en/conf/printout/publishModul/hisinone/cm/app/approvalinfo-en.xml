@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<publishDetail VMErrorFile="hisreports/reports/vm/error.vm"
+    WriteXMLFileTo="[LOGROOT]//approvalinfo_en_export.xml" active="y">
+    <!-- !!! Attribut ueberschreiben="y" im Tag <Report /> WICHTIG, sonst wird die Standard "approvaldoc.xml" verwendet und die Daten werden nicht ordentlich gemergt! Wir holen alle Daten für das Dokument nur aus diesem XML File !!! -->
+    <Report pdfAMode="1a" tanRequired="n" directPDF="y" database="hisinone" ueberschreiben="y"
+        XSLFileTODO="publish/pmodul/xslfo/hisinone/cm/app/approvalinfo-en_tubaf.xsl"
+        global="[CURRENTTIME], [TODAY]"
+        authorities="RIGHT_CM_APP_APPLICATION_PRINT_CONTROLLSHEET_APPLICATION,RIGHT_CM_APP_SV_NOTICES_PRINT_NOTICES">
+        
+		<Transform.SQL ElementName="Root" storeFields="*">
+            SELECT DISTINCT applicant.applicantnumber as BewerberNr,
+			    application.applicant_id As AppID,
+            	applicant.person_id as PersonID,
+				array_to_string(array_agg(requestsubjectgroup_requestsubject.requestsubjectgroup_id), ',') AS Antrag,
+				requestsubject.studysemester_requested AS FSrequested,
+				requestsubject.studysemester_admitted AS FSadmitted,
+				course_of_study.longtext AS longtext,
+				course_of_study.defaulttext AS stud_gang_txt,
+				<!-- Abschluss zu diesem Fach -->
+				course_of_study.degree_lid AS Abschl1,				
+				SUBSTRING (course_of_study.defaulttext FROM '%#" - % - #"%' FOR '#') as cos_abkuerzung,
+				course_of_study.lid as cos_lid,				
+				<!-- -->
+				requestsubject.k_admissionstatus_id,
+				admissionshare.admissionpackage_id,
+				admissionpackage.capacity,
+				admissionpackage.defaulttext,
+				k_admissiontype.hiskey_id AS NcKey,
+				admissionshare.course_of_study_id,
+				requestsubject.acceptancedate AS acceptancedate,
+				requestsubject.id AS rsID,
+				requestsubject.receiptdate AS receiptdate,
+				requestsubject.scheduled_date_of_enrollment,
+				application.term_year AS term_year,
+				application.term_type_id AS Sem,
+				outputrequest.id as outputRequestId
+			FROM
+				course_of_study, admissionshare, admissionpackage, k_admissiontype, 
+				requestsubject
+    			JOIN outputrequest_reference ON (outputrequest_reference.referenced_entity_name = 'RequestSubject' AND outputrequest_reference.referenced_entity_id = requestsubject.id)
+    			JOIN outputrequest ON (outputrequest.id = outputrequest_reference.outputrequest_id)
+    			JOIN report ON (outputrequest.report_id = report.id)
+    			JOIN requestsubjectgroup_requestsubject ON (requestsubjectgroup_requestsubject.requestsubject_id = requestsubject.id)
+    			JOIN requestsubjectgroup ON (requestsubjectgroup_requestsubject.requestsubjectgroup_id = requestsubjectgroup.id)
+    			JOIN request ON (requestsubjectgroup.request_id = request.id)
+    			JOIN requestgroup ON (request.requestgroup_id = requestgroup.id)
+    			JOIN application ON (requestgroup.application_id = application.id)
+    			JOIN applicant ON (application.applicant_id = applicant.id)
+    			JOIN person ON (person.id=applicant.person_id)
+            WHERE 1=1
+            	AND requestsubject.id IN ([requestSubjectId])
+            	--AND outputrequest.id IN ([outputRequestId])
+				AND requestsubject.id = requestsubjectgroup_requestsubject.requestsubject_id
+				AND requestsubjectgroup_requestsubject.requestsubjectgroup_id = requestsubjectgroup.id
+				AND requestsubjectgroup.request_id = request.id
+				AND request.requestgroup_id = requestgroup.id
+				AND requestgroup.application_id = application.id
+				AND application.applicant_id = applicant.id				
+				AND requestsubject.course_of_study_id = course_of_study.id
+				AND admissionshare.course_of_study_id = course_of_study.id
+				AND admissionshare.admissionpackage_id = admissionpackage.id
+				AND admissionpackage.k_admissiontype_id = k_admissiontype.id				
+				AND requestsubject.studysemester_admitted BETWEEN admissionpackage.from_studysemester AND admissionpackage.to_studysemester
+				AND application.term_year = admissionpackage.term_year
+				AND application.term_type_id = admissionpackage.term_type_id
+				AND report.hiskey_id IN (911)
+            GROUP BY applicantnumber,
+            	outputrequest.id,
+				application.applicant_id,
+				requestsubject.studysemester_admitted,
+				course_of_study.lid,
+				course_of_study.longtext,
+				course_of_study.defaulttext,
+				course_of_study.degree_lid,
+				requestsubject.k_admissionstatus_id,
+				admissionshare.admissionpackage_id,
+				admissionpackage.capacity,
+				admissionpackage.defaulttext,
+				k_admissiontype.hiskey_id,
+				admissionshare.course_of_study_id,
+				requestsubject.acceptancedate,
+				requestsubject.id,
+				requestsubject.receiptdate,
+				requestsubject.scheduled_date_of_enrollment,
+				application.term_year,
+				application.term_type_id,
+				applicant.person_id
+            
+            <!-- Sicherheitsmechanismus, damit Bewerber und vorläufige Studenten nicht jeden beliebigen Zulassungsbescheid abrufen können. -->
+            <specialWhere>
+				<candidate_student>AND person.id=[session_ident_H]</candidate_student>
+				<sul.zul.bewerber>AND person.id=[session_ident_H]</sul.zul.bewerber>
+			</specialWhere>
+
+            ORDER BY applicant.applicantnumber;
+
+            <Transform.SubSQL ElementName="endeRückmeldefristBewerbungsSemester" storeFields="*">
+            	<!-- Sem = 30 => Sommersemester, Sem = 31 => Wintersemester -->
+				select 
+					case 
+					when [Sem] = 31
+						then concat('28.02.', [term_year]+1)
+					else concat('31.08.', [term_year])
+					end
+					as endeRückmeldefristBewerbungsSemester,
+					case 
+						when [Sem] = 31
+							then concat([term_year]+1, '/02/28')
+						else concat([term_year], '/08/31')
+						end
+						as endeRückmeldefristBewerbungsSemesterEn
+			</Transform.SubSQL>
+
+            <!-- Abschluss "reinjoinen" -->
+            <Transform.SubSQL ElementName="abschluss" storeFields="*">
+				<!--SELECT degree.longtext AS text,
+					degree.astat_bund AS astat_bund,
+					degree.astat_land AS degreeAstat 
+				FROM  degree where lid =[Abschl1];-->
+				SELECT 
+					Degree.longtext AS text,
+					F.fieldvalue As foreigntext,
+					degree.astat_bund AS astat_bund,
+					degree.astat_land AS degreeAstat 
+				FROM  degree  
+				inner join foreigntext as F on degree.id = F.refid
+				where 
+					F.reftable = 'degree' 
+					and F.refcolumn = 'longtext' 
+					and F.k_language_id = 5
+					and lid =[Abschl1];
+			</Transform.SubSQL>
+
+            <!-- Sachbearbeiter rausfinden -->
+            <Transform.SubSQL ElementName="outputrequest" storeFields="*">
+			select  distinct
+				   <!--outputrequest.id as bescheid_id,-->
+				   outputrequest.id as outputRequestId,
+				   outputrequest.requesttime,
+					outputrequest.executiontime,
+					requester_person.id as anfragender_person_id,
+					requester_person.surname as anfragender_fn,
+					requester_person.firstname as anfragender_vn,
+					requester_person.k_gender_id as anfragender_gender_id,
+					executor_person.id as ausfuehrender_person_id,
+					executor_person.surname as ausfuehrender_fn,
+					executor_person.firstname as ausfuehrender_vn,
+					executor_person.k_gender_id as ausfuehrender_gender_id,
+					recipient_person.surname as empfaenger_fn,
+					recipient_person.firstname as empfaenger_vn,
+					report.defaulttext as bescheid_name,
+					outputrequest_reference.referenced_entity_name,
+					outputrequest_reference.referenced_entity_id,
+				   -- Eigenschaften der Tabelle Application
+				   person.id as personId,
+				   applicant.id as applicantId,
+				   applicant.applicantnumber as applicantnumber,
+				   application.id as applicationId,
+				   external_applicant.external_key as BID,
+				   external_applicant.additional_auth_key as BAN,
+				   requestgroup.id as requestgroupId,
+				   request.id as requestId,
+				   requestsubjectgroup.id as requestsubjectgroupId,
+				   requestsubject.id as requestSubjectId,
+				   k_request_status.longtext as requeststatus,
+				   k_requestsubject_status.longtext as requestsubjectstatus,  
+				   course_of_study.id as cos_id,
+				   course_of_study.defaulttext as studiengang,
+				   request.requestnumber as Antragsnummer,
+				   requestsubjectgroup.subjectnumber as Fachnummer,
+				   application.term_year,
+				   application.term_type_id   
+				from 
+				   outputrequest
+				left join person as requester_person on requester_person.id = outputrequest.requester_person_id
+				left join person as executor_person on executor_person.id = outputrequest.executor_person_id
+				left join person as recipient_person on recipient_person.id = outputrequest.recipient_person_id
+				left join report on report.id = outputrequest.report_id
+				left join outputrequest_reference on outputrequest_reference.outputrequest_id = outputrequest.id
+				 
+				left join requestsubject on requestsubject.id = outputrequest_reference.referenced_entity_id
+				left join requestsubjectgroup_requestsubject on  requestsubjectgroup_requestsubject.requestsubject_id = requestsubject.id
+				left join requestsubjectgroup on requestsubjectgroup.id = requestsubjectgroup_requestsubject.requestsubjectgroup_id
+				left join request on request.id = requestsubjectgroup.request_id
+				left join requestgroup on requestgroup.id = request.requestgroup_id 
+				left join application on application.id = requestgroup.application_id 
+				left join applicant on applicant.id=application.applicant_id
+				left join person on person.id = applicant.person_id 
+				 
+				left join k_request_status on request.k_request_status_id = k_request_status.id
+				left join k_requestsubject_status on requestsubject.k_requestsubject_status_id = k_requestsubject_status.id
+				left join course_of_study on requestsubject.course_of_study_id = course_of_study.id
+				left join external_applicant on external_applicant.applicant_id = applicant.id 
+				 
+				where 
+					requestsubject.id = [rsID]
+					and outputrequest.id IN ([outputRequestId])
+					<!--
+						WICHTIG: 
+						HIER DIE HIS-ID DES DOKUMENTS HINTERLEGEN (SCHLÜSSELTABELLE BESCHEIDE!)
+					-->
+					and report.hiskey_id = 103
+					and referenced_entity_name = 'RequestSubject'
+				order by outputRequestId, Antragsnummer, Fachnummer
+				
+				<Transform.SubSQL ElementName="anfragender_email" storeFields="*">
+					select address.eaddress as email
+					from address 
+					where 
+					address.addresstype = 'EMail' and 
+					address.person_id = [anfragender_person_id];
+				</Transform.SubSQL>
+				<!-- addresstype=Phone mit eaddresstype_id=5 ist Telefon, addresstype=Phone mit eaddresstype_id=6 ist Fax -->
+				<Transform.SubSQL ElementName="anfragender_telefon" storeFields="*">
+					select eaddress as telefon
+					from address 
+					where 
+					address.addresstype = 'Phone'
+					and eaddresstype_id = 5 
+					and address.person_id = [anfragender_person_id];
+				</Transform.SubSQL>
+				<Transform.SubSQL ElementName="anfragender_fax" storeFields="*">
+					select eaddress as fax
+					from address 
+					where 
+					address.addresstype = 'Phone'
+					and eaddresstype_id = 6 
+					and address.person_id = [anfragender_person_id];
+				</Transform.SubSQL>
+				<Transform.SubSQL ElementName="ausfuehrender_email" storeFields="*">
+					select address.eaddress as email
+					from address 
+					where 
+					address.addresstype = 'EMail' and 
+					address.person_id = [ausfuehrender_person_id];
+				</Transform.SubSQL>
+				<!-- addresstype=Phone mit eaddresstype_id=5 ist Telefon, addresstype=Phone mit eaddresstype_id=6 ist Fax -->
+				<Transform.SubSQL ElementName="ausfuehrender_telefon" storeFields="*">
+					select eaddress as telefon
+					from address 
+					where 
+					address.addresstype = 'Phone'
+					and eaddresstype_id = 5 
+					and address.person_id = [ausfuehrender_person_id];
+				</Transform.SubSQL>
+				<Transform.SubSQL ElementName="ausfuehrender_fax" storeFields="*">
+					select eaddress as fax
+					from address 
+					where 
+					address.addresstype = 'Phone'
+					and eaddresstype_id = 6 
+					and address.person_id = [ausfuehrender_person_id];
+				</Transform.SubSQL>
+			</Transform.SubSQL>	
+
+			<!-- Dynamische Bewerbungsbestandteile: Hinweisfeld Bedingung DSH Kurs -->
+			<!-- Vorlage geklaut aus ApplicationInformation.xml (/var/lib/tomcat8/webapps/qisserver/WEB-INF/conf/printout/publishModul/globalObjects/hisinone/)
+				Und zwar wie folgt modifiziert:
+				- alles war Fremdsprachen sind (foreigntext) rausgeschmissen (unnötig hier)
+				- alles was nicht das gewünschte ContentField ist rausgeschmissne (also TextFieldInput, KeyTableSelectionField usw.) rausgeschmissen (Hinweis DSH-Kurs ist Typ SelectionField)
+				- Where-Klausel in applicationContentFieldInput erweitert um den Punkt "AND application_content_field.uniquename = 'FieldBearbD2HinDSH'" => hier kann sicherlich auch was anderes stehen, was das Feld in der Tabelle application_content_field eindeutig auszeichnet. Es wird mit prinzipiell immer alles über Lower-Case verglichen, um die Schreibweise der Uniquenames (alles groß, alles klein, CamalToe, ...)  zu ignorieren.
+				- das Select auf das auszuwertende Attribut (defaulttest) erfolgt ebenfalls auf Lower Case, damit auch hier die Schlüsselwerte in Groß-/Kleinschreibung egal sind (ausgewertet wird im Template auf kleine Schreibweise)
+				- Am Ende noch die Elementnamen angepasst: applicationContent => applicationContentStudienprogramm, SelectionField => FieldBearbD2DSHKurs
+			-->
+
+			<!-- Wertebereich aus Drop-Down: "A2/B1", "B2/C1", "DSH Extern", "KEIN"	-->
+			<Transform.SubSQL ElementName="applicationContent" storeFields="*">
+                SELECT 
+					application_content_input.id AS applicationContentInputId, 
+					application_content_input.remark_for_status as bemerkung,
+					application_content.id AS applicationContentId
+				FROM requestsubject
+				JOIN requestsubject_application_content_input ON (requestsubject_application_content_input.requestsubject_id = requestsubject.id)
+				JOIN application_content_input ON (requestsubject_application_content_input.application_content_input_id = application_content_input.id)
+				JOIN application_content ON (application_content.id = application_content_input.application_content_id)
+				WHERE requestsubject.id = [rsID];
+				
+				<!--<Transform.SubSQL ElementName="applicationContentFieldInput">-->
+				<Transform.SubSQL ElementName="applicationContentFieldInput" storeFields="*">
+					SELECT 
+						application_content_field.defaulttext AS applicationContentFieldDefaulttext, 
+						application_content_field.discriminator AS fieldType, 
+						application_content_field_input.startdatevalue AS startdatevalue, 
+						application_content_field_input.enddatevalue AS enddatevalue, 
+						application_content_field_input.textvalue AS textvalue, 
+						application_content_field_input.intvalue AS intvalue, 
+						application_content_field_input.decimalvalue AS decimalvalue, 
+						application_content_field_input.id AS applicationContentFieldInputId,
+						application_content_field.keyselection_value_entity AS keyselectionValueEntity, 
+						application_content_field.id AS applicationContentFieldId,
+						application_content_field.uniquename as uniquename
+					FROM application_content_input
+					JOIN 
+						application_content ON (application_content_input.application_content_id = application_content.id)
+					JOIN  
+						application_content_field_input ON (application_content_field_input.application_content_input_id = application_content_input.id)
+					JOIN
+						application_content_field ON (application_content_field.id = application_content_field_input.application_content_field_id)
+					JOIN
+						requestsubject_application_content_input ON (requestsubject_application_content_input.application_content_input_id = application_content_input.id)
+					WHERE 
+						requestsubject_application_content_input.requestsubject_id IN ( [requestSubjectId])
+						AND application_content_input.id = [applicationContentInputId]
+						<!-- AND application_content_field.applicant_visibility != 0 -->
+					ORDER BY application_content_field.sortorder;
+
+					<Transform.SubSQL ElementName="SelectionField" storeFields="*">
+						<!-- Default-Text in Kleinbuchstaben selektieren -->
+						SELECT 
+							lower(application_content_selection_item.defaulttext) AS defaulttext,
+							application_content_selection_item.id as selectionitemid 
+						FROM
+							application_content_field_input_selection_item
+						JOIN 
+							application_content_selection_item ON (application_content_field_input_selection_item.application_content_selection_item_id = application_content_selection_item.id)
+						WHERE	 
+							application_content_field_input_selection_item.application_content_field_input_id = [applicationContentFieldInputId]
+							AND [fieldType] = 'SelectionField';
+					</Transform.SubSQL>
+					<Transform.HTML ElementName="applicationContentFieldInputHTML" transformField="txt" ignoreEmptyTags="y">
+						SELECT
+							(application_content_field_input.textvalue) AS txt
+						FROM
+							application_content_field_input
+						WHERE
+							application_content_field_input.id = [applicationContentFieldInputId] 
+							AND	[fieldType] = 'TextField';
+					</Transform.HTML>
+					
+					<!-- KeyTableSelectionField -->
+					<!-- Geklaut aus /var/lib/tomcat8/webapps/qisserver/WEB-INF/conf/printout/publishModul/globalObjects/hisinone/ApplicationInformation.xml -->
+					<!-- Beispiel vervollständigt:
+						Der Trick ist hier, dass man noch die Tabelle "Subject" joinen muss. "Subject" wird im Feld "valueEntity" gespeichert. Scheinbar verweist dieses Feld bei den Key-Table-Selection-Fields auf die entsprechende Tabelle im HiO. Es gibt bspw. auch noch "valueEntity=Degree". -->
+					<Transform.SubSQL ElementName="keyTableSelectionFieldSubject" storeFields="*">
+						SELECT 
+							application_content_key_selection_item.entity_obj_guid AS entityObjGuid, 
+							application_content_field.keyselection_value_entity AS valueEntity,
+							subject.defaulttext as defaulttext
+						FROM application_content_field_input_key_selection_item 
+						JOIN
+							application_content_key_selection_item ON (application_content_field_input_key_selection_item.application_content_key_selection_item_id = application_content_key_selection_item.id) 
+						JOIN 
+							application_content_field ON (application_content_field.id = application_content_key_selection_item.application_content_field_id)
+						join 
+							subject on (subject.obj_guid = application_content_key_selection_item.entity_obj_guid) 
+						WHERE 
+							application_content_field_input_key_selection_item.application_content_field_input_id = [applicationContentFieldInputId]
+							AND 'KeyTableSelectionField' = 'KeyTableSelectionField';
+					</Transform.SubSQL>
+					<Transform.HTML ElementName="Auflagen" transformField="txt" storeFields="*">
+						SELECT application_content_field_input.textvalue AS txt
+						FROM application_content_field_input
+						WHERE application_content_field_input.id = [applicationContentFieldInputId]
+						AND application_content_field_input.discriminator = 'TextFieldInput';
+					</Transform.HTML>
+				</Transform.SubSQL>
+			</Transform.SubSQL>
+			
+
+			<!-- Wertebereich aus Drop-Down: "Ja - Hinweis anzeigen", "Nein - Hinweis nicht anzeigen"	-->
+			
+
+			<!-- Ursprünglich Angegebener Studiengang über uniassist -->
+			<!-- KeyTableSelectionField -->
+			
+			<!-- Dezentral zugelassen / abgelehnt -->
+			<!-- Wertebereich aus Drop-Down: "Abgelehnt", "Zugelassen" -->
+			
+			<!-- Hinweis FSP (Eignung ausländischer Studierender) -->
+			<!-- Wertebereich aus Drop-Down: "Hinweis FSP anzeigen", "NICHT Anzeigen" -->
+			
+			<!-- FSP-Kurs (W-Kurs und T-Kurs) -->
+			<!-- Wertebereich aus Drop-Down: "T-KURS", "KEIN FSP, KEIN KURS", "W-KURS" -->
+			
+			<!-- Hinweis Abschluss 82 -->
+			<!-- Wertebereich aus Drop-Down: "Abschluss 82 bis Imma nachreichen", "Abschluss 82 bis Ende 1.FS nachreichen", "Abschluss 82 vorhanden" -->
+			
+			<!-- Hinweisfeld GMAT/GRE -->
+			<!-- Wertebereich aus Drop-Down: "NEIN – Nachweis ist nicht erforderlich", "JA – Nachweis ist erforderlich" -->
+			
+			<!-- Hinweisfeld IELTS/TOEFL -->
+			<!-- Wertebereich aus Drop-Down: "NEIN – Nachweis ist nicht erforderlich", "JA – Nachweis ist erforderlich" -->
+			
+			<!-- Hinweisfeld Studienfachberatung  -->
+			<!-- Wertebereich aus Drop-Down: "JA - Hinweis allgemein ist erforderlich", "JA – Hinweis Chemie ist erforderlich", "NEIN – Hinweis ist nicht erforderlich" -->
+			
+			<!-- Hinweisfeld Rechtsbehelfsbelehrung -->
+			<!-- Wertebereich aus Drop-Down: "NEIN – Rechtsbehelfsbelehrung NICHT anfügen", "JA – Rechtsbehelfsbelehrung anfügen" -->
+		
+			<!-- Art der Zulassung (z. B. Hauptverfahren) -->
+			<Transform.SubSQL ElementName="ZulassungsArt" storeFields="*">			
+				SELECT process_step.process_step_name AS processStepName 
+				FROM requestsubject, 
+					 quota_ranking_element, 
+					 quota_ranking,
+					 quota, ranking, 
+					 quota_ranking_level,
+					 process_step 
+				WHERE  requestsubject.quota_ranking_element_id = quota_ranking_element.id								 
+					AND quota_ranking_element.requestsubject_id = requestsubject.id 
+					AND quota_ranking_element.quota_ranking_id = quota_ranking.id 
+					AND quota_ranking_level.id = quota_ranking.quota_ranking_level_id
+					AND quota_ranking_level.ranking_id = ranking.id 
+					AND quota_ranking.quota_id = quota.id 
+					AND process_step.ranking_id = ranking.id
+					AND requestsubject_id = [rsID];   
+			</Transform.SubSQL>
+
+            <Transform.SubSQL ElementName="AnzAntraege" storeFields="*">
+                SELECT Count(application.applicant_id) AS AnZAppID
+                FROM application, requestgroup, request, requestsubjectgroup
+                WHERE requestsubjectgroup.id in ([Antrag])
+                AND request.requestgroup_id=requestgroup.id
+                AND requestgroup.application_id=application.id
+                AND requestsubjectgroup.request_id=request.id;
+            </Transform.SubSQL>
+			
+			<!-- Einschreibung zum Studium (k_period_usage.hiskey_id = 10)-->
+			<Transform.SubSQL ElementName="EinschreibenZeitraumStg" storeFields="*">
+				SELECT DISTINCT to_char(startdate,'DD.MM.YYYY') AS startdate, 
+         		to_char(enddate,'DD.MM.YYYY') AS enddate,
+         		period_usage.from_studysemester, period_usage.to_studysemester
+				FROM requestsubject
+				INNER JOIN course_of_study ON (course_of_study.id = requestsubject.course_of_study_id)
+				INNER JOIN periodcontainer_studies ON (course_of_study.lid = periodcontainer_studies.course_of_study_lid)
+				INNER JOIN periodcontainer ON (periodcontainer_studies.periodcontainer_id = periodcontainer.id)
+				INNER JOIN periodcontainer_period ON (periodcontainer_period.periodcontainer_id = periodcontainer.id)
+				INNER JOIN period ON (periodcontainer_period.period_id = period.id)
+				INNER JOIN period_usage ON (period_usage.period_id = period.id)
+				INNER JOIN k_period_usage ON (k_period_usage.id = period_usage.k_period_usage_id)
+				WHERE
+				requestsubject.id = [rsID]
+				AND k_period_usage.hiskey_id = 10
+				AND (period.term_year = [term_year] OR period.term_year IS NULL)
+				AND (period.term_type_id = [Sem] OR period.term_type_id IS NULL)
+			</Transform.SubSQL>
+
+			<!-- Vorlesungszeitraum für den zugelassenen Studiengang (k_period_usage.hiskey_id = 8)-->
+			<Transform.SubSQL ElementName="VorlesungszeitraumStg" storeFields="*">
+				SELECT DISTINCT to_char(startdate,'DD.MM.YYYY') AS startdate, 
+         		to_char(enddate,'DD.MM.YYYY') AS enddate,
+         		period_usage.from_studysemester, period_usage.to_studysemester
+				FROM requestsubject
+				INNER JOIN course_of_study ON (course_of_study.id = requestsubject.course_of_study_id)
+				INNER JOIN periodcontainer_studies ON (course_of_study.lid = periodcontainer_studies.course_of_study_lid)
+				INNER JOIN periodcontainer ON (periodcontainer_studies.periodcontainer_id = periodcontainer.id)
+				INNER JOIN periodcontainer_period ON (periodcontainer_period.periodcontainer_id = periodcontainer.id)
+				INNER JOIN period ON (periodcontainer_period.period_id = period.id)
+				INNER JOIN period_usage ON (period_usage.period_id = period.id)
+				INNER JOIN k_period_usage ON (k_period_usage.id = period_usage.k_period_usage_id)
+				WHERE
+				requestsubject.id = [rsID]
+				AND k_period_usage.hiskey_id = 8
+				AND (period.term_year = [term_year] OR period.term_year IS NULL)
+				AND (period.term_type_id = [Sem] OR period.term_type_id IS NULL)
+			</Transform.SubSQL>
+			
+			<!-- Semestertstart für den zugelassenen Studiengang (k_period_usage.hiskey_id = 7)-->
+			<Transform.SubSQL ElementName="SemesterstartZugelStg" storeFields="*">
+				SELECT DISTINCT to_char(startdate,'DD.MM.YYYY') AS startdate, 
+         		to_char(enddate,'DD.MM.YYYY') AS enddate,
+         		period_usage.from_studysemester, period_usage.to_studysemester
+				FROM requestsubject
+				INNER JOIN course_of_study ON (course_of_study.id = requestsubject.course_of_study_id)
+				INNER JOIN periodcontainer_studies ON (course_of_study.lid = periodcontainer_studies.course_of_study_lid)
+				INNER JOIN periodcontainer ON (periodcontainer_studies.periodcontainer_id = periodcontainer.id)
+				INNER JOIN periodcontainer_period ON (periodcontainer_period.periodcontainer_id = periodcontainer.id)
+				INNER JOIN period ON (periodcontainer_period.period_id = period.id)
+				INNER JOIN period_usage ON (period_usage.period_id = period.id)
+				INNER JOIN k_period_usage ON (k_period_usage.id = period_usage.k_period_usage_id)
+				WHERE
+				requestsubject.id = [rsID]
+				AND k_period_usage.hiskey_id = 7
+				AND (period.term_year = [term_year] OR period.term_year IS NULL)
+				AND (period.term_type_id = [Sem] OR period.term_type_id IS NULL)
+			</Transform.SubSQL>
+			
+			<Transform.SubSQL ElementName="Antrag" storeFields="*">
+				SELECT 
+				    application.applicant_id As AppID, 
+					<!--applicant.person_id As PersonID,-->
+					application.term_type_id AS Sem, 
+					application.term_year AS term_year, 
+					application.id AS Aid,
+					application.seconddegree AS seconddegree, 
+					term_type.termnumber AS termnumber,
+					term_type.longtext AS BewerbungDruckssemester,
+					term_type.shorttext AS Bewerbungssemester,
+					array_to_string(array_agg(request.id), ',') AS AntragID,
+					requestgroup.id AS AntrGroupID, 
+					request.requestnumber As AntragNr1,	
+					application.remark AS AppRem
+				FROM 
+					application,
+					applicant,
+					requestgroup, 
+					request,
+					term_type,					
+					requestsubjectgroup
+				WHERE 
+					requestsubjectgroup.id in([Antrag])
+					AND request.requestgroup_id=requestgroup.id
+					AND requestgroup.application_id=application.id
+					AND requestsubjectgroup.request_id=request.id
+					AND term_type.id = application.term_type_id
+					AND applicant.person_id = [PersonID]
+					AND application.applicant_id = [AppID]
+				GROUP BY 
+					application.applicant_id, 
+					application.term_type_id, 
+					application.term_year, 
+					application.id,
+					application.seconddegree, 
+					term_type.termnumber,
+					term_type.longtext,
+					term_type.shorttext,
+					requestgroup.id, 
+					request.requestnumber,
+					application.remark<!--,
+					applicant.person_id-->;
+				
+				<Transform.SubSQL ElementName="semesterart" storeFields="*">
+					<!--SELECT term_type.defaulttext AS defaulttext
+					FROM term_type
+					WHERE term_type.id=[Sem]-->
+					SELECT 
+						F.fieldvalue As defaulttext
+					FROM term_type 
+					inner join foreigntext as F on term_type.id = F.refid
+					WHERE term_type.id=[Sem]
+						and F.reftable = 'term_type' 
+						and F.refcolumn = 'longtext' 
+						and F.k_language_id = 5
+				</Transform.SubSQL>
+			
+				<!--Bewerbungszeitraum-Default-->
+				<Transform.SubSQL ElementName="bewerbungszeitraum-default" storeFields="*">
+					SELECT DISTINCT 
+						to_char(startdate,'DD.MM.YYYY') AS startdate, 
+						to_char(enddate,'DD.MM.YYYY') AS enddate,
+						period.longtext AS SemLongText,
+						period.defaulttext AS SemDefaulttext,
+						period_usage.from_studysemester, period_usage.to_studysemester
+					FROM 
+						period
+					INNER JOIN 
+						period_usage ON (period_usage.period_id = period.id AND default_period = 1)
+					INNER JOIN 
+						k_period_usage ON (k_period_usage.id = period_usage.k_period_usage_id)
+					WHERE 
+						k_period_usage.hiskey_id = 13
+						AND (period.term_year = [term_year] OR period.term_year IS NULL)
+						AND (period.term_type_id = [Sem] OR period.term_type_id IS NULL)
+				</Transform.SubSQL>
+				
+				<!-- Einschreibung zum Studium -->
+				 <Transform.SubSQL ElementName="Einschreiben-default" storeFields="*">
+					SELECT DISTINCT 
+						to_char(startdate,'DD.MM.YYYY') AS startdate, 
+						to_char(enddate,'DD.MM.YYYY') AS enddate,
+						period.longtext AS SemLongText,
+						period.defaulttext AS SemDefaulttext,
+						period_usage.from_studysemester, period_usage.to_studysemester
+					FROM 
+						period
+					INNER JOIN 
+						period_usage ON (period_usage.period_id = period.id AND default_period = 1)
+					INNER JOIN 
+						k_period_usage ON (k_period_usage.id = period_usage.k_period_usage_id)
+					WHERE 
+						k_period_usage.hiskey_id = 10
+						AND (period.term_year = [term_year] OR period.term_year IS NULL)
+						AND (period.term_type_id = [Sem] OR period.term_type_id IS NULL)
+				</Transform.SubSQL>
+				<Transform.SubSQL ElementName="Faecher" storeFields="*">
+					SELECT DISTINCT 
+						course_of_study.lid AS courseofstudyLID,
+						course_of_study.degree_lid AS Abschl1, 
+						course_of_study.subject_lid As Stg1, 
+						course_of_study.k_subject_indicator_id AS FKZ1,
+						course_of_study.longtext AS longtext,
+						course_of_study.defaulttext AS defaulttext,
+						application.id AS Aid,
+						application.term_year AS termyear,
+						application.term_type_id AS Sem,
+						application.applicant_id AS applicant_id, 
+						term_type.defaulttext AS termtype,
+						requestsubjectgroup.subjectnumber As StgNr,
+						request.requestnumber As AntragNr,
+						studysemester_requested As FS,
+						k_admissiontype.uniquename
+					FROM 
+						requestgroup,
+						request,
+						requestsubjectgroup,
+						requestsubjectgroup_requestsubject,
+						requestsubject,
+						course_of_study,
+						application,
+						applicant,
+						term_type,
+						admissionshare,
+						admissionpackage,
+						k_admissiontype
+					WHERE 
+						requestgroup.application_id = application.id
+						AND request.requestgroup_id = requestgroup.id
+						AND requestsubjectgroup.request_id = request.id
+						AND requestsubjectgroup_requestsubject.requestsubjectgroup_id = requestsubjectgroup.id
+						AND requestsubjectgroup_requestsubject.requestsubject_id = requestsubject.id
+						AND course_of_study.id = requestsubject.course_of_study_id
+						AND (course_of_study.valid_from  &lt;= CURRENT_DATE OR course_of_study.valid_from IS NULL)
+						AND (course_of_study.valid_to  &gt;= CURRENT_DATE OR course_of_study.valid_to IS NULL)
+						AND applicant.person_id = [PersonID]
+						AND application.applicant_id = applicant.id
+						AND application.term_type_id = term_type.id
+						AND admissionshare.course_of_study_id = course_of_study.id
+						AND admissionshare.admissionpackage_id = admissionpackage.id
+						AND admissionpackage.k_admissiontype_id = k_admissiontype.id
+						AND admissionpackage.from_studysemester &lt;= requestsubject.studysemester_admitted 
+						AND admissionpackage.to_studysemester &gt;= requestsubject.studysemester_admitted
+						<!--AND k_admissiontype.hiskey_id = 1-->
+						AND request.requestnumber=[AntragNr1]
+					ORDER BY 
+						request.requestnumber, requestsubjectgroup.subjectnumber;
+						
+					<Transform.SubSQL ElementName="abschluss" storeFields="*">
+						SELECT 
+							degree.longtext AS text,
+							degree.astat_bund AS astat_bund,
+							degree.astat_land AS degreeAstat 
+						FROM  
+							degree where lid =[Abschl1];
+					</Transform.SubSQL>
+					
+					<Transform.SubSQL ElementName="stg" storeFields="*">
+						select longtext As text from subject where lid=[Stg1];
+					</Transform.SubSQL>
+					
+					<Transform.SubSQL ElementName="fkz" storeFields="*">
+						select defaulttext As FKZDeftext from k_subject_indicator where id=[FKZ1];
+					</Transform.SubSQL>  
+					
+					<!--Feld Annahmefrist und Immatrikualtionsdatum--> 
+					<Transform.SubSQL ElementName="Annahmefrist" storeFields="*">	
+						SELECT DISTINCT	
+							requestsubject.scheduled_date_of_enrollment AS scheduled_date_of_enrollment,
+							requestsubject.acceptancedate AS acceptancedate									
+						FROM 	
+							application, 
+							applicant, 
+							requestgroup, 
+							request, 
+							requestsubjectgroup,
+							requestsubjectgroup_requestsubject, 
+							requestsubject, 
+							course_of_study, 
+							degree
+						WHERE  
+							application.id = [Aid] 
+							AND application.applicant_id=applicant.id 
+							AND applicant.id=[applicant_id] 
+							AND requestgroup.application_id=application.id 
+			    			AND request.requestgroup_id=requestgroup.id 
+			    			AND requestsubjectgroup.request_id=request.id 
+			    			AND requestsubject.id = requestsubjectgroup_requestsubject.requestsubject_id
+							AND requestsubjectgroup.id = requestsubjectgroup_requestsubject.requestsubjectgroup_id
+			    			AND requestsubject.course_of_study_id = course_of_study.id
+			    			AND course_of_study.degree_lid = degree.lid 
+						    AND course_of_study.lid = [courseofstudyLID]; 
+					</Transform.SubSQL>
+				</Transform.SubSQL>
+
+				<Transform.SubSQL ElementName="Bewerber" storeFields="*">
+					SELECT 
+						person.surname AS surname, 
+						person.firstname AS firstname,
+						person.k_gender_id AS k_gender_id, 
+						person.birthcity AS birthcity,
+						person.birthdate AS birthdate, 
+						person.academicdegreesuffix AS academicdegreesuffix,
+						person.academicdegree_id AS academicdegree_id, 
+						person.title_id AS title_id,
+						person.nameprefix AS nameprefix, 
+						person.namesuffix AS namesuffix,
+						person.country_lid AS country_lid, 
+						person.hsobjekt_id AS hsobjekt_id,
+						applicant.applicantnumber As BewerberNr, 
+						person.id As personID
+					FROM 
+						applicant,person
+					WHERE 
+						applicant.id=[AppID]
+						AND applicant.person_id=person.id
+					ORDER BY 
+						person.surname;
+						
+					<Transform.SubSQL ElementName="festnetzphone" storeFields="*">
+						SELECT eaddress
+						FROM 
+							address, 
+							person, 
+							k_addresstag, 
+							eaddresstype
+						WHERE 
+							address.person_id=person.id
+							AND person.id=[personID]
+							AND address.k_addresstag_id = k_addresstag.id
+							AND k_addresstag.id =3
+							AND address.eaddresstype_id=eaddresstype.id
+							AND eaddresstype.id=5;
+					</Transform.SubSQL>
+					<Transform.SubSQL ElementName="mobilphone" storeFields="*">
+						SELECT eaddress
+						FROM 
+							address, 
+							person, 
+							k_addresstag, 
+							eaddresstype
+						WHERE address.person_id=person.id
+						AND person.id=[personID]
+						AND address.k_addresstag_id = k_addresstag.id
+						AND k_addresstag.id =5
+						AND address.eaddresstype_id=eaddresstype.id
+						AND eaddresstype.id=7;
+					</Transform.SubSQL>
+					<Transform.SubSQL ElementName="address" storeFields="*">
+						SELECT address.street AS street, 
+							address.city AS city, 
+							address.postcode AS postcode, 
+							address.addressaddition AS addressaddition, 
+							address.country_lid AS country_lid 
+						FROM address, 
+							person, 
+							address_k_notificationcategory, 
+							k_notificationcategory 
+						WHERE 
+							address.person_id=person.id and person.id=[personID]
+						AND address_k_notificationcategory.address_id = address.id
+						AND address_k_notificationcategory.k_notificationcategory_id=k_notificationcategory.id  
+						AND k_notificationcategory.hiskey_id=1
+						AND address.eaddresstype_id IS NULL;
+						<Transform.SubSQL ElementName="staat" storeFields="*">
+							SELECT country.defaulttext As staat
+							FROM country
+							WHERE country.lid=[country_lid];
+						</Transform.SubSQL>
+					</Transform.SubSQL>
+				</Transform.SubSQL>
+			</Transform.SubSQL>
+
+			<Transform.GlobalObjects file="OwnUniversity.xml" subdir="printout/publishModul/globalObjects/hisinone/" object="Hochschuldaten" />
+
+			<Transform.Plugin active="n" ElementName="Update_Outputrequest">
+				<class name="de.his.printout.publishModul.plugins.cm.app.UpdateExecutiontime" />
+				<updateOnEmptyExecutiontimeOnly>y</updateOnEmptyExecutiontimeOnly>
+				<connectedTable>RequestSubject</connectedTable>
+				<tableid>rsID</tableid>
+				<reporthiskeyid>103,104,105,106</reporthiskeyid>
+			</Transform.Plugin>
+
+			<Transform.Plugin ElementName="contextUrl">
+				<class name="de.his.printout.publishModul.plugins.core.GetContextUrl"/>
+			</Transform.Plugin>
+					
+			<Transform.Plugin ElementName="uitext">
+				<class name="de.his.printout.publishModul.plugins.core.GetUITextPluginArgsubstWithVelocity">
+					<uiText key="cm.app.reports.approvalinfo.*" keepInStore="n" argsubstKeep="true" language='en'/>
+					<uiText key="cm.app.reports.common.*" keepInStore="n" argsubstKeep="true" language='en'/>
+				</class>
+			</Transform.Plugin>
+				
+			<Transform.Plugin ElementName="globalConfigParams">
+				<class name="de.his.printout.publishModul.plugins.core.GetGlobalConfParamPlugin">
+					<param key="cm.app.common.reports.debug"/>
+					<param key="cm.app.common.reports.logo"/>
+					<param key="core.sys.domain.current_trusted_domain"/>
+				</class>
+			</Transform.Plugin>
+				
+			<Transform.Plugin ElementName="pubStore">
+				<class name="de.his.printout.publishModul.plugins.core.XMLElementFromPubStore"/>
+			</Transform.Plugin>
+
+        </Transform.SQL>
+    </Report>
+</publishDetail>
