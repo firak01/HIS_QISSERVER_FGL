@@ -1,0 +1,2 @@
+qisserver/WEB-INF/templates/publish/pmodul/xslfo/hisinone/cm/app/approvalinfo-en_tubaf.xsl
+qisserver/WEB-INF/templates/publish/pmodul/xslfo/hisinone/cm/app/approvalinfo_tubaf.xsl

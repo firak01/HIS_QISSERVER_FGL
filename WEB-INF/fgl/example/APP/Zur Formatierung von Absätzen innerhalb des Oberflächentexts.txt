@@ -1,0 +1,27 @@
+<div style="text-align:justify">
+
+<span style="color:#2980b9">
+
+<span style="color:var(--basicFontColor); font-size:var(--fontSize4)">
+
+
+<h3><span style="color:#09347c"><strong>3. Application for recognition of prior learning</strong></span></h3>
+<span style="color:#09347c"><strong>3. Application for recognition of prior learning</strong></span>
+
+
+<div style="text-align:justify, color:#09347c"></div>
+
+<div style="text-align:justify"><strong>Information for international applicants starting their studies at TU Bergakademie Freiberg<strong></div>
+
+
+
+
+<div style="text-align:justify">
+<h3><strong>Information for international applicants starting their studies at TU Bergakademie Freiberg</strong></h3>
+</div>
+
+wenn dann der nachfolgende Text noch in <p> …. </p> steht, kommt noch ein extra Abstand zur Überschrift zustande.
+
+Wenn sie dann den Abstand zur folgenden Überschrift erhöhen wolle, schlage ich - wie bereits verwendet - vor:
+<br />
+&nbsp;

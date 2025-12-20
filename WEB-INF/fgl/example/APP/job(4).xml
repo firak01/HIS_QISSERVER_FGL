@@ -1,0 +1,863 @@
+<root>
+  <Metadata>
+    <description>Auftragskonfigurationen</description>
+    <created_at>11.12.2025 13:33:48</created_at>
+    <database>h1_tubaf_202412_20251210 [PostgreSQL] on localhost:5433</database>
+    <dbVersion>Release: 2024.12    Build id: 2024.12.12472    HISINONE Hotfix Nr.: 167    QIS Hotfix Nr.: 1</dbVersion>
+    <confpackage>job</confpackage>
+    <beginEntityCollections />
+    <LanguageValue>1</LanguageValue>
+    <Confsrc>2</Confsrc>
+    <DomainValue>1</DomainValue>
+    <JobcategoryValue>1</JobcategoryValue>
+    <JobStep>10</JobStep>
+    <AbstractJob>1</AbstractJob>
+    <DocumentMetadataCategoryValue>0</DocumentMetadataCategoryValue>
+    <DocumentStatusValue>0</DocumentStatusValue>
+    <PurposeValue>0</PurposeValue>
+    <Mimedata>0</Mimedata>
+    <DocumentMetadata>0</DocumentMetadata>
+    <DataSelectionDefinition>1</DataSelectionDefinition>
+    <DataSelection>1</DataSelection>
+    <HqlDataSelectionParameter>1</HqlDataSelectionParameter>
+    <Foreigntext>0</Foreigntext>
+  </Metadata>
+  <UploadOptions>merge checked</UploadOptions>
+  <LanguageValue-collection searchColumns="Iso_639_2">
+    <LanguageValue entity="LanguageValue" update="false">
+      <Id>12</Id>
+      <Iso_639_2>ger</Iso_639_2>
+      <ObjGuid>7e32eec0-07b2-4e9b-b99b-6fc37da412e3</ObjGuid>
+    </LanguageValue>
+  </LanguageValue-collection>
+  <Confsrc-collection searchColumns="Uniquename">
+    <Confsrc entity="Confsrc" update="false">
+      <Id>1</Id>
+      <ObjGuid>0b1c0c1c-9997-472d-ab19-f34329ff225c</ObjGuid>
+      <Uniquename>HIS</Uniquename>
+    </Confsrc>
+    <Confsrc entity="Confsrc" update="false">
+      <Id>7</Id>
+      <ObjGuid>ee0048b4-660e-4e62-a9f8-222703dc91bd</ObjGuid>
+      <Uniquename>tubaf-APP</Uniquename>
+    </Confsrc>
+  </Confsrc-collection>
+  <DomainValue-collection searchColumns="Uniquename">
+    <DomainValue entity="DomainValue">
+      <Defaultlanguage>12</Defaultlanguage>
+      <Defaulttext>APP</Defaulttext>
+      <HiskeyId>3</HiskeyId>
+      <Id>5</Id>
+      <Longtext>Zulassung</Longtext>
+      <ObjGuid>94fea83b-c3c4-43c1-aa87-6d0c10e58879</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <Shorttext>APP</Shorttext>
+      <Sortorder>3</Sortorder>
+      <Uniquename>APP</Uniquename>
+    </DomainValue>
+  </DomainValue-collection>
+  <JobcategoryValue-collection searchColumns="Uniquename">
+    <JobcategoryValue entity="JobcategoryValue">
+      <Defaultlanguage>12</Defaultlanguage>
+      <Defaulttext>Bescheid mit Anforderung</Defaulttext>
+      <Id>6</Id>
+      <Longtext>Bescheid mit Anforderung</Longtext>
+      <ObjGuid>e0d06980-4b4f-11e1-b86c-0800200c9a66</ObjGuid>
+      <ObjectLocale>de</ObjectLocale>
+      <Shorttext>Bescheid mit Anforderung</Shorttext>
+      <Sortorder>6</Sortorder>
+      <Uniquename>BSA</Uniquename>
+    </JobcategoryValue>
+  </JobcategoryValue-collection>
+  <JobStep-collection searchColumns="Uniquename">
+    <DocumentOutputRequestAssignmentStep entity="DocumentOutputRequestAssignmentStep">
+      <Defaulttext>DocumentOutputRequestAssignmentStep</Defaulttext>
+      <Description />
+      <Id>1070</Id>
+      <ObjGuid>1de5f115-d3a4-4307-bdaa-1ecd34702bed</ObjGuid>
+      <Uniquename>DocumentOutputRequestAssignmentStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>5490</Id>
+        <ObjGuid>60dc42d9-96ec-40e7-8085-cc2c7326aa18</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </DocumentOutputRequestAssignmentStep>
+    <GenericSearchDataRequestStep entity="GenericSearchDataRequestStep">
+      <Defaulttext>GenericSearchDataRequestStep</Defaulttext>
+      <Description />
+      <Id>201</Id>
+      <ObjGuid>20b35f3b-7789-4704-803d-189a4acbaeb2</ObjGuid>
+      <Uniquename>GenericSearchDataRequestStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>396</Id>
+        <ObjGuid>7c7b49db-ef12-434a-ad8e-d955c1610987</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </GenericSearchDataRequestStep>
+    <SendOutputRequestToCentralizedInboxStep entity="SendOutputRequestToCentralizedInboxStep">
+      <Defaulttext>sendOutputRequestToCentralizedInboxStep</Defaulttext>
+      <Description>Der generierte Bescheid darf nicht größer als 2 MiB sein, da er ansonsten nicht versendet werden kann.</Description>
+      <Id>1098</Id>
+      <ObjGuid>43272119-f3dc-47b1-b938-ed2a6f8b0798</ObjGuid>
+      <Uniquename>SendOutputRequestToCentralizedInboxStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>5469</Id>
+        <ObjGuid>43ef40b4-e432-4136-8525-a88c0b230b75</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </SendOutputRequestToCentralizedInboxStep>
+    <AppEAdministrativeActPreconditionStep entity="AppEAdministrativeActPreconditionStep">
+      <Defaulttext>AppEAdministrativeActPreconditionStep</Defaulttext>
+      <Description />
+      <Id>1099</Id>
+      <ObjGuid>48cf307c-c02a-405b-983b-7f3fd0d6309e</ObjGuid>
+      <Uniquename>AppEAdministrativeActPreconditionStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>5470</Id>
+        <ObjGuid>8949bd9c-5490-43cb-94ce-5dd578a7585a</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </AppEAdministrativeActPreconditionStep>
+    <CustomPortalMessageOutputStep entity="CustomPortalMessageOutputStep">
+      <Defaulttext>CustomPortalMessageOutputStep</Defaulttext>
+      <Description />
+      <Id>1073</Id>
+      <ObjGuid>499d93b3-719e-4a8f-83cf-ca5b797dcf15</ObjGuid>
+      <Uniquename>CustomPortalMessageOutputStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>5493</Id>
+        <ObjGuid>9fae360a-24e5-48ae-ad87-e2517c0db9e6</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </CustomPortalMessageOutputStep>
+    <PublishLayoutStep entity="PublishLayoutStep">
+      <Defaulttext>PublishLayoutStep</Defaulttext>
+      <Description />
+      <Id>192</Id>
+      <ObjGuid>79e8b569-3641-42af-947d-2a8f858399cc</ObjGuid>
+      <Uniquename>PublishLayoutStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>387</Id>
+        <ObjGuid>e775e85c-5688-4ab0-869e-e5775c1c06d9</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </PublishLayoutStep>
+    <PublishDataRequestStep entity="PublishDataRequestStep">
+      <Defaulttext>PublishDataRequestStep</Defaulttext>
+      <Description />
+      <Id>185</Id>
+      <ObjGuid>801bd2d5-1571-4c69-a8d2-aef7d4a5e5cd</ObjGuid>
+      <Uniquename>PublishDataRequestStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>380</Id>
+        <ObjGuid>08069457-0cdb-49c8-bd6b-50e8f695491e</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </PublishDataRequestStep>
+    <DocumentManagementOutputStep entity="DocumentManagementOutputStep">
+      <Defaulttext>DocumentManagementOutputStep</Defaulttext>
+      <Description />
+      <Id>190</Id>
+      <ObjGuid>a76f6dd1-662e-49cc-818b-39164e45bcec</ObjGuid>
+      <Uniquename>DocumentManagementOutputStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>385</Id>
+        <ObjGuid>9dfcf97c-bc19-45fa-915c-3cf26971929d</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </DocumentManagementOutputStep>
+    <BrowserOutputStep entity="BrowserOutputStep">
+      <Defaulttext>BrowserOutputStep</Defaulttext>
+      <Description />
+      <Id>199</Id>
+      <ObjGuid>ee00a338-35a9-4b9a-902a-79b2499376ac</ObjGuid>
+      <Uniquename>BrowserOutputStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>394</Id>
+        <ObjGuid>85e18d6f-f2ed-48f3-bc17-c69453598f47</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </BrowserOutputStep>
+    <ServiceCallModificationStep entity="ServiceCallModificationStep">
+      <Defaulttext>ServiceCallModificationStep</Defaulttext>
+      <Description />
+      <Id>1040</Id>
+      <ObjGuid>f4a551a2-7bc9-463c-930f-bef517fde1be</ObjGuid>
+      <Uniquename>ServiceCallModificationStep</Uniquename>
+      <Details entity="JobConf">
+        <Id>5176</Id>
+        <ObjGuid>dd76758b-679f-4346-b60a-5a73141f4485</ObjGuid>
+        <Confs />
+      </Details>
+      <Domain />
+    </ServiceCallModificationStep>
+  </JobStep-collection>
+  <AbstractJob-collection searchColumns="{Confsrc, Uniquename}">
+    <JobReportJob entity="JobReportJob">
+      <Defaulttext>Information_Zulassung_ENGLISCH</Defaulttext>
+      <Description>20251210: Ergänzende Information zur Zulassung</Description>
+      <ExecutionRights />
+      <Id>1065</Id>
+      <IsActive>true</IsActive>
+      <JobType>ReportJob</JobType>
+      <ObjGuid>dc77f92f-cc35-4f18-85f3-d418c19d7f10</ObjGuid>
+      <Synchronous>true</Synchronous>
+      <Uniquename>cm.app.reports.approvalinfo-en</Uniquename>
+      <JobStepRelations>
+        <Element entity="JobStepRelation">
+          <Id>3057</Id>
+          <ObjGuid>1497a97f-bd82-41d3-b7ec-d81a754f941e</ObjGuid>
+          <StepAlias>publishLayout</StepAlias>
+          <StepSort>4</StepSort>
+          <Job entity="JobReportJob" incomplete="y">
+            <Id>1065</Id>
+            <ObjGuid>dc77f92f-cc35-4f18-85f3-d418c19d7f10</ObjGuid>
+          </Job>
+          <Step entity="PublishLayoutStep" incomplete="y">
+            <Id>192</Id>
+            <ObjGuid>79e8b569-3641-42af-947d-2a8f858399cc</ObjGuid>
+          </Step>
+        </Element>
+        <Element entity="JobStepRelation">
+          <Id>3058</Id>
+          <ObjGuid>330c9563-b570-472b-8a10-ef1d3ec857c7</ObjGuid>
+          <StepAlias>customPortalMessage</StepAlias>
+          <StepSort>10</StepSort>
+          <Job entity="JobReportJob" incomplete="y">
+            <Id>1065</Id>
+            <ObjGuid>dc77f92f-cc35-4f18-85f3-d418c19d7f10</ObjGuid>
+          </Job>
+          <Step entity="CustomPortalMessageOutputStep" incomplete="y">
+            <Id>1073</Id>
+            <ObjGuid>499d93b3-719e-4a8f-83cf-ca5b797dcf15</ObjGuid>
+          </Step>
+        </Element>
+        <Element entity="JobStepRelation">
+          <Id>3059</Id>
+          <ObjGuid>3dda6701-868f-40e8-9617-12514d7ddd3b</ObjGuid>
+          <StepAlias>serviceCallModification</StepAlias>
+          <StepSort>8</StepSort>
+          <Job entity="JobReportJob" incomplete="y">
+            <Id>1065</Id>
+            <ObjGuid>dc77f92f-cc35-4f18-85f3-d418c19d7f10</ObjGuid>
+          </Job>
+          <Step entity="ServiceCallModificationStep" incomplete="y">
+            <Id>1040</Id>
+            <ObjGuid>f4a551a2-7bc9-463c-930f-bef517fde1be</ObjGuid>
+          </Step>
+        </Element>
+        <Element entity="JobStepRelation">
+          <Id>3060</Id>
+          <ObjGuid>5d1124f0-2f9b-4936-a612-f41a201ad31d</ObjGuid>
+          <StepAlias>appEAdministrativeActPrecondition</StepAlias>
+          <StepSort>2</StepSort>
+          <Job entity="JobReportJob" incomplete="y">
+            <Id>1065</Id>
+            <ObjGuid>dc77f92f-cc35-4f18-85f3-d418c19d7f10</ObjGuid>
+          </Job>
+          <Step entity="AppEAdministrativeActPreconditionStep" incomplete="y">
+            <Id>1099</Id>
+            <ObjGuid>48cf307c-c02a-405b-983b-7f3fd0d6309e</ObjGuid>
+          </Step>
+        </Element>
+        <Element entity="JobStepRelation">
+          <Id>3061</Id>
+          <ObjGuid>62df4928-f50c-4db5-b065-39e4facbbe9c</ObjGuid>
+          <StepAlias>documentManagementOutput</StepAlias>
+          <StepSort>6</StepSort>
+          <Job entity="JobReportJob" incomplete="y">
+            <Id>1065</Id>
+            <ObjGuid>dc77f92f-cc35-4f18-85f3-d418c19d7f10</ObjGuid>
+          </Job>
+          <Step entity="DocumentManagementOutputStep" incomplete="y">
+            <Id>190</Id>
+            <ObjGuid>a76f6dd1-662e-49cc-818b-39164e45bcec</ObjGuid>
+          </Step>
+        </Element>
+        <Element entity="JobStepRelation">
+          <Id>3062</Id>
+          <ObjGuid>89f654a8-4801-4f09-a7d6-3f03309de63a</ObjGuid>
+          <StepAlias>documentOutputRequestAssignment</StepAlias>
+          <StepSort>7</StepSort>
+          <Job entity="JobReportJob" incomplete="y">
+            <Id>1065</Id>
+            <ObjGuid>dc77f92f-cc35-4f18-85f3-d418c19d7f10</ObjGuid>
+          </Job>
+          <Step entity="DocumentOutputRequestAssignmentStep" incomplete="y">
+            <Id>1070</Id>
+            <ObjGuid>1de5f115-d3a4-4307-bdaa-1ecd34702bed</ObjGuid>
+          </Step>
+        </Element>
+        <Element entity="JobStepRelation">
+          <Id>3063</Id>
+          <ObjGuid>9881eabf-0434-4294-b1e1-fad6afc1cae3</ObjGuid>
+          <StepAlias>genericSearch</StepAlias>
+          <StepSort>0</StepSort>
+          <Job entity="JobReportJob" incomplete="y">
+            <Id>1065</Id>
+            <ObjGuid>dc77f92f-cc35-4f18-85f3-d418c19d7f10</ObjGuid>
+          </Job>
+          <Step entity="GenericSearchDataRequestStep" incomplete="y">
+            <Id>201</Id>
+            <ObjGuid>20b35f3b-7789-4704-803d-189a4acbaeb2</ObjGuid>
+          </Step>
+        </Element>
+        <Element entity="JobStepRelation">
+          <Id>3064</Id>
+          <ObjGuid>abc681ec-2874-438f-aa48-f26d6150375b</ObjGuid>
+          <StepAlias>browserOutput</StepAlias>
+          <StepSort>5</StepSort>
+          <Job entity="JobReportJob" incomplete="y">
+            <Id>1065</Id>
+            <ObjGuid>dc77f92f-cc35-4f18-85f3-d418c19d7f10</ObjGuid>
+          </Job>
+          <Step entity="BrowserOutputStep" incomplete="y">
+            <Id>199</Id>
+            <ObjGuid>ee00a338-35a9-4b9a-902a-79b2499376ac</ObjGuid>
+          </Step>
+        </Element>
+        <Element entity="JobStepRelation">
+          <Id>3065</Id>
+          <ObjGuid>b5949e35-6767-4238-bb8e-d4b180e99278</ObjGuid>
+          <StepAlias>publishSearch</StepAlias>
+          <StepSort>3</StepSort>
+          <Job entity="JobReportJob" incomplete="y">
+            <Id>1065</Id>
+            <ObjGuid>dc77f92f-cc35-4f18-85f3-d418c19d7f10</ObjGuid>
+          </Job>
+          <Step entity="PublishDataRequestStep" incomplete="y">
+            <Id>185</Id>
+            <ObjGuid>801bd2d5-1571-4c69-a8d2-aef7d4a5e5cd</ObjGuid>
+          </Step>
+        </Element>
+        <Element entity="JobStepRelation">
+          <Id>3066</Id>
+          <ObjGuid>b8ba4be6-293a-406b-98e2-4c6f03bdb2d6</ObjGuid>
+          <StepAlias>ServiceCallModificationStep</StepAlias>
+          <StepSort>1</StepSort>
+          <Job entity="JobReportJob" incomplete="y">
+            <Id>1065</Id>
+            <ObjGuid>dc77f92f-cc35-4f18-85f3-d418c19d7f10</ObjGuid>
+          </Job>
+          <Step entity="ServiceCallModificationStep" incomplete="y">
+            <Id>1040</Id>
+            <ObjGuid>f4a551a2-7bc9-463c-930f-bef517fde1be</ObjGuid>
+          </Step>
+        </Element>
+        <Element entity="JobStepRelation">
+          <Id>3067</Id>
+          <ObjGuid>fe12d5ce-4131-4b50-b9be-c956498ea69c</ObjGuid>
+          <StepAlias>sendOutputRequestToCentralizedInbox</StepAlias>
+          <StepSort>9</StepSort>
+          <Job entity="JobReportJob" incomplete="y">
+            <Id>1065</Id>
+            <ObjGuid>dc77f92f-cc35-4f18-85f3-d418c19d7f10</ObjGuid>
+          </Job>
+          <Step entity="SendOutputRequestToCentralizedInboxStep" incomplete="y">
+            <Id>1098</Id>
+            <ObjGuid>43272119-f3dc-47b1-b938-ed2a6f8b0798</ObjGuid>
+          </Step>
+        </Element>
+      </JobStepRelations>
+      <Category entity="JobcategoryValue" incomplete="y">
+        <Id>6</Id>
+        <ObjGuid>e0d06980-4b4f-11e1-b86c-0800200c9a66</ObjGuid>
+      </Category>
+      <Confsrc entity="Confsrc" incomplete="y">
+        <Id>7</Id>
+        <ObjGuid>ee0048b4-660e-4e62-a9f8-222703dc91bd</ObjGuid>
+      </Confsrc>
+      <Details entity="JobConf">
+        <Id>5788</Id>
+        <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+        <Confs>
+          <Element entity="JobConfValue">
+            <Confkey>serviceCallModification.serviceCallDefinitions</Confkey>
+            <Confvalue>[{"guid":"3d3e860e-a877-4e5c-b5b7-14a96b472b52","serviceCall":"common.contextUrl"},{"guid":"ce6c3a13-b747-41ed-9ca7-1b3780d12511","serviceCall":"cs.psv.eAdministrativeActAgreement"},{"guid":"f83236ca-6344-4f04-b543-2bc91c26f4be","serviceCall":"cs.sys.globalConfiguration","alias":"deadline","params":{"key":"core.sys.administration.e_administrative_act.deadline"}},{"guid":"203b4119-ddd1-4083-b73b-146885fd49eb","serviceCall":"cs.sys.dataSelection.rowDependent","params":{"entityIdColumn":"personId","dataSelectionDefinition":"7d2c70e6-9e8f-4d80-9180-15fc3a1f8e4f"}},{"guid":"88932bdd-960b-4373-b68a-376a64e34704","serviceCall":"common.university"},{"guid":"ea0392ad-da28-4f9f-b987-e46f6b0b314b","serviceCall":"cs.psv.personName"},{"guid":"7e2abd35-8281-4569-a37a-8bff16d9a5a4","serviceCall":"other.extractColumns","params":{"columns":"url\u003d$${contextUrl}/pages/startFlow.xhtml?_flowId\u003ddocument-download-flow\u0026doc\u003d$${documentMetadataId}\u0026docSig\u003d$$sign($${documentMetadataId})\nsalutation\u003d$$dataSelection.gender[0].lettersalutation\nreporttitle\u003d$${rce.title|$${job.defaulttext}}"}},{"guid":"3591e094-aee9-435a-b429-8215bfa191b9","serviceCall":"common.email","params":{"personAddressPurpose":"e7523f63-b9f3-11ea-8b6e-0800200c9a66","entityType":"psv.Person"}}]</Confvalue>
+            <Id>10568</Id>
+            <ObjGuid>06873a52-af1d-4987-a642-59da4d542d27</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>browserOutput.outputFileName</Confkey>
+            <Confvalue>$${rce.title|$${job.defaulttext}}</Confvalue>
+            <Id>10574</Id>
+            <ObjGuid>069c4def-1570-4c28-a4ba-86d3f21e3065</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>customPortalMessage.customPortalMessageOutputNamedParams</Confkey>
+            <Confvalue>documentMetadataId=$${documentMetadataId}
+url=$${url}
+outputRequest=alteredOutputRequest
+outputRequestReference=alteredOutputRequest.outputRequestReferences[0]
+outputRequestReferences=alteredOutputRequest.outputRequestReferences</Confvalue>
+            <Id>10566</Id>
+            <ObjGuid>0cd3d012-deae-4e37-9ddf-39379ffc4ad5</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>genericSearch.searchProtocolWarnOnEmptyResult</Confkey>
+            <Confvalue>cm.app.reports.approvaldoc.protocol.noElementsFound</Confvalue>
+            <Id>10570</Id>
+            <ObjGuid>118e7ac8-86bc-4492-9ae1-ee1a33e48138</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>documentOutputRequestAssignment.outputFileName</Confkey>
+            <Confvalue>$${rce.title|$${job.defaulttext}}_$${applicantnumber}</Confvalue>
+            <Id>10572</Id>
+            <ObjGuid>1245cbe2-e0fb-4cab-a439-1175b582453d</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>appEAdministrativeActPrecondition.requestSubjectIdColumn</Confkey>
+            <Confvalue>requestSubjectId</Confvalue>
+            <Id>10550</Id>
+            <ObjGuid>12e990d4-90a9-4275-9dd6-1e200bde68eb</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>documentOutputRequestAssignment.lockReason</Confkey>
+            <Confvalue>200142ab-31af-4e10-81ab-318066194574</Confvalue>
+            <Id>10552</Id>
+            <ObjGuid>16f71a4e-43b6-4e0a-b7df-7bcd4c001cec</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>appEAdministrativeActPrecondition.updateRequestSubjectDates</Confkey>
+            <Confvalue>false</Confvalue>
+            <Id>10547</Id>
+            <ObjGuid>1a91c4e8-f1ba-4218-9911-91fba86c5140</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>documentTypeKey</Confkey>
+            <Confvalue>Zulassungsinformation</Confvalue>
+            <Id>10544</Id>
+            <ObjGuid>217575d1-c15a-4df5-b973-dbcf404e3707</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>sendOutputRequestToCentralizedInbox.execute</Confkey>
+            <Confvalue>false</Confvalue>
+            <Id>10575</Id>
+            <ObjGuid>2f4e5940-10a3-439e-bc07-8594fd70d7c6</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>browserOutput.execute</Confkey>
+            <Confvalue>false</Confvalue>
+            <Id>10558</Id>
+            <ObjGuid>347b0473-4f33-4ec3-a28a-a7ce82192baa</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>reportLanguage</Confkey>
+            <Confvalue>de</Confvalue>
+            <Id>10571</Id>
+            <ObjGuid>3efe1dea-44f5-4353-9ed6-c8251660498a</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>sendOutputRequestToCentralizedInbox.displayedFileName</Confkey>
+            <Confvalue>Reservationdoc.pdf</Confvalue>
+            <Id>10564</Id>
+            <ObjGuid>4094a26b-0fa2-4c04-af86-7b1df7621f8b</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>customPortalMessage.customPortalMessageOutputTypeUniquename</Confkey>
+            <Confvalue>$if('$${eAdministrativeActAgreement.eAdministrativeAct}' == 'true', $if('$${eAdministrativeActAgreement.agreementGivenToVwVfG}' == 'true', 'APP_E_ADMINISTRATIVE_ACT_AVAILABLE', ''), 'APP_DOCUMENT_AVAILABLE')</Confvalue>
+            <Id>10556</Id>
+            <ObjGuid>4a2f3e62-bacf-4b1a-aa81-9e134b0352b9</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>publishSearch.individualIdTargetColumn</Confkey>
+            <Confvalue>outputRequestId</Confvalue>
+            <Id>10549</Id>
+            <ObjGuid>530c56ee-52f3-4eef-89ff-e7f4af244f44</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>INSLOTREF.documentManagementOutput.in</Confkey>
+            <Confvalue>publishLayout.out</Confvalue>
+            <Id>10559</Id>
+            <ObjGuid>71b14f9b-3b78-485c-8be3-3d9cb6ce0751</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>publishSearch.individualIdElement</Confkey>
+            <Confvalue>outputRequestId</Confvalue>
+            <Id>10560</Id>
+            <ObjGuid>7317b693-bf83-445d-8a56-51498add05b4</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>documentManagementOutput.execute</Confkey>
+            <Confvalue>true</Confvalue>
+            <Id>10561</Id>
+            <ObjGuid>81089702-73c0-4163-a37b-e0bcad3b102d</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>publishLayout.xslFile</Confkey>
+            <Confvalue>publish/pmodul/xslfo/hisinone/cm/app/approvalinfo-en.xsl</Confvalue>
+            <Id>10555</Id>
+            <ObjGuid>957a74e4-95aa-46ed-8df9-07e088fba182</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>documentManagementOutput.saveNotificationDocuments</Confkey>
+            <Confvalue>false</Confvalue>
+            <Id>10563</Id>
+            <ObjGuid>96632b8b-f571-4031-bab0-fd54c3498720</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>customPortalMessage.customPortalMessageOutputReceiverId</Confkey>
+            <Confvalue>$${personId}</Confvalue>
+            <Id>10551</Id>
+            <ObjGuid>a6461f03-2eb9-4aff-85fd-04ecd0b14572</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>publishSearch.skipExcessPublishData</Confkey>
+            <Confvalue>true</Confvalue>
+            <Id>10548</Id>
+            <ObjGuid>af3e744e-7583-4f0c-a0d6-2f24844654c8</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>documentCategoryGuid</Confkey>
+            <Confvalue>4423d1fe-e868-4fdd-9cce-59b9a1facf5d</Confvalue>
+            <Id>10553</Id>
+            <ObjGuid>b45103ea-770f-43a0-9ed3-23053ef07cef</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>customPortalMessage.customPortalMessageOutputPositionalParams</Confkey>
+            <Confvalue>$${documentMetadataId}
+$$sign($${documentMetadataId})</Confvalue>
+            <Id>10569</Id>
+            <ObjGuid>bad8b10b-3842-42c6-a8d4-e1156eaed562</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>INSLOTREF.publishLayout.gsResultIn</Confkey>
+            <Confvalue>genericSearch.out</Confvalue>
+            <Id>10562</Id>
+            <ObjGuid>c298dfc7-831f-4c59-a203-e00ce362c65f</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>appEAdministrativeActPrecondition.abortJobIfValidationFails</Confkey>
+            <Confvalue>false</Confvalue>
+            <Id>10567</Id>
+            <ObjGuid>cb3596d5-b506-4312-ba3a-72bf65681676</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>documentManagementOutput.outputFileName</Confkey>
+            <Confvalue>b$${applicantnumber}_p$${personId}_G_$${rce.title|$${job.defaulttext}}</Confvalue>
+            <Id>10554</Id>
+            <ObjGuid>e8306c8a-9017-48d0-92d0-b8aed74e624d</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>publishSearch.splitXmlToResultSet</Confkey>
+            <Confvalue>true</Confvalue>
+            <Id>10545</Id>
+            <ObjGuid>f13a00d7-8324-4de8-a289-21dd895f062f</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>publishSearch.configFile</Confkey>
+            <Confvalue>printout/publishModul/hisinone/cm/app/approvalinfo-en.xml</Confvalue>
+            <Id>10546</Id>
+            <ObjGuid>f64e07da-0f3b-4bca-8a65-9b12af4c5655</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>publishSearch.moduleCall</Confkey>
+            <Confvalue>Report</Confvalue>
+            <Id>10557</Id>
+            <ObjGuid>f6c9bd26-513e-441c-b172-cf7e6e448fbe</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>ServiceCallModificationStep.serviceCallDefinitions</Confkey>
+            <Confvalue>[{"guid":"1f4dcf7e-5d79-41f9-8a41-24058fb2ea31","serviceCall":"verificationNumber"}]</Confvalue>
+            <Id>10565</Id>
+            <ObjGuid>fcd7b79f-26e9-41be-8171-5de804184728</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+          <Element entity="JobConfValue">
+            <Confkey>sendOutputRequestToCentralizedInbox.outputRequestIdColumnName</Confkey>
+            <Confvalue>alteredOutputRequestId</Confvalue>
+            <Id>10573</Id>
+            <ObjGuid>fe70db2d-a455-4305-a842-10eaa7212561</ObjGuid>
+            <Configuration entity="JobConf" incomplete="y">
+              <Id>5788</Id>
+              <ObjGuid>9fc9cc45-3cad-478f-879b-cde5eb22f2c3</ObjGuid>
+            </Configuration>
+          </Element>
+        </Confs>
+      </Details>
+      <Domain entity="DomainValue" incomplete="y">
+        <Id>5</Id>
+        <ObjGuid>94fea83b-c3c4-43c1-aa87-6d0c10e58879</ObjGuid>
+      </Domain>
+      <ExecuteAs />
+    </JobReportJob>
+  </AbstractJob-collection>
+  <DocumentMetadataCategoryValue-collection searchColumns="{Uniquename, HiskeyId}" />
+  <DocumentStatusValue-collection searchColumns="Uniquename" />
+  <PurposeValue-collection searchColumns="Uniquename" />
+  <Mimedata-collection />
+  <DocumentMetadata-collection />
+  <Confsrc-collection searchColumns="Uniquename">
+    <Confsrc entity="Confsrc" update="false">
+      <Id>1</Id>
+      <ObjGuid>0b1c0c1c-9997-472d-ab19-f34329ff225c</ObjGuid>
+      <Uniquename>HIS</Uniquename>
+    </Confsrc>
+    <Confsrc entity="Confsrc" update="false">
+      <Id>7</Id>
+      <ObjGuid>ee0048b4-660e-4e62-a9f8-222703dc91bd</ObjGuid>
+      <Uniquename>tubaf-APP</Uniquename>
+    </Confsrc>
+  </Confsrc-collection>
+  <DataSelectionDefinition-collection ignoreOnMerge="Active">
+    <DataSelectionDefinition entity="DataSelectionDefinition">
+      <Active>true</Active>
+      <Defaulttext>Gender</Defaulttext>
+      <Description>selektiert Person.gender</Description>
+      <Id>2</Id>
+      <ObjGuid>7d2c70e6-9e8f-4d80-9180-15fc3a1f8e4f</ObjGuid>
+      <Confsrc entity="Confsrc" incomplete="y">
+        <Id>1</Id>
+        <ObjGuid>0b1c0c1c-9997-472d-ab19-f34329ff225c</ObjGuid>
+      </Confsrc>
+    </DataSelectionDefinition>
+  </DataSelectionDefinition-collection>
+  <DataSelection-collection>
+    <HqlDataSelection entity="HqlDataSelection">
+      <Defaulttext>gender</Defaulttext>
+      <Description />
+      <Id>4</Id>
+      <MapKeysColumnsRaw />
+      <ObjGuid>2a6f2088-e534-4b84-a345-9bfafff44fdb</ObjGuid>
+      <Query>SELECT p.gender as gender&#xD;
+FROM Person p&#xD;
+WHERE p.id = :personId</Query>
+      <Sortorder>1</Sortorder>
+      <Uniquename>gender</Uniquename>
+      <DataSelectionDefinition entity="DataSelectionDefinition" incomplete="y">
+        <Id>2</Id>
+        <ObjGuid>7d2c70e6-9e8f-4d80-9180-15fc3a1f8e4f</ObjGuid>
+      </DataSelectionDefinition>
+      <Parent />
+    </HqlDataSelection>
+  </DataSelection-collection>
+  <HqlDataSelectionParameter-collection>
+    <HqlDataSelectionParameter entity="HqlDataSelectionParameter">
+      <Id>1</Id>
+      <ObjGuid>90b0a7a8-0645-4548-96fc-053b30979506</ObjGuid>
+      <ParameterName>personId</ParameterName>
+      <ParameterType>java.lang.Long</ParameterType>
+      <ParameterValue>personId</ParameterValue>
+      <HqlDataSelection entity="HqlDataSelection" incomplete="y">
+        <Id>4</Id>
+        <ObjGuid>2a6f2088-e534-4b84-a345-9bfafff44fdb</ObjGuid>
+      </HqlDataSelection>
+    </HqlDataSelectionParameter>
+  </HqlDataSelectionParameter-collection>
+  <Foreigntext-collection searchColumns="{Table, Objectid, Column, Language}" startNewPass="true" />
+  <EntitiesToDelete>
+    <EntityToDelete entityName="Foreigntext" guid="5cb4674e-c26c-4410-949d-e9f678508565" deletionTimestamp="1762855870435" />
+    <EntityToDelete entityName="Foreigntext" guid="21de6f99-e9df-4a20-85d2-4c092213d61e" deletionTimestamp="1762855870440" />
+    <EntityToDelete entityName="Foreigntext" guid="5caf3a8c-d7a6-4ae6-aa42-35da431ce71d" deletionTimestamp="1762855870444" />
+    <EntityToDelete entityName="Foreigntext" guid="dacb8083-dfee-48fe-a587-fa67a4137dcf" deletionTimestamp="1762855870449" />
+    <EntityToDelete entityName="DocumentMetadata" guid="64573b39-f2b8-46e6-ac06-fcbfa48148c9" deletionTimestamp="1763128622269" />
+    <EntityToDelete entityName="DocumentMetadata" guid="3b25cb57-00fd-44a6-97df-81f6607cfd80" deletionTimestamp="1763129768305" />
+    <EntityToDelete entityName="Foreigntext" guid="8fdf2f70-16d5-4b31-84a4-d18d205661c1" deletionTimestamp="1763457614578" />
+    <EntityToDelete entityName="Foreigntext" guid="f4842cce-0960-4092-96a8-9a96d6cb48af" deletionTimestamp="1763457614584" />
+    <EntityToDelete entityName="Foreigntext" guid="30cdb7fe-0549-4ffe-a45a-1842765da132" deletionTimestamp="1763457614597" />
+    <EntityToDelete entityName="Foreigntext" guid="4aee8363-4c5f-4142-9bef-445a8f73523b" deletionTimestamp="1763457614602" />
+    <EntityToDelete entityName="Foreigntext" guid="3193544e-e5c2-4c71-8094-5ed86b0249bf" deletionTimestamp="1763457614613" />
+    <EntityToDelete entityName="Foreigntext" guid="2c2ce958-f7be-40e2-898c-a74b2179ad38" deletionTimestamp="1763457614624" />
+    <EntityToDelete entityName="Foreigntext" guid="a844d759-b3f2-4ec1-a5d5-925385969ee5" deletionTimestamp="1763457614641" />
+    <EntityToDelete entityName="Foreigntext" guid="a0e30b96-723e-4743-8190-3dfc110f6fd2" deletionTimestamp="1763460325090" />
+    <EntityToDelete entityName="Foreigntext" guid="ce40607c-ba12-4398-a4b2-87c48b6e6235" deletionTimestamp="1763460325095" />
+    <EntityToDelete entityName="Foreigntext" guid="f8d766a5-8780-4ad4-afcf-6f50a267cc8c" deletionTimestamp="1763460325099" />
+    <EntityToDelete entityName="Foreigntext" guid="e8b08b0e-2352-45ea-ae5b-62a83bb3a227" deletionTimestamp="1763460325165" />
+    <EntityToDelete entityName="Foreigntext" guid="8658264c-60bb-4497-9468-193ec8f4b66c" deletionTimestamp="1763460325170" />
+    <EntityToDelete entityName="Foreigntext" guid="218d23bb-0e6b-48f4-add5-4c9b1ae77331" deletionTimestamp="1763460325175" />
+    <EntityToDelete entityName="DocumentMetadata" guid="d33a8d93-0f35-4170-a938-f621e2b6a299" deletionTimestamp="1763623199661" />
+    <EntityToDelete entityName="DocumentMetadata" guid="43396eb2-528a-4ee6-a037-8d2dbaa61969" deletionTimestamp="1763723854996" />
+    <EntityToDelete entityName="DocumentMetadata" guid="671ea571-39f2-4f42-990e-f9b79b4c92d6" deletionTimestamp="1763724658151" />
+    <EntityToDelete entityName="DocumentMetadata" guid="c49a6144-eb6e-45cd-8802-8fb6a8b39c47" deletionTimestamp="1763732399533" />
+    <EntityToDelete entityName="DocumentMetadata" guid="27dd8f8e-e710-4c98-8b76-aad5f2c5fa1c" deletionTimestamp="1763732683363" />
+    <EntityToDelete entityName="DocumentMetadata" guid="eb4142f0-5af3-4bf4-86db-949487c3311e" deletionTimestamp="1763732834684" />
+    <EntityToDelete entityName="DocumentMetadata" guid="6f37193c-902b-4573-a124-7c1ec60c4f07" deletionTimestamp="1763733065423" />
+    <EntityToDelete entityName="DocumentMetadata" guid="4fb2db08-0e45-4559-8e08-ebb6f3bcb6e5" deletionTimestamp="1763733352000" />
+    <EntityToDelete entityName="DocumentMetadata" guid="5eac6389-12aa-48e4-a965-8dca24543dde" deletionTimestamp="1763733533381" />
+    <EntityToDelete entityName="DocumentMetadata" guid="49ce000c-8d2f-4956-90b5-367371e85cbc" deletionTimestamp="1763733728154" />
+    <EntityToDelete entityName="DocumentMetadata" guid="df0e2078-ebe7-4e7a-b033-ab11cff63795" deletionTimestamp="1763734687657" />
+    <EntityToDelete entityName="DocumentMetadata" guid="03cfb92a-168c-4cab-9e3c-49616049ce24" deletionTimestamp="1763734687664" />
+    <EntityToDelete entityName="DocumentMetadata" guid="6411cbb6-1850-4d56-8b6b-a820aaa74d8b" deletionTimestamp="1763734934815" />
+    <EntityToDelete entityName="DocumentMetadata" guid="c4264331-75ad-4c0a-b160-21d44227d18b" deletionTimestamp="1763735288184" />
+    <EntityToDelete entityName="DocumentMetadata" guid="60a11501-eac5-466b-b98f-785a94076331" deletionTimestamp="1763735487579" />
+    <EntityToDelete entityName="DocumentMetadata" guid="cea9940d-4d75-42c8-a3c8-336ec08d0bae" deletionTimestamp="1763740965269" />
+    <EntityToDelete entityName="DocumentMetadata" guid="44eed958-67fd-47e1-be57-89ce476c9865" deletionTimestamp="1763741839724" />
+    <EntityToDelete entityName="DocumentMetadata" guid="d8dd431f-ae0d-492a-a39d-69e7aa5d8e21" deletionTimestamp="1763742111095" />
+    <EntityToDelete entityName="DocumentMetadata" guid="1e2780c6-c9cf-4a3f-8aa8-6b3aa8e6a946" deletionTimestamp="1763742284558" />
+    <EntityToDelete entityName="DocumentMetadata" guid="b9494162-8bb8-4813-8709-a65868a4a135" deletionTimestamp="1763743527221" />
+    <EntityToDelete entityName="DocumentMetadata" guid="b45608e9-7246-4d18-a6a0-47f8161bcddf" deletionTimestamp="1763744062706" />
+    <EntityToDelete entityName="DocumentMetadata" guid="40701e6e-31fe-4fe4-b305-295fc8f6e37e" deletionTimestamp="1763744244602" />
+    <EntityToDelete entityName="DocumentMetadata" guid="9ff2371c-4584-45b0-a522-04d9d56cc260" deletionTimestamp="1763744624418" />
+    <EntityToDelete entityName="DocumentMetadata" guid="43fa9998-feff-4e22-93b8-0eada626b077" deletionTimestamp="1763744847794" />
+    <EntityToDelete entityName="DocumentMetadata" guid="c0da1834-67b0-4fca-8481-c7b517c52b62" deletionTimestamp="1763745857421" />
+    <EntityToDelete entityName="DocumentMetadata" guid="4daa199c-1a20-4305-b365-926a52dc4fab" deletionTimestamp="1763745978707" />
+    <EntityToDelete entityName="DocumentMetadata" guid="5736939b-abb1-42ec-ad68-a76bb7e9ef72" deletionTimestamp="1763746669710" />
+    <EntityToDelete entityName="DocumentMetadata" guid="258d2be7-4513-4b7d-9b4e-289d651615a6" deletionTimestamp="1763746752052" />
+    <EntityToDelete entityName="DocumentMetadata" guid="059484d4-83eb-42ea-8ea1-47b481aa663b" deletionTimestamp="1763984936792" />
+    <EntityToDelete entityName="DocumentMetadata" guid="9c86542c-de00-437b-96bb-6eb53e9cbce3" deletionTimestamp="1763986145761" />
+    <EntityToDelete entityName="DocumentMetadata" guid="d945c69e-3816-4f37-9b4c-5be1517ab1d2" deletionTimestamp="1763986309006" />
+    <EntityToDelete entityName="DocumentMetadata" guid="a906144a-1632-4e68-bb9c-75e5d8eb764c" deletionTimestamp="1763989513967" />
+    <EntityToDelete entityName="DocumentMetadata" guid="f9ea1c71-b07e-4d17-9ea7-96972b9ebc55" deletionTimestamp="1763989672330" />
+    <EntityToDelete entityName="DocumentMetadata" guid="5ddd77f8-9590-49e6-b735-7f6aa6f40be9" deletionTimestamp="1763990089220" />
+    <EntityToDelete entityName="DocumentMetadata" guid="b279d44d-4760-4c95-aae0-6622ce8189d0" deletionTimestamp="1763991894635" />
+    <EntityToDelete entityName="DocumentMetadata" guid="687a43fc-ca14-4809-a1a5-4e84d619c11f" deletionTimestamp="1764056984965" />
+    <EntityToDelete entityName="DocumentMetadata" guid="914389d5-d7a7-4d43-a721-6febda1490fb" deletionTimestamp="1764063351805" />
+    <EntityToDelete entityName="DocumentMetadata" guid="0ec06ac2-58c2-4cb5-bf75-7868706c4762" deletionTimestamp="1764063759353" />
+    <EntityToDelete entityName="DocumentMetadata" guid="e2003098-24b1-4151-a3b9-6a699873cd31" deletionTimestamp="1764064050928" />
+    <EntityToDelete entityName="DocumentMetadata" guid="ef332f12-60bf-430c-93d1-d8a90f093f0f" deletionTimestamp="1764064121078" />
+    <EntityToDelete entityName="DocumentMetadata" guid="ab2e4a8e-27aa-4ceb-8aff-126f2c7b6f29" deletionTimestamp="1764064404711" />
+    <EntityToDelete entityName="DocumentMetadata" guid="e3b3a023-fb3e-45a1-a2cd-662fbc08d00c" deletionTimestamp="1764064965063" />
+    <EntityToDelete entityName="DocumentMetadata" guid="9c6860f3-8eeb-48e8-bea2-5239db0fac95" deletionTimestamp="1764065375110" />
+    <EntityToDelete entityName="DocumentMetadata" guid="755fe8be-d882-408c-aa29-18209dc98ec1" deletionTimestamp="1764065633508" />
+    <EntityToDelete entityName="DocumentMetadata" guid="df0a64a8-8993-4e98-9a0e-abf032391c8e" deletionTimestamp="1764065923679" />
+    <EntityToDelete entityName="DocumentMetadata" guid="5a86462b-10c7-4597-a16f-54f6830d700d" deletionTimestamp="1764066164332" />
+    <EntityToDelete entityName="DocumentMetadata" guid="47aa2dd2-2d06-462b-8ff0-1126d5b52d60" deletionTimestamp="1764066595402" />
+    <EntityToDelete entityName="DocumentMetadata" guid="3ee1f066-fe61-42df-9396-aad72b67159c" deletionTimestamp="1764066722528" />
+    <EntityToDelete entityName="DocumentMetadata" guid="11a02562-d401-42a9-835d-7de1f02a9110" deletionTimestamp="1764067249256" />
+    <EntityToDelete entityName="DocumentMetadata" guid="7935ff39-d712-405d-893a-a193a79c8598" deletionTimestamp="1764067355466" />
+    <EntityToDelete entityName="DocumentMetadata" guid="b2c52dd0-962a-4880-9a48-de13b2bf9b2a" deletionTimestamp="1764067781651" />
+    <EntityToDelete entityName="DocumentMetadata" guid="93de059b-2ca8-4aab-a223-62601fdf2f07" deletionTimestamp="1764068732361" />
+    <EntityToDelete entityName="DocumentMetadata" guid="8772ca07-8cf5-4b6c-bb56-b7e6f6ce3399" deletionTimestamp="1764069104710" />
+    <EntityToDelete entityName="DocumentMetadata" guid="7c79105f-02e3-4d3d-89dc-2ee07889ace9" deletionTimestamp="1764069194880" />
+    <EntityToDelete entityName="DocumentMetadata" guid="3e8dc946-9f2c-4182-bb18-3ab75c77951e" deletionTimestamp="1764069221268" />
+    <EntityToDelete entityName="DocumentMetadata" guid="25fdb8ac-eab0-4a12-8a7e-7cef3a29215e" deletionTimestamp="1764069618846" />
+    <EntityToDelete entityName="DocumentMetadata" guid="cdbc545e-bacc-49cc-91d1-ffb287b148e8" deletionTimestamp="1764069809789" />
+    <EntityToDelete entityName="DocumentMetadata" guid="ff999987-a5d2-4b34-b0fc-6ea8757b048a" deletionTimestamp="1764155510456" />
+    <EntityToDelete entityName="DataSelectionDefinition" guid="fb27dc8f-9e8e-44cd-ad1e-f003d37fa3a0" deletionTimestamp="1764336563746" />
+    <EntityToDelete entityName="DocumentMetadata" guid="b9c77cfb-7e15-4d08-ace3-d80f616bbda7" deletionTimestamp="1764340372688" />
+    <EntityToDelete entityName="DocumentMetadata" guid="ba5f4f5f-5639-4a47-a89d-9a19eece86cd" deletionTimestamp="1764341457845" />
+    <EntityToDelete entityName="DocumentMetadata" guid="0273dfa2-aac1-47d9-a3ad-809046c912e2" deletionTimestamp="1764341648990" />
+  </EntitiesToDelete>
+</root>
