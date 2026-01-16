@@ -1,0 +1,117 @@
+	<!-- Studienverlauf -->
+	<entry name="hisinone-sospos-stg" active="y" description="Studienverlauf" databases="hisinone,sospos">
+      <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
+         <admin>
+            <execute />
+         </admin>
+      </rights>
+      <dbconnection name="sospos" />
+      <actions sendlevel="3">
+      	 <!-- Erweitert: Join zur SOS - Tabelle -->
+		 <action name="stg1" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-studiengang.vm">
+            <select>
+				SELECT DISTINCT 
+				abschl, stg, vert, schwp, kzfa, pversion
+				, stuart, stutyp, stg.stufrm AS stufrm, stort, fb
+				, k_abint.kzfaarray AS kzfaarray
+                FROM stg
+                INNER JOIN identroll ON (stg.mtknr = identroll.verbindung_integer AND identroll.rolle IN ('S', '4'))
+                INNER JOIN sos ON (sos.mtknr = identroll.verbindung_integer)                
+                LEFT JOIN k_abint ON (stg.abschl = k_abint.abint)
+                WHERE abschl IS NOT NULL AND NOT TRIM(abschl) = '' AND stg IS NOT NULL AND NOT TRIM(stg) = ''
+                AND (stg.lfdnr = 0 OR stg.lfdnr IS NULL) 
+                	[sos_restrictionTUBAF_exmadat]
+				ORDER by abschl, stg
+            </select>
+	        <param name="DEBUG" value="y" />
+	        <param name="srcTable" value="stg" />
+	        <param name="targetobject" value="course_of_study" />
+	        <param name="singleDigitToYear" value="n" /> <!-- Für Umsetzung pversion in course_of_study.valid_from -->
+	        <param name="validFromOhnePOVersion" value="n" /> <!-- Im Standard wird der Gültigkeitsbeginn des Studiengangs aus der POVersion ermittelt (siehe Doku). Falls die PO-Version zufällige Zahlen enthalten: <param name="validFromOhnePOVersion" value="y" /> -->
+           	<!--Nur Inserts. Auch Updates auf vorhande course_of_study -> addMissing value = "n" -->
+			<param active="y" name="addMissing" value="y" />
+           	<!-- Kein Update für definierte Spalten? active="y" value = "spaltenname1 spaltenname2 spaltenname3" -->
+           	<!--  Update für alle Spalten? active="n" -->
+           	<param active="n" name="noColumnUpdate" value="teachingunit_orgunit_lid" />
+         </action>
+         
+         <!-- Erweitert: Join zur SOS - Tabelle -->
+         <action name="stgext2" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-stgext2.vm">
+            <select>
+				SELECT DISTINCT identroll.identnr as identnr, stgext.extart AS extart, stgext.semester AS semester
+				, stgext.stgnr AS stgnr, stgext.abschl AS abschl, stgext.stg AS stg
+				, stgext.stgsem AS stgsem, stgext.stuart AS stuart, stgext.stutyp AS stutyp, stgext.stufrm AS stufrm, stgext.lzabdat AS lzabdat
+				, stgext.pstatus AS pstatus, stgext.pnote AS pnote, stgext.stala1 AS stala1, stgext.stala2 AS stala2, stgext.mtknr_ext AS mtknr_ext
+				, stgext.regelstz AS regelstz, stgext.stgextnr AS stgextnr
+				, identroll.verbindung_integer AS mtknr
+				, CASE
+					WHEN stgext.hskfzkz IS NULL AND stgext.extart = 'AP'
+						THEN   (SELECT DISTINCT hskfzkz FROM stgext AS stgext2
+							WHERE stgext2.extart = 'VS'
+							AND stgext2.mtknr = stgext.mtknr
+							AND stgext2.semester = stgext.semester
+							AND stgext2.stgnr = stgext.stgnr)
+					ELSE 
+						stgext.hskfzkz
+				  END AS hskfzkz
+				, CASE
+					WHEN stgext.hskfz IS NULL AND stgext.extart = 'AP'
+						THEN   (SELECT DISTINCT hskfz FROM stgext AS stgext2
+							WHERE stgext2.extart = 'VS'
+							AND stgext2.mtknr = stgext.mtknr
+							AND stgext2.semester = stgext.semester
+							AND stgext2.stgnr = stgext.stgnr)
+					ELSE 
+						stgext.hskfz
+				  END AS hskfz
+				, CASE
+					WHEN stgext.hsart IS NULL AND stgext.extart = 'AP'
+						THEN    (SELECT DISTINCT hsart FROM stgext AS stgext2
+							WHERE stgext2.extart = 'VS'
+							AND stgext2.mtknr = stgext.mtknr
+							AND stgext2.semester = stgext.semester
+							AND stgext2.stgnr = stgext.stgnr)
+					ELSE 
+						stgext.hsart
+				END AS hsart
+				FROM stgext, identroll
+				INNER JOIN sos ON (sos.mtknr = identroll.verbindung_integer)
+				WHERE stgext.mtknr = identroll.verbindung_integer
+				AND identroll.rolle IN ('S') 
+				AND stgext.semester IS NOT NULL AND stgext.semester NOT IN (0)
+				AND stgnr NOT IN ('1')
+					[extart_restriction]
+					[sos_restrictionTUBAF_exmadat] 
+				ORDER by identnr, extart DESC, stgnr, semester
+            </select>
+            <param name="database" value="sospos" />
+            <param name="srctable" value="ident" />
+            <param name="srctableid" value="identnr" />
+            <param name="targetobject" value="degree_program_progress_before" />
+	        <param name="DEBUG" value="y" />
+	        <param name="TIMER" value="y" />
+         </action>
+         
+         <!-- Erweitert: Join zur SOS - Tabelle -->
+         <action name="stg2" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-stg2.vm">
+            <select>
+				SELECT DISTINCT identroll.identnr AS identnr
+				FROM stg, identroll 
+				INNER JOIN sos ON (sos.mtknr = identroll.verbindung_integer)
+				WHERE stg.mtknr = identroll.verbindung_integer AND identroll.rolle IN ('S') 
+				AND abschl IS NOT NULL AND NOT TRIM(abschl) = '' AND stg IS NOT NULL AND NOT TRIM(stg) = ''
+				 [sos_restrictionTUBAF_exmadat] 
+				ORDER BY identnr
+            </select>
+	        <param name="verbose" value="[verbose]" />
+            <param name="dbactions" value="[dbactions]" />
+            <param name="debug" value="[debug]" />
+	        <param name="DEBUG" value="y" />
+	        <!-- Bei DEBUG="y": SAMPLE: Wenn n > 0, wird das Ergebnis für jeden n. Fall im Log ausgegeben (n=1: jeder Fall)-->
+	        <param name="SAMPLE" value="0" />
+	        <!-- Zusätzlichen Studienverlaufssatz für Bildungswissenschaften (Profilfach) erzeugen
+	             Abschlüsse durch Komma getrennt angeben -->
+	        <param name="additionalCourseOfStudy" active = "n" value="31, 32" />
+	        <param name="targetobject" value="degree_program_progress" />
+	        <param name="TIMER" value="y" />
+         </action>
