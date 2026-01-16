@@ -1,0 +1,1 @@
+a) Einfaches Beispiel, um ein statisches PDF in einen Bescheid zu bringen
