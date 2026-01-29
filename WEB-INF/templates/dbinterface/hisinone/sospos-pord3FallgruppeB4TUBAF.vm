@@ -1,0 +1,333 @@
+#parse("dbinterface/hisinone/head.vm")
+
+<xsl:template match="${params.ACTION}-collection">	
+
+	#parse("dbinterface/hisinone/setVar.vm")
+	
+	#set ($lookuptable = "k_elementtype")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	<dbi:echo>DEBUG-TUBAF 01 (Anlegen von Aufhängerelementen) signature=[signature]; pordnr=<xsl:value-of select="pordnr" /> [pordnr]; pnr=<xsl:value-of select="pnr" /> [pnr]; absch=<xsl:value-of select="abschl" /> [abschl]; stg=<xsl:value-of select="stg" /> [stg]; </dbi:echo>
+	<dbi:set dbi:variable="k_elementtype_id" dsd:var="k_elementtype_lookup[PO]" dbi:ignore="empty" />	
+
+    <dbi:call dbi:function="de.his.xml.functions.GlobalConfigGetter">
+       <dbi:param dbi:name="confKey">core.psv.self.own_university</dbi:param>
+       <dbi:return dbi:variable="own_university"/>
+    </dbi:call>
+    <dbi:if dbi:is-true="own_university = 'null'">
+    	<dbi:set dbi:variable="own_university"/>
+    	<dbi:echo dbi:level="WARN">WARN (sospos-pord3) In der globalen Konfiguration fehlt der Eintrag für die eigene Hochschule (confkey = core.psv.self.own_university)!</dbi:echo>
+    </dbi:if>	
+	<!-- Default-Eintrag (mit statustype=unit und niedrigster sortorder aus k_status für unit.editing_k_workstatus holen  -->
+	<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+    	<dbi:data>
+    		<hisinone:hisinone>
+    			<hisinone:k_status>
+    				<hisinone:id />
+					<hisinone:sortorder />
+    			</hisinone:k_status>
+    		</hisinone:hisinone>
+    	</dbi:data>
+    	<dbi:condition>
+    		<hisinone:hisinone>
+    			<hisinone:k_status>
+    				<hisinone:statustype dsd:compOperator="equal">unit</hisinone:statustype>
+    			</hisinone:k_status>
+    		</hisinone:hisinone>
+    	</dbi:condition>
+        <dbi:orderby>
+    		<hisinone:hisinone>
+    			<hisinone:k_status>
+					<hisinone:sortorder direction="ASC" />
+    			</hisinone:k_status>
+    		</hisinone:hisinone>
+        </dbi:orderby>
+	</dbi:dbaction>	
+
+	<!-- id der Abschlusszuordnung mit kleinster sortorder selektieren  -->
+	<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+    	<dbi:data>
+    		<hisinone:hisinone>
+    			<hisinone:k_unitrelationtype>
+    				<hisinone:id />
+					<hisinone:sortorder />
+    			</hisinone:k_unitrelationtype>
+    		</hisinone:hisinone>
+    	</dbi:data>
+    	<dbi:condition>
+    		<hisinone:hisinone>
+    			<hisinone:k_unitrelationtype>
+    				<hisinone:hiskey_id dsd:compOperator="equal">9</hisinone:hiskey_id>
+    			</hisinone:k_unitrelationtype>
+    		</hisinone:hisinone>
+    	</dbi:condition>
+		<dbi:orderby>
+    		<hisinone:hisinone>
+    			<hisinone:k_unitrelationtype>
+					<hisinone:sortorder direction="ASC" />
+    			</hisinone:k_unitrelationtype>
+    		</hisinone:hisinone>
+        </dbi:orderby>
+	</dbi:dbaction>	
+	
+	<!-- Default-Eintrag (hiskey_id = 0) aus unit_template holen  -->
+	<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+    	<dbi:data>
+    		<hisinone:hisinone>
+    			<hisinone:unit_template>
+    				<hisinone:id />
+    			</hisinone:unit_template>
+    		</hisinone:hisinone>
+    	</dbi:data>
+    	<dbi:condition>
+    		<hisinone:hisinone>
+    			<hisinone:unit_template>
+    				<hisinone:hiskey_id dsd:compOperator="equal">0</hisinone:hiskey_id>
+    			</hisinone:unit_template>
+    		</hisinone:hisinone>
+    	</dbi:condition>
+	</dbi:dbaction>	
+	
+	<dbi:set dbi:variable="valid_from">$valid_from</dbi:set>
+    <dbi:set dbi:variable="valid_to">$valid_to</dbi:set>
+	
+    #if ($DEBUG && $DEBUG == "y")
+		<dbi:echo>DEBUG-1 (sospos-pord3) k_elementtype_id=[k_elementtype_id]; k_unitrelationtype.id=[k_unitrelationtype.id]; unit_template.id=[unit_template.id]</dbi:echo>
+	#end
+	
+	<xsl:for-each select="${params.ACTION}">
+    	<dbi:try>
+    		<dbi:set dbi:variable="unit.id" />
+    		<dbi:set dbi:variable="child_id" />
+    		<dbi:set dbi:variable="po_id" />
+    		<dbi:set dbi:variable="unitrelation.id" />
+        	<dbi:set dbi:variable="signature" dbi:parse="true"><xsl:value-of select="abschl" />|<xsl:value-of select="stg" />|<xsl:value-of select="vert" />|<xsl:value-of select="schwp" />|<xsl:value-of select="kzfa" />|<xsl:value-of select="pversion" /></dbi:set>
+			<!--<dbi:set dbi:variable="signature" dbi:parse="true">[abschl]|[stg]|[vert]|[schwp]|[kzfa]|[pversion]</dbi:set>-->
+    		<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+        		<dbi:data>
+        			<hisinone:hisinone>
+        				<hisinone:unit>
+        					<hisinone:id />
+        				</hisinone:unit>
+        			</hisinone:hisinone>
+         		</dbi:data>
+        		<dbi:condition>	
+        			<dbi:crossjoin dbi:condition="unit.id=external_relation.tabpk"/>	
+    				<hisinone:hisinone>
+    					<hisinone:external_relation>
+    						<hisinone:externalsystem dsd:compOperator="equal">sospos</hisinone:externalsystem>
+    						<hisinone:externaltable dsd:compOperator="equal">pord</hisinone:externaltable>/>
+    						<hisinone:externaltabpk dsd:compOperator="equal"><xsl:value-of select="pordnr" /></hisinone:externaltabpk>
+    						<hisinone:tablename dsd:compOperator="equal">unit</hisinone:tablename>/>
+    					</hisinone:external_relation>
+    				</hisinone:hisinone>
+    			</dbi:condition>
+    		</dbi:dbaction>
+    		<dbi:set dbi:variable="child_id" dsd:var="unit.id"/>
+    		<dbi:if dbi:is-not-set="child_id">
+    			<dbi:echo dbi:level="WARN">WARN-1 pnr=<xsl:value-of select="pnr" />; pktxt=<xsl:value-of select="pktxt" />; pordnr=<xsl:value-of select="pordnr" /> ignored: no unit found!</dbi:echo>
+    		</dbi:if>
+    		<dbi:if dbi:is-set="child_id"> <!--nur wenn es für Child schon eine Unit gibt-->
+    			#if ($DEBUG && $DEBUG == "y")
+    				<dbi:echo>DEBUG-2 (sospos-pord3) signature=[signature]; pnr=<xsl:value-of select="pnr" />; pktxt=<xsl:value-of select="pktxt" />; pordnr=<xsl:value-of select="pordnr" />; unit.id=[child_id]</dbi:echo>
+					<dbi:echo>DEBUG-TUBAF 02 (sospos-pord3) signature=[signature]; pnr=<xsl:value-of select="pnr" />; pordnr=<xsl:value-of select="pordnr" /> [pordnr]; pnr=<xsl:value-of select="pnr" /> [pnr]; absch=<xsl:value-of select="abschl" /> [abschl]; stg=<xsl:value-of select="stg" /> [stg]; vert=<xsl:value-of select="vert" /> [vert]; pversion=<xsl:value-of select="pversion" /> [pversion];</dbi:echo>					 
+    			#end
+            	<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+        			<dbi:data>
+        				<hisinone:hisinone>
+        					<hisinone:unit>
+        						<hisinone:id />
+        						<hisinone:lid />
+        					</hisinone:unit>
+        				</hisinone:hisinone>
+        			</dbi:data>
+            		<dbi:condition>
+                		<hisinone:hisinone>
+                			<hisinone:unit>
+                				<hisinone:uniquename dsd:var="signature" />
+                			</hisinone:unit>
+                		</hisinone:hisinone>
+        			</dbi:condition>
+                </dbi:dbaction>
+        		<dbi:set dbi:variable="po_id" dsd:var="unit.id"/>
+        		<dbi:if dbi:is-not-set="po_id"> <!-- PO-Element noch nicht vorhanden -->
+        			#parse("dbinterface/hisinone/insert_unitrelation_STD.vm")
+        			<!-- unitobj schreiben -->	
+        			<dbi:dbaction dbi:action="insert" dbi:lookup="unitobj.id">
+        				<dbi:data>
+        					<hisinone:hisinone>
+        						<hisinone:unitobj>
+        							<hisinone:lock_version>0</hisinone:lock_version>
+        						</hisinone:unitobj>
+        					</hisinone:hisinone>
+        				</dbi:data>
+        			</dbi:dbaction>
+        			<!-- unit schreiben -->
+        			<dbi:dbaction dbi:action="insert" dbi:lookup="unit.id">
+        				<dbi:data>
+        					<hisinone:hisinone>
+        						<hisinone:unit>
+        							<hisinone:lid dsd:var="unitobj.id" />
+        							<hisinone:k_language_id>12</hisinone:k_language_id>
+        							<hisinone:k_elementtype_id dsd:var="k_elementtype_id" />
+        							<hisinone:uniquename dsd:var="signature" />
+        							<hisinone:shorttext dsd:var="signature" />
+        							<hisinone:defaulttext dsd:var="signature" />
+        							<hisinone:longtext dsd:var="signature" />
+        							<hisinone:default_unitrelation_id dsd:var="unitrelation.id" />
+        							<hisinone:editing_k_status_id dsd:var="k_status.id" />
+        							<hisinone:viewable_in_stu>0</hisinone:viewable_in_stu>
+									<hisinone:viewable_in_doc>0</hisinone:viewable_in_doc>
+    								<hisinone:unit_template_id dsd:var="unit_template.id" />
+    								<hisinone:valid_from dsd:var="valid_from" />
+    								<hisinone:valid_to dsd:var="valid_to" />
+    								<hisinone:freetrial_check>0</hisinone:freetrial_check>
+        						</hisinone:unit>
+        					</hisinone:hisinone>
+        				</dbi:data>
+        				<dbi:alldata>
+        					<hisinone:hisinone>
+        						<hisinone:unit>
+        							<hisinone:lock_version>0</hisinone:lock_version>
+        						</hisinone:unit>
+        					</hisinone:hisinone>
+        				</dbi:alldata> 
+        			</dbi:dbaction> 
+        			<dbi:set dbi:variable="po_id" dsd:var="unit.id"/>
+    				#if ($DEBUG && $DEBUG == "y")
+    					<dbi:echo>DEBUG-3 (sospos-pord3) Für den Schlüssel=[signature] ist ein neues PO-Element mit der unit.id=[po_id] angelegt worden</dbi:echo>
+    				#end
+    				<dbi:if dbi:is-set="po_id">
+        				<!-- unit_orgunit einfügen -->
+            			<dbi:set dbi:variable="orgunit.lid" />	
+            			<xsl:variable name="fb"><xsl:value-of select="fb"/></xsl:variable>
+            			<xsl:if test="normalize-space($fb) != ''">
+            				<!-- orgunit.lid ermittelt aus pord.fb -->
+                    		<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+                    			<dbi:data>
+                    				<hisinone:hisinone>
+                    					<hisinone:orgunit>
+                    						<hisinone:lid />
+                    					</hisinone:orgunit>
+                    				</hisinone:hisinone>
+                    			</dbi:data>
+                    			<dbi:condition>
+                    				<dbi:crossjoin dbi:condition="orgunit.id=external_relation.tabpk"/>	
+                    				<hisinone:hisinone>
+                    					<hisinone:external_relation>
+                    						<hisinone:externalsystem dsd:compOperator="equal">sospos</hisinone:externalsystem>
+                    						<hisinone:externaltable dsd:compOperator="equal">k_fb</hisinone:externaltable>/>
+                    						<hisinone:externaltabpk dsd:compOperator="equal"><xsl:value-of select="fb" /></hisinone:externaltabpk>
+                    						<hisinone:tablename dsd:compOperator="equal">orgunit</hisinone:tablename>/>
+                    					</hisinone:external_relation>
+                    				</hisinone:hisinone>
+                    			</dbi:condition>
+                    		</dbi:dbaction>
+                			<dbi:if dbi:is-set="orgunit.lid">
+                    			<dbi:dbaction dbi:action="sync" dbi:lookup="unit_orgunit.id">
+                    				<dbi:data>
+                    					<hisinone:hisinone>
+                    						<hisinone:unit_orgunit>
+                    							<hisinone:unit_id dsd:var="po_id" />
+                    							<hisinone:orgunit_lid dsd:var="orgunit.lid" />
+                    							<hisinone:k_unit_orgunit_relation_id>1</hisinone:k_unit_orgunit_relation_id>
+                    						</hisinone:unit_orgunit>
+                    					</hisinone:hisinone>
+                    				</dbi:data>
+                    				<dbi:alldata>
+                    					<hisinone:hisinone>
+                    						<hisinone:unit_orgunit>
+                    							<hisinone:lock_version>0</hisinone:lock_version>
+                    						</hisinone:unit_orgunit>
+                    					</hisinone:hisinone>
+                    				</dbi:alldata> 
+                            		<dbi:condition>
+                                		<hisinone:hisinone>
+                                			<hisinone:unit_orgunit>
+                    							<hisinone:unit_id dsd:var="po_id" />
+                    							<hisinone:orgunit_lid dsd:var="orgunit.lid" />
+                    							<hisinone:k_unit_orgunit_relation_id>1</hisinone:k_unit_orgunit_relation_id>
+                                			</hisinone:unit_orgunit>
+                                		</hisinone:hisinone>
+                        			</dbi:condition>
+    							</dbi:dbaction>
+                			</dbi:if>
+            			</xsl:if>
+            			<dbi:if dbi:is-not-set="orgunit.lid">
+                			<dbi:if dbi:is-set="own_university">
+                			<!-- Standardeintrag -->
+                    			<dbi:dbaction dbi:action="sync" dbi:lookup="unit_orgunit.id">
+                    				<dbi:data>
+                    					<hisinone:hisinone>
+                    						<hisinone:unit_orgunit>
+                    							<hisinone:unit_id dsd:var="po_id" />
+                    							<hisinone:orgunit_lid dsd:var="own_university" />	<!--  alles der HS -->
+                    							<hisinone:k_unit_orgunit_relation_id>1</hisinone:k_unit_orgunit_relation_id>
+                    							<hisinone:lock_version>0</hisinone:lock_version>
+                    						</hisinone:unit_orgunit>
+                    					</hisinone:hisinone>
+                    				</dbi:data>
+                    				<dbi:alldata>
+                    					<hisinone:hisinone>
+                    						<hisinone:unit_orgunit>
+                    							<hisinone:lock_version>0</hisinone:lock_version>
+                    						</hisinone:unit_orgunit>
+                    					</hisinone:hisinone>
+                    				</dbi:alldata> 
+                            		<dbi:condition>
+                                		<hisinone:hisinone>
+                                			<hisinone:unit_orgunit>
+                    							<hisinone:unit_id dsd:var="po_id" />
+                    							<hisinone:orgunit_lid dsd:var="own_university" />
+                    							<hisinone:k_unit_orgunit_relation_id>1</hisinone:k_unit_orgunit_relation_id>
+                                			</hisinone:unit_orgunit>
+                                		</hisinone:hisinone>
+                        			</dbi:condition>
+    							</dbi:dbaction>
+                			</dbi:if>
+            			</dbi:if>
+    			    </dbi:if>
+        		</dbi:if>
+        		<dbi:if dbi:is-set="po_id"> <!-- PO-Element vorhanden -->
+        			<!-- Unit mit Kontenzuordnung an das PO-Element hängen -->
+        			<dbi:set dbi:variable="unitrelation.id" />
+        			<dbi:dbaction dbi:action="sync" dbi:lookup="unitrelation.id">
+        				<dbi:data>
+        					<hisinone:hisinone>
+        						<hisinone:unitrelation>
+        							<hisinone:parent_unit_id dsd:var="po_id" />
+        							<hisinone:child_unit_id dsd:var="child_id"/>
+        							<hisinone:k_unitrelationtype_id dsd:var="k_unitrelationtype.id" />
+        						</hisinone:unitrelation>
+        					</hisinone:hisinone>
+        				</dbi:data> 
+        				<dbi:alldata>
+        					<hisinone:hisinone>
+        						<hisinone:unitrelation>
+        							<hisinone:lock_version>0</hisinone:lock_version>
+        							<hisinone:sortorder><xsl:value-of select="pnr" /></hisinone:sortorder>
+        						</hisinone:unitrelation>
+        					</hisinone:hisinone>
+        				</dbi:alldata> 
+                		<dbi:condition>
+                    		<hisinone:hisinone>
+                    			<hisinone:unitrelation>
+        							<hisinone:parent_unit_id dsd:var="po_id" />
+        							<hisinone:child_unit_id dsd:var="child_id"/>
+        							<hisinone:k_unitrelationtype_id dsd:var="k_unitrelationtype.id" />
+                    			</hisinone:unitrelation>
+                    		</hisinone:hisinone>
+            			</dbi:condition>
+        			</dbi:dbaction> 
+    				#if ($DEBUG && $DEBUG == "y")
+    					<dbi:echo>DEBUG-4 (sospos-pord3) Abschlusszuordnung von Unit mit unit.id=[child_id] zu PO-Element mit unit.id=[po_id] vorgenommen; unitrelation.id=[unitrelation.id]</dbi:echo>
+    				#end
+        		</dbi:if>
+    		</dbi:if>
+    	</dbi:try>
+	</xsl:for-each>
+    #if (($DEBUG && $DEBUG == "y") || ($TIMER && $TIMER == "y"))
+    	<dbi:echo dbi:statistics="y">DEBUG (sospos-pord3): ++++ [_statistics]</dbi:echo>
+	#end
+</xsl:template>
+	
+#parse("dbinterface/hisinone/foot.vm")
