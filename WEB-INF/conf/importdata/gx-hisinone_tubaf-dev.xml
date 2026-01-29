@@ -180,7 +180,7 @@
 			<!--  FGL EXA PARAMETER ENDE IMMER ANPASSEN:  -->
 
 			<!-- FGL: Parameter kann leider im Menue nicht ausgwertet werden, damit leider nicht im UI sichtbar. Zumindest koennte man ihn in der Datei vergleichen und ggfs. auch ins log Schreiben über Erweiterung der Velocity Scripte  -->
-			<param active="y" name="versionZZZ" value="2026.01.22" />
+			<param active="y" name="versionZZZ" value="2026.01.29" />
 			
 			<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
 			<!-- Schema ggfs anpassen. Restriktionen für die Leistungen und Nachmigration der Studenten -->
