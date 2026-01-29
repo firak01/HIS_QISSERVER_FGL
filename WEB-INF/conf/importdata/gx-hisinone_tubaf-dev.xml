@@ -1895,7 +1895,8 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 				OR pord.pnr IN (Select sonstpnr1 from hskonst WHERE aikz = 'A') 
 				OR pord.pnr IN (Select sonstpnr2 from hskonst WHERE aikz = 'A') 
 				OR pord.pnr IN (Select sonstpnr3 from hskonst WHERE aikz = 'A'))
-				 [pord_restrictionFallgruppeB]									 						
+				 [pord_restrictionFallgruppeB]		
+				 [pord_restriction_vertTUBAF]							 						
 				ORDER BY abschl, stg, vert, schwp, kzfa, pversion
             </select>
             <param name="targetobject" value="unit" />
