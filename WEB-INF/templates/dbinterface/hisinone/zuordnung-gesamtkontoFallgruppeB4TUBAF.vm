@@ -1,0 +1,268 @@
+#parse("dbinterface/hisinone/head.vm")
+
+<xsl:template match="${params.ACTION}-collection">
+	
+	#parse("dbinterface/hisinone/setVar.vm")
+	
+	
+    #*   
+    In diesem Schritt wird das Gesamtkonto an die Abschlussprüfung gehängt.
+    Um die passende Abschlussprüfung zu finden wird der Schlüssel aus abschl, stg, vert, schwp und pversion verglichen
+    Ist beim Gesamtkonto die Vertiefung leer, dann wird beim Suchen der Abschlussprüfung die Vertiefung nicht verwertet wenn Parameter ignoreVertIfEmpty = "y"
+    
+    Funktionsweise Parameter ignoreVertIfEmpty == "y" im Datail:
+    1. Die Migartion wird dahin angepasst, dass alle hpnr aus verschieden Vertiefungen  an einem Gesamtkonto hängen. als Folge werden unter dem Gesamtkonto alle Module angeboten 
+    und zwar ohne Vertiefung und auch mit alle Vertiefungen. Aus diesem Grund müsst ihr diese PO's in HISinOne wie folgt nacharbeiten:
+    
+    2. In H1 wird für jede Vertiefung ein Gesamtkonto angelegt. Empfehlenswert das bereits migrierte Gesamtkonto mit deren Zuordnungen als Vorlage verwenden. 
+    Das hat den Vorteil, dass man nur die Überflüssigen Zuordnungen entfernen muss
+    
+    3 . Vor der Migration der Leistungen aus sospos, sollen die Migrationsskripte so modifiziert werden, 
+    dass die Prüfungsnummer 8999 für das Gesamtkonto nicht migriert werden.Das kann man über eine Restriction in Datei gx-hisinbone.xml abbilden.
+    
+    Das führt dazu, dass die Leistungen (HISinOne DB) in der Luft schweben.
+    
+    4. Über HISinOne gibt es eine Batch Routine, die nachträglich die Zuordnung zu den richtigen neu angelegten Gesamtkonto wiederherstellt.
+    *#
+
+	<dbi:echo>DEBUG-TUBAF 01a (zuordnung-gesamtkonto) signature=[signature]; pnr=<xsl:value-of select="pnr" /> [pnr]; pktxt=<xsl:value-of select="pktxt" /> [pktxt]; pordnr=<xsl:value-of select="pordnr" /> [pordnr]; unit.id=[gk_id]; Parameter: ignoreVertIfEmpty=$ignoreVertIfEmpty;" /></dbi:echo>
+	<dbi:echo>DEBUG-TUBAF 01b (zuordnung-gesamtkonto) abschl=<xsl:value-of select="abschl" /> [abschl]; stg=<xsl:value-of select="stg" /> [stg]; vert=<xsl:value-of select="vert" /> [vert]; pversion=<xsl:value-of select="pversion" /> [pversion];" /></dbi:echo>
+	#if ($ignoreVertIfEmpty && $ignoreVertIfEmpty == "y")
+		<xsl:variable name="elideVertIfEmpty">y</xsl:variable> 
+	#else
+		#set ($ignoreVertIfEmpty = "n")
+		<xsl:variable name="elideVertIfEmpty">n</xsl:variable> ## XSL-Variable notwendig für die Abfrage 
+	#end
+	
+	<!-- id der Abschlusszuordnung selektieren  -->
+	<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+    	<dbi:data>
+    		<hisinone:hisinone>
+    			<hisinone:k_unitrelationtype>
+    				<hisinone:id />
+    				<hisinone:sortorder />
+    			</hisinone:k_unitrelationtype>
+    		</hisinone:hisinone>				
+    	</dbi:data>
+    	<dbi:condition>
+    		<hisinone:hisinone>
+    			<hisinone:k_unitrelationtype>
+    				<hisinone:hiskey_id dsd:compOperator="equal">9</hisinone:hiskey_id>
+    			</hisinone:k_unitrelationtype>
+    		</hisinone:hisinone>
+    	</dbi:condition>
+        <dbi:orderby>
+    		<hisinone:hisinone>
+    			<hisinone:k_unitrelationtype>
+					<hisinone:sortorder direction="ASC" />
+    			</hisinone:k_unitrelationtype>
+    		</hisinone:hisinone>
+        </dbi:orderby>
+	</dbi:dbaction>	
+	
+	<xsl:for-each select="${params.ACTION}">
+		<dbi:try>
+    		<dbi:set dbi:variable="unit.id" />
+    		<dbi:set dbi:variable="gk_id" />
+    		<dbi:set dbi:variable="hpnr_id" />
+		<dbi:set dbi:variable="pord.pordnr" />
+    		<dbi:set dbi:variable="hpnr_pordnr" />
+    		<dbi:set dbi:variable="unitrelation.id" />
+
+			<!--
+    		<dbi:set dbi:variable="vert"  dbi:parse="true">-</dbi:set>
+		<dbi:set dbi:variable="abschl"  dbi:parse="true">88</dbi:set>
+		<dbi:set dbi:variable="stg"  dbi:parse="true">BE6</dbi:set>
+		<dbi:set dbi:variable="pversion"  dbi:parse="true">2023</dbi:set>
+			-->
+		<dbi:set dbi:variable="vert"  dbi:parse="true">[vert]</dbi:set>
+		<dbi:set dbi:variable="abschl"  dbi:parse="true">[abschl]</dbi:set>
+		<dbi:set dbi:variable="stg"  dbi:parse="true">[stg]</dbi:set>
+		<dbi:set dbi:variable="pversion"  dbi:parse="true">[pversion]</dbi:set>
+
+			
+    		<dbi:set dbi:variable="schwp" />
+		
+		<dbi:echo>DEBUG-TUBAF 02a (zuordnung-gesamtkonto) abschl=<xsl:value-of select="abschl" />; stg=<xsl:value-of select="stg" />; vert=<xsl:value-of select="vert" />; pversion=<xsl:value-of select="pversion" />;" /></dbi:echo>			
+		<dbi:echo>DEBUG-TUBAF 02b (zuordnung-gesamtkonto) abschl=[abschl]; stg=[stg]; vert=[vert]; pversion=[pversion]</dbi:echo>
+		
+		<dbi:set dbi:variable="signature" dbi:parse="true"><xsl:value-of select="abschl" />|<xsl:value-of select="stg" />|<xsl:value-of select="vert" />|<xsl:value-of select="schwp" />|<xsl:value-of select="kzfa" />|<xsl:value-of select="pversion" /></dbi:set>
+		<!-- 02a hat werte, darum raus... <dbi:set dbi:variable="signature">[abschl]|[stg]|[vert]|<xsl:value-of select="schwp" />|<xsl:value-of select="kzfa" />|[pversion]</dbi:set>-->
+    		<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+        		<dbi:data>
+        			<hisinone:hisinone>
+        				<hisinone:unit>
+        					<hisinone:id />
+        				</hisinone:unit>
+        			</hisinone:hisinone>
+         		</dbi:data>
+        		<dbi:condition>										
+        			<dbi:crossjoin dbi:condition="unit.id=external_relation.tabpk"/>	
+    				<hisinone:hisinone>
+    					<hisinone:external_relation>
+    						<hisinone:externalsystem dsd:compOperator="equal">sospos</hisinone:externalsystem>
+    						<hisinone:externaltable dsd:compOperator="equal">pord</hisinone:externaltable>/>
+    						<hisinone:externaltabpk dsd:compOperator="equal"><xsl:value-of select="pordnr" /></hisinone:externaltabpk>
+    						<hisinone:tablename dsd:compOperator="equal">unit</hisinone:tablename>/>
+    					</hisinone:external_relation>					
+    				</hisinone:hisinone>
+    			</dbi:condition>
+    		</dbi:dbaction>
+    		<dbi:set dbi:variable="gk_id" dsd:var="unit.id"/>
+    		<dbi:set dbi:variable="unit.id" />
+    		<dbi:if dbi:is-not-set="gk_id">
+    			<dbi:echo dbi:level="WARN">WARN-1 (zuordnung-gesamtkonto) pnr=<xsl:value-of select="pnr" />; pktxt=<xsl:value-of select="pktxt" />; pordnr=<xsl:value-of select="pordnr" /> ignored: no unit in HISinOne found!</dbi:echo>
+    		</dbi:if>
+    		<dbi:if dbi:is-set="gk_id"> <!--nur wenn es für Gesamtkonto schon eine Unit gibt-->
+    			#if ($DEBUG && $DEBUG == "y")
+					<dbi:echo>DEBUG-TUBAF 03a (zuordnung-gesamtkonto) signature=[signature]; pnr=<xsl:value-of select="pnr" /> [pnr]; pktxt=<xsl:value-of select="pktxt" /> [pktxt]; pordnr=<xsl:value-of select="pordnr" /> [pordnr]; unit.id=[gk_id]; Parameter: ignoreVertIfEmpty=$ignoreVertIfEmpty;" /></dbi:echo>
+    				<!--<dbi:echo>DEBUG-1 (zuordnung-gesamtkonto) signature=[signature]; pnr=<xsl:value-of select="pnr" />; pktxt=<xsl:value-of select="pktxt" />; pordnr=<xsl:value-of select="pordnr" />; unit.id=[gk_id]; Parameter: ignoreVertIfEmpty=$ignoreVertIfEmpty; XSL-Variable: elideVertIfEmpty=<xsl:value-of select="$elideVertIfEmpty" /></dbi:echo>-->
+					<dbi:echo>DEBUG-TUBAF 03b (zuordnung-gesamtkonto) signature=[signature]; unit.id=[gk_id]; Parameter: ignoreVertIfEmpty=$ignoreVertIfEmpty; XSL-Variable: elideVertIfEmpty=<xsl:value-of select="$elideVertIfEmpty" /></dbi:echo>
+				#end
+    			
+				<!--original <xsl:variable name="vert1" select="vert" /> -->
+                <dbi:set dbi:variable="vert1" dbi:parse="true"><xsl:value-of select="vert" /></dbi:set>
+				<xsl:variable name="vert1">
+					[vert]
+                </xsl:variable>
+				<dbi:echo>DEBUG-TUBAF 04a (zuordnung-gesamtkonto) vert1=<xsl:value-of select="vert1" /></dbi:echo>			
+				<dbi:echo>DEBUG-TUBAF 04b (zuordnung-gesamtkonto) vert1=[vert1]</dbi:echo>	
+				<dbi:echo>DEBUG-TUBAF 04b (zuordnung-gesamtkonto) vert1=$vert1</dbi:echo>
+				
+				
+    			<xsl:choose>
+    				<xsl:when test="normalize-space($vert1) != ''">
+    					<dbi:set dbi:variable="vert" ><xsl:value-of select="vert"/></dbi:set>
+    				</xsl:when>
+                	<xsl:otherwise>
+                		<dbi:set dbi:variable="vert" dbi:parse="true">'   '</dbi:set>
+                	</xsl:otherwise>
+                </xsl:choose>
+    			
+    			<xsl:variable name="schwp"><xsl:value-of select="schwp"/></xsl:variable>
+    			<xsl:choose>
+    				<xsl:when test="normalize-space($schwp) != ''">
+    					<dbi:set dbi:variable="schwp"><xsl:value-of select="schwp"/></dbi:set>
+    				</xsl:when>
+                	<xsl:otherwise>
+                		<dbi:set dbi:variable="schwp" dbi:parse="true">'  '</dbi:set>
+                	</xsl:otherwise>
+    			</xsl:choose>
+    			<dbi:foreach>
+					<dbi:in>
+                    	<dbi:data>
+            				<sospos:sospos>
+            					<sospos:pord>
+            						<sospos:pordnr />
+            					</sospos:pord>
+            				</sospos:sospos>
+            			</dbi:data>
+                		<dbi:condition>
+							<dbi:or>
+                        		<sospos:sospos>
+                        			<sospos:pord>
+                        				<sospos:abschl dsd:compOperator="equal"><xsl:value-of select="abschl" /></sospos:abschl>
+            							<sospos:stg dsd:compOperator="equal"><xsl:value-of select="stg" /></sospos:stg>
+        								<xsl:if test="normalize-space($vert1) != '' or $elideVertIfEmpty = 'n'"> ## Nach leerer Vertiefung nur bei Parameter ignoreVertIfEmpty = n
+        									<sospos:vert dsd:var="vert" />
+                                        </xsl:if>
+            							<sospos:schwp dsd:var="schwp" />
+            							<sospos:kzfa dsd:compOperator="equal"><xsl:value-of select="kzfa" /></sospos:kzfa>
+            							<sospos:pversion dsd:compOperator="equal"><xsl:value-of select="pversion" /></sospos:pversion>
+            							<sospos:pnr dsd:compOperator="equal"><xsl:value-of select="hpnr" /></sospos:pnr>
+                        			</sospos:pord>
+                        		</sospos:sospos>
+                        		<sospos:sospos>
+                        			<sospos:pord>
+                        				<sospos:abschl dsd:compOperator="equal"><xsl:value-of select="abschl" /></sospos:abschl>
+            							<sospos:stg dsd:compOperator="equal"><xsl:value-of select="stg" /></sospos:stg>
+        								<xsl:if test="normalize-space($vert1) != '' or $elideVertIfEmpty = 'n'"> ## Nach leerer Vertiefung nur bei Parameter ignoreVertIfEmpty = n
+        									<sospos:vert dsd:var="vert" />
+                                        </xsl:if>
+            							<sospos:schwp dsd:var="schwp" />
+            							<sospos:kzfa dsd:compOperator="equal"><xsl:value-of select="kzfa" /></sospos:kzfa>
+            							<sospos:pversion dsd:compOperator="equal"><xsl:value-of select="pversion" /></sospos:pversion>
+            							<sospos:pvken4 dsd:compOperator="equal">N</sospos:pvken4>
+										<sospos:lehrsprache dsd:compOperator="equal">K</sospos:lehrsprache>
+                        			</sospos:pord>
+                        		</sospos:sospos>
+							</dbi:or>
+            			</dbi:condition>	
+   					</dbi:in>
+    				<dbi:do>
+						<dbi:set dbi:variable="hpnr_pordnr" dsd:var="pord.pordnr"/>
+                		<dbi:if dbi:is-set="hpnr_pordnr"> 
+                    		<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+                        		<dbi:data>
+                        			<hisinone:hisinone>
+                        				<hisinone:unit>
+                        					<hisinone:id />
+                        				</hisinone:unit>
+                        			</hisinone:hisinone>
+                         		</dbi:data>
+                        		<dbi:condition>										
+                        			<dbi:crossjoin dbi:condition="unit.id=external_relation.tabpk"/>	
+                    				<hisinone:hisinone>
+                    					<hisinone:external_relation>
+                    						<hisinone:externalsystem dsd:compOperator="equal">sospos</hisinone:externalsystem>
+                    						<hisinone:externaltable dsd:compOperator="equal">pord</hisinone:externaltable>/>
+                    						<hisinone:externaltabpk dsd:compOperator="equal">[hpnr_pordnr]</hisinone:externaltabpk>
+                    						<hisinone:tablename dsd:compOperator="equal">unit</hisinone:tablename>/>
+                    					</hisinone:external_relation>					
+                    				</hisinone:hisinone>
+                    			</dbi:condition>
+                    		</dbi:dbaction>				
+                			<dbi:set dbi:variable="hpnr_id" dsd:var="unit.id"/>
+                    		<dbi:if dbi:is-not-set="hpnr_id"> <!-- Kein passendes Abschlusselement gefunden -->
+                				<dbi:echo dbi:level="WARN">WARN-3 (zuordnung-gesamtkonto) hpnr=<xsl:value-of select="hpnr" />; pordnr=[hpnr_pordnr] ignored: no unit in HISinOne found!</dbi:echo>
+                			</dbi:if>
+                    		<dbi:if dbi:is-set="hpnr_id"> <!-- hpnr in HISinOne vorhanden -->
+                    			<!-- Gesamtkonto mit Kontenzuordnung an hpnr hängen -->
+                    			<dbi:set dbi:variable="unitrelation.id" />
+                    			<dbi:dbaction dbi:action="sync" dbi:lookup="unitrelation.id">
+                    				<dbi:data>
+                    					<hisinone:hisinone>
+                    						<hisinone:unitrelation>
+                    							<hisinone:parent_unit_id dsd:var="hpnr_id" />
+                    							<hisinone:child_unit_id dsd:var="gk_id"/>
+                    							<hisinone:k_unitrelationtype_id dsd:var="k_unitrelationtype.id" />
+        										<hisinone:sortorder><xsl:value-of select="pnr" /></hisinone:sortorder>
+                    						</hisinone:unitrelation>
+                    					</hisinone:hisinone>
+                    				</dbi:data> 
+                    				<dbi:alldata>
+                    					<hisinone:hisinone>
+                    						<hisinone:unitrelation>
+                    							<hisinone:lock_version>0</hisinone:lock_version>
+                    						</hisinone:unitrelation>
+                    					</hisinone:hisinone>
+                    				</dbi:alldata> 
+                            		<dbi:condition>
+                                		<hisinone:hisinone>
+                                			<hisinone:unitrelation>
+                    							<hisinone:parent_unit_id dsd:var="hpnr_id" />
+                    							<hisinone:child_unit_id dsd:var="gk_id"/>
+                    							<hisinone:k_unitrelationtype_id dsd:var="k_unitrelationtype.id" />
+                                			</hisinone:unitrelation>					
+                                		</hisinone:hisinone>									
+                        			</dbi:condition>	
+                    			</dbi:dbaction> 
+                				#if ($DEBUG && $DEBUG == "y")
+                					<dbi:echo>DEBUG-4 (zuordnung-gesamtkonto) Abschlusszuordnung von Gesamtkonto mit unit.id=[gk_id] (pordnr=<xsl:value-of select="pordnr" />) zu Abschlusselement mit unit.id=[hpnr_id] (pordnr=[hpnr_pordnr]) vorgenommen; unitrelation.id=[unitrelation.id]</dbi:echo>
+                				#end
+            				</dbi:if>
+                		</dbi:if>
+        			</dbi:do>
+    			</dbi:foreach>
+        		<dbi:if dbi:is-not-set="hpnr_pordnr"> <!-- Kein passendes Abschlusselement gefunden -->
+    				<dbi:echo dbi:level="WARN">WARN-2 (zuordnung-gesamtkonto) pnr=<xsl:value-of select="pnr" />; pktxt=<xsl:value-of select="pktxt" />; pordnr=<xsl:value-of select="pordnr" />; Parameter: ignoreVertIfEmpty=$ignoreVertIfEmpty: ignored: no hpnr in SOSPOS found!</dbi:echo>
+    			</dbi:if>
+    		</dbi:if>
+    	</dbi:try>
+	</xsl:for-each>
+    #if (($DEBUG && $DEBUG == "y") || ($TIMER && $TIMER == "y"))
+    	<dbi:echo dbi:statistics="y">DEBUG (zuordnung-gesamtkonto): ++++ [_statistics]</dbi:echo>
+	#end
+</xsl:template>
+	
+#parse("dbinterface/hisinone/foot.vm")
