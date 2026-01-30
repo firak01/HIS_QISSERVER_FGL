@@ -1,0 +1,810 @@
+#parse("dbinterface/hisinone/head.vm")
+#*
+Diese Datei wertet das SPEZIALMODULE "FlexNow" aus. 
+Siehe hierzu https://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_PO#FlexNow
+*#
+
+<xsl:template match="${params.ACTION}-collection">
+	
+	#parse("dbinterface/hisinone/setVar.vm")
+	
+	#set ($lookuptable = "k_language")
+	#set ($refcolumn = "iso_639_1")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "k_elementtype")
+	#set ($refcolumn = "uniquename")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "k_elementtype")
+	#set ($lookupmap = "k_elementtype_hiskey_id")
+	#set ($refcolumn = "hiskey_id")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "k_elementtype")
+	#set ($lookupmap = "k_elementtype_get_hiskey_id")
+	#set ($refcolumn = "id")
+	#set ($id = "hiskey_id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "k_examination_type")
+	#set ($refcolumn = "uniquename")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "k_examination_type")
+	#set ($lookupmap = "k_examination_type_hiskey_id")
+	#set ($refcolumn = "hiskey_id")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "k_examform")
+	#set ($refcolumn = "uniquename")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "k_examform")
+	#set ($lookupmap = "k_examform_hiskey_id")
+	#set ($refcolumn = "hiskey_id")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+
+	#set ($lookuptable = "k_unit_of_time")
+	#set ($refcolumn = "hiskey_id")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "eventtype")
+	#set ($refcolumn = "uniquename")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "eventtype")
+    #set ($lookupmap = "eventtype_hiskey_id")
+	#set ($refcolumn = "hiskey_id")
+	#set ($id = "id")
+    #parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "k_compulsory")
+	#set ($refcolumn = "uniquename")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#set ($lookuptable = "grading_type")
+	#set ($refcolumn = "uniquename")
+	#set ($id = "id")
+	#parse("dbinterface/hisinone/intern-lookup.vm")
+	
+	#parse("dbinterface/hisinone/k_unitrelationtype-lookup.vm")
+
+	##FGL: Übergabeparameter ins Protokoll / Log
+	<dbi:echo dbi:level="INFO">FGL TUBAF DEBUG-0.0 (sospos-pord, zuerst petgp versuchen) pordnr=<xsl:value-of select="pordnr" />; k_elementtype_id=[k_elementtype_id]; pvken4=<xsl:value-of select="pvken4"/>; petgp=[petgp]; petgp=<xsl:value-of select="petgp"/></dbi:echo>
+	
+	## Gibt es k_frequency_of_offer mit uniquename ='nonDef'? ...
+	<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+		<dbi:data>
+			<hisinone:hisinone>
+				<hisinone:k_frequency_of_offer>
+					<hisinone:id />
+				</hisinone:k_frequency_of_offer>
+			</hisinone:hisinone>
+		</dbi:data>
+		<dbi:condition>
+			<hisinone:hisinone>
+				<hisinone:k_frequency_of_offer>
+					<hisinone:uniquename>nonDef</hisinone:uniquename>
+				</hisinone:k_frequency_of_offer>
+			</hisinone:hisinone>
+		</dbi:condition>
+	</dbi:dbaction>
+
+    <dbi:dbaction dbi:action="select" dbi:select-type="static-table" dbi:variable="static-table-zmadauer">
+        <dbi:static-table>
+            <dbi:entry dbi:key="S">2</dbi:entry>
+			<dbi:entry dbi:key="T">3</dbi:entry>
+			<dbi:entry dbi:key="W">4</dbi:entry>
+			<dbi:entry dbi:key="M">5</dbi:entry>
+			<dbi:entry dbi:key="J">6</dbi:entry>
+        </dbi:static-table>
+    </dbi:dbaction> 
+	
+	<dbi:dbaction dbi:action="select" dbi:select-type="static-table" dbi:variable="static-table-JN">
+		<dbi:static-table>
+			<dbi:entry dbi:key="J">1</dbi:entry>
+			<dbi:entry dbi:key="N">0</dbi:entry>
+		</dbi:static-table>
+    </dbi:dbaction>
+	
+	<!-- pdummapping -->
+	<dbi:dbaction dbi:action="select" dbi:select-type="static-table" dbi:variable="static-pdum_lookup">
+		#parse("dbinterface/hisinone/parametric_static-table.vm")
+    </dbi:dbaction>
+	<!-- petgpmapping -->
+	<dbi:dbaction dbi:action="select" dbi:select-type="static-table" dbi:variable="static-petgp_lookup">
+		#set($mapping = $mappingPetgp)
+		#parse("dbinterface/hisinone/parametric_static-table.vm")
+    </dbi:dbaction>
+	
+	<!-- Default-Eintrag (mit statustype=unit und niedrigster sortorder aus k_status für unit.editing_k_workstatus holen  -->
+	<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+    	<dbi:data>
+    		<hisinone:hisinone>
+    			<hisinone:k_status>
+    				<hisinone:id />
+					<hisinone:sortorder />
+    			</hisinone:k_status>
+    		</hisinone:hisinone>
+    	</dbi:data>
+    	<dbi:condition>
+    		<hisinone:hisinone>
+    			<hisinone:k_status>
+    				<hisinone:statustype dsd:compOperator="equal">unit</hisinone:statustype>
+    			</hisinone:k_status>
+    		</hisinone:hisinone>
+    	</dbi:condition>
+        <dbi:orderby>
+    		<hisinone:hisinone>
+    			<hisinone:k_status>
+					<hisinone:sortorder direction="ASC" />
+    			</hisinone:k_status>
+    		</hisinone:hisinone>
+        </dbi:orderby>
+	</dbi:dbaction>	
+
+	<!-- Default-Eintrag (hiskey_id = 0) aus unit_template holen  -->
+	<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+    	<dbi:data>
+    		<hisinone:hisinone>
+    			<hisinone:unit_template>
+    				<hisinone:id />
+    			</hisinone:unit_template>
+    		</hisinone:hisinone>
+    	</dbi:data>
+    	<dbi:condition>
+    		<hisinone:hisinone>
+    			<hisinone:unit_template>
+    				<hisinone:hiskey_id dsd:compOperator="equal">0</hisinone:hiskey_id>
+    			</hisinone:unit_template>
+    		</hisinone:hisinone>
+    	</dbi:condition>
+	</dbi:dbaction>	
+	<dbi:set dbi:variable="template_id" dsd:var="unit_template.id" />
+
+	<!-- own_university unit_template holen  -->
+	#if (!$GlobalConfigGetter || $GlobalConfigGetter == "y")
+	    <dbi:call dbi:function="de.his.xml.functions.GlobalConfigGetter">
+	       <dbi:param dbi:name="confKey">core.psv.self.own_university</dbi:param>
+	       <dbi:return dbi:variable="own_university"/>
+	    </dbi:call>
+	    <dbi:if dbi:is-true="own_university = 'null'">
+	    	<dbi:set dbi:variable="own_university"/>
+	    	<dbi:echo dbi:level="WARN">WARN-1 (sospos-pord) In der globalen Konfiguration fehlt der Eintrag für die eigene Hochschule (confkey = core.psv.self.own_university)!</dbi:echo>
+	    </dbi:if>
+	#end
+	#if ($GlobalConfigGetter && $GlobalConfigGetter == "n")
+		<dbi:set dbi:variable="own_university">2</dbi:set>
+	#end
+    #if ($DEBUG && $DEBUG == "y")
+    	<dbi:echo dbi:level="INFO">INFO-1 (TUBAF sospos-pord) confkey = core.psv.self.own_university = [own_university]</dbi:echo>
+	#end
+
+    <dbi:set dbi:variable="valid_from">$valid_from</dbi:set>
+    <dbi:set dbi:variable="valid_to">$valid_to</dbi:set>
+
+	<xsl:for-each select="${params.ACTION}">
+		<dbi:try>
+			<dbi:set dbi:variable="teaching_k_language_id" />
+			<dbi:set dbi:variable="assessment_duration" />
+			<dbi:set dbi:variable="assessment_duration_k_unit_of_time_id" />
+			<dbi:set dbi:variable="examination">n</dbi:set>
+    		<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+    			<dbi:data>
+    				<hisinone:hisinone>
+    					<hisinone:unit>
+    						<hisinone:id />
+							<hisinone:default_unitrelation_id />
+    					</hisinone:unit>
+    				</hisinone:hisinone>
+    				<hisinone:hisinone>
+    					<hisinone:unitobj>
+    						<hisinone:id />
+    					</hisinone:unitobj>
+    				</hisinone:hisinone>
+    			</dbi:data>
+    			<dbi:condition>
+    				<dbi:crossjoin dbi:condition="unit.id=external_relation.tabpk"/>
+    				<dbi:crossjoin dbi:condition="unit.lid=unitobj.id"/>
+    				<hisinone:hisinone>
+    					<hisinone:external_relation>
+    						<hisinone:externalsystem dsd:compOperator="equal">sospos</hisinone:externalsystem>
+    						<hisinone:externaltable dsd:compOperator="equal">pord</hisinone:externaltable>/>
+    						<hisinone:externaltabpk dsd:compOperator="equal"><xsl:value-of select="pordnr" /></hisinone:externaltabpk>
+    						<hisinone:tablename dsd:compOperator="equal">unit</hisinone:tablename>/>
+    					</hisinone:external_relation>
+    				</hisinone:hisinone>
+    			</dbi:condition>
+    		</dbi:dbaction>
+    		<dbi:if dbi:is-not-set="unitobj.id">
+    			<!-- unitobj schreiben -->	
+    			<dbi:dbaction dbi:action="insert" dbi:lookup="unitobj.id">
+    				<dbi:data>
+    					<hisinone:hisinone>
+    						<hisinone:unitobj>
+    							<hisinone:lock_version>0</hisinone:lock_version>
+    						</hisinone:unitobj>
+    					</hisinone:hisinone>
+    				</dbi:data>
+    			</dbi:dbaction>
+    		</dbi:if>
+    		<dbi:if dbi:is-set="unitobj.id">
+    			<xsl:variable name="pvken4"><xsl:value-of select="pvken4"/></xsl:variable>
+    			<xsl:variable name="pnr"><xsl:value-of select="pnr"/></xsl:variable>
+    			<xsl:variable name="hpnr"><xsl:value-of select="hpnr"/></xsl:variable>
+    			<xsl:variable name="vpnr"><xsl:value-of select="vpnr"/></xsl:variable>
+    			<xsl:variable name="sonstpnr1"><xsl:value-of select="sonstpnr1"/></xsl:variable>
+    			<xsl:variable name="sonstpnr2"><xsl:value-of select="sonstpnr2"/></xsl:variable>
+    			<xsl:variable name="sonstpnr3"><xsl:value-of select="sonstpnr3"/></xsl:variable>
+				<xsl:variable name="prfgkz"><xsl:value-of select="prfgkz"/></xsl:variable>
+				<xsl:variable name="elementtyp"><xsl:value-of select="pltxt2"/></xsl:variable>
+				<dbi:set dbi:variable="modulcode"><xsl:value-of select="shortcomment"/></dbi:set>
+            	#if ($FlexNow && $FlexNow == "y")
+            		<dbi:set dbi:variable="pltxt2"><xsl:value-of select="pltxt2"/></dbi:set>
+	    			<dbi:if dbi:is-set="pltxt2">
+					<dbi:if dbi:is-true="pltxt2= 'MK'">
+	            		<dbi:echo dbi:level="INFO">FlexNow (TUBAF sospos-pord) pordnr=<xsl:value-of select="pordnr" />; pltxt2=[pltxt2]; elementtyp=$elementtyp</dbi:echo>
+	    			</dbi:if>
+	    			</dbi:if>
+				#end
+				
+				## k_elementtype_id festlegen
+    			<xsl:choose>
+    			    <xsl:when test="normalize-space($pnr) != '' and ($pnr = $hpnr or $pnr = $vpnr or $pnr = $sonstpnr1 or $pnr = $sonstpnr2 or $pnr = sonstpnr3)">
+    					## Prüfungen aus hskonst
+						<dbi:set dbi:variable="k_elementtype_id" dsd:var="k_elementtype_lookup[K]" />
+		            	##if ($FlexNowTest && $FlexNowTest == "y")
+		            		<dbi:echo dbi:level="INFO">TUBAF DEBUG-0.1 (sospos-pord, Prüfungen aus hskonst) pordnr=<xsl:value-of select="pordnr" />; k_elementtype_id=[k_elementtype_id]; pnr=<xsl:value-of select="pnr"/></dbi:echo>
+						##end
+        			</xsl:when>
+        			<xsl:when test="$pvken4 = 'Y' and (petgp='P' or petgp='S')">
+						## Modulebene soll angelegt werden
+        				<dbi:set dbi:variable="k_elementtype_id" dsd:var="k_elementtype_lookup[M]" />
+		            	##if ($FlexNowTest && $FlexNowTest == "y")
+		            		<dbi:echo dbi:level="INFO">TUBAF DEBUG-0.3 (sospos-pord, Modulebene soll angelegt werden) pordnr=<xsl:value-of select="pordnr" />; k_elementtype_id=[k_elementtype_id]; pvken4=<xsl:value-of select="pvken4"/>; petgp=<xsl:value-of select="petgp"/></dbi:echo>
+						##end
+        			</xsl:when>
+        			<xsl:when test="$pvken4 = 'Y' and petgp='T'">
+						## Teilmodulebene soll angelegt werden
+        				<dbi:set dbi:variable="k_elementtype_id" dsd:var="k_elementtype_lookup[T]" />
+		            	##if ($FlexNowTest && $FlexNowTest == "y")
+		            		<dbi:echo dbi:level="INFO">TUBAF DEBUG-0.4 (sospos-pord, Teilmodulebene soll angelegt werden) pordnr=<xsl:value-of select="pordnr" />; k_elementtype_id=[k_elementtype_id]; pvken4=<xsl:value-of select="pvken4"/>; petgp=<xsl:value-of select="petgp"/></dbi:echo>
+						##end
+        			</xsl:when>
+        			<xsl:when test="normalize-space($prfgkz) ='P'">
+						## Praktikumsleistung
+        				<dbi:set dbi:variable="k_elementtype_id" dsd:var="k_elementtype_hiskey_id_lookup[13]" />
+		            	##if ($FlexNowTest && $FlexNowTest == "y")
+		            		<dbi:echo dbi:level="INFO">TUBAF DEBUG-0.2 (sospos-pord, Praktikumsleistung) pordnr=<xsl:value-of select="pordnr" />; k_elementtype_id=[k_elementtype_id]; prfgkz=<xsl:value-of select="prfgkz"/></dbi:echo>
+						##end
+        			</xsl:when>
+        			<xsl:otherwise>
+						## Alle anderen Elemente: Abhängig von petgp und ggf. pdum
+						## zuerst petgp versuchen
+						<dbi:echo dbi:level="INFO">TUBAF DEBUG-0.5a (sospos-pord, zuerst petgp versuchen) pordnr=<xsl:value-of select="pordnr" />; k_elementtype_id=[k_elementtype_id]; pvken4=<xsl:value-of select="pvken4"/>; petgp=[petgp]; petgp=<xsl:value-of select="petgp"/></dbi:echo>											
+					    <dbi:set dbi:variable="petgp" dsd:var="static-petgp_lookup[{petgp}]"  dbi:ignore="empty" />
+						<dbi:set dbi:variable="k_elementtype_id" dsd:var="k_elementtype_lookup[[petgp]]"  dbi:ignore="empty" />
+		            	##if ($FlexNowTest && $FlexNowTest == "y")
+		            		<dbi:echo dbi:level="INFO">TUBAF DEBUG-0.5 (sospos-pord, zuerst petgp versuchen) pordnr=<xsl:value-of select="pordnr" />; k_elementtype_id=[k_elementtype_id]; pvken4=<xsl:value-of select="pvken4"/>; petgp=<xsl:value-of select="petgp"/>; petgp=[petgp]</dbi:echo>
+						##end
+						<dbi:if dbi:is-not-set="k_elementtype_id">
+							## Falls petgp nicht gefüllt ist pdum nehmen. Ist pdum leer, dann Elementtyp Prüfung
+						    <dbi:set dbi:variable="pdum" dsd:var="static-pdum_lookup[{pdum}]" >P</dbi:set>
+							<dbi:set dbi:variable="k_elementtype_id" dsd:var="k_elementtype_lookup[[pdum]]" />
+			            	##if ($FlexNowTest && $FlexNowTest == "y")
+			            		##<dbi:echo dbi:level="INFO">DEBUG-0.6 (sospos-pord, zuerst petgp versuchen) pordnr=<xsl:value-of select="pordnr" />; k_elementtype_id=[k_elementtype_id]; pvken4=<xsl:value-of select="pvken4"/>; petgp=<xsl:value-of select="petgp"/>; pdum=[pdum]</dbi:echo>
+							##end
+                        </dbi:if>
+        			</xsl:otherwise>
+    			</xsl:choose>
+				<xsl:variable name="pform"><xsl:value-of select="pform"/></xsl:variable>
+				#if ($pformGEToKonto && $pformGEToKonto == "y")
+					## Bei pform="GE" und pdum=" " soll statt einer Prüfung ein Konto erzeugt werden
+        			<xsl:if test="$pform = 'GE' and normalize-space(pdum) =''">
+						<dbi:set dbi:variable="k_elementtype_id" dsd:var="k_elementtype_lookup[K]" />
+		            	##if ($FlexNowTest && $FlexNowTest == "y")
+		            		<dbi:echo dbi:level="INFO">TUBAF DEBUG-0.7 (sospos-pord, statt einer Prüfung ein Konto) pordnr=<xsl:value-of select="pordnr" />; k_elementtype_id=[k_elementtype_id]; pform=<xsl:value-of select="pform"/>; petgp=<xsl:value-of select="petgp"/>; pdum=[pdum]</dbi:echo>
+						##end
+                    </xsl:if>
+				#end
+				## Abhängig von der k_elementtype.hiskey_id werden Datensätze in module_unit, examination oder event erzeugt.
+                <dbi:set dbi:variable="k_elementtype_hiskeyId" dsd:var="k_elementtype_get_hiskey_id_lookup[[k_elementtype_id]]">3</dbi:set>
+            	#if ($DEBUG && $DEBUG == "y")
+            		<dbi:echo dbi:level="INFO">DEBUG-1 (sospos-pord) pordnr=<xsl:value-of select="pordnr" />; modulcode=[modulcode]; k_elementtype_id=[k_elementtype_id]; k_elementtype_hiskeyId=[k_elementtype_hiskeyId]; pvken4=<xsl:value-of select="pvken4" />; petgp=<xsl:value-of select="petgp" />; pdum=<xsl:value-of select="pdum" />; petgp-Mapping=[petgp]; pdum-Mapping=[pdum]; pform=<xsl:value-of select="pform" />, pformGEToKonto=$pformGEToKonto; own_university=[own_university]; unit_template.id=[unit_template.id]</dbi:echo>
+				#end
+            	##if ($FlexNowTest && $FlexNowTest == "y")
+            		##<dbi:echo dbi:level="INFO">DEBUG-1a (sospos-pord) pordnr=<xsl:value-of select="pordnr" />; k_elementtype_id=[k_elementtype_id]; k_elementtype_hiskeyId=[k_elementtype_hiskeyId]</dbi:echo>
+				##end
+    			<!-- Zeitmaß (k_unit_of_time_id) und Dauer (duration_value) ermitteln -->
+    			<dbi:set dbi:variable="duration_value"></dbi:set>
+    			<dbi:set dbi:variable="zmadauer" dsd:var="static-table-zmadauer[{zmadauer}]" dbi:ignore="empty" />
+    			<dbi:set dbi:variable="k_unit_of_time_id" dsd:var="k_unit_of_time_lookup[[zmadauer]]" dbi:ignore="empty" />
+    			<dbi:if dbi:is-set="k_unit_of_time_id">
+        			<xsl:variable name="zmadauer"><xsl:value-of select="zmadauer"/></xsl:variable>
+        			<xsl:choose>
+            			<xsl:when test="$zmadauer = 'J'">
+    						<!-- Zeitmaß = Jahre gibz es in HISinOne nicht -> Zeitmaß = Semester und pdauer * 2 -->
+            				<dbi:set dbi:variable="duration_value"><xsl:value-of select="pdauer * 2"/></dbi:set>
+            			</xsl:when>
+        				<xsl:otherwise>
+        					<dbi:set dbi:variable="duration_value"><xsl:value-of select="pdauer"/></dbi:set>
+        				</xsl:otherwise>
+        			</xsl:choose>
+    			</dbi:if>
+				## Wenn pord.fb gefüllt, dann orgunit auslesen
+				<dbi:set dbi:variable="template_id" dsd:var="unit_template.id" />
+    			<dbi:set dbi:variable="orgunit.lid" />
+    			<xsl:variable name="fb"><xsl:value-of select="fb"/></xsl:variable>
+    			<xsl:if test="normalize-space($fb) != ''">
+    				<!-- orgunit.lid und unit_gemplate_id ermittelt aus pord.fb -->
+            		<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+            			<dbi:data>
+            				<hisinone:hisinone>
+            					<hisinone:orgunit>
+            						<hisinone:lid />
+									<hisinone:unit_template_id />
+            					</hisinone:orgunit>
+            				</hisinone:hisinone>
+            			</dbi:data>
+            			<dbi:condition>
+            				<dbi:crossjoin dbi:condition="orgunit.id=external_relation.tabpk"/>	
+            				<hisinone:hisinone>
+            					<hisinone:external_relation>
+            						<hisinone:externalsystem dsd:compOperator="equal">sospos</hisinone:externalsystem>
+            						<hisinone:externaltable dsd:compOperator="equal">k_fb</hisinone:externaltable>/>
+            						<hisinone:externaltabpk dsd:compOperator="equal"><xsl:value-of select="fb" /></hisinone:externaltabpk>
+            						<hisinone:tablename dsd:compOperator="equal">orgunit</hisinone:tablename>/>
+            					</hisinone:external_relation>
+            				</hisinone:hisinone>
+            			</dbi:condition>
+            		</dbi:dbaction>
+					<dbi:if dbi:is-set="orgunit.unit_template_id">
+						<dbi:set dbi:variable="template_id" dsd:var="orgunit.unit_template_id" />
+                    </dbi:if>
+				</xsl:if>
+				
+				<!-- Daten für unitrelation aufbereiten-->
+    			<!-- Malus aufbereiten -->
+    			<dbi:set dbi:variable="malus"><xsl:value-of select="malus"/></dbi:set>
+    			<dbi:call dbi:function="de.his.xml.functions.CheckMalus" />
+				<dbi:set dbi:variable="k_compulsory_id" />
+    			<xsl:choose>
+    			    <xsl:when test="$pnr = $hpnr or $pnr = $vpnr or $pnr = $sonstpnr1 or $pnr = $sonstpnr2 or $pnr = sonstpnr3">
+    					<dbi:set dbi:variable="max_attempts">1</dbi:set>
+						<dbi:set dbi:variable="max_passed_attempts">1</dbi:set>
+        			</xsl:when>
+        			<xsl:otherwise>
+    					<dbi:set dbi:variable="max_attempts"><xsl:value-of select="pmaxver"/></dbi:set>
+						<dbi:set dbi:variable="max_passed_attempts"><xsl:value-of select="pmaxvbe"/></dbi:set>
+        				##Pflichtkennzeichen
+        				<dbi:set dbi:variable="k_compulsory_id" dsd:var="k_compulsory_lookup[{ppflicht}]" />
+        			</xsl:otherwise>
+    			</xsl:choose>	
+    			<dbi:set dbi:variable="unitrelation.grading_type_id" dsd:var="grading_type_lookup[{partngb}]" dbi:ignore="empty" />
+    			<dbi:set dbi:variable="k_elementtype.defaulttext">?</dbi:set>
+    			<dbi:if dbi:is-not-set="unitrelation.grading_type_id">
+         			<!--Default grading_type über k_elementype.default_unit_id ermitteln - default_unit_id ist pro Elementtype vorhanden -->
+            		<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+                		<dbi:data>
+                			<hisinone:hisinone>
+                				<hisinone:unitrelation>
+                					<hisinone:grading_type_id />
+                				</hisinone:unitrelation>
+            					<hisinone:k_elementtype>
+                					<hisinone:defaulttext />
+            					</hisinone:k_elementtype>
+                			</hisinone:hisinone>
+                 		</dbi:data>
+                		<dbi:condition>	
+                			<dbi:crossjoin dbi:condition="unit.id = k_elementtype.default_unit_id"/>
+							<dbi:crossjoin dbi:condition="unitrelation.id = unit.default_unitrelation_id"/>
+            				<hisinone:hisinone>
+            					<hisinone:k_elementtype>
+            						<hisinone:id dsd:compOperator="equal" dsd:var="k_elementtype_id" />
+            					</hisinone:k_elementtype>
+            				</hisinone:hisinone>
+            			</dbi:condition>
+            		</dbi:dbaction>
+                </dbi:if>
+    			<dbi:if dbi:is-not-set="unitrelation.grading_type_id">
+    				<dbi:echo dbi:level="WARN">WARN-2 (sospos-pord) pordnr = <xsl:value-of select="pordnr" />; pnr=<xsl:value-of select="pnr" />; unit.id=[unit.id]; partngb=<xsl:value-of select="partngb" />: grading_type not found, keine default_unit_id für k_elementtype_id=[k_elementtype_id]! </dbi:echo>
+                </dbi:if>
+    			## <dbi:echo dbi:level="INFO">TEST-1 (sospos-pord) pordnr = <xsl:value-of select="pordnr" />; unit.id=[unit.id]; petgp=<xsl:value-of select="petgp" />-&gt;k_elementtype_id=[k_elementtype_id]</dbi:echo>
+    			<!-- bestimmte pord-Daten kommen in die Tabelle unitrelation -->
+	            <dbi:set dbi:variable="phoesem"><xsl:value-of select="phoesem"/></dbi:set>
+            	#if ($FlexNow && $FlexNow == "y")
+            		## phoesem nicht übernehmen!
+            		<dbi:set dbi:variable="phoesem"></dbi:set>
+				#end
+    			<dbi:dbaction dbi:action="sync" dbi:lookup="unitrelation.id" >
+    				<dbi:data>
+    					<hisinone:hisinone>
+    						<hisinone:unitrelation>
+    							<hisinone:sortorder>1</hisinone:sortorder>
+    							<hisinone:bonus><xsl:value-of select="bonus"/></hisinone:bonus>
+    							<hisinone:malus dsd:var="malus" />
+								<hisinone:bookingpoints><xsl:value-of select="beleg"/></hisinone:bookingpoints>
+    							<hisinone:recommended_semester>
+                                  <xsl:choose>
+                                    <xsl:when test="pfsem != '0'">
+                                      <xsl:value-of select="pfsem"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                      <xsl:value-of select="''" disable-output-escaping="yes" />
+                                    </xsl:otherwise>
+                                  </xsl:choose>
+                                </hisinone:recommended_semester>
+								<hisinone:max_attempts dsd:var="max_attempts" />
+								<hisinone:max_passed_attempts dsd:var="max_passed_attempts" />
+    							<hisinone:k_compulsory_id dsd:var="k_compulsory_id" />
+    							<hisinone:k_unitrelationtype_id dsd:var="k_unitrelationtype.id" />
+    							<hisinone:grading_type_id dsd:var="unitrelation.grading_type_id" />
+    							<hisinone:generation_weight><xsl:value-of select="labgewicht"/></hisinone:generation_weight>
+								<hisinone:firsttrial_semester dsd:ignoreIfEmpty="false" dsd:var="phoesem" />
+    						</hisinone:unitrelation>
+    					</hisinone:hisinone>
+    				</dbi:data> 
+    				<dbi:alldata>
+    					<hisinone:hisinone>
+    						<hisinone:unitrelation>
+    							<hisinone:automatically_created>0</hisinone:automatically_created>
+    						</hisinone:unitrelation>
+    					</hisinone:hisinone>
+    				</dbi:alldata> 
+                	<dbi:condition>
+                		<hisinone:hisinone>
+                			<hisinone:unitrelation>
+    							<hisinone:id dsd:compOperator="equal" dsd:var="unit.default_unitrelation_id" />
+                			</hisinone:unitrelation>
+                		</hisinone:hisinone>
+                	</dbi:condition>
+    			</dbi:dbaction>
+				<dbi:if dbi:is-set="unitrelation.id">
+        			<!-- andere pord-Satz einfuegen in die Tabelle 'unit' -->
+					<dbi:set dbi:variable="elementnr"><xsl:value-of select="pnr"/></dbi:set>
+	    			<dbi:if dbi:is-not-set="elementnr">
+	    				<dbi:if dbi:is-set="modulcode">
+		    				##<dbi:echo dbi:level="INFO">INFO (sospos-pord) pordnr = <xsl:value-of select="pordnr" />: elementnr=[elementnr]; modulcode=[modulcode] </dbi:echo>
+							<dbi:set dbi:variable="elementnr"><xsl:value-of select="shortcomment"/></dbi:set>
+		                </dbi:if>
+	                </dbi:if>
+
+	            	<dbi:set dbi:variable="psws"><xsl:value-of select="psws"/></dbi:set>
+	                ## Texte für FlexNow evtl. unterschiedlich
+	            	<dbi:set dbi:variable="shorttext"><xsl:value-of select="ktxt"/></dbi:set>
+	            	<dbi:set dbi:variable="defaulttext"><xsl:value-of select="dtxt"/></dbi:set>
+	            	<dbi:set dbi:variable="comment"><xsl:value-of select="comment"/></dbi:set>
+					## Schriftliche Arbeit?
+					<xsl:variable name="diplkz"><xsl:value-of select="diplkz"/></xsl:variable>
+    				<xsl:choose>
+        				<xsl:when test="$diplkz='J'">
+        					<dbi:set dbi:variable="exam_written">1</dbi:set>
+							<xsl:if test="normalize-space(bendauer) != ''">
+								## Bewertungsdauer für schriftliche Arbeiten 
+								<dbi:set dbi:variable="assessment_duration"><xsl:value-of select="bendauer"/></dbi:set>
+								## Einheit der Zeitdauer in assessment_duration - In POS-GX immer Wochen -> hiskey_id = 4
+								<dbi:set dbi:variable="assessment_duration_k_unit_of_time_id" dsd:var="k_unit_of_time_lookup[4]" /> 
+                            </xsl:if>
+        				</xsl:when>
+        				<xsl:when test="$diplkz='N'">
+        					<dbi:set dbi:variable="exam_written">0</dbi:set>
+        				</xsl:when>
+        				<xsl:otherwise>
+        					<dbi:set dbi:variable="exam_written">0</dbi:set>
+        				</xsl:otherwise>
+    				</xsl:choose>
+	            	#if ($FlexNow && $FlexNow == "y")
+		            	<dbi:set dbi:variable="defaulttext"><xsl:value-of select="ltxt"/></dbi:set>
+		            	<dbi:set dbi:variable="pltxt3"><xsl:value-of select="pltxt3"/></dbi:set>
+		            	<dbi:if dbi:is-set="pltxt3">
+			            	<dbi:set dbi:variable="uniquename"><xsl:value-of select="pltxt3"/></dbi:set>
+		            	</dbi:if>
+		            	<dbi:if dbi:is-not-set="pltxt3">
+			            	<dbi:set dbi:variable="pversion"><xsl:value-of select="pversion"/></dbi:set>
+			            	<dbi:if dbi:is-set="pversion">
+			            		<dbi:set dbi:variable="uniquename"><xsl:value-of select="pltxt2"/>.<xsl:value-of select="ktxt"/>.<xsl:value-of select="pversion"/></dbi:set>
+			            	</dbi:if>
+		            	</dbi:if>
+		            	<dbi:if dbi:is-not-set="uniquename">
+		            		<dbi:set dbi:variable="uniquename"><xsl:value-of select="pltxt3"/></dbi:set>
+		            	</dbi:if>
+		            	<dbi:set dbi:variable="comment"></dbi:set>
+		            	<dbi:set dbi:variable="shortcomment"></dbi:set>
+					    <dbi:call dbi:function="de.his.xml.functions.FlexNowShorttextSetter">
+							<dbi:param dbi:name="debug">n</dbi:param>
+							<dbi:param dbi:name="shorttext" dsd:var="modulcode" />
+							<dbi:param dbi:name="semester" dsd:var="uniquename" />
+							<dbi:param dbi:name="format">$format</dbi:param>
+							<dbi:return dbi:variable="shorttext"/>
+						</dbi:call>
+		    			##<dbi:echo dbi:level="INFO">++++++++++++++ INFO (sospos-pord) pordnr = <xsl:value-of select="pordnr" />: elementnr=[elementnr]; modulcode=[modulcode]; shorttext=[shorttext] </dbi:echo>
+		            	#if ($FlexNowTest && $FlexNowTest == "y")
+		            		<dbi:set dbi:variable="defaulttext"><xsl:value-of select="ltxt"/> (pordnr=<xsl:value-of select="pordnr"/>)</dbi:set>
+						#end
+	            		## psws nicht übernehmen!
+	            		<dbi:set dbi:variable="psws"></dbi:set>
+					#end
+
+        			<dbi:dbaction dbi:action="sync" dbi:lookup="unit.id">
+        				<dbi:data>
+        					<hisinone:hisinone>
+        						<hisinone:unit>
+        							<hisinone:elementnr dsd:var="elementnr" />
+        							#parse("dbinterface/hisinone/sospos-sprache-umwandlung.vm")
+        							<hisinone:k_elementtype_id dsd:var="k_elementtype_id" />
+        							<hisinone:hours_per_week dsd:ignoreIfEmpty="false" dsd:var="psws" />
+        							<hisinone:shorttext dsd:var="shorttext" />
+        							<hisinone:defaulttext dsd:var="defaulttext" />
+        							<hisinone:longtext><xsl:value-of select="ltxt"/></hisinone:longtext>
+        							<hisinone:shortcomment dsd:ignoreIfEmpty="false" dsd:var="modulcode" />
+        							<hisinone:comment dsd:ignoreIfEmpty="false" dsd:var="comment" />
+        							<hisinone:editing_k_status_id dsd:var="k_status.id" />
+        							<xsl:choose>
+            							<xsl:when test="$pnr = $hpnr">
+            								<hisinone:official_statistics>1</hisinone:official_statistics>
+            								<hisinone:viewable_in_stu>1</hisinone:viewable_in_stu>
+											<hisinone:viewable_in_doc>1</hisinone:viewable_in_doc>
+            							</xsl:when>
+            							<xsl:when test="$pnr = $vpnr">
+            								<hisinone:official_statistics>2</hisinone:official_statistics>
+            								<hisinone:viewable_in_stu>1</hisinone:viewable_in_stu>
+											<hisinone:viewable_in_doc>1</hisinone:viewable_in_doc>
+            							</xsl:when>
+            							<xsl:when test="$pnr = $sonstpnr1 or $pnr = $sonstpnr2 or $pnr = sonstpnr3">
+            								<hisinone:viewable_in_stu>1</hisinone:viewable_in_stu>
+											<hisinone:viewable_in_doc>1</hisinone:viewable_in_doc>
+            							</xsl:when>
+            							<xsl:otherwise>
+            								<hisinone:viewable_in_stu>0</hisinone:viewable_in_stu>
+											<hisinone:viewable_in_doc>0</hisinone:viewable_in_doc>
+            							</xsl:otherwise>
+        							</xsl:choose>
+        							<hisinone:k_unit_of_time_id dsd:var="k_unit_of_time_id" />
+        							<hisinone:duration_value dsd:var="duration_value" />
+        							<hisinone:freetrial_check dsd:var="static-table-JN[{freivers}]">0</hisinone:freetrial_check>
+        							<hisinone:valid_from dsd:var="valid_from" />
+        							<hisinone:valid_to dsd:var="valid_to" />
+									<hisinone:assessment_duration dsd:var="assessment_duration" />
+									<hisinone:assessment_duration_k_unit_of_time_id dsd:var="assessment_duration_k_unit_of_time_id" />
+					            	#if ($FlexNow && $FlexNow == "y")
+        								<hisinone:uniquename dsd:var="uniquename" />
+									#end
+        						</hisinone:unit>
+        					</hisinone:hisinone>
+        				</dbi:data> 
+        				<dbi:alldata>
+        					<hisinone:hisinone>
+        						<hisinone:unit>
+        							<hisinone:lid dsd:var="unitobj.id" />
+        							<hisinone:default_unitrelation_id dsd:var="unitrelation.id" />
+    								<hisinone:unit_template_id dsd:var="template_id" />
+        						</hisinone:unit>
+        					</hisinone:hisinone>
+        				</dbi:alldata> 
+        				#defaultCondition("unit" "unit.id" "sospos" "pord" "pordnr")
+        			</dbi:dbaction> 
+        			#onInsert("unit" "unit.id" "sospos" "pord" "pordnr")
+        			#onUpdate("unit" "unit.id" "sospos" "pord" "pordnr")
+### FlexNowID in external relations: FlexNowID ist uniquename=Typ.FNID.Version
+                    #if ($FlexNow && $FlexNow == "y")
+	    				#select_external_relation_by_dsdvar("unit" "sospos" "pord" "uniquename")
+	                    #if ($FlexNowTest && $FlexNowTest == "y")
+	        				<dbi:echo>FlexNowTest a: external_relation.tabpk=[external_relation.tabpk]; external_relation.id=[external_relation.id]; uniquename=[uniquename]</dbi:echo>
+	                    #end
+	                    <dbi:if dbi:is-not-set="external_relation.tabpk">
+	    					#insert_external_relation_by_dsdvar("unit" "unit.id" "sospos" "pord" "uniquename")
+	                    </dbi:if>
+	                    <dbi:if dbi:is-set="external_relation.id">
+	    					#update_external_relation_by_dsdvar("external_relation.id")
+	                    </dbi:if>
+                    #end
+
+					## Variable für Unterrichtssprache
+        			<dbi:set dbi:variable="teaching_k_language_id" dsd:var="k_language_lookup[{lehrspracheOriginalFGL}]" dbi:ignore="empty" />
+        			<dbi:if dbi:is-not-set="teaching_k_language_id">
+        				<dbi:set dbi:variable="teaching_k_language_id" dsd:var="k_language_lookup[de]" />
+        			</dbi:if>
+
+    				## Datensatz in module_unit?
+    				<dbi:if dbi:is-true="k_elementtype_hiskeyId= '8'">
+    					<dbi:dbaction dbi:action="sync" dbi:lookup="module_unit.id">
+    						<dbi:data>
+    							<hisinone:hisinone>
+    								<hisinone:module_unit>
+    									<hisinone:unit_id dsd:var="unit.id" />
+    								</hisinone:module_unit>
+    							</hisinone:hisinone>
+    						</dbi:data>
+    						#defaultCondition("module_unit" "module_unit.id" "sospos" "pord" "pordnr")
+    					</dbi:dbaction>
+    					#onInsert("module_unit" "module_unit.id" "sospos" "pord" "pordnr")
+    					#onUpdate("module_unit" "module_unit.id" "sospos" "pord" "pordnr")
+						## Eintrag für Unterrichtssprache
+						#parse("dbinterface/hisinone/unit_teaching_language-sync.vm")
+    					#if ($DEBUG && $DEBUG == "y")
+    						<dbi:echo>DEBUG-2 (sospos-pord) pordnr=<xsl:value-of select="pordnr" />; module_unit.id=[module_unit.id]</dbi:echo>
+    					#end
+    				</dbi:if>
+					
+    				## Datensatz in examination?
+    				<dbi:if dbi:is-true="k_elementtype_hiskeyId= '2'"> ## Prüfung
+						<dbi:set dbi:variable="examination">y</dbi:set> 
+                    </dbi:if>
+					<dbi:if dbi:is-true="k_elementtype_hiskeyId= '14'"> ## Studienleistung
+						<dbi:set dbi:variable="examination">y</dbi:set>
+                    </dbi:if>
+					<dbi:if dbi:is-true="examination= 'y'">
+    					<dbi:set dbi:variable="k_exam_type_id" dsd:var="k_examination_type_lookup[{part}]" dbi:ignore="empty" />
+    					#if ($DEBUG && $DEBUG == "y")
+            				<dbi:echo>DEBUG-2a (sospos-pord) part=<xsl:value-of select="part" />; k_exam_type_id=[k_exam_type_id]</dbi:echo>
+    					#end
+    					<dbi:if dbi:is-not-set="k_exam_type_id">
+    						<dbi:set dbi:variable="k_exam_type_id" dsd:var="k_examination_type_hiskey_id_lookup[1]" />
+    					</dbi:if>
+    					<dbi:set dbi:variable="k_examform_id" dsd:var="k_examform_lookup[{pform}]" dbi:ignore="empty" />
+    					<dbi:if dbi:is-not-set="k_examform_id">
+            				<dbi:echo dbi:level="WARN">WARN (sospos-pord) pordnr=<xsl:value-of select="pordnr" />; pform=<xsl:value-of select="pform"/></dbi:echo>
+    						<dbi:set dbi:variable="k_examform_id" dsd:var="k_examform_hiskey_id_lookup[99]" />
+    					</dbi:if>
+    					<dbi:dbaction dbi:action="sync" dbi:lookup="examination.id">
+    						<dbi:data>
+    							<hisinone:hisinone>
+    								<hisinone:examination>
+    									<hisinone:unit_id dsd:var="unit.id" />
+    									<hisinone:k_examform_id dsd:var="k_examform_id" />
+    									<hisinone:k_examination_type_id dsd:var="k_exam_type_id" />
+    									<hisinone:exam_written dsd:var="exam_written" />
+    								</hisinone:examination>
+    							</hisinone:hisinone>
+    						</dbi:data> 
+    						#defaultCondition("examination" "examination.id" "sospos" "pord" "pordnr")
+    					</dbi:dbaction> 
+    					#onInsert("examination" "examination.id" "sospos" "pord" "pordnr")
+    					#onUpdate("examination" "examination.id" "sospos" "pord" "pordnr")
+						## Eintrag für Unterrichtssprache
+						#parse("dbinterface/hisinone/unit_teaching_language-sync.vm")
+            			#if ($DEBUG && $DEBUG == "y")
+            				<dbi:echo>DEBUG-3 (sospos-pord) pordnr=<xsl:value-of select="pordnr" />; examination.id=[examination.id]</dbi:echo>
+    					#end
+    				</dbi:if>
+					
+    				## Datensatz in event?
+    				## Veranstaltung
+    				<dbi:if dbi:is-true="k_elementtype_hiskeyId= '5'">
+    					<dbi:set dbi:variable="eventtype_id" dsd:var="eventtype_hiskey_id_lookup[1]" />
+                    	<dbi:dbaction dbi:action="sync" dbi:lookup="event.id">
+                    		<dbi:data>
+                    			<hisinone:hisinone>
+                    				<hisinone:event>
+                    					<hisinone:eventtype_id dsd:var="eventtype_id" />
+                    				</hisinone:event>
+                    			</hisinone:hisinone>
+                    		</dbi:data>
+                    		<dbi:alldata>
+                    			<hisinone:hisinone>
+                    				<hisinone:event>
+                    					<hisinone:unit_id dsd:var="unit.id" />
+                    					<hisinone:lock_version>0</hisinone:lock_version>
+                    				</hisinone:event>
+                    			</hisinone:hisinone>
+                    		</dbi:alldata>
+                    		#defaultCondition("event" "event.id" "sospos" "pord" "pordnr")
+                    	</dbi:dbaction>
+                    	#onInsert("event" "event.id" "sospos" "pord" "pordnr")
+						#onUpdate("event" "event.id" "sospos" "pord" "pordnr")
+						## Eintrag für Unterrichtssprache
+						#parse("dbinterface/hisinone/unit_teaching_language-sync.vm")
+            			#if ($DEBUG && $DEBUG == "y")
+            				<dbi:echo>DEBUG-4 (sospos-pord) pordnr=<xsl:value-of select="pordnr" />; event.id=[event.id]</dbi:echo>
+						#end
+                    </dbi:if>
+
+    				## Veranstaltungsgruppe
+    				<dbi:if dbi:is-true="k_elementtype_hiskeyId= '12'">
+    					<dbi:if dbi:is-set="k_frequency_of_offer.id">
+	    					<dbi:set dbi:variable="eventtype_id" dsd:var="eventtype_lookup[{part}]" dbi:ignore="empty" />
+	    					#if ($DEBUG && $DEBUG == "y")
+	            				<dbi:echo>DEBUG-3b (sospos-pord) part=<xsl:value-of select="part" />; eventtype_id=[eventtype_id]</dbi:echo>
+	    					#end
+	    					<dbi:if dbi:is-not-set="eventtype_id">
+	    						<dbi:set dbi:variable="eventtype_id" dsd:var="eventtype_hiskey_id_lookup[1]" />
+	    					</dbi:if>
+	                    	<dbi:dbaction dbi:action="sync" dbi:lookup="event.id">
+	                    		<dbi:data>
+	                    			<hisinone:hisinone>
+	                    				<hisinone:event>
+	                    					<hisinone:eventtype_id dsd:var="eventtype_id" />
+	                    					<hisinone:k_frequency_of_offer_id dsd:var="k_frequency_of_offer.id" />
+	                    				</hisinone:event>
+	                    			</hisinone:hisinone>
+	                    		</dbi:data>
+	                    		<dbi:alldata>
+	                    			<hisinone:hisinone>
+	                    				<hisinone:event>
+	                    					<hisinone:unit_id dsd:var="unit.id" />
+	                    				</hisinone:event>
+	                    			</hisinone:hisinone>
+	                    		</dbi:alldata>
+	                    		#defaultCondition("event" "event.id" "sospos" "pord" "pordnr")
+	                    	</dbi:dbaction>
+	                    	#onInsert("event" "event.id" "sospos" "pord" "pordnr")
+							#onUpdate("event" "event.id" "sospos" "pord" "pordnr")
+	            			#if ($DEBUG && $DEBUG == "y")
+	            				<dbi:echo>DEBUG-5 (sospos-pord) pordnr=<xsl:value-of select="pordnr" />; event.id=[event.id]</dbi:echo>
+							#end
+	                    </dbi:if>
+                    </dbi:if>
+        			<!-- unit_orgunit einfügen -->
+        			<dbi:if dbi:is-set="orgunit.lid">
+            			<dbi:dbaction dbi:action="sync" dbi:lookup="unit_orgunit.id">
+            				<dbi:data>
+            					<hisinone:hisinone>
+            						<hisinone:unit_orgunit>
+            							<hisinone:unit_id dsd:var="unit.id" />
+            							<hisinone:orgunit_lid dsd:var="orgunit.lid" />
+            							<hisinone:k_unit_orgunit_relation_id>1</hisinone:k_unit_orgunit_relation_id>
+            							<hisinone:lock_version>0</hisinone:lock_version>
+            						</hisinone:unit_orgunit>
+            					</hisinone:hisinone>
+            				</dbi:data>
+        					#defaultCondition("unit_orgunit" "unit_orgunit.id" "sospos" "pord" "pordnr")
+            			</dbi:dbaction>
+        				#onInsert("unit_orgunit" "unit_orgunit.id" "sospos" "pord" "pordnr")
+        			</dbi:if>
+					<dbi:set dbi:variable="count">0</dbi:set>
+            		#if ($FlexNow && $FlexNow == "y")
+					    <dbi:call dbi:function="de.his.xml.functions.UnitOrgunitSetter">
+							<dbi:param dbi:name="debug">n</dbi:param>
+							<dbi:param dbi:name="pordnr"><xsl:value-of select="pordnr" /></dbi:param>
+							<dbi:param dbi:name="unit_id" dsd:var="unit.id" />
+							## k_unit_orgunit_relation_id=1 steht für "Unit-Verantwortlicher"; Ggfs lokal abwandeln ...
+							<dbi:param dbi:name="k_unit_orgunit_relation_id">1</dbi:param>
+							<dbi:param dbi:name="deleteExistingOrgUnits">y</dbi:param>
+        					<dbi:return dbi:variable="count" />
+						</dbi:call>
+					#end
+    				<dbi:if dbi:is-true="count = 0">			
+	        			<dbi:if dbi:is-not-set="orgunit.lid">
+	            			<dbi:if dbi:is-set="own_university">
+	            			<!-- Standardeintrag -->
+	                			<dbi:dbaction dbi:action="sync" dbi:lookup="unit_orgunit.id">
+	                				<dbi:data>
+	                					<hisinone:hisinone>
+	                						<hisinone:unit_orgunit>
+	                							<hisinone:unit_id dsd:var="unit.id" />
+	                							<hisinone:orgunit_lid dsd:var="own_university" />	<!--  alles der HS -->
+	                							<hisinone:k_unit_orgunit_relation_id>1</hisinone:k_unit_orgunit_relation_id>
+	                							<hisinone:lock_version>0</hisinone:lock_version>
+	                						</hisinone:unit_orgunit>
+	                					</hisinone:hisinone>
+	                				</dbi:data>
+	        						#defaultCondition("unit_orgunit" "unit_orgunit.id" "sospos" "pord" "pordnr")
+	                			</dbi:dbaction>
+	            				#onInsert("unit_orgunit" "unit_orgunit.id" "sospos" "pord" "pordnr")
+	            			</dbi:if>
+	        			</dbi:if>
+        			</dbi:if>
+                </dbi:if>
+    		</dbi:if>
+            #if ($TIMER && $TIMER == "y")
+            	<dbi:echo dbi:timeElapsed="y" />
+			#end
+		</dbi:try>
+	</xsl:for-each>
+    #if (($DEBUG && $DEBUG == "y") || ($TIMER && $TIMER == "y"))
+    	<dbi:echo dbi:statistics="y">DEBUG (sospos-pord): ++++ [_statistics]</dbi:echo>
+    #end
+</xsl:template>
+	
+#parse("dbinterface/hisinone/foot.vm")
