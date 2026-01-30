@@ -1497,7 +1497,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 						WHERE relation.id = update_relation.id
 				</action>	
 				
-				<action active="y" ueberschreiben="y" type="sql" database="sospos">
+				<action name="PO_MIGRATION_FORTSCHREIBEN" active="y" ueberschreiben="y" type="sql" database="sospos">
 					-- FL 20250929 Aktualisiere die Spezialtabelle im angegebenen-Schema und setze diese PO als migriert
 					UPDATE [schemaZZZ].po_migration SET migriert = true
 						FROM (
@@ -1508,7 +1508,12 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 													Limit 1
 						) AS sub
 						WHERE po_migration.reihenfolge = sub.reihenfolge;
-			   </action>			 
+			   </action>	
+			   
+			    <action name="KorrekturModul_Versuchszahl" active="y" type="sql" database="hisinone">
+					--korregiere die auf 0 gesetzte Versuchsanzahl und mache NULL daraus
+					update unitrelation set max_attempts = null where max_attempts in (0);
+				</action>		 
 		</postprocessing>   
     </entry>
     
@@ -1713,9 +1718,9 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 				ORDER BY abschl, stg, vert, schwp, kzfa, pversion
             </select>
             <param name="DEBUG" value="y" />
-            <param name="targetobject" value="unitrelation" />
+            <param name="targetobject" value="unitrelation" />           
             <!-- Erklärung Parameter name="ignoreVertIfEmpty" value="y" in der Datei zuordnung-gesamtkonto.vm  -->
-            
+            <param name="ignoreVertIfEmpty" value="y" />           
          </action>
          
 	    
@@ -1797,10 +1802,6 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
             <param name="DEBUG" value="y" />
             <param name="targetobject" value="unitrelation" />
          </action>
-	    
-	    <action name="duplicate_unit_veranstaltung" ueberschreiben="y" active="n" xslt="dbinterface/hisinone/sospos-duplicate_unit_veranstaltung.vm" />
-	  
-         <action name="pords-duplicate_unit_veranstaltung" ueberschreiben="y" active="n" xslt="dbinterface/hisinone/sospos/foreigntext.vm" />
      </actions>
      
      <!-- preprocessing -->
@@ -1826,6 +1827,11 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 							ORDER BY oo.child_unit_id
 						) false_relation ON false_relation.id = relation.id
 						WHERE relation.id = update_relation.id
+				</action>
+				
+				 <action name="KorrekturModul_Versuchszahl" active="y" type="sql" database="hisinone">
+					--korregiere die auf 0 gesetzte Versuchsanzahl und mache NULL daraus
+					update unitrelation set max_attempts = null where max_attempts in (0);
 				</action>				 
 		</postprocessing>     
     </entry>
@@ -1856,11 +1862,12 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
       <destination>intern</destination>
 	</entry>
 	
+	
 
     <!-- FL: Idee: Fake den uniquename - Er entspricht damit der in der Hilfstabelle definierten Vertiefung,
 		explizit nicht da sein darf '[pord_vert_value_TUBAF]' AS vert,
 		wir suchen nämlich den '-' standardfall -->
-    <entry name="hisinone-sospos-pord-PO-FallgruppeB" ueberschreiben="y" active="y" description="Anlegen von Aufhängerelementen für die Prüfungsordnungen" databases="hisinone,sospos">
+   <entry name="hisinone-sospos-pord-PO-FallgruppeB" ueberschreiben="y" active="y" description="Anlegen von Aufhängerelementen für die Prüfungsordnungen" databases="hisinone,sospos">
       <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
          <admin>
             <execute />
@@ -1895,8 +1902,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 				OR pord.pnr IN (Select sonstpnr1 from hskonst WHERE aikz = 'A') 
 				OR pord.pnr IN (Select sonstpnr2 from hskonst WHERE aikz = 'A') 
 				OR pord.pnr IN (Select sonstpnr3 from hskonst WHERE aikz = 'A'))
-				 [pord_restrictionFallgruppeB]		
-				 [pord_restriction_vertTUBAF]							 						
+				 [pord_restrictionFallgruppeB]									 						
 				ORDER BY abschl, stg, vert, schwp, kzfa, pversion
             </select>
             <param name="targetobject" value="unit" />
@@ -1907,7 +1913,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
       </actions>
       <destination>intern</destination>
       <postprocessing active="y" ueberschreiben="y">			  
-				 <action active="y" ueberschreiben="y" type="sql" database="sospos">
+				 <action name="PO_MIGRATION_FORTSCHREIBEN" active="y" ueberschreiben="y" type="sql" database="sospos">
 					-- FL 20250929 Aktualisiere die Spezialtabelle im angegebenen-Schema und setze diese PO als migriert
 					UPDATE [schemaZZZ].po_migration SET migriert = true
 						FROM (
