@@ -85,7 +85,7 @@
 		
 		<section name="subgroup" description="Leistungen"/>
 		
-		<section name="menu-sospos-leistungsdaten" ueberschreiben="y" description="TUBAF: Leistungen (alle, von nicht abeschlossenen Studiengängen)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
+		<section name="menu-sospos-leistungsdaten" ueberschreiben="y" description="TUBAF: Leistungen (alle, von nicht Exmatrikulierten, nicht Promovenden)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
 			<menuentry name="hisinone-sospos-lab" />
 			<menuentry name="hisinone-sospos-lab-prgrup" />
 			<menuentry name="hisinone-sospos-labzuord" />
@@ -94,7 +94,7 @@
 		
 		<!-- Eigener Menüpunkt für Leistungen der Studenten, die einen Abschluss haben.  -->
 		<!-- Darin werden die Leistungen auf die 9999 begrenzt -->
-		<section name="menu-sospos-leistungsdaten9999" active="y" ueberschreiben="y" description="TUBAF: Leistungen (nur Abschussleistung abgeschlossenen Studiengangs)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
+		<section name="menu-sospos-leistungsdaten9999" active="y" ueberschreiben="y" description="TUBAF: Leistungen (nur Abschussleistung von Exmatrikulierten, Promovenden)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
 			<menuentry name="hisinone-sospos-lab9999" />
 			<menuentry name="hisinone-sospos-labzuord9999" />
 			<menuentry name="hisinone-sospos-labzuord-gesamtkonto9999" />
@@ -201,7 +201,8 @@
 					)"/>
 			
 			<!-- Merke: Eine Verschachtelung von Parameter in Parameter geht nicht. Darum hier statt des Parameters "[schemaZZZ]" direkt "ichZZZ" schreiben -->
-			<param active="y" name="unfinishedStgZZZ_lab_restriction" value="and lab.mtknr not in(
+			 <!-- nun nur gesamt Exmatrikulation interessant -->
+			<param active="n" name="unfinishedStgZZZ_lab_restriction" value="and lab.mtknr not in(
 				select distinct mtknr from lab
 				where lab.pnr in (9999) 
 				AND lab.abschl IN (
@@ -217,9 +218,49 @@
 					order by reihenfolge DESC
 					Limit 1)
 				)"/>
+				
+				<param active="y" name="unfinishedStudyZZZ_lab_restriction" value="and lab.mtknr in(
+					  select mtknr from sos where
+  					  sos.exmdat is null
+					)
+				AND lab.abschl IN (
+					select split_part(tubaf_po,'-',1) 
+					from ichZZZ.po_migration
+					where migriert = true and bereit=true
+					order by reihenfolge DESC
+					Limit 1) 
+				AND lab.stg IN (
+					select split_part(tubaf_po,'-',2) 
+					from ichZZZ.po_migration
+					where migriert = true and bereit=true
+					order by reihenfolge DESC
+					Limit 1)
+				"/>
                 
                 
-                <param active="y" name="finishedStgZZZ_lab_restriction" value="and lab.pnr in (9999) 
+                <!-- nun nur gesamt Exmatrikulation interessant -->
+                <param active="n" name="finishedStgZZZ_lab_restriction" value="and lab.pnr in (9999) 
+				AND lab.abschl IN (
+					select split_part(tubaf_po,'-',1) 
+from ichZZZ.po_migration
+where migriert = true and bereit=true
+order by reihenfolge DESC
+Limit 1
+				) AND lab.stg IN (
+					select split_part(tubaf_po,'-',2) 
+from ichZZZ.po_migration
+where migriert = true and bereit=true
+order by reihenfolge DESC
+Limit 1
+                )"/>
+                
+                <!-- Hole Abschlusspruefung fuer exmatrikulierte Studierende oder Promovenden -->
+                <param active="y" name="finishedStudyZZZ_lab_restriction" value="
+                AND lab.mtknr in(
+					select mtknr from sos where
+  					  sos.exmdat is not null
+					)
+                and lab.pnr in (9999) 
 				AND lab.abschl IN (
 					select split_part(tubaf_po,'-',1) 
 from ichZZZ.po_migration
@@ -1275,7 +1316,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
                        also pdtxt AS dtxt ersetzt und umgekehrt durch
                             pltxt1 as dtxt   -->
                             
-    <!-- FALLGRUPPE A -->
+    <!-- ++++ START FALLGRUPPE A -->
     <entry name="hisinone-sospos-pord" active="y" description="Prüfungsordnungen" databases="hisinone,sospos">
       <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
          <admin>
@@ -1456,7 +1497,6 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
             FROM pords, pord 
             WHERE not pords.sprache = 'D' and pord.pordnr=pords.pordnr
                 AND pord.pordnr NOT IN (SELECT hisinone_mapping.tabpk FROM hisinone_mapping WHERE hisinone_mapping.tabelle='pord')
-                AND pvken3 = 'V' 
                 [pord_restriction]
             ORDER BY 1
             </select>
@@ -1629,12 +1669,12 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
          
          <action name="pords" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos/foreigntext.vm">         
             <select>
-            SELECT DISTINCT pords.pordnr as pordnr, pord.pnr as pnr, pords.pktxt as ktxt, pords.pdtxt as dtxt, pords.pltxt1 as ltxt,           
+             SELECT DISTINCT pords.pordnr as pordnr, pord.pnr as pnr, pords.pktxt as ktxt, pords.pdtxt as dtxt, pords.pltxt1 as ltxt,
                 CASE pords.sprache
                 	WHEN  'E' THEN 'en' 
                     WHEN  'F' THEN 'fr' 
                     ELSE 'en'
-            END AS sprache
+            END AS sprache 
             FROM pords, pord 
             WHERE not pords.sprache = 'D' and pord.pordnr=pords.pordnr
                 AND pord.pordnr NOT IN (SELECT hisinone_mapping.tabpk FROM hisinone_mapping WHERE hisinone_mapping.tabelle='pord')                
@@ -2008,7 +2048,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 	            LEFT OUTER JOIN hisinone_mapping ON (hisinone_mapping.tabpk=lab.pordnr AND hisinone_mapping.tabelle='pord')
 	            WHERE lab.psem != 0 AND lab.psem IS NOT NULL  
 	            AND lab.prueck &lt; 2
-	             [sos_restriction][lab_restriction][unfinishedStgZZZ_lab_restriction]
+	             [sos_restriction][lab_restriction][unfinishedStudyZZZ_lab_restriction]
 	            ORDER BY lab.mtknr, lab.labnr
             </select>
 	        <param name="database" value="sospos" />
@@ -2043,7 +2083,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 			INNER JOIN sos ON (lab.mtknr = sos.mtknr)
             WHERE 1=1	       
             AND dipls.thema IS NOT NULL  
- 	             [sos_restriction][lab_restriction][unfinishedStgZZZ_lab_restriction]
+ 	             [sos_restriction][lab_restriction][unfinishedStudyZZZ_lab_restriction]
             ORDER BY 1
             </select>
             <param name="srctable" value="dipls" />
@@ -2067,7 +2107,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 			AND pord.pordnr = lab.pordnr 
 			AND pzutxts.labnr = lab.labnr
 			AND pzutxts.sprache = 'D'
-			[sos_restriction][lab_restriction][unfinishedStgZZZ_lab_restriction] 
+			[sos_restriction][lab_restriction][unfinishedStudyZZZ_lab_restriction] 
 			GROUP BY pzutxts.labnr, pzutxts.sprache, pzutxts.art, pord.pvken4, pord.lehrsprache
 	        ORDER BY pzutxts.labnr
             </select>
@@ -2085,7 +2125,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 			AND pord.pordnr = lab.pordnr 
 			AND pzutxts.labnr = lab.labnr
 			AND pzutxts.sprache NOT IN ('D')
-			[sos_restriction][lab_restriction][unfinishedStgZZZ_lab_restriction]
+			[sos_restriction][lab_restriction][unfinishedStudyZZZ_lab_restriction]
 			GROUP BY pzutxts.labnr, pzutxts.sprache, pzutxts.art, pord.pvken4, pord.lehrsprache
 	        ORDER BY pzutxts.labnr
             </select>
@@ -2108,7 +2148,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 				WHERE 1=1
 				AND lab.panerk != 'N' AND trim(lab.panerk) != ''
 				AND pzutxt.akfz IS NOT NULL AND trim(pzutxt.akfz) != ''
-				[sos_restriction][lab_restriction][unfinishedStgZZZ_lab_restriction]
+				[sos_restriction][lab_restriction][unfinishedStudyZZZ_lab_restriction]
 		        ORDER BY pzutxt.labnr
             </select>
 	        <param name="targetobject" value="examimport" />
@@ -2196,7 +2236,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 				AND lab.labnr = labzuord.labnr 
 				AND lab.prueck &lt; 2
             		[sos_restriction]
-            		[lab_restriction][unfinishedStgZZZ_lab_restriction]            		
+            		[lab_restriction][unfinishedStudyZZZ_lab_restriction]            		
             		[labzuord_restriction]
                 ORDER BY lab.mtknr, lab.psem desc, lab.ptermin desc
             </select>
@@ -2231,7 +2271,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
                 join lab l1 on p1.pordnr=l1.pordnr and l1.mtknr=identroll.verbindung_integer
             WHERE lab.prueck &lt; 2
                 [sos_restriction]
-                [lab_restriction][unfinishedStgZZZ_lab_restriction]
+                [lab_restriction][unfinishedStudyZZZ_lab_restriction]
             ORDER BY lab.mtknr, lab.psem desc, lab.ptermin desc
             </select>
             <param name="targetobject" value="examrelation" />
@@ -2309,7 +2349,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 	            LEFT OUTER JOIN hisinone_mapping ON (hisinone_mapping.tabpk=lab.pordnr AND hisinone_mapping.tabelle='pord')
 	            WHERE lab.psem != 0 AND lab.psem IS NOT NULL  
 	            AND lab.prueck &lt; 2
-	             [sos_restrictionTUBAF_exmadat][lab_restriction][finishedStgZZZ_lab_restriction] 
+	             [sos_restrictionTUBAF_exmadat][lab_restriction][finishedStudyZZZ_lab_restriction] 
 	            ORDER BY lab.mtknr, lab.labnr
             </select>
 	        <param name="database" value="sospos" />
@@ -2344,7 +2384,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 			INNER JOIN sos ON (lab.mtknr = sos.mtknr)
             WHERE 1=1	       
             AND dipls.thema IS NOT NULL  
- 	             [sos_restrictionTUBAF_exmadat][lab_restriction][finishedStgZZZ_lab_restriction] 
+ 	             [sos_restrictionTUBAF_exmadat][lab_restriction][finishedStudyZZZ_lab_restriction] 
             ORDER BY 1
             </select>
             <param name="srctable" value="dipls" />
@@ -2386,7 +2426,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 			AND pord.pordnr = lab.pordnr 
 			AND pzutxts.labnr = lab.labnr
 			AND pzutxts.sprache NOT IN ('D')
-			[sos_restrictionTUBAF_exmadat][lab_restriction][finishedStgZZZ_lab_restriction] 
+			[sos_restrictionTUBAF_exmadat][lab_restriction][finishedStudyZZZ_lab_restriction] 
 			GROUP BY pzutxts.labnr, pzutxts.sprache, pzutxts.art, pord.pvken4, pord.lehrsprache
 	        ORDER BY pzutxts.labnr
             </select>
@@ -2409,7 +2449,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 				WHERE 1=1
 				AND lab.panerk != 'N' AND trim(lab.panerk) != ''
 				AND pzutxt.akfz IS NOT NULL AND trim(pzutxt.akfz) != ''
-				[sos_restrictionTUBAF_exmadat][lab_restriction][finishedStgZZZ_lab_restriction] 
+				[sos_restrictionTUBAF_exmadat][lab_restriction][finishedStudyZZZ_lab_restriction] 
 		        ORDER BY pzutxt.labnr
             </select>
 	        <param name="targetobject" value="examimport" />
@@ -2445,7 +2485,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 				AND lab.labnr = labzuord.labnr 
 				AND lab.prueck &lt; 2
             		[sos_restrictionTUBAF_exmadat]
-            		[lab_restriction][finishedStgZZZ_lab_restriction] 
+            		[lab_restriction][finishedStudyZZZ_lab_restriction] 
             		[lab_restriction_vertTUBAF]
             		[labzuord_restriction]
                 ORDER BY lab.mtknr, lab.psem desc, lab.ptermin desc
@@ -2481,7 +2521,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
                 join lab l1 on p1.pordnr=l1.pordnr and l1.mtknr=identroll.verbindung_integer
             WHERE lab.prueck &lt; 2
                 [sos_restriction]
-                [lab_restriction][finishedStgZZZ_lab_restriction]
+                [lab_restriction][finishedStudyZZZ_lab_restriction]
             ORDER BY lab.mtknr, lab.psem desc, lab.ptermin desc
             </select>
             <param name="targetobject" value="examrelation" />

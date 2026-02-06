@@ -182,15 +182,17 @@
     				##	<dbi:return dbi:variable="activity_date" />
                     ##</dbi:call>
 					
-					<!-- DIE AUSGANGSUNIT - Ist eine PRÜFUNG -->
-					<!-- Zu 1.-->
-					<!-- In der neuen Unit kennzeichnen, das diese erst jetzt erstellt wurde -->										
+					<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+					<!-- DIE AUSGANGSUNIT - Ist die PRÜFUNG -->
+					<!-- a) Aus dem Prüfungsdatensatz selbst -->
+					
+					<!-- In der Prüfungs - Ausgagngs - Unit mit entsprechendem Kommentar kennzeichnen, das diese Grundlage der Modulerstellung ist -->										
 					#if ($DEBUG && $DEBUG == "y")
                     	<dbi:echo>DEBUG-3a (TUBAF sospos-duplicate_unit) KOMMENTAR: Versuche update action für unitcopyid=[unitcopyid], calNow=[calNow], activity_date=[activity_date], TODAY=[TODAY]</dbi:echo>
 					#end
 					<dbi:set dbi:variable="commententry" dbi:parse="true">Migration: Prüfung als Grundlage für Modulerstellung: unitcopyid=[unitcopyid], ggfs. erzeugte unit.id=[unit.id], am: [TODAY]</dbi:set>
 					
-					<!-- Die Ausgangsunit ist eine Prüfung, aus der das Modul erzeugt worden ist. -->
+					<!-- Diese Ausgangsunit ist eine Prüfung, aus der das Modul erzeugt worden ist. -->
 					<!-- FL20260127: Entferne nun ua der Prüfung die Anzahl der Semesterwochenstunden -->
 					#if ($DEBUG && $DEBUG == "y")
                     	<dbi:echo>DEBUG-3a (TUBAF sospos-duplicate_unit) SEMESTERWOCHENSTUNDEN: Versuche update action für unitcopyid=[unitcopyid] Setze in die Prüfung (als Ausgangsobjekte der Modulerzeugung) die Semesterwochenstunden auf 0 (NULL geht nicht)</dbi:echo>
@@ -221,9 +223,7 @@
             	</dbi:dbaction>
 				
 				
-				
-				<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
-				<!-- In der neuen Unit die bisherige Modulnummer um 1 Zeichen erweitern -->
+				<!-- aa)  In der Prüfung die bisherige Modulnummer um 1 Zeichen erweitern -->
 				<!-- FL: Das ist normalerweise eine 1 - Nun ist es zu TESTZWECKEN ein X -->
 				#if ($DEBUG && $DEBUG == "y")
                     <dbi:echo>DEBUG-3b (TUBAF sospos-duplicate_unit) pordnr=<xsl:value-of select="pordnr" />; unit.id=[unit.id]; unitcopyid=[unitcopyid]</dbi:echo>
@@ -267,9 +267,76 @@
             		</dbi:condition>
             	</dbi:dbaction>
 				
+				<!-- b) In der Relation des Prüfungsdatensatzen -->
+				<!-- Anders als beim Modul wird die Bewertungsart nicht verändert
+					<hisinone:grading_type_id>
+						[gradingTypeIdEntry]
+					</hisinone:grading_type_id>
+				-->
+				#if ($DEBUG && $DEBUG == "y")
+                   	<dbi:echo>DEBUG-4 (TUBAF sospos-duplicate_unit) Ermittle Relation zu dem Prüfungsdatensatz</dbi:echo>
+				#end
+				<dbi:dbaction dbi:action="select" dbi:select-type="intern">
+            		<dbi:data>
+            			<hisinone:hisinone>
+            				<hisinone:unit>
+            					<hisinone:default_unitrelation_id />
+            				</hisinone:unit>
+            			</hisinone:hisinone>
+            		</dbi:data>
+            		<dbi:condition>
+            			<hisinone:hisinone>
+            				<hisinone:unit>
+            					<hisinone:id dsd:compOperator="equal">[unitcopyid]</hisinone:id>
+            				</hisinone:unit>
+            			</hisinone:hisinone>
+            		</dbi:condition>
+            	</dbi:dbaction>
+            	<dbi:set dbi:variable="unitrelation_id_pruefung" dsd:var="unit.default_unitrelation_id" />
 				
-				<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
-				<!-- Das Duplikat -->
+				
+				<dbi:set dbi:variable="bonusEntry" dbi:parse="true">0</dbi:set>
+				#if ($DEBUG && $DEBUG == "y")
+                   	<dbi:echo>DEBUG-5a (TUBAF sospos-duplicate_unit) CREDIT/BONUS: update action für unitrelation_id=[unitrelation_id] ... (ausgehend von unitcopyid=[unitcopyid]) ändere in [bonusEntry]</dbi:echo>
+				#end
+				
+				<dbi:set dbi:variable="gradingTypeIdEntry" dbi:parse="true">20</dbi:set>
+				#if ($DEBUG && $DEBUG == "y")
+                   	<dbi:echo>DEBUG-5c (TUBAF sospos-duplicate_unit) BEWERTUNGSART: update action für unitrelation_id=[unitrelation_id] ... (ausgehend von unitcopyid=[unitcopyid]) ändere in [gradingTypeIdEntry]</dbi:echo>
+				#end
+				
+				<dbi:set dbi:variable="kUnitrelationtypeIdEntry" dbi:parse="true">1</dbi:set>
+				#if ($DEBUG && $DEBUG == "y")
+                   	<dbi:echo>DEBUG-5c (TUBAF sospos-duplicate_unit) k_unitrealtiontype_id immer auf 'AZ': update action für unitrelation_id=[unitrelation_id] ... (ausgehend von unitcopyid=[unitcopyid]) ändere in [gradingTypeIdEntry]</dbi:echo>
+				#end
+				
+												
+				<dbi:dbaction dbi:action="update">
+            		<dbi:data>
+            			<hisinone:hisinone>
+            				<hisinone:unitrelation>
+            					<hisinone:bonus>
+									[bonusEntry]
+								</hisinone:bonus>																
+								<hisinone:k_unitrelationtype_id>
+									[kUnitrelationtypeIdEntry]
+                                </hisinone:k_unitrelationtype_id>
+            				</hisinone:unitrelation>
+            			</hisinone:hisinone>
+            		</dbi:data>
+            		<dbi:condition>
+            			<hisinone:hisinone>
+            				<hisinone:unitrelation>
+            					<hisinone:id dsd:compOperator="equal">[unitrelation_id_pruefung]</hisinone:id>            				
+            				</hisinone:unitrelation>
+            			</hisinone:hisinone>
+            		</dbi:condition>
+            	</dbi:dbaction>
+				
+				
+				<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+				<!-- Das Modul als Duplikat aus der Prüfung-->
+				<!-- a) im Moduldatensatz selbst -->
 				<dbi:set dbi:variable="commententry02" dbi:parse="true">Migration: Modul, mit unit.id=[unit.id], ggfs. zuletzt erstellt als Duplikat aus der Prüfung mit unitcopyid=[unitcopyid], am: [TODAY]</dbi:set>
 					<dbi:dbaction dbi:action="update">
             		<dbi:data>
@@ -290,8 +357,8 @@
             		</dbi:condition>
             	</dbi:dbaction>
             		
-				<!-- Zu 2. -->
-			    <!-- 2a) credits 0 setzen -->
+				<!-- b) in der Relation des Moduldatenstzes -->
+			    <!-- credits 0 setzen -->
 				#if ($DEBUG && $DEBUG == "y")
                    	<dbi:echo>DEBUG-4 (TUBAF sospos-duplicate_unit) CREDIT/BONUS: Versuche update action für unitcopyid=[unitcopyid]...select von default_unitrelation_id</dbi:echo>
 				#end
@@ -306,48 +373,39 @@
             		<dbi:condition>
             			<hisinone:hisinone>
             				<hisinone:unit>
-            					<hisinone:id dsd:compOperator="equal">[unitcopyid]</hisinone:id>
+            					<hisinone:id dsd:compOperator="equal">[unit.id]</hisinone:id>
             				</hisinone:unit>
             			</hisinone:hisinone>
             		</dbi:condition>
             	</dbi:dbaction>
-            	<dbi:set dbi:variable="unitrelation_id" dsd:var="unit.default_unitrelation_id" />
+            	<dbi:set dbi:variable="unitrelation_id_modul" dsd:var="unit.default_unitrelation_id" />
 				
-				<dbi:set dbi:variable="bonusEntry" dbi:parse="true">0</dbi:set>
-				#if ($DEBUG && $DEBUG == "y")
-                   	<dbi:echo>DEBUG-5a (TUBAF sospos-duplicate_unit) CREDIT/BONUS: update action für unitrelation_id=[unitrelation_id] ... (ausgehend von unitcopyid=[unitcopyid]) ändere in [bonusEntry]</dbi:echo>
-				#end
 									
 				<dbi:set dbi:variable="maxAttemptsEntry" dbi:parse="true">0</dbi:set>
 				#if ($DEBUG && $DEBUG == "y")
                    	<dbi:echo>DEBUG-5b (TUBAF sospos-duplicate_unit) VERSUCHSANZAHL: update action für unitrelation_id=[unitrelation_id] ... (ausgehend von unitcopyid=[unitcopyid]) ändere in [maxAttemptsEntry]</dbi:echo>
 				#end
-				
-				<dbi:set dbi:variable="gradingTypeIdEntry" dbi:parse="true">20</dbi:set>
-				#if ($DEBUG && $DEBUG == "y")
-                   	<dbi:echo>DEBUG-5c (TUBAF sospos-duplicate_unit) BEWERTUNGSART: update action für unitrelation_id=[unitrelation_id] ... (ausgehend von unitcopyid=[unitcopyid]) ändere in [gradingTypeIdEntry]</dbi:echo>
-				#end
-												
+															
 				<dbi:dbaction dbi:action="update">
             		<dbi:data>
             			<hisinone:hisinone>
-            				<hisinone:unitrelation>
-            					<hisinone:bonus>
-									[bonusEntry]
-								</hisinone:bonus>
+            				<hisinone:unitrelation>            					
 								<hisinone:max_attempts>
 									[maxAttemptsEntry]
 								</hisinone:max_attempts>
 								<hisinone:grading_type_id>
 									[gradingTypeIdEntry]
 								</hisinone:grading_type_id>
+								<hisinone:k_unitrelationtype_id>
+									[kUnitrelationtypeIdEntry]
+                                </hisinone:k_unitrelationtype_id>
             				</hisinone:unitrelation>
             			</hisinone:hisinone>
             		</dbi:data>
             		<dbi:condition>
             			<hisinone:hisinone>
             				<hisinone:unitrelation>
-            					<hisinone:id dsd:compOperator="equal">[unitrelation_id]</hisinone:id>            				
+            					<hisinone:id dsd:compOperator="equal">[unitrelation_id_modul]</hisinone:id>            				
             				</hisinone:unitrelation>
             			</hisinone:hisinone>
             		</dbi:condition>
