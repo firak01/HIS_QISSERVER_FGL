@@ -1,6 +1,6 @@
 #parse("dbinterface/hisinone/head.vm")
 #*
-Diese Datei wertet das SPEZIALMODULE "FlexNow" aus. 
+Diese Datei wertet das SPEZIALMODULE "FlexNow" aus.
 Siehe hierzu https://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_PO#FlexNow
 *#
 

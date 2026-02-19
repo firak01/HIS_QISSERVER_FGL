@@ -533,6 +533,17 @@ Limit 1
 			
 			
 			<!-- FL: Migration Leistungen --> 
+			<!-- Leistungen von Promovenden werden nicht migriert, ausser Abschlussleistungen -->
+			<!-- <param active="y" name="stg_restriction_promoventTUBAF" value="
+				AND NOT (stg.abschl in ('88'))
+			" /> -->
+			<param active="y" name="stg_restriction_promoventTUBAF" value="
+				AND NOT (lab.mtknr in( Select distinct mtknr from stg where abschl in ('06')))
+			" />
+			
+			<param active="y" name="stg_addition_promoventTUBAF" value="
+				OR (lab.mtknr in( Select distinct mtknr from stg where abschl in ('06')))
+			" />
 			
 			<!-- FL: 2025-09-22: Merke wg. Reihenfolgeproblematik im aufgebauter hisinone_mapping Tabelle nicht mehr so ueber mehrere POs migrieren: -->
 			<!-- FL: Bereits migrierte POs. Beachte Konstellatio migriert=true und reihenfolge DESC -->
@@ -2039,6 +2050,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 	            INNER JOIN pord ON (pord.pordnr = lab.pordnr)
 	            INNER JOIN identroll ON (lab.mtknr = identroll.verbindung_integer AND identroll.rolle IN ('S', '4'))
 	            INNER JOIN sos ON (lab.mtknr = sos.mtknr)
+	            INNER JOIN stg ON (stg.mtknr = sos.mtknr)
 	            LEFT OUTER JOIN identroll AS identroll2 ON (identroll2.verbindung_char = lab.ppruef1 AND identroll2.rolle = 'P')
 	            LEFT OUTER JOIN identroll AS identroll3 ON (identroll3.verbindung_char = lab.ppruef2 AND identroll3.rolle = 'P')
 	            LEFT OUTER JOIN dipl ON (lab.labnr = dipl.labnr) 
@@ -2048,7 +2060,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 	            LEFT OUTER JOIN hisinone_mapping ON (hisinone_mapping.tabpk=lab.pordnr AND hisinone_mapping.tabelle='pord')
 	            WHERE lab.psem != 0 AND lab.psem IS NOT NULL  
 	            AND lab.prueck &lt; 2
-	             [sos_restriction][lab_restriction][unfinishedStudyZZZ_lab_restriction]
+	             [sos_restriction][lab_restriction][unfinishedStudyZZZ_lab_restriction][stg_restriction_promoventTUBAF]
 	            ORDER BY lab.mtknr, lab.labnr
             </select>
 	        <param name="database" value="sospos" />
@@ -2340,6 +2352,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 	            INNER JOIN pord ON (pord.pordnr = lab.pordnr)
 	            INNER JOIN identroll ON (lab.mtknr = identroll.verbindung_integer AND identroll.rolle IN ('S', '4'))
 	            INNER JOIN sos ON (lab.mtknr = sos.mtknr)
+	            INNER JOIN stg ON (lab.mtknr = stg.mtknr)
 	            LEFT OUTER JOIN identroll AS identroll2 ON (identroll2.verbindung_char = lab.ppruef1 AND identroll2.rolle = 'P')
 	            LEFT OUTER JOIN identroll AS identroll3 ON (identroll3.verbindung_char = lab.ppruef2 AND identroll3.rolle = 'P')
 	            LEFT OUTER JOIN dipl ON (lab.labnr = dipl.labnr) 
@@ -2348,8 +2361,8 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 	            LEFT OUTER JOIN identroll AS identroll6 ON (identroll6.verbindung_char = dipl.pgut AND identroll6.rolle = 'P')
 	            LEFT OUTER JOIN hisinone_mapping ON (hisinone_mapping.tabpk=lab.pordnr AND hisinone_mapping.tabelle='pord')
 	            WHERE lab.psem != 0 AND lab.psem IS NOT NULL  
-	            AND lab.prueck &lt; 2
-	             [sos_restrictionTUBAF_exmadat][lab_restriction][finishedStudyZZZ_lab_restriction] 
+	            AND (lab.prueck &lt; 2
+	             [sos_restrictionTUBAF_exmadat][lab_restriction][finishedStudyZZZ_lab_restriction])[stg_addition_promoventTUBAF]
 	            ORDER BY lab.mtknr, lab.labnr
             </select>
 	        <param name="database" value="sospos" />
