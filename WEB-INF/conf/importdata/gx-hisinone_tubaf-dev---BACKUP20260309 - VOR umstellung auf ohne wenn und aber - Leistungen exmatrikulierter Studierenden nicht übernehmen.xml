@@ -201,8 +201,7 @@
 					)"/>
 			
 			<!-- Merke: Eine Verschachtelung von Parameter in Parameter geht nicht. Darum hier statt des Parameters "[schemaZZZ]" direkt "ichZZZ" schreiben -->
-			<!-- nun nur gesamt Exmatrikulation interessant -->
-			<!-- 20260309: Nicht mehr verwendete Beschraenkung auf abgeschlossene Studiengaenge -->
+			 <!-- nun nur gesamt Exmatrikulation interessant -->
 			<param active="n" name="unfinishedStgZZZ_lab_restriction" value="and lab.mtknr not in(
 				select distinct mtknr from lab
 				where lab.pnr in (9999) 
@@ -220,28 +219,9 @@
 					Limit 1)
 				)"/>
 				
-				<!-- 20260309: Nicht mehr verwendete Beschraenkung auf Abschluss mit erfolgreicher Pruefung -->
-				<param active="n" name="unfinishedStudyNoExamZZZ_lab_restriction" value="and lab.mtknr in(
-					  select mtknr from sos where
-  					  sos.status != 'X' or sos.exmgrund NOT IN('01')
-					)
-				AND lab.abschl IN (
-					select split_part(tubaf_po,'-',1) 
-					from ichZZZ.po_migration
-					where migriert = true and bereit=true
-					order by reihenfolge DESC
-					Limit 1) 
-				AND lab.stg IN (
-					select split_part(tubaf_po,'-',2) 
-					from ichZZZ.po_migration
-					where migriert = true and bereit=true
-					order by reihenfolge DESC
-					Limit 1)
-				"/>
-				
 				<param active="y" name="unfinishedStudyZZZ_lab_restriction" value="and lab.mtknr in(
 					  select mtknr from sos where
-  					  sos.status != 'X'
+  					  sos.status != 'X' or sos.exmgrund NOT IN('01')
 					)
 				AND lab.abschl IN (
 					select split_part(tubaf_po,'-',1) 
@@ -259,7 +239,6 @@
                 
                 
                 <!-- nun nur gesamt Exmatrikulation interessant -->
-                <!-- 20260309: Nicht mehr verwendete Beschraenkung auf abgeschlossene Studiengaenge -->
                 <param active="n" name="finishedStgZZZ_lab_restriction" value="and lab.pnr in (9999) 
 				AND lab.abschl IN (
 					select split_part(tubaf_po,'-',1) 
@@ -274,33 +253,12 @@ where migriert = true and bereit=true
 order by reihenfolge DESC
 Limit 1
                 )"/>
-              
-              	<!-- 20260309: Nicht mehr verwendete Beschraenkung auf Abschluss mit erfolgreicher Pruefung -->  
+                
                 <!-- Hole Abschlusspruefung fuer erfolgreich(!) exmatrikulierte Studierende oder Promovenden -->
-                <param active="n" name="finishedStudyNoExamZZZ_lab_restriction" value="
+                <param active="y" name="finishedStudyZZZ_lab_restriction" value="
                 AND lab.mtknr in(
 					select mtknr from sos where
   					  sos.status in('X') and sos.exmgrund in('01')
-					)
-                and lab.pnr in (9999) 
-				AND lab.abschl IN (
-					select split_part(tubaf_po,'-',1) 
-from ichZZZ.po_migration
-where migriert = true and bereit=true
-order by reihenfolge DESC
-Limit 1
-				) AND lab.stg IN (
-					select split_part(tubaf_po,'-',2) 
-from ichZZZ.po_migration
-where migriert = true and bereit=true
-order by reihenfolge DESC
-Limit 1
-                )"/>
-                
-                 <param active="y" name="finishedStudyZZZ_lab_restriction" value="
-                AND lab.mtknr in(
-					select mtknr from sos where
-  					  sos.status in('X')
 					)
                 and lab.pnr in (9999) 
 				AND lab.abschl IN (
@@ -474,7 +432,11 @@ Limit 1
 							where migriert = false and bereit=true
 							order by reihenfolge ASC
 							Limit 1	
-				)" />				
+				)" />
+		
+
+
+				
 			<!-- ENDE PARAMETER FALLGRUPPE B -->
 			
 			
@@ -1294,7 +1256,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
     
     <!-- ############################################################### -->
     <!-- START: FGL EXA-SCHLUESSELTABELLEN FUER PORD FGL ###################################### -->
-	<!-- FL: Die Migration für bestimmte Schlüsseltabellen deaktivieren -->
+	<!-- FL: Testweise die Migration für bestimmte Schlüsseltabellen deaktivieren -->
 	<entry name="hisinone-sospos-k_p-tabellen" active="y" description="Schlüsseltabellen zu Prüfungsordnungen " databases="hisinone,sospos">
 		<actions sendlevel="3">
 		
