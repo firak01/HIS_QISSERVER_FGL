@@ -375,7 +375,7 @@
             		</dbi:condition>
             	</dbi:dbaction>
             		
-				<!-- b) in der Relation des Moduldatenstzes -->
+				<!-- b) in der Relation des Moduldatensatzes -->
 			    <!-- credits 0 setzen -->
 				#if ($DEBUG && $DEBUG == "y")
                    	<dbi:echo>DEBUG-4 (TUBAF sospos-duplicate_unit) CREDIT/BONUS: Versuche update action für unitcopyid=[unitcopyid]...select von default_unitrelation_id</dbi:echo>
@@ -405,16 +405,34 @@
                    	<dbi:echo>DEBUG-5b (TUBAF sospos-duplicate_unit) VERSUCHSANZAHL: update action für unitrelation_id=[unitrelation_id] ... (ausgehend von unitcopyid=[unitcopyid]) ändere in [maxAttemptsEntry]</dbi:echo>
 				#end
 				
-				<dbi:set dbi:variable="gradingTypeIdEntryG" dbi:parse="true">20</dbi:set>
-				#if ($DEBUG && $DEBUG == "y")
-                   	<dbi:echo>DEBUG-5c (TUBAF sospos-duplicate_unit) BEWERTUNGSART: update action für unitrelation_id=[unitrelation_id] ... (ausgehend von unitcopyid=[unitcopyid]) ändere in [gradingTypeIdEntryG]</dbi:echo>
-				#end
+				##<dbi:set dbi:variable="gradingTypeIdEntryG" dbi:parse="true">20</dbi:set>
+				## #if ($DEBUG && $DEBUG == "y")
+                ##   	<dbi:echo>DEBUG-5c (TUBAF sospos-duplicate_unit) BEWERTUNGSART: update action für unitrelation_id=[unitrelation_id] ... (ausgehend von unitcopyid=[unitcopyid]) ändere in [gradingTypeIdEntryG]</dbi:echo>
+				## #end
 				
-				<dbi:set dbi:variable="gradingTypeIdEntryMN" dbi:parse="true">5</dbi:set>
-				#if ($DEBUG && $DEBUG == "y")
-                   	<dbi:echo>DEBUG-5c (TUBAF sospos-duplicate_unit) BEWERTUNGSART: update action für unitrelation_id=[unitrelation_id] ... (ausgehend von unitcopyid=[unitcopyid]) ändere in [gradingTypeIdEntryMN]</dbi:echo>
-				#end
+				<!-- 20260226: verwendet neu erstellten GrandingType (s. Tabelle grading_type in HISinOne) für generierte Module -->
+				## <dbi:set dbi:variable="gradingTypeIdEntry6" dbi:parse="true">24</dbi:set>
+				## #if ($DEBUG && $DEBUG == "y")
+                ##    	<dbi:echo>DEBUG-5c (TUBAF sospos-duplicate_unit) BEWERTUNGSART: update action für unitrelation_id=[unitrelation_id] ... (ausgehend von unitcopyid=[unitcopyid]) ändere in [gradingTypeIdEntry6]</dbi:echo>
+				## #end
 				
+				<!-- Idee fuer die verschiedenene Systeme die korrekte id des grading_type zu holen --> 
+				#set ($lookuptable = "grading_type")
+				#set ($lookupmap = "grading_type_id")
+				#set ($refcolumn = "uniquename")
+				#set ($id = "id")
+				#parse("dbinterface/hisinone/intern-lookup.vm")
+				
+				<dbi:set dbi:variable="gradingTypeIdEntry6" dsd:var="grading_type_id_lookup[6]" dbi:ignore="empty" />
+					<dbi:if dbi:is-not-set="gradingTypeIdEntry6">
+						##<dbi:set dbi:variable="k_examform_id" dsd:var="k_examform_hiskey_id_lookup[99]" />
+						<dbi:echo>DEBUG-5d (TUBAF sospos-duplicate_unit) BEWERTUNGSART: '6' NICHT in HISinOne Tabelle grading_type gefunden.</dbi:echo>
+					</dbi:if>
+					<dbi:if dbi:is-set="gradingTypeIdEntry6">
+						##<dbi:set dbi:variable="k_examform_id" dsd:var="k_examform_hiskey_id_lookup[99]" />
+						<dbi:echo>DEBUG-5d (TUBAF sospos-duplicate_unit) BEWERTUNGSART: '6' in HISinOne Tabelle grading_type gefunden. id='[gradingTypeIdEntry6]'</dbi:echo>
+					</dbi:if>
+								
 															
 				<dbi:dbaction dbi:action="update">
             		<dbi:data>
@@ -424,7 +442,7 @@
 									[maxAttemptsEntry]
 								</hisinone:max_attempts>
 								<hisinone:grading_type_id>
-									[gradingTypeIdEntryMN]
+									[gradingTypeIdEntry6]
 								</hisinone:grading_type_id>								
             				</hisinone:unitrelation>
             			</hisinone:hisinone>
