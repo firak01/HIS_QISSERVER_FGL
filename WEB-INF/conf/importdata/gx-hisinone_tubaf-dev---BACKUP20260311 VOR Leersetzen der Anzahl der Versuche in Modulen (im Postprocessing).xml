@@ -1417,7 +1417,6 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
             <param name="pformGEToKonto" value="n" /> <!--value=y bedeutet: wenn pform="GE" und pdum=" " dann wird statt einer Prüfung ein Konto erzeugt -->
          </action>
          
-         <!-- 2026-03-10: Folgende action bleibt unverändert, es geht um Diplomabschulssarbeiten -->
          <!-- <action name="pords" ..... -->
          
          <action name="duplicate_unit" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-duplicate_unit.vm">
@@ -1584,20 +1583,6 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 						) false_relation ON false_relation.id = relation.id
 						WHERE relation.id = update_relation.id
 				</action>	
-				
-				<action name="MODULE_MAX_ATTEMPTS_NORMIEREN" active="Y" ueberschreiben="y" type="sql" database="hisinone">
-					-- FL 20260311 die Anzahl der maximalen Versuche in allen Modulen auf 1 setzen. Der verwendete Wert steht in der Prüfung selbst
-					update unitrelation set max_attempts = 1
-					where id in
-						(
-							select default_unitrelation_id from unit 
-							where k_elementtype_id in
-								(
-									select id from k_elementtype where hiskey_id in (8)
-							 	)
-						)
-					and max_attempts is not null;
-			   </action>	
 				
 				<action name="PO_MIGRATION_FORTSCHREIBEN" active="y" ueberschreiben="y" type="sql" database="sospos">
 					-- FL 20250929 Aktualisiere die Spezialtabelle im angegebenen-Schema und setze diese PO als migriert
