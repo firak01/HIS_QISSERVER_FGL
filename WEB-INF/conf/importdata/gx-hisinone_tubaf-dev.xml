@@ -480,8 +480,9 @@ Limit 1
 			
 			
 			
-				<!-- FL: Wenn künstliche H1 Zuordnungen geschaffen werden, müssen diese bestimmt hier aufgenommen werden.-->
-			<param active="y" name="labzuord_restriction" value=" AND (labzuord.artzuordnung like 'F%' OR labzuord.artzuordnung IN ('wp', 'Q', 'H1')) " /> <!-- Migration Zuordnungen zu Leistungen-->
+			<!-- FL: Wenn künstliche H1 Zuordnungen geschaffen werden, müssen diese bestimmt hier aufgenommen werden.-->
+			<!-- FL: 20260316: Entsprechend künstliche H2 Zuordnungen, für bestandene Leistungen  -->
+			<param active="y" name="labzuord_restriction" value=" AND (labzuord.artzuordnung like 'F%' OR labzuord.artzuordnung IN ('wp', 'Q', 'H1', 'H2')) " /> <!-- Migration Zuordnungen zu Leistungen-->
 			
 			<!-- Für die Nachmigration von Studenten bei Leistungen -->			
 			<!-- FL: Bereits migrierte POs. Beachte Konstellation migriert=true und reihenfolge DESC -->
@@ -1585,8 +1586,18 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 						WHERE relation.id = update_relation.id
 				</action>	
 				
+				<action name="KorrekturModul_Versuchszahl" active="y" ueberschreiben="y" type="sql" database="hisinone">
+					--korregiere die beim Duplikaterstellen auf 0 gesetzte Versuchsanzahl und mache NULL daraus
+					update unitrelation set max_attempts = null where max_attempts in (0);
+				</action>
+				
+				<action name="KorrekturPruefung_Semesterwochenstungen" active="y" ueberschreiben="y" type="sql" database="hisinone">
+					--korregiere die beim Duplikaterstellen auf 0 gesetzte Anzahl Semesterwochenstunden und mache NULL daraus
+					update unit set hours_per_week = null where hours_per_week in (0);
+				</action>
+				
 				<action name="MODULE_MAX_ATTEMPTS_NORMIEREN" active="Y" ueberschreiben="y" type="sql" database="hisinone">
-					-- FL 20260311 die Anzahl der maximalen Versuche in allen Modulen auf 1 setzen. Der verwendete Wert steht in der Prüfung selbst
+					-- FL 20260311 die Anzahl der maximalen Versuche in allen Modulen auf 1 setzen, auch wenn etwas anderes aus SOSPOS kommt. Der zu verwendende Wert steht in der Prüfung selbst
 					update unitrelation set max_attempts = 1
 					where id in
 						(
@@ -1610,12 +1621,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 													Limit 1
 						) AS sub
 						WHERE po_migration.reihenfolge = sub.reihenfolge;
-			   </action>	
-			   
-			    <action name="KorrekturModul_Versuchszahl" active="y" type="sql" database="hisinone">
-					--korregiere die auf 0 gesetzte Versuchsanzahl und mache NULL daraus
-					update unitrelation set max_attempts = null where max_attempts in (0);
-				</action>		 
+			   </action>				   			    		
 		</postprocessing>   
     </entry>
     
