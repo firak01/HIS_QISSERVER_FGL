@@ -1,0 +1,24 @@
+TESTCODE, direkt im Dokument
+
+     $${period.startdate} xxx $${period.enddate}
+$if($$Receiptdate>$${period.startdate},‘ja: Einreichdatum ist im aktuellen Semester’,‘nein’)
+$if($$Receiptdate<$${period.startdate},‘nein: Einreichdatum ist nicht im aktuellen Semester’,‘ja’)
+
+
+
+###########################################################################################################
+neu über notpad/editor in skip Anweisung einzufügender code:
+
+Oben:
+$if('$${ReasonableReqType.Description}' != 'Studiengangwechsel' | '$${ApprovalStatusValue.Id}' != '4002' | ($$Receiptdate<$${period.startdate} | $$Receiptdate>$${period.enddate}) , skip)
+
+
+also:
+ | ($$Receiptdate<$${period.startdate} | $$Receiptdate>$${period.enddate}) 
+
+#########################################################################################################################################################
+Unten rote Box:
+$if('$${ReasonableReqType.Description}' != 'Studiengangwechsel'  | ('$${ApprovalStatusValue.Id}' = '4002' | '$${ApprovalStatusValue.Id}' = '4004') | ('$${ProcessingStatusValue.Id}' = '25007' | '$${ProcessingStatusValue.Id}' = '25008') | ($$Receiptdate<$${period.startdate} | $$Receiptdate>$${period.enddate}) , skip)
+
+also:
+ | ($$Receiptdate<$${period.startdate} | $$Receiptdate>$${period.enddate}) 
