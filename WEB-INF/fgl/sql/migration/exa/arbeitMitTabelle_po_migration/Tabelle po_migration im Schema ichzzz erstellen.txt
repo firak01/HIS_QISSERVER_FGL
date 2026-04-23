@@ -1,0 +1,55 @@
+
+//##########################################
+in PGAdmin das Schema ichzzz erstellen.
+
+Danach
+-- Schritt 1:
+CREATE TABLE ichzzz.po_migration
+(
+	reihenfolge	SERIAL		UNIQUE NOT NULL,
+	tubaf_po	TEXT		PRIMARY KEY,
+	bereit		BOOLEAN		NOT NULL DEFAULT 'f'::boolean,
+	migriert	BOOLEAN		NOT NULL DEFAULT 'f'::boolean,
+	migrieren	BOOLEAN		NOT NULL DEFAULT 'f'::boolean,
+	fallgruppe	TEXT		CHECK(fallgruppe IS NULL OR fallgruppe IN ('1A', '1B', '2', '3')),
+	abschl		TEXT,
+	stg			TEXT,
+	vert		TEXT,
+	schwp		TEXT,
+	pversion	TEXT,
+	CONSTRAINT migrieren_fallgruppe CHECK(NOT migrieren OR fallgruppe IS NOT NULL)
+);
+
+-- Schritt 2:
+CREATE TABLE ichzzz.po_migration_vert
+(
+	tubaf_po	TEXT REFERENCES ichzzz.po_migration(tubaf_po),
+	vert		TEXT,
+	PRIMARY KEY(tubaf_po, vert)
+);
+
+//##########################################################
+-- Merke: ABARBEITUNGSREIHENFOLGE DER MIGRATIONEN einsehen
+-- ...ist extra SQL-Datei
+
+
+
+//################################ START FRÜHERE VERSION #########################################
+-- Schritt 1: Eine Sequenz erstellen (hier im Schema 'ichzzz'). Merke: Schemata können wohl nur kleingeschrieben werden.
+CREATE SEQUENCE ichzzz.po_migration_reihenfolge_seq
+
+--Schritt 2: benanntes unique constraint anwenden
+CREATE TABLE ichzzz.po_migration (
+    reihenfolge INT NOT NULL DEFAULT nextval('ichZZZ.po_migration_reihenfolge_seq'::regclass) UNIQUE,
+	tubaf_po text NOT NULL,
+    bereit boolean NOT NULL DEFAULT true,
+   	migriert boolean NOT NULL DEFAULT false
+);
+
+-- Optional: Die Sequenz mit der Tabelle verknüpfen (empfohlen)
+ALTER SEQUENCE ichzzz.po_migration_reihenfolge_seq OWNED BY ich.po_migration.reihenfolge;
+//############################ ENDE FRÜHERE VERSION #############################################
+
+
+
+

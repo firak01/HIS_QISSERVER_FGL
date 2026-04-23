@@ -1,0 +1,13 @@
+and pord.vert in 
+(
+    select vert
+    from tubaf.po_migration_vert
+    where tubaf_po =
+    (
+        select tubaf_po
+        from tubaf.po_migration
+        where migriert = false and bereit = true and migrieren = true
+        order by reihenfolge
+        limit 1
+    )
+)

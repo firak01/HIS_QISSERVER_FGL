@@ -1,0 +1,51 @@
+-- Schritt 5, etc.
+update ichzzz.po_migration
+set
+    abschl = split_part(tubaf_po,'-',1),
+    stg = split_part(tubaf_po,'-',2),
+    vert = split_part(tubaf_po,'-',3),
+    schwp = split_part(tubaf_po,'-',4),
+    pversion = split_part(tubaf_po,'-',5)
+;
+        
+insert into ichzzz.po_migration_vert(tubaf_po,vert)
+select tubaf_po, ''
+from ichzzz.po_migration
+where fallgruppe in ('1A') and vert = ''
+;
+
+insert into ichzzz.po_migration_vert(tubaf_po,vert)
+select tubaf_po, vert
+from ichzzz.po_migration
+where fallgruppe in ('3')
+;
+
+
+with zuordnung as
+(
+	select po_migration.tubaf_po, sub.vert from ichzzz.po_migration
+	join ichzzz.po_migration sub on
+	(
+	    po_migration.abschl = sub.abschl
+	    and po_migration.stg = sub.stg
+	    and po_migration.pversion = sub.pversion
+	)
+	where po_migration.fallgruppe in ('1B', '2') and po_migration.vert = ''
+)
+insert into ichzzz.po_migration_vert(tubaf_po,vert)
+select tubaf_po, vert
+from zuordnung
+;
+      
+update ichzzz.po_migration
+set migrieren = true
+from ichzzz.po_migration_vert
+where po_migration_vert.tubaf_po = po_migration.tubaf_po
+;
+
+--wichtig, damit das nicht vergessen wird überall den "bereit" Wert auf true setzen
+update ichzzz.po_migration
+set bereit = true
+from ichzzz.po_migration_vert
+where po_migration_vert.tubaf_po = po_migration.tubaf_po
+;

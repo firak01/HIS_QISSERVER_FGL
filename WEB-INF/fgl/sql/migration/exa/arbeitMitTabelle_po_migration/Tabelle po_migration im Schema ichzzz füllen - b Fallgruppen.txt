@@ -1,0 +1,319 @@
+------------------------------------------------------------------------------------------
+--##########################################################################
+-- Schritt 4: Fallgruppen füllen
+UPDATE ichzzz.po_migration SET fallgruppe = NULL, migrieren = false;
+
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '11-032---2015';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '11-032---2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-103---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-104---2020';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-104-ANL--2020';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-104-MAS--2020';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-104-MET--2020';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-105---2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-177---2016';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-177-Gi--2016';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-177-NE--2016';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-177-St--2016';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-177-Uft--2016';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-177-Wt--2016';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-177-WW--2016';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-184---2014';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '11-184---2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '11-216---2017';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-370---2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-370-BT--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-370-ET--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-370-GUT--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-370-ISM--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-370-MAN--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-370-TE--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-370-TM--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-370-TT--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-370-UT--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-370-VC--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-370-VTK--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-370-WSN--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '11-701---2026';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '11-B27---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '11-B99---2020';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '11-C12---2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '11-C29---2020';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '11-C2C---2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '11-C2C---2025';
+UPDATE ichzzz.po_migration SET fallgruppe='3' WHERE tubaf_po = '11-C42---2021';
+UPDATE ichzzz.po_migration SET fallgruppe='3' WHERE tubaf_po = '11-C42-Bb--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='3' WHERE tubaf_po = '11-C42-Gt--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='3' WHERE tubaf_po = '11-C42-TE--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C4F---2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C4F-Gi--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C4F-NE--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C4F-St--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C4F-Uft--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C4F-Wt--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C4F-WW--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C80---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C80---2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C80-Bb--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C80-Bb--2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C80-GES--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C80-GES--2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C80-Gt--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C80-Gt--2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C80-MA--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '11-C80-MA--2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-021---2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-021---2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '82-032---2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '82-049---2014';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '82-049---2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '82-076---2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-276---2015';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-370---2020';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '82-385---2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '82-702---2026';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-801---2020';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '82-801---2024';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '82-868---2015';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '82-868---2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '82-942---2018';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '82-942---2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '82-973---2014';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-B94---2014';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C11---2019';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C11---2024';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C2A---2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C2A---2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C2A-ET--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C2A-ET--2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C2A-MB--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C2A-MB--2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C2A-RPC--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C2A-RPC--2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C2A-TAN--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C2A-TAN--2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C2A-UT--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C2A-UT--2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C2A-VTC--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C2A-VTC--2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C4F---2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C4F-Gi--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C4F-NE--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C4F-St--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C4F-Uft--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C4F-Wt--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C4F-WW--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '82-C5E---2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '82-C7A---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '82-C7A---2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '82-C9E---2024';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-021---2019';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-032---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-039---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-039-HG--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-039-ING--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-039-LSL--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-039-MIN--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-039-SP--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-039-TS--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-049---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-049-FPH--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-049-HPH--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-049-TEM--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-049-UBA--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-066---2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-076---2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-211---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-216---2017';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-276---2015';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-370---2021';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-370-ISM--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-370-KGB--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-370-MB--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-370-RTE--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-370-RTT--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-370-VT--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-370-WST--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-385---2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-385---2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-457---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-734---2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-801---2020';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-801---2024';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-840---2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-978---2018';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-978---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-9F6---2009';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-AB8---2019';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-AB8---2024';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-AD0---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-B01---2020';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-B01---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-B5A---2020';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-B97---2020';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-B97---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-B97-RMV--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-B98---2009';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-B99---2020';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-BA0---2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-BA0---2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-BC8---2019';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-BC8---2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-BC8-Gi--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-BC8-NE--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-BC8-St--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-BC8-Uft--2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-BD5---2018';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-BD5---2024';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-BE3---2018';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-BE3---2024';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-BE6---2018';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-BE6---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-BE6---2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-C05---2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-C05-MRM--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-C05-MS--2021';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-C11---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-C2B---2020';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-C2B---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-C2B---2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-C2C---2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-C4E---2022';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-C4F---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-C4F-Gi--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-C4F-NE--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-C4F-St--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-C4F-Uft--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-C4F-Wt--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='2' WHERE tubaf_po = '88-C4F-WW--2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1B' WHERE tubaf_po = '88-C5E---2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-C89---2023';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-C99---2024';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-C9A---2024';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '88-CC9---2025';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '97-C13---2022';
+UPDATE ichzzz.po_migration SET fallgruppe='1A' WHERE tubaf_po = '97-STG---0';
+
+
+--#########################################################################################
+--### Frühere Version, Rohwerte füllen
+--########################################################################
+--- TABELLE FÜLLEN
+-- Beispiele für Prüfungsordnngen, die keine Vertiefung haben, aber die Konten haben, über die Vertiefungen abgebildet werden.
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '82-021---2022'
+);
+
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '11-103---2023'
+);
+
+
+
+-- per meinem SQL gefundenes Beispiel für fehlendes Modul 9910
+-- hier stellt sich die Frage ob 2025 schon komplett ist
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '88-BE6---2025'
+);
+
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '88-B98---2009'
+);
+
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '88-9F6---2009'
+);
+
+
+
+
+-----------------------
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '88-039---2022'
+);
+
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '88-039---2023'
+);
+
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '88-039-ING--2023'
+);
+
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '88-039-MIN--2023'
+);
+
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '88-039-HG--2023'
+);
+
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '88-039-LSL--2023'
+);
+
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '88-039-SP--2023'
+);
+
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '88-039-TS--2023'
+);
+
+
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '11-104---2020'
+);
+
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '11-104-ANL--2020'
+);
+
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '11-104-MAS--2020'
+);
+
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '11-104-MET--2020'
+);
+
+INSERT INTO ichzzz.po_migration (
+    tubaf_po
+) VALUES (
+    '88-AB8---2024'
+);
+
