@@ -64,6 +64,12 @@
 		<section name="menu-sospos-doc" active="n" description="DOC - Doktorandenmanagement" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Doktoranden' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
 		<section name="stay_abroad" active="n" description="Daten zu Auslandsaufenthalten der Studierenden" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Verteilter_Betrieb_HISinOne-STU_und_POS-GX#Aktualisierung_der_Daten_in_der_HISinOne-Datenbank' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
 		
+		<!-- Neuer Menüpunkt - Migrationen für EXA, die keine POs brauchen und vorher schon stattfinden können -->
+		<section name="subgroup" description="TUBAF - EXA - Prüfungs- und Veranstaltungsmanagement (ohne migrierte PO)" />
+		<section name="menu-sospos-leistungsdaten9999prePO" active="y" ueberschreiben="y" description="TUBAF: Leistungen (nur Abschussleistung von Exmatrikulierten, Promovenden)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
+			<menuentry name="hisinone-sospos-lab9999prePO" />			
+		</section>
+		
 		<section name="subgroup" description="EXA - Prüfungs- und Veranstaltungsmanagement"/>
 		
 		<section name="menu-sospos-pruefungsordnung" ueberschreiben="y" description="Prüfungsordnungen (1x auszuführen, vorgelagert)" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_PO' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
@@ -440,6 +446,27 @@
 					select stg 
 						from ichZZZ.po_migration
 						where migriert = true and bereit=true and migrieren=true
+						order by reihenfolge DESC
+						Limit 1
+                )"/>
+                
+                <!--  wie finishedStudyZZZ_lab_restriction nur ist hier in po_migration kein migriert = true notwendig/gewünscht -->
+                 <param active="y" name="finishedStudyZZZ_lab_restrictionPrePO" value="
+                AND lab.mtknr in(
+					select mtknr from sos where
+  					  sos.status in('X')
+					)
+                and lab.pnr in (9999) 
+				AND lab.abschl IN (
+					select abschl 
+						from ichZZZ.po_migration
+						where migriert = false and bereit=true and migrieren=true
+						order by reihenfolge DESC
+						Limit 1
+				) AND lab.stg IN (
+					select stg 
+						from ichZZZ.po_migration
+						where migriert = false and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1
                 )"/>
@@ -1012,6 +1039,39 @@
 					where migriert = true and bereit=true and migrieren=true
 					order by reihenfolge DESC
 					Limit 1) 		
+				" />
+				
+				
+				<!--  FL: 20251204 Lab Einschränkung wenn nur die Abschlussnote geholt werden soll  -->
+				 <param active="y" name="lab_restrictionTUBAF_NurAbschluss" value="AND lab.abschl IN (
+				select split_part(tubaf_po,'-',1) 
+from [schemaZZZ].po_migration
+where migriert = true and bereit=true
+order by reihenfolge DESC
+Limit 1
+				) AND lab.stg IN (
+				select split_part(tubaf_po,'-',2) 
+from [schemaZZZ].po_migration
+where migriert = true and bereit=true
+order by reihenfolge DESC
+Limit 1
+                )AND lab.vert IN (select case 
+									when split_part(tubaf_po,'-',3)=''
+        							THEN ''
+									ELSE
+	   								split_part(tubaf_po,'-',3)
+									END
+from [schemaZZZ].po_migration
+where migriert = true and bereit=true
+order by reihenfolge DESC
+Limit 1	
+				) AND lab.pversion IN (
+				select split_part(tubaf_po,'-',5)::smallint from [schemaZZZ].po_migration
+where migriert = true and bereit=true
+order by reihenfolge DESC
+Limit 1
+				) 
+[finishedStgZZZ_lab_restriction]	
 				" />
 
 				
@@ -1782,8 +1842,183 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
   	<!-- ENDE: FGL EXA-SCHLUESSELTABELLEN FUER PORD FGL ###################################### -->
      <!-- ############################################################### -->
     
-    
-  
+    <!-- START: FGL EXA FGL VOR PO MIGRATION -->
+    <!--        Im wesentlichen wird hier zwar auch auf die PO_MIGRATION - Tabelle zugegriffen, aber eine migrierte PO ist nicht notwendig -->
+  	<!-- A) Fuer Studenten, die einen Abschluss haben -->   	
+   	<entry name="hisinone-sospos-lab9999prePO" active="y" ueberschreiben="y" description="Abschlussleistungen der Studierenden (nur Abschluss) (Vor PO Migration)" databases="hisinone,sospos">
+      <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
+         <admin>
+            <execute />
+         </admin>
+      </rights>
+      <dbconnection name="sospos" />
+      <params>
+ 	        <!-- Das Mapping für die Migration der Freiversuche so füllen: -->
+      		<!-- Links: Freiversuchsvermerke aus Feld lab.freiverm	
+          		 Rechts: value_list.attribute_value für ident_value_list_id=25 (Freiversuchsvermerke)  
+          		 		 4 = "Freiversuch"
+          		 		 5 = "Verbesserung möglich"
+          		 		 6 = "Freiversuch zur Notenverbesserung"      	-->
+		    <param name="mappingFreeTrial" value="
+		     			FNB=4,
+		     			FBE=5,
+		                PFV=5,
+		    			FVB=6,
+						FNV=6,
+						PVB=6,
+					"/> 
+      </params>
+      <actions sendlevel="3" sqlblocksize="100000">
+         <action name="lab" active="y" ueberschreiben="y" xslt="dbinterface/hisinone/sospos/lab.vm">
+            <select>
+			SELECT DISTINCT
+				identroll.identnr AS identnr, lab.labnr AS labnr, lab.mtknr AS mtknr, lab.pnr AS pnr, lab.porgnr AS porgnr, lab.pversuch AS pversuch
+				, lab.prueck AS prueck, lab.pnote AS pnote, lab.pdatum AS pdatum, lab.pform AS pform, lab.psem AS semester, lab.ptermin AS ptermin
+				, identroll2.identnr AS identnr_ppruef1, identroll3.identnr AS identnr_ppruef2
+				, identroll4.identnr AS identnr_betreu1, identroll5.identnr AS identnr_betreu2, identroll6.identnr AS identnr_pgut
+				, lab.psws AS psws, lab.praum AS praum, lab.pbeginn AS pbeginn, lab.ppunkte AS ppunkte, lab.bonus AS bonus, lab.malus AS malus
+				, lab.freiverm AS freiverm , lab.beleg AS beleg, lab.panerk AS panerk, lab.pvermerk AS pvermerk, lab.aendkz AS aendkz, dipl.labnr
+				, dipl.antrdat, dipl.beabeg, dipl.abdat, dipl.tabdat, dipl.verldat, dipl.thema, dipl.betreu1, dipl.betreu2, dipl.vermint
+				, dipl.diabltxt, dipl.diablnr, dipl.pnote1 AS pnote1, dipl.pnote2 AS pnote2, dipl.pnotegut AS pnotegut
+				, hskonst.hpnr AS hpnr, hskonst.vpnr AS vpnr, hskonst.sonstpnr1 AS sonstpnr1, hskonst.sonstpnr2 AS sonstpnr2, hskonst.sonstpnr3 AS sonstpnr3
+				, pord.pvken4 AS pvken4, pord.lehrsprache AS petgp, pord.partngb AS partngb
+                ,  CASE lab.pstatus
+                    WHEN 'AN' THEN 'ZU'
+                    ELSE lab.pstatus
+                  END AS pstatus,
+                  CASE
+                  	WHEN lab.pordnr!= hisinone_mapping.kopf
+                  		THEN  hisinone_mapping.kopf
+                  	ELSE lab.pordnr
+                  END AS pordnr
+	            FROM lab 
+	            INNER JOIN hskonst ON (hskonst.aikz = 'A')
+	            INNER JOIN pord ON (pord.pordnr = lab.pordnr)
+	            INNER JOIN identroll ON (lab.mtknr = identroll.verbindung_integer AND identroll.rolle IN ('S', '4'))
+	            INNER JOIN sos ON (lab.mtknr = sos.mtknr)
+	            INNER JOIN stg ON (lab.mtknr = stg.mtknr)
+	            LEFT OUTER JOIN identroll AS identroll2 ON (identroll2.verbindung_char = lab.ppruef1 AND identroll2.rolle = 'P')
+	            LEFT OUTER JOIN identroll AS identroll3 ON (identroll3.verbindung_char = lab.ppruef2 AND identroll3.rolle = 'P')
+	            LEFT OUTER JOIN dipl ON (lab.labnr = dipl.labnr) 
+	            LEFT OUTER JOIN identroll AS identroll4 ON (identroll4.verbindung_char = dipl.betreu1 AND identroll4.rolle = 'P')
+	            LEFT OUTER JOIN identroll AS identroll5 ON (identroll5.verbindung_char = dipl.betreu2 AND identroll5.rolle = 'P')
+	            LEFT OUTER JOIN identroll AS identroll6 ON (identroll6.verbindung_char = dipl.pgut AND identroll6.rolle = 'P')
+	            LEFT OUTER JOIN hisinone_mapping ON (hisinone_mapping.tabpk=lab.pordnr AND hisinone_mapping.tabelle='pord')
+	            WHERE lab.psem != 0 AND lab.psem IS NOT NULL  
+	            AND (lab.prueck &lt; 2
+	             [sos_restrictionTUBAF_exmadat][lab_restriction][finishedStudyZZZ_lab_restrictionPrePO])[lab_addition_promoventTUBAF]
+	            ORDER BY lab.mtknr, lab.labnr
+            </select>
+	        <param name="database" value="sospos" />
+            <param name="srctable" value="ident" />
+            <param name="srctableid" value="identnr" />
+            <param name="targetobject" value="examplan" />
+            <!-- Im Standard soll es für die Abschlussprüfungen aus hskonst (hpnr, vpnr, sonstpnr1, sonstpnr2, sonstpnr3) nur einen LAB-Satz geben -->
+            <!-- value="y" -> Es dürfen mehrere LAB-Sätze für die Abschlussprüfungen vorhanden sein  -->
+            <param name="allowMultipleExamination" value="n" />
+            <param name="TIMER" value="y" />
+	        <param name="DEBUG" value="y" />
+         </action>
+
+		<!-- FL: 20251020
+			 In der Tabelle dipls sollen die Fremsprachlichen Diplomarbeiten abgelegt sein.		
+		     Aber hier in der TUBAF haben alle Datensätze der Tabelle ein 'D'. Daher SQL abgeändert:	
+		     -CASE WHEN 'D' THEN 'en'
+			 -WHERE Teil raus:  AND dipls.sprache NOT IN ('D') -->				
+          <action name="dipls" active="y" ueberschreiben="y" xslt="dbinterface/hisinone/sospos/foreigntext.vm">
+            <select>
+            SELECT dipls.labnr as labnr, dipls.thema as thema, 
+                CASE dipls.sprache
+                	WHEN  'E' THEN 'en' 
+                    WHEN  'F' THEN 'fr' 
+                    WHEN  'D' THEN 'en'
+                    ELSE 'en'
+            END AS sprache 
+            FROM dipls
+            INNER JOIN lab ON (dipls.labnr = lab.labnr)
+            INNER JOIN pord ON (pord.pordnr = lab.pordnr)
+            INNER JOIN identroll ON (lab.mtknr = identroll.verbindung_integer AND identroll.rolle = 'S') 
+			INNER JOIN sos ON (lab.mtknr = sos.mtknr)
+            WHERE 1=1	       
+            AND dipls.thema IS NOT NULL  
+ 	             [sos_restrictionTUBAF_exmadat][lab_restriction][finishedStudyZZZ_lab_restrictionPrePO] 
+            ORDER BY 1
+            </select>
+            <param name="srctable" value="dipls" />
+            <param name="table" value="exam_written" />
+            <param name="srccolumn" value="labnr" />
+            <param name="column" value="title" /> <!-- dipl.thema -->
+            <param name="externaltable" value="dipl" />
+            <param name="externaltabpk" value="labnr" />
+            <param name="externalsystem" value="sospos" />
+            <param name="DEBUG" value="n" />
+            <param name="targetobject" value="foreigntext" />
+          </action> 
+          
+         <action name="pzutxts" active="y" ueberschreiben="y" xslt="dbinterface/hisinone/sospos/pzutxts.vm">
+            <select>
+			SELECT DISTINCT pzutxts.labnr AS labnr, pzutxts.art AS art, pzutxts.sprache AS sprache
+			, pord.pvken4 AS pvken4, pord.lehrsprache AS petgp
+			FROM pzutxts, lab, identroll, pord, sos			
+			WHERE sos.mtknr = lab.mtknr
+			AND lab.mtknr = identroll.verbindung_integer AND identroll.rolle = 'S'			
+			AND pord.pordnr = lab.pordnr 
+			AND pzutxts.labnr = lab.labnr
+			AND pzutxts.sprache = 'D'
+			[sos_restrictionTUBAF_exmadat][lab_restrictionTUBAF_NurAbschluss] 
+			GROUP BY pzutxts.labnr, pzutxts.sprache, pzutxts.art, pord.pvken4, pord.lehrsprache
+	        ORDER BY pzutxts.labnr
+            </select>
+	        <param name="targetobject" value="additional_examtext" />
+	        <param name="TIMER" value="y" />
+	        <param name="DEBUG" value="n" />
+         </action>
+         <action name="pzutxts-foreigntext" active="y" ueberschreiben="y" xslt="dbinterface/hisinone/sospos/pzutxts-foreigntext.vm">
+            <select>
+			SELECT DISTINCT pzutxts.labnr AS labnr, pzutxts.art AS art, pzutxts.sprache AS sprache
+			, pord.pvken4 AS pvken4, pord.lehrsprache AS petgp
+			FROM pzutxts, lab, identroll, pord, sos			
+			WHERE sos.mtknr = lab.mtknr
+			AND lab.mtknr = identroll.verbindung_integer AND identroll.rolle = 'S'
+			AND pord.pordnr = lab.pordnr 
+			AND pzutxts.labnr = lab.labnr
+			AND pzutxts.sprache NOT IN ('D')
+			[sos_restrictionTUBAF_exmadat][lab_restriction][finishedStudyZZZ_lab_restrictionPrePO] 
+			GROUP BY pzutxts.labnr, pzutxts.sprache, pzutxts.art, pord.pvken4, pord.lehrsprache
+	        ORDER BY pzutxts.labnr
+            </select>
+	        <param name="targetobject" value="foreigntext" />
+	        <param name="TIMER" value="y" />
+	        <param name="DEBUG" value="n" />
+         </action>
+         <action name="pzutxt-akfz-ikfzha" active="y" ueberschreiben="y" xslt="dbinterface/hisinone/sospos/pzutxt-akfz-ikfzha.vm">
+            <select>
+			SELECT DISTINCT pzutxt.labnr AS labnr, pzutxt.art AS art, k_akfz.astat AS akfz_astat, k_ikfzha.ikfzha AS ikfzha, k_uniausl.k_uniauslnr AS k_uniauslnr, lab.panerk AS panerk
+				, pord.pvken4 AS pvken4, pord.lehrsprache AS petgp
+				FROM pzutxt
+				INNER JOIN lab ON (pzutxt.labnr = lab.labnr)
+				INNER JOIN identroll ON (lab.mtknr = identroll.verbindung_integer AND identroll.rolle = 'S')
+				INNER JOIN sos ON (lab.mtknr = sos.mtknr)
+				INNER JOIN pord ON (pord.pordnr = lab.pordnr)
+				LEFT OUTER JOIN k_akfz ON (upper(pzutxt.akfz) = k_akfz.akfz)
+				LEFT OUTER JOIN k_ikfzha ON (k_ikfzha.ikfzha = pzutxt.ikfzha)
+				LEFT OUTER JOIN k_uniausl ON (k_uniausl.hs = pzutxt.ikfzha)
+				WHERE 1=1
+				AND lab.panerk != 'N' AND trim(lab.panerk) != ''
+				AND pzutxt.akfz IS NOT NULL AND trim(pzutxt.akfz) != ''
+				[sos_restrictionTUBAF_exmadat][lab_restriction][finishedStudyZZZ_lab_restriction] 
+		        ORDER BY pzutxt.labnr
+            </select>
+	        <param name="targetobject" value="examimport" />
+	        <param name="TIMER" value="y" />
+	        <param name="DEBUG" value="n" />
+         </action>         
+      </actions>
+      <destination>intern</destination>   
+      <preprocessing active="n">
+	  <!-- FL20251202: Rausgenommen, die Loeschungen sollen nur 1x gemacht werden, s. Originalvariante dieses Entries. -->
+	  </preprocessing>   
+	</entry>
    
    <!-- ############################################################### -->
     <!-- START: FGL EXA FGL ###################################### -->
