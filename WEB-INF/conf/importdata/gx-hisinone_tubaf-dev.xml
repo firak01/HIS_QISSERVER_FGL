@@ -1994,7 +1994,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 					WHERE pord.pordnr = pnrzuord.pordnr 
 					AND artzuord NOT IN ('KOH', 'BFV', 'akv', 'grp', 'aq')
 						[artzuord_restriction]
-						[pord_restriction_PrePO]   
+						-- alle nehmen2 [pord_restriction_PrePO]   
 				UNION
 				SELECT 	
 					pnrzuord.pordnr,
@@ -2015,7 +2015,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 						WHERE 1 = 1
 						AND artzuord NOT IN ('KOH', 'BFV', 'akv', 'grp', 'aq')
 						[artzuord_restriction] 
-						[pord_restriction_PrePO]
+						-- alle nehmen2 [pord_restriction_PrePO]
 				 ORDER BY 1
             </select>
             <param name="targetobject" value="unitrelation" />
