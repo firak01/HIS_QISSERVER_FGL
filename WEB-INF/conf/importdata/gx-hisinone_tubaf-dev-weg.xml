@@ -13,7 +13,7 @@
 	<!-- Für das cust-exa System müssen Teststudis und deren Studienverläufe migriert werden -->
 	<!-- <section name="group" description="HISinOne Campusmanagement"/> -->
 	<menu ueberschreiben="y">
-		<section name="group" active="n" description="HISinOne Kernsegment"/>
+		<section name="group" description="HISinOne Kernsegment"/>
 		<section name="subgroup" active="n" description="Organisationseinheiten und Projekte" />
 		<section name="menu-sva-schluessel" active="n" description="Organisationseinheiten aus COBFSVSVA" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Organisationseinheiten_aus_COBFSVSVA-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
 		<section name="menu-lsf-einrichtung" active="n" description="Organisationseinheiten aus LSF" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Organisationseinheiten_aus_LSF-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
@@ -28,10 +28,13 @@
 		<section name="menu-lsf-k_geb_stock_raum" active="n" description="Räume aus LSF" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Raeume_aus_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
 		<section name="menu-mbs-geb" active="n" description=" Räume aus BAU" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Raeume_aus_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; "/>
 		
-		<section name="subgroup" active="n" description="Personen"/>
+		<section name="subgroup" description="Personen"/>
 		<section name="menu-sva-pgd" active="n" description="Personen aus SVA" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Personen_aus_HIS-GX_SOSPOS_und_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />		
 		<section name="menu-lsf-personal" active="n" description="Personen aus LSF" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Personen_aus_HIS-GX_SOSPOS_und_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
-	
+		<section name="menu-sospos-personen" description="Personen aus SOSPOS" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Personen_aus_HIS-GX_SOSPOS_und_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
+			<menuentry name="hisinone-sospos-student" />
+		</section>
+
 
 		<section name="group" description="HISinOne Campusmanagement"/>
 		
@@ -45,6 +48,10 @@
 		<section name="subgroup" active="n" description="APP - Bewerbungs- und Zulassungsmanagement" />
 		<section name="menu-sospos-k_fehl" active="n" description="Schlüsseltabelle für fehlende Unterlagen"/>
 		
+		<section name="subgroup" description="STU - Studierendenmanagement" />
+		<section name="menu-sospos-stg" description="Studienverlauf" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Studierende' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
+					<menuentry name="hisinone-sospos-stg" />
+		</section>
 		
 		<section name="menu-sospos-fristen" active="n" description="Anträge für Fristverlängerungen für STU-relevante Prüfungen" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Fristverl%C3%A4ngerungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
 		<section name="menu-sospos-gebuehren" active="n" description="Gebührenverlauf und Minderungen" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Gebuehren' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
@@ -57,32 +64,26 @@
 		<section name="menu-sospos-doc" active="n" description="DOC - Doktorandenmanagement" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Doktoranden' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
 		<section name="stay_abroad" active="n" description="Daten zu Auslandsaufenthalten der Studierenden" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Verteilter_Betrieb_HISinOne-STU_und_POS-GX#Aktualisierung_der_Daten_in_der_HISinOne-Datenbank' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
 		
-		
-		<!-- Neue Menüpunkte - Migrationen für EXA, die keine POs brauchen und vorher schon stattfinden können -->		
-		<section name="subgroup" description="TUBAF: STU für EXA - TESTDATEN für CUST-Systeme (ohne migrierte PO)" />
+		<!-- Neuer Menüpunkt - Migrationen für EXA, die keine POs brauchen und vorher schon stattfinden können -->
+		<section name="subgroup" description="TUBAF - EXA - Prüfungs- und Veranstaltungsmanagement (ohne migrierte PO)" />
 		<section name="menu-sospos-personenPrePO" description="Personen aus SOSPOS" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Personen_aus_HIS-GX_SOSPOS_und_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
 			<menuentry name="hisinone-sospos-studentPrePO" />
 		</section>
 		<section name="menu-sospos-stgPrePO" description="Studienverlauf" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Studierende' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
 					<menuentry name="hisinone-sospos-stgPrePO" />
 		</section>
-		<section name="menu-sospos-leistungsdaten9999prePO" active="y" ueberschreiben="y" description="Leistungen (nur Abschussleistung von Exmatrikulierten, Promovenden)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
+		<section name="menu-sospos-leistungsdaten9999prePO" active="y" ueberschreiben="y" description="TUBAF: Leistungen (nur Abschussleistung von Exmatrikulierten, Promovenden)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
 			<menuentry name="hisinone-sospos-lab9999prePO" />			
 		</section>
-		
-		<section name="subgroup" description="TUBAF: EXA - Schlüsseltabellen (1x auszuführen, vorgelagert)"/>		
-		<section name="menu-sospos-pruefungsordnung" ueberschreiben="y" description="Schlüsseltabellen für Prüfungsordnungen" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_PO' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
-			<menuentry name="hisinone-sospos-k_p-tabellen" />			
-		</section>
-					
-		<section name="subgroup" description="TUBAF: KATALOG (ohne migrierte PO)" />
-		<section name="menu-Klemmbaustein" active="y" ueberschreiben="y"  description="Klemmbaumsteinkasten" >
+		<section name="menu-Klemmbaustein" active="y" ueberschreiben="y"  description="TUBAF: Klemmbaumsteinkasten" >
 			<menuentry name="hisinone-sospos-pordPrePO" />						
 		</section>
 		
-		<!-- Neue Menüpunkte - Migrationen für EXA, die POs - gesteuert über die SOSPOS Tabelle tubaf.po_migration -->
-		<section name="group" active="y" description="TUBAF EXA FORTLAUFENDE MIGRATION"/>		
-		<section name="subgroup" description="TUBAF: PRÜFUNGSORDNUNGSMIGRATION (der aktuell bereitgestellten PO)" />
+		<section name="subgroup" description="EXA - Prüfungs- und Veranstaltungsmanagement"/>
+		
+		<section name="menu-sospos-pruefungsordnung" ueberschreiben="y" description="Prüfungsordnungen (1x auszuführen, vorgelagert)" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_PO' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
+			<menuentry name="hisinone-sospos-k_p-tabellen" />			
+		</section>
 		<section name="menue-Fallgruppe-A" description="Fallgruppe A: Eine Prüfungsordnung über alle Vertiefungen (HIS Normal. Vertiefung im Studienverlauf festgelegt.)" >
 			<menuentry name="hisinone-sospos-pord" />
 			<menuentry name="zuordnung-pruefung-gesamtkonto" />
@@ -97,17 +98,9 @@
 			<menuentry name="hisinone-unit_studies" />
 		</section>
 		
-		<section name="subgroup" description="TUBAF: LEISTUNGSMIGRATION (für zuletzt migrierte PO, nachgelagert)"/>
-		<section name="subgroup" description="TUBAF: STU für EXA - TESTDATEN für CUST-Systeme (für zuletzt migrierte PO, nachgelagert)" />		
-		<section name="menu-sospos-personen" description="Personen aus SOSPOS" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Personen_aus_HIS-GX_SOSPOS_und_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
-			<menuentry name="hisinone-sospos-student" />
-		</section>
-		<section name="menu-sospos-stg" description="Studienverlauf" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Studierende' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
-					<menuentry name="hisinone-sospos-stg" />
-		</section>
+		<section name="subgroup" description="Leistungen"/>
 		
-		<section name="subgroup" description="TUBAF: LEISTUNGEN ((für zuletzt migrierte PO, nachgelagert)"/>		
-		<section name="menu-sospos-leistungsdaten" ueberschreiben="y" description="Leistungsdaten (alle, von nicht Exmatrikulierten, nicht Promovenden)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
+		<section name="menu-sospos-leistungsdaten" ueberschreiben="y" description="TUBAF: Leistungen (alle, von nicht Exmatrikulierten, nicht Promovenden)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
 			<menuentry name="hisinone-sospos-lab" />
 			<menuentry name="hisinone-sospos-lab-prgrup" />
 			<menuentry name="hisinone-sospos-labzuord" />
@@ -116,13 +109,13 @@
 		
 		<!-- Eigener Menüpunkt für Leistungen der Studenten, die einen Abschluss haben.  -->
 		<!-- Darin werden die Leistungen auf die 9999 begrenzt -->
-		<section name="menu-sospos-leistungsdaten9999" active="y" ueberschreiben="y" description="Leistungsdaten (nur Abschussleistung von Exmatrikulierten, Promovenden)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
+		<section name="menu-sospos-leistungsdaten9999" active="y" ueberschreiben="y" description="TUBAF: Leistungen (nur Abschussleistung von Exmatrikulierten, Promovenden)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
 			<menuentry name="hisinone-sospos-lab9999" />
 			<menuentry name="hisinone-sospos-labzuord9999" />
 			<menuentry name="hisinone-sospos-labzuord-gesamtkonto9999" />
 		</section>	
 		
-		<section name="menu-hisinone-examrelation" active="y" ueberschreiben="y" description="Fehlende Zuordnungen zu Leistungen gemäß Prüfungsordnung ergänzen">
+		<section name="menu-hisinone-examrelation" active="y" ueberschreiben="y" description="TUBAF - Fehlende Zuordnungen zu Leistungen gemäß Prüfungsordnung ergänzen">
 			<menuentry name="hisinone-examrelation" />
 		</section>
 		
