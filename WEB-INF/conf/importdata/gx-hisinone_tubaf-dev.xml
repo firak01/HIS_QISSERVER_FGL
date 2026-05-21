@@ -66,8 +66,17 @@
 		
 		<!-- Neuer Menüpunkt - Migrationen für EXA, die keine POs brauchen und vorher schon stattfinden können -->
 		<section name="subgroup" description="TUBAF - EXA - Prüfungs- und Veranstaltungsmanagement (ohne migrierte PO)" />
+		<section name="menu-sospos-personenPrePO" description="Personen aus SOSPOS" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Personen_aus_HIS-GX_SOSPOS_und_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
+			<menuentry name="hisinone-sospos-studentPrePO" />
+		</section>
+		<section name="menu-sospos-stgPrePO" description="Studienverlauf" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Studierende' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
+					<menuentry name="hisinone-sospos-stgPrePO" />
+		</section>
 		<section name="menu-sospos-leistungsdaten9999prePO" active="y" ueberschreiben="y" description="TUBAF: Leistungen (nur Abschussleistung von Exmatrikulierten, Promovenden)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
 			<menuentry name="hisinone-sospos-lab9999prePO" />			
+		</section>
+		<section name="menu-Klemmbaustein" active="y" ueberschreiben="y"  description="TUBAF: Klemmbaumsteinkasten" >
+			<menuentry name="hisinone-sospos-pordPrePO" />						
 		</section>
 		
 		<section name="subgroup" description="EXA - Prüfungs- und Veranstaltungsmanagement"/>
@@ -860,7 +869,17 @@
 							order by reihenfolge DESC
 							Limit 1)
 			 )" />
+			 	
+			 <!-- PRE PO Migrationen -->		 
+			 <!-- fuer die Testweise Migration aller Studenten (VOR DER PO MIGRATION) -->
+			 <param active="y" name="sos_restriction_PrePO" value="AND (sos.exmdat IS null or sos.exmdat >= DATE '2019-10-01')" />
+			 <param active="y" name="sos_restrictionTUBAF_exmadat_PrePO" value="AND (sos.exmdat IS null or sos.exmdat &gt;= DATE '2019-10-01')" />
 			 
+			 <!-- fuer den 'Klemmbausteinkasten' -->
+			 <param active="y" name="pord_restriction_PrePO" value="AND pord.pltxt4 LIKE 'P1\_%' ESCAPE '\\'" />
+			 
+			 			 
+			 <!-- fuer die Testweise Migration nur der Studenten, bezogen auf die aktuell zu migrierenden PO (VOR DER PO MIGRATION) -->
 			 <param active="y" name="sos_restriction" value="AND (sos.exmdat IS null or sos.exmdat >= DATE '2019-10-01')  
          	AND identroll.verbindung_integer IN (
 					   	select mtknr from lab
@@ -1149,7 +1168,927 @@ Limit 1
       	</params>
     </globals>
   
-  	<!-- ###########################################################
+  	<!-- #######################################################################################
+  	     ### EXA - Komplettmigration der Studierenden zum Test auf dem CUST01 -->
+  <entry name="hisinone-sospos-studentPrePO" active="y" description="Studierende" databases="hisinone,sospos">
+      <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
+         <admin>
+            <execute />
+         </admin>
+      </rights>
+      <dbconnection name="sospos" />
+      <actions sendlevel="3">
+       
+         <!-- FL: 20241204 - In SOS liegen Datansätze mit dem Wert O für Geschlecht vor, diese entsprechen dem Wert U in HISinOne -->
+         <action name="ident" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/person.vm">
+			<select>  
+				SELECT ident.identnr AS identnr, ident.vorname AS firstname, ident.name as surname				
+					, CASE ident.geschl
+						WHEN 'O'
+							THEN 'U'						 
+						ELSE
+							ident.geschl
+					  END AS gender
+					, ident.anti as title_academicdegree, ident.antizudtxt as nameprefix
+					, gebdat AS birthdate, gebort AS birthcity, gebname AS birthname, gebland AS birthcountry, k_akfz3.astat AS birthcountry_astat
+					, sos.titel_nachgestellt AS namesuffix
+					, sos.staat AS nationality_country_plate, k_akfz.astat AS nationality, sos.zweitstaat AS nationality2_country_plate, k_akfz2.astat AS nationality2
+					, dokvorname AS allfirstnames, ord_kuenstname AS artistname
+					, identroll.rolle AS rolle
+					, identroll.verbindung_integer AS mtknr
+					, identroll.verbindung_integer AS doctoral_registrationnumber
+					, k_hrst.his_hrst AS his_hrst
+					, sos.status AS status
+					, wahlfb, immdat, hmkfzkz, hmkfz, anschri.anschrkz AS s_anschrift,  semkfzkz, semkfz  
+					, sos.immdat AS valid_from
+					, sos.hssem AS hssem, sos.urlsem AS urlsem, sos.praxsem AS praxsem, sos.kolsem AS kolsem, sos.semester AS semester
+					, sos.hssemgewicht AS hssemgewicht, sos.urlsemgewicht AS urlsemgewicht
+					, sos.bafnr AS bafnr, sos.bvanr AS bvanr, sos.bafamt AS bafamt, k_bland.astat AS bafland_astat
+					, CASE sos.sperrart1
+						WHEN '1' THEN 'BE'
+						WHEN '14' THEN 'BE'
+						WHEN '21' THEN 'WV'
+						WHEN '7'  THEN 'WV'
+						WHEN '3'  THEN 'FP'
+						WHEN '6' THEN 'TZ'
+						WHEN '8' then 'ZV'
+						WHEN '10' THEN 'GA'						
+						WHEN '11' THEN 'ZU'
+						WHEN '12' then 'DS'
+						WHEN '15' then 'SG'
+						WHEN '18' then 'VB'
+						WHEN '22' then 'FS'
+						WHEN '23' then 'MO'
+						ELSE 
+							sos.sperrart1
+						END as sperrart1
+					, sos.sperrsem1 AS sperrsem1
+					, CASE sos.sperrart2
+							WHEN '1' THEN 'BE'
+						WHEN '14' THEN 'BE'
+						WHEN '21' THEN 'WV'
+						WHEN '7'  THEN 'WV'
+						WHEN '3'  THEN 'FP'
+						WHEN '6' THEN 'TZ'
+						WHEN '8' then 'ZV'
+						WHEN '10' THEN 'GA'						
+						WHEN '11' THEN 'ZU'
+						WHEN '12' then 'DS'
+						WHEN '15' then 'SG'
+						WHEN '18' then 'VB'
+						WHEN '22' then 'FS'
+						WHEN '23' then 'MO'
+						ELSE 
+							sos.sperrart2
+						END as sperrart2
+					, sos.sperrsem2 AS sperrsem2
+					, sos.berufab AS berufab, sos.prakt1 AS prakt1
+					, sos.bibnr AS bibnr
+					, sos.datlnacherfassung AS datlnacherfassung
+	
+				FROM sos 
+	     		INNER JOIN identroll ON (sos.mtknr = identroll.verbindung_integer)
+	            INNER  JOIN ident ON (ident.identnr = identroll.identnr)
+	            LEFT OUTER JOIN k_hrst ON (sos.hrst = k_hrst.hrst)
+	            LEFT OUTER JOIN k_akfz ON (sos.staat = k_akfz.akfz) 
+	            LEFT OUTER JOIN k_akfz AS k_akfz2 ON (sos.zweitstaat = k_akfz2.akfz)
+	            LEFT OUTER JOIN k_akfz AS k_akfz3 ON (sos.gebland = k_akfz3.akfz)
+	            LEFT OUTER JOIN k_bland ON (sos.bafland = k_bland.bland)
+	            LEFT OUTER JOIN anschri AS anschri ON (sos.mtknr = anschri.mtknr AND anschri.anschrkz = 'S')
+	            WHERE ident.name IS NOT NULL AND TRIM(ident.name) != ''
+	            AND identroll.rolle IN ('S') 
+	           		[sos_restriction_PrePO]
+	            ORDER BY identnr
+            </select>	
+            <param name="database" value="sospos" />
+            <param name="srctable" value="ident" />
+            <param name="srctableid" value="identnr" />
+            <param name="srctable2" value="ident" />
+            <param name="srctable2id" value="identnr" />
+            <param name="create" value="y" />
+			<param name="verbose" value="[verbose]" />
+            <param name="dbactions" value="[dbactions]" />
+			<param name="DEBUG" value="y" />
+			<param name="TIMER" value="y" />
+	        <param name="targetobject" value="person" />
+	        <param name="warnIfChanged" value="y" />
+         </action>
+         <action name="soshzb" active="y" xslt="dbinterface/hisinone/sospos-hzb.vm">
+            <select>
+				SELECT DISTINCT identroll.identnr as identnr
+				, sos.mtknr AS mtknr
+				, sos.hzbart AS hzbart
+				, sos.hzbjahr AS hzbjahr
+				, sos.hzbkfzkz AS hzbkfzkz
+				, sos.hzbkfz AS hzbkfz
+				, sos.hzbdatum AS hzbdatum
+				, sos.hzbnote AS hzbnote
+				, sos.staatkez AS staatkez
+				, sos.ersthzbart AS ersthzbart
+				, sos.ersthzbjahr AS ersthzbjahr
+				, sos.ersthzbkfzkz AS ersthzbkfzkz
+				, sos.ersthzbkfz AS ersthzbkfz
+				, sos.ersthzbdatum AS ersthzbdatum
+				, sos.ersthzbnote AS ersthzbnote
+				, k_hrst.his_hrst AS his_hrst
+				
+				FROM sos, identroll, k_hrst
+				 
+				WHERE sos.mtknr = identroll.verbindung_integer 
+				AND identroll.rolle IN ('S') 
+				AND sos.hrst = k_hrst.hrst
+					[sos_restriction_PrePO]
+					
+				ORDER by 2
+            </select>
+            <param name="database" value="sospos" />
+            <param name="srctable" value="ident" />
+            <param name="srctableid" value="identnr" />
+            <param name="targetobject" value="examplan" />
+            <param name="keineWARNGasthOhneHZB" value="y" /> <!-- Wenn Gasthörer keine HZB haben wird keine Warnung ausgegeben. Warnung soll ausgegeben werden: <param name="keineWARNGasthOhneHZB" value="n" /> -->
+	        <param name="DEBUG" value="n" />
+	        <param name="TIMER" value="y" />
+         </action>   
+         <action name="sos-smv" active="y" xslt="dbinterface/hisinone/sospos-smv.vm">
+         	<!-- Daten zur Krankenversicherung und SMV (ohne Meldungsverlauf) -->
+            <select>
+				SELECT identroll.identnr AS identnr
+					, sos.mtknr AS mtknr
+					, sos.status AS status
+					, CASE k_kraver.his_kraver
+						WHEN 'P'
+							THEN '1'
+						WHEN 'B' 
+							THEN '2'
+					  END AS kraver_hiskey_id
+					, sos.krabnr AS krabnr
+					, sos.kravnr AS kravnr
+					, sos.smv_teilnahme AS smv_teilnahme
+					, sos.smv_pruefdatum AS smv_pruefdatum
+					, sos.state_of_insurance AS state_of_insurance
+					FROM sos 
+					INNER JOIN identroll ON (sos.mtknr = identroll.verbindung_integer AND identroll.rolle = 'S')
+					LEFT OUTER JOIN k_kraver ON (sos.kravers = k_kraver.kraver)
+					LEFT OUTER JOIN k_krabnr ON (sos.krabnr = k_krabnr.krabnr)
+					WHERE 1=1
+	            		[sos_restriction] 
+	            	ORDER BY identroll.identnr
+		   </select>
+           <param name="database" value="sospos" />
+           <param name="srctable" value="ident" />
+           <param name="srctableid" value="identnr" />
+           <param name="targetobject" value="personinfo" />
+	       <param name="DEBUG" value="n" />
+		   <param name="TIMER" value="y" />
+         </action>
+         <action name="smv_notification" active="y" xslt="dbinterface/hisinone/sospos-smv_notification.vm">
+         	<!-- Meldungsverlauf SMV -->
+            <select>
+				SELECT smv_notification.id AS id
+				, smv_notification.identnr AS identnr
+				, identroll.verbindung_integer AS mtknr
+				, smv_notification.smv_file_id AS smv_file_id
+				, smv_notification.notification_version AS notification_version
+				, smv_notification.smv_reason_of_notification AS smv_reason_of_notification
+				, smv_notification.cancellation_flag AS cancellation_flag
+				, smv_notification.original_record_identifier AS original_record_identifier
+				, smv_notification.original_smv_notification_id AS original_smv_notification_id
+				, smv_notification.smv_status AS smv_status
+				, smv_notification.record_identifier AS record_identifier
+				, smv_notification.creation_date AS creation_date
+				, smv_notification.health_insurance_company_no AS health_insurance_company_no
+				, smv_notification.health_insurance_no AS health_insurance_no
+				, smv_notification.firstname AS firstname
+				, smv_notification.surname AS surname
+				, smv_notification.name_affix AS name_affix
+				, smv_notification.name_prefix AS name_prefix
+				, smv_notification.gender AS gender
+				, smv_notification.date_of_birth AS date_of_birth
+				, smv_notification.addressaddition AS addressaddition
+				, smv_notification.street AS street
+				, smv_notification.street_number AS street_number
+				, smv_notification.postcode AS postcode
+				, smv_notification.city AS city
+				, smv_notification.state_of_insurance AS state_of_insurance
+				, smv_notification.change_of_insurance AS change_of_insurance
+				, smv_notification.enrolled_at AS enrolled_at
+				, smv_notification.term_start AS term_start
+				, smv_notification.disenrolled_at AS disenrolled_at
+				, smv_notification.term_end AS term_end
+				, smv_notification.delivered_at AS delivered_at
+				, smv_notification.original_data_set AS original_data_set
+				, smv_notification.original_health_insurance_no AS original_health_insurance_no
+				, smv_notification.original_k_health_insurance AS original_k_health_insurance
+				, CASE k_kraver.his_kraver
+					WHEN 'P'
+						THEN '1'
+					WHEN 'B' 
+						THEN '2'
+				END AS original_k_insurant_status
+				, smv_notification.internal_comment AS internal_comment
+				, smv_notification.assigned_at AS assigned_at
+				, smv_notification.assigned_from AS assigned_from
+				FROM smv_notification
+				JOIN identroll ON (identroll.identnr = smv_notification.identnr AND identroll.rolle in ('S'))
+				JOIN s_var ON (s_var.varnr = 307)
+				LEFT OUTER JOIN k_kraver ON (smv_notification.original_k_insurant_status = k_kraver.kraver)
+				WHERE 1=1
+				AND s_var.wert1 = 'J'
+				AND notification_version IS NOT NULL
+				AND record_identifier IS NOT NULL
+				AND health_insurance_company_no IS NOT NULL
+				AND firstname IS NOT NULL
+				AND surname IS NOT NULL
+				AND date_of_birth IS NOT NULL
+				AND ((notification_version = '1.0.0' AND gender IS NOT NULL AND street IS NOT NULL AND postcode IS NOT NULL AND city IS NOT NULL) 
+				   OR notification_version = '2.0.0')   
+            		
+            		[sos_restriction_PrePO] 
+            	ORDER BY identroll.identnr, smv_notification.id
+		   </select>
+           <param name="database" value="sospos" />
+           <param name="srctable" value="smv_notification" />
+           <param name="srctableid" value="id" />
+           <param name="targetobject" value="smv_notification" />
+	       <param name="DEBUG" value="n" />
+		   <param name="TIMER" value="y" />
+         </action>
+         <action name="anschri" active="y" xslt="dbinterface/hisinone/address.vm">
+			<select>
+            SELECT identroll.identnr AS identnr, sos.mtknr AS mtknr, identroll.rolle AS rolle, identroll.anschrkz AS postanschrkz
+				, strasse AS street,anschri.zusastrasse AS streetaddition, plz AS postcode, ort AS city, anschri.zusaort AS cityaddition
+				, anschri.anschrkz AS anschrkz, kfz AS country, anschrinr, status, anschri.zusatz AS addressaddition
+			FROM sos, identroll, anschri
+			WHERE sos.mtknr = identroll.verbindung_integer
+			AND identroll.identnr = anschri.identnr
+            AND identroll.rolle IN ('S') 
+            [sos_restriction_PrePO] 
+            </select>	
+            <param name="database" value="sospos" />
+            <param name="srctable" value="ident" />
+            <param name="srctableid" value="identnr" />
+            <param name="srctable2" value="anschri" />
+            <param name="srctable2id" value="anschrinr" />
+            <param name="targetobject" value="address" />
+			<param name="DEBUG" value="n" />
+			<param name="TIMER" value="y" />
+         </action>
+         <action name="telefon" active="y" xslt="dbinterface/hisinone/address.vm">
+			<select>
+			SELECT identroll.identnr AS identnr, sos.mtknr AS mtknr, identroll.rolle AS rolle
+				, telefon.tel AS phone, telefon.artkz AS artkz, telefon.anschrkz AS anschrkz
+	            , telefonnr, 'A' AS aikz, status
+			FROM sos, identroll, telefon
+			WHERE sos.mtknr = identroll.verbindung_integer
+			AND identroll.identnr = telefon.identnr
+            AND identroll.rolle IN ('S') 
+            [sos_restriction_PrePO] 
+           </select>	
+            <param name="database" value="sospos" />
+            <param name="srctable" value="ident" />
+            <param name="srctableid" value="identnr" />
+            <param name="srctable2" value="telefon" />
+            <param name="srctable2id" value="telefonnr" />
+            <param name="targetobject" value="address" />
+			<param name="DEBUG" value="n" />
+			<param name="TIMER" value="y" />
+         </action>
+         <action name="email" active="y" xslt="dbinterface/hisinone/address.vm">
+			<select>
+			SELECT identroll.identnr AS identnr, sos.mtknr AS mtknr, identroll.rolle AS rolle
+            	, emailnr, email.email as email, email.artkz AS artkz, 'A' as aikz, status
+			FROM sos, identroll, email
+			WHERE sos.mtknr = identroll.verbindung_integer
+			AND identroll.identnr = email.identnr
+            AND identroll.rolle IN ('S') 
+            [sos_restriction_PrePO] 
+            </select>	
+            <param name="database" value="sospos" />
+            <param name="srctable" value="ident" />
+            <param name="srctableid" value="identnr" />
+            <param name="srctable2" value="email" />
+            <param name="srctable2id" value="emailnr" />
+            <param name="targetobject" value="address" />
+			<param name="DEBUG" value="n" />
+			<param name="TIMER" value="y" />
+         </action>
+         <action name="nutzer" active="y" xslt="dbinterface/hisinone/lsf/nutzer.vm">
+         <!-- Migration von Accounts -->
+            <select>
+				SELECT nutzer.onl_login AS login, nutzer.password AS password, nutzer.ustatus AS ustatus, nutzer.nid AS nid
+					, nutzer.identnr AS identnr, lastlogin
+					, sos.status AS status, sos.mtknr AS mtknr
+					FROM sos, identroll, nutzer
+					WHERE sos.mtknr = identroll.verbindung_integer
+					AND identroll.identnr = nutzer.identnr
+					AND nutzer.onl_login IS NOT NULL
+					AND (nutzer.rechnerid NOT IN ('QISZUL') OR nutzer.rechnerid IS NULL) 
+					AND TRIM(nutzer.onl_login) &lt;&gt; ''
+					AND identroll.rolle IN ('S') 
+	            		[sos_restriction_PrePO] 
+		   </select>
+           <param name="database" value="sospos" />
+           <param name="srctable" value="ident" />
+           <param name="srctableid" value="identnr" />
+           <param name="srctable2" value="identroll" />
+           <param name="srctable2id" value="nid" />
+           <param name="externalsystem" value="SOSPOS" />
+           <param name="k_purpose_hiskeyid" value="2" />
+           <param name="targetobject" value="account" />
+	       <param name="DEBUG" value="n" />
+		   <param name="TIMER" value="y" />
+         </action>
+          <!-- Rollen -->
+         <action name="orgrole" active="y" xslt="dbinterface/hisinone/orgrole.vm">
+         <!-- Anlegen von Orgrolen -->
+            <select>
+			SELECT identroll.identnr AS identnr, k_hrst.his_hrst AS his_hrst
+				, sos.status AS status, sos.mtknr AS mtknr, sos.exmdat AS exmdat
+				, 'k_fb' AS org_tabellenname
+				, CASE 
+					WHEN k_hrst.his_hrst = 'G'
+						THEN 'GH'
+					ELSE
+						identroll.rolle
+					END AS rolle	
+				FROM sos
+				INNER JOIN identroll ON (sos.mtknr = identroll.verbindung_integer)
+				INNER JOIN k_hrst ON (sos.hrst = k_hrst.hrst)
+				AND identroll.rolle in ('S')
+				WHERE 1=1
+           			[sos_restrictionPrePO] 
+		   </select>
+           <param name="database" value="sospos" />
+           <param name="srctable" value="ident" />
+           <param name="srctableid" value="identnr" />
+           <param name="srctable2" value="identroll" />
+           <param name="externalsystem" value="SOSPOS" />
+           <param name="targetobject" value="orgrole" />
+           <!-- Links Rolle in sospos (identroll.rolle) - Rechts korrespondierende Rolle in HISinOne (role.uniquename) -->
+           <!-- Anmerkung: In SOSPOS gibt es keine eigene Rolle für Gasthörer: 
+                Der Eintrag GH entspricht somit keiner Rolle in sospos, sondern ist notwendig damit die Rolle Gasthörer in HISinOne angelegt wird.  -->
+		   <param name="mapping" value="&quot;
+				S=student,
+				GH=gast_student,
+			&quot;" />
+			<param name="defaultrole" active="n" value="student" />
+			<!-- Globalen Schalter zur Verlängerung der Rolle nach EXMA berücksichtigen -->
+			<!-- <param name="useTransitionTimeAfterExma" value="y" /> -->
+			<param name="useTransitionTimeAfterExma" value="n" />
+	        <param name="DEBUG" value="n" />
+			<param name="TIMER" value="y" />
+         </action>
+      </actions>
+      <destination>intern</destination>
+   </entry>
+
+  
+  <!-- Studienverlauf -->
+	<entry name="hisinone-sospos-stgPrePO" active="y" description="Studienverlauf" databases="hisinone,sospos">
+      <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
+         <admin>
+            <execute />
+         </admin>
+      </rights>
+      <dbconnection name="sospos" />
+      <actions sendlevel="3">
+      	 <!-- Erweitert: Join zur SOS - Tabelle -->
+		 <action name="stg1" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-studiengang.vm">
+            <select>
+				SELECT DISTINCT 
+				abschl, stg, vert, schwp, kzfa, pversion
+				, stuart, stutyp, stg.stufrm AS stufrm, stort, fb
+				, k_abint.kzfaarray AS kzfaarray
+                FROM stg
+                INNER JOIN identroll ON (stg.mtknr = identroll.verbindung_integer AND identroll.rolle IN ('S', '4'))
+                INNER JOIN sos ON (sos.mtknr = identroll.verbindung_integer)                
+                LEFT JOIN k_abint ON (stg.abschl = k_abint.abint)
+                WHERE abschl IS NOT NULL AND NOT TRIM(abschl) = '' AND stg IS NOT NULL AND NOT TRIM(stg) = ''
+                AND (stg.lfdnr = 0 OR stg.lfdnr IS NULL) 
+                	[sos_restrictionTUBAF_exmadat_PrePO]
+				ORDER by abschl, stg
+            </select>
+	        <param name="DEBUG" value="y" />
+	        <param name="srcTable" value="stg" />
+	        <param name="targetobject" value="course_of_study" />
+	        <param name="singleDigitToYear" value="n" /> <!-- Für Umsetzung pversion in course_of_study.valid_from -->
+	        <param name="validFromOhnePOVersion" value="n" /> <!-- Im Standard wird der Gültigkeitsbeginn des Studiengangs aus der POVersion ermittelt (siehe Doku). Falls die PO-Version zufällige Zahlen enthalten: <param name="validFromOhnePOVersion" value="y" /> -->
+           	<!--Nur Inserts. Auch Updates auf vorhande course_of_study -> addMissing value = "n" -->
+			<param active="y" name="addMissing" value="y" />
+           	<!-- Kein Update für definierte Spalten? active="y" value = "spaltenname1 spaltenname2 spaltenname3" -->
+           	<!--  Update für alle Spalten? active="n" -->
+           	<param active="n" name="noColumnUpdate" value="teachingunit_orgunit_lid" />
+         </action>
+         
+         <!-- Erweitert: Join zur SOS - Tabelle -->
+         <action name="stgext2" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-stgext2.vm">
+            <select>
+				SELECT DISTINCT identroll.identnr as identnr, stgext.extart AS extart, stgext.semester AS semester
+				, stgext.stgnr AS stgnr, stgext.abschl AS abschl, stgext.stg AS stg
+				, stgext.stgsem AS stgsem, stgext.stuart AS stuart, stgext.stutyp AS stutyp, stgext.stufrm AS stufrm, stgext.lzabdat AS lzabdat
+				, stgext.pstatus AS pstatus, stgext.pnote AS pnote, stgext.stala1 AS stala1, stgext.stala2 AS stala2, stgext.mtknr_ext AS mtknr_ext
+				, stgext.regelstz AS regelstz, stgext.stgextnr AS stgextnr
+				, identroll.verbindung_integer AS mtknr
+				, CASE
+					WHEN stgext.hskfzkz IS NULL AND stgext.extart = 'AP'
+						THEN   (SELECT DISTINCT hskfzkz FROM stgext AS stgext2
+							WHERE stgext2.extart = 'VS'
+							AND stgext2.mtknr = stgext.mtknr
+							AND stgext2.semester = stgext.semester
+							AND stgext2.stgnr = stgext.stgnr)
+					ELSE 
+						stgext.hskfzkz
+				  END AS hskfzkz
+				, CASE
+					WHEN stgext.hskfz IS NULL AND stgext.extart = 'AP'
+						THEN   (SELECT DISTINCT hskfz FROM stgext AS stgext2
+							WHERE stgext2.extart = 'VS'
+							AND stgext2.mtknr = stgext.mtknr
+							AND stgext2.semester = stgext.semester
+							AND stgext2.stgnr = stgext.stgnr)
+					ELSE 
+						stgext.hskfz
+				  END AS hskfz
+				, CASE
+					WHEN stgext.hsart IS NULL AND stgext.extart = 'AP'
+						THEN    (SELECT DISTINCT hsart FROM stgext AS stgext2
+							WHERE stgext2.extart = 'VS'
+							AND stgext2.mtknr = stgext.mtknr
+							AND stgext2.semester = stgext.semester
+							AND stgext2.stgnr = stgext.stgnr)
+					ELSE 
+						stgext.hsart
+				END AS hsart
+				FROM stgext, identroll
+				INNER JOIN sos ON (sos.mtknr = identroll.verbindung_integer)
+				WHERE stgext.mtknr = identroll.verbindung_integer
+				AND identroll.rolle IN ('S') 
+				AND stgext.semester IS NOT NULL AND stgext.semester NOT IN (0)
+				AND stgnr NOT IN ('1')
+					[extart_restriction]
+					[sos_restrictionTUBAF_exmadat_PrePO] 
+				ORDER by identnr, extart DESC, stgnr, semester
+            </select>
+            <param name="database" value="sospos" />
+            <param name="srctable" value="ident" />
+            <param name="srctableid" value="identnr" />
+            <param name="targetobject" value="degree_program_progress_before" />
+	        <param name="DEBUG" value="y" />
+	        <param name="TIMER" value="y" />
+         </action>
+         
+         <!-- Erweitert: Join zur SOS - Tabelle -->
+         <action name="stg2" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-stg2.vm">
+            <select>
+				SELECT DISTINCT identroll.identnr AS identnr
+				FROM stg, identroll 
+				INNER JOIN sos ON (sos.mtknr = identroll.verbindung_integer)
+				WHERE stg.mtknr = identroll.verbindung_integer AND identroll.rolle IN ('S') 
+				AND abschl IS NOT NULL AND NOT TRIM(abschl) = '' AND stg IS NOT NULL AND NOT TRIM(stg) = ''
+				 [sos_restrictionTUBAF_exmadat_PrePO] 
+				ORDER BY identnr
+            </select>
+	        <param name="verbose" value="[verbose]" />
+            <param name="dbactions" value="[dbactions]" />
+            <param name="debug" value="[debug]" />
+	        <param name="DEBUG" value="y" />
+	        <!-- Bei DEBUG="y": SAMPLE: Wenn n > 0, wird das Ergebnis für jeden n. Fall im Log ausgegeben (n=1: jeder Fall)-->
+	        <param name="SAMPLE" value="0" />
+	        <!-- Zusätzlichen Studienverlaufssatz für Bildungswissenschaften (Profilfach) erzeugen
+	             Abschlüsse durch Komma getrennt angeben -->
+	        <param name="additionalCourseOfStudy" active = "n" value="31, 32" />
+	        <param name="targetobject" value="degree_program_progress" />
+	        <param name="TIMER" value="y" />
+         </action>
+         
+         <!-- ############### ANTRÄGE UND GRÜNDE ################################################################ -->
+          <!-- FL: Zur Problemanalyse DEBUG auf "y" -->
+           <action name="stg-beugrund-antrag"  active="y" xslt="dbinterface/hisinone/sospos-stg-antrag.vm">
+			<!-- Urlaubsanträge erzeugen -->
+            <select>
+				SELECT DISTINCT identroll.identnr as identnr, sos.mtknr AS mtknr, stg.semester AS semester, stg.stgnr AS stgnr
+				, stg.beugrund AS antragsgrund, '5022' AS processing_k_status_hiskey_id
+				FROM stg 
+				INNER JOIN sos ON (sos.mtknr = stg.mtknr)
+				INNER JOIN identroll ON (sos.mtknr = identroll.verbindung_integer AND identroll.rolle = 'S') 
+				WHERE stg.status = 'B'
+				AND stg.beugrund IS NOT NULL AND NOT TRIM(stg.beugrund) = ''
+				 AND (stg.lfdnr = 0 OR stg.lfdnr IS NULL) 
+					[sos_restriction_PrePO] 
+				ORDER by 2
+            </select>
+            <param name="database" value="sospos" />
+            <param name="srctable" value="ident" />
+            <param name="srctableid" value="identnr" />
+            <param name="srctable2" value="stg" />
+            <param name="additionalTable" value="request_for_leave_of_absence" />
+            <param name="columnName" value="request_for_leave_of_absence_id" />
+            <param name="targetobject" value="request_base" />
+	        <param name="DEBUG" value="y" />
+	        <param name="TIMER" value="y" />
+            <!-- on the left: stg.beugrund  ( = k_gdbu.gdbu); on the right: corresponding reasonable_request_type.hiskey_id -->
+			<param name="mappingAntragsgrund" value="&quot;
+				1=2001,
+				2=2002,
+				3=2003,
+				4=2004,
+				5=2005,
+				6=2006,
+				7=2007,
+				9=2009,
+				&quot;" />
+         </action>
+		 <action name="stg-beugrund" active="y"  xslt="dbinterface/hisinone/sospos-stg-antrag.vm">
+			<!-- Für stg.beugrund wird ein Eintrag in degree_program_progress.k_reason_of_leave_id erzeugt -->
+            <select>
+				SELECT DISTINCT identroll.identnr as identnr, sos.mtknr AS mtknr, stg.semester AS semester, stg.stgnr AS stgnr
+				, stg.beugrund AS antragsgrund
+				FROM stg 
+				INNER JOIN sos ON (sos.mtknr = stg.mtknr)
+				INNER JOIN identroll ON (sos.mtknr = identroll.verbindung_integer AND identroll.rolle = 'S') 
+				WHERE stg.status = 'B'
+				AND stg.beugrund IS NOT NULL AND NOT TRIM(stg.beugrund) = ''
+				AND (stg.lfdnr = 0 OR stg.lfdnr IS NULL) 
+					[sos_restriction_PrePO] 
+				ORDER by 2
+            </select>
+            <param name="database" value="sospos" />
+            <param name="srctable" value="ident" />
+            <param name="srctableid" value="identnr" />
+            <param name="srctable2" value="stg" />
+            <param name="columnName" value="k_reason_of_leave_id" />
+            <param name="targetobject" value="degree_program_progress" />
+	        <param name="DEBUG" value="y" />
+	        <param name="TIMER" value="y" />
+	       <!-- on the left: stg.beugrund  ( = k_gdbu.gdbu); on the right: corresponding reasonable_request_type.hiskey_id -->
+			<param name="mappingAntragsgrund" value="&quot;
+				1=2001,
+				2=2002,
+				3=2003,
+				4=2004,
+				5=2005,
+				6=2006,
+				7=2007,
+				9=2009,
+				&quot;" />
+         </action>
+		 <action name="stg-endegrd-antrag" active="y"  xslt="dbinterface/hisinone/sospos-stg-antrag.vm">
+			 <!-- Exmatrikulationsanträge erzeugen: 
+			      Mit Status ausgeführt: Wenn bei einem in SOS exmatrikulierten Studierenden, alle Studiengänge beendet sind 
+			      Mit Status wiedereingeschrieben (SOS-Semester ist höher als das betreffende STG-Semester)
+			      	- Nur für Studierende, die tatsächlich exmatrikuliert waren
+			        - Kennzeichen: Alle Studiengängen sind in dem Semester beendet und statusex = 'X' -->
+            <select>
+				SELECT DISTINCT identroll.identnr as identnr, sos.mtknr AS mtknr, stg.semester AS semester, sos.semester AS sosSemester, sos.exmandat AS exmandat, stg.stgnr AS stgnr
+				, stg.endegrd AS antragsgrund, stg.endedat AS endedat, '5025' AS processing_k_status_hiskey_id
+				FROM stg 
+				INNER JOIN sos ON (sos.mtknr = stg.mtknr AND sos.semester = stg.semester)
+				INNER JOIN identroll ON (sos.mtknr = identroll.verbindung_integer AND identroll.rolle = 'S') 
+				WHERE 1=1
+				AND sos.status = 'X'
+				AND stg.mtknr NOT IN (SELECT stg2.mtknr from stg AS stg2 where stg2.mtknr = sos.mtknr and stg2.semester = sos.semester AND (stg2.endegrd IS NULL OR TRIM(stg2.endegrd) = '' OR stg2.endedat IS NULL))
+				AND (stg.lfdnr = 0 OR stg.lfdnr IS NULL) 
+					[sos_restriction_PrePO] 
+					
+				UNION
+				SELECT DISTINCT identroll.identnr as identnr, sos.mtknr AS mtknr, stg.semester AS semester, sos.semester AS sosSemester, sos.exmandat AS exmandat, stg.stgnr AS stgnr
+				, stg.endegrd AS antragsgrund, stg.endedat AS endedat, '5023' AS processing_k_status_hiskey_id
+				FROM stg 
+				INNER JOIN sos ON (sos.mtknr = stg.mtknr AND sos.semester > stg.semester)
+				INNER JOIN identroll ON (sos.mtknr = identroll.verbindung_integer AND identroll.rolle = 'S') 
+				WHERE 1=1
+				AND stg.mtknr NOT IN (SELECT stg2.mtknr from stg AS stg2 where stg2.mtknr = stg.mtknr and stg2.semester = stg.semester AND (stg2.endegrd IS NULL OR TRIM(stg2.endegrd) = '' OR stg2.endedat IS NULL OR stg2.statusex != 'X'))
+				AND (stg.lfdnr = 0 OR stg.lfdnr IS NULL)
+					[sos_restriction_PrePO] 
+					
+				ORDER by  2, 3, 5
+            </select>
+            <param name="database" value="sospos" />
+            <param name="srctable" value="ident" />
+            <param name="srctableid" value="identnr" />
+            <param name="srctable2" value="stg" />
+            <param name="additionalTable" value="request_for_disenrollment" />
+            <param name="columnName" value="request_for_disenrollment_id" />
+            <param name="targetobject" value="request_base" />
+	        <param name="DEBUG" value="y" />
+	        <param name="TIMER" value="y" />
+	        <!-- on the left: stg.endegrd ( = k_gdex.gdex); on the right: corresponding reasonable_request_type.hiskey_id -->
+			<param name="mappingAntragsgrund" value="&quot;
+		   		00=3000,
+				01=3001,
+				02=3002,
+				03=3003,
+				04=3004,
+				05=3005,
+				06=3006,
+				07=3007,
+				08=3008,
+				09=3009,
+				&quot;" />
+         </action>
+		 <action name="stg-endegrd" active="y"  xslt="dbinterface/hisinone/sospos-stg-antrag.vm">
+			<!-- Für stg.endegrd wird ein Eintrag in degree_program_progress.k_reason_of_finishing_id erzeugt -->
+            <select>
+				SELECT DISTINCT identroll.identnr as identnr, sos.mtknr AS mtknr, stg.semester AS semester, sos.semester AS sosSemester, stg.stgnr AS stgnr
+				, stg.endegrd AS antragsgrund, stg.endedat AS endedat
+				FROM stg 
+				INNER JOIN sos ON (sos.mtknr = stg.mtknr)
+				INNER JOIN identroll ON (sos.mtknr = identroll.verbindung_integer AND identroll.rolle IN ('S')) 
+				WHERE 1=1
+				AND stg.endegrd IS NOT NULL AND NOT TRIM(stg.endegrd) = ''
+				AND stg.endedat IS NOT NULL
+				AND (stg.lfdnr = 0 OR stg.lfdnr IS NULL) 
+					[sos_restriction_PrePO] 
+				ORDER by 2
+            </select>
+            <param name="database" value="sospos" />
+            <param name="srctable" value="ident" />
+            <param name="srctableid" value="identnr" />
+            <param name="srctable2" value="stg" />
+            <param name="columnName" value="k_reason_of_finishing_id" />
+            <param name="targetobject" value="degree_program_progress" />
+	        <param name="DEBUG" value="y" />
+	        <param name="TIMER" value="y" />
+	        <!-- on the left: stg.endegrd ( = k_gdex.gdex); on the right: corresponding reasonable_request_type.hiskey_id -->
+			<param name="mappingAntragsgrund" value="&quot;
+		   		00=3000,
+				01=3001,
+				02=3002,
+				03=3003,
+				04=3004,
+				05=3005,
+				06=3006,
+				07=3007,
+				08=3008,
+				09=3009,
+				&quot;" />
+         </action> 
+     </actions>
+     
+     <!-- FL: 20241218
+     Es werden noch nicht vorhandene Studiengaenge aus dem Studienverlauf angelegt.
+     Im Postprocessing werden nun fehlende Werte eraenzt.
+     1. Setzen fehlender Astat - Werte 
+     a) astat_degree
+     b) astat_subject
+     
+     2. Ergaenzen von regular_number_of_semesters
+      -->
+	  <postprocessing ueberschreiben="y" active="y">
+	      <action ueberschreiben="y" active="y" type="sql" database="hisinone"> 
+	         	set search_path=hisinone;        
+	         	update course_of_study 
+				set astat_degree = SUBSTRING(uniquename,0,3)		
+				where astat_degree is null
+				and uniquename IS NOT NULL;
+				
+						update hisinone.course_of_study
+set astat_subject = helper.src_astat_subject
+from (
+
+  select distinct on (dst.uniquename)
+    regexp_replace(src.uniquename, '^..\|(...)\|.+\|$','\1') stg,
+    src.uniquename src_uniquename,
+    src.astat_subject src_astat_subject,
+    dst.uniquename dst_uniquename,
+    dst.astat_subject dst_astat_subject
+
+  from hisinone.course_of_study src
+  join hisinone.course_of_study dst
+  on (
+    src.uniquename is not null and
+    dst.uniquename is not null and
+    regexp_replace(src.uniquename, '^..\|(...)\|.+\|$','\1') = regexp_replace(dst.uniquename, '^..\|(...)\|.+\|$','\1')
+  )
+  where src.uniquename != dst.uniquename
+  and dst.astat_subject is null
+  and src.astat_subject is not null
+  
+) as helper
+
+where
+  uniquename = helper.dst_uniquename and
+  astat_subject is null
+;				
+
+
+
+update hisinone.course_of_study
+set regular_number_of_semesters = helper.src_regular_number_of_semesters
+from
+(
+  with src as
+  (
+    select
+    uniquename,
+    regexp_replace(uniquename,'^([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|$', '\1') abschl,
+    regexp_replace(uniquename,'^([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|$', '\2') stg,
+    regexp_replace(uniquename,'^([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|$', '\6') pversion,
+    regular_number_of_semesters
+    from hisinone.course_of_study
+    where uniquename is not null and uniquename not in ('APP', 'Studienangebot')
+    and regular_number_of_semesters is not null
+  ), 
+  dst as (
+    select
+    uniquename,
+    regexp_replace(uniquename,'^([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|$', '\1') abschl,
+    regexp_replace(uniquename,'^([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|$', '\2') stg,
+    regexp_replace(uniquename,'^([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|$', '\6') pversion
+    from hisinone.course_of_study
+    where uniquename is not null and uniquename not in ('APP', 'Studienangebot')
+    and regular_number_of_semesters is null
+  )
+  select distinct on (dst.uniquename) src.uniquename src_uniquename, dst.uniquename dst_uniquename, abschl, stg, pversion, src.regular_number_of_semesters src_regular_number_of_semesters
+  from src
+  join dst 
+  using (abschl, stg, pversion)
+) as helper
+where uniquename = helper.dst_uniquename and regular_number_of_semesters is null
+returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semesters::varchar)
+;
+			</action>
+		</postprocessing>		
+	</entry>
+	
+	<!-- 20260512: Versuch PO Module etc. vorher schon zu migrierern. 
+	               Klemmbausteinkasten
+	               Ziel: Studiengangsfremde Leistungen angezeigt zu bekommen
+	               Was bereitgestellt ist häng ab von der Spalte PLTXT4
+	               Darin führend 'P1_' als Wert -->
+  <entry name="hisinone-sospos-pordPrePO" active="y" description="Prüfungsordnungs-Klemmbausteinkasten (vor eigentlicher PO Migration)" databases="hisinone,sospos">
+      <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
+         <admin>
+            <execute />
+         </admin>
+      </rights>
+      <dbconnection name="sospos" />
+      <actions sendlevel="3">
+         <action name="pord" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-pord.vm">
+            <select>
+			SELECT DISTINCT pordnr, pnr, pform, pord.part AS part, pabschn, pdum, lehrsprache as petgp, labgewicht, freivers, pktxt AS ktxt, pltxt1 AS dtxt, pdtxt AS ltxt
+			, pltxt2, pltxt3, pversion
+			, pltxt4 AS comment, modulcode AS shortcomment, psws, zmadauer, pdauer, diplkz, pord.bendauer AS bendauer, 'D' AS sprache, pvken4, fb
+			, bonus, malus, beleg, partngb, ppflicht, pfsem, pmaxver, pmaxvbe, phoesem, pabschn, labgewicht
+			, hpnr, vpnr, sonstpnr1, sonstpnr2, sonstpnr3
+			, k_part.prfgkz AS prfgkz
+			, CASE lehrsprache
+           			WHEN  'D' THEN 'de'
+           			WHEN  'E' THEN 'en'
+					WHEN  'F' THEN 'fr' 
+			  END AS lehrspracheOriginalFGL
+   			FROM pord
+   			JOIN hskonst ON 1=1
+  			LEFT OUTER JOIN k_part ON (pord.part = k_part.part)
+  			WHERE 1=1
+  			AND hskonst.aikz = 'A'
+  			AND pordnr NOT IN (SELECT tabpk FROM hisinone_mapping WHERE tabelle='pord') 
+  			[pord_restriction_PrePO]    					
+   			ORDER BY pordnr
+            </select>
+            <!-- on the left: pord.pdum; on the right: corresponding k_elementtype.uniquename -->
+		    <param name="mapping" value="&quot;
+			D=K,
+			P=P,
+			B=M,
+			M=M,
+			A=M,
+			V=M,
+			&quot;" />
+		    <param name="mappingPetgp" value="&quot;
+			M=M,
+			K=K,
+			P=P,
+			D=K,
+			S=SL,
+			U=V,
+			T=T,
+			&quot;" />
+            <param name="DEBUG" value="y" />
+            <param name="targetobject" value="unit" />
+            <param name="pformGEToKonto" value="n" /> <!--value=y bedeutet: wenn pform="GE" und pdum=" " dann wird statt einer Prüfung ein Konto erzeugt -->
+         </action>
+         
+          <action name="pnrzuord" active="y" xslt="dbinterface/hisinone/sospos-pnrzuord.vm">
+            <select>
+				SELECT DISTINCT
+					CASE
+						WHEN pnrzuord.pordnr != hisinone_mapping.kopf
+							THEN hisinone_mapping.kopf
+						ELSE 
+							pnrzuord.pordnr
+					END AS pordnr,
+					pnrzuord.pordnrzu as pordnrzu, pnrzuord.bonus as bonus, pnrzuord.malus as malus, 
+					
+					CASE
+            			WHEN pnrzuord.artzuord in('H4','H6')
+							THEN 'ABS'
+						WHEN pnrzuord.artzuord in('H5')
+							THEN 'KA'
+						ELSE 'AZ' 						
+					END AS artzuord
+															
+					, lfdnr, freivsem, pnrzuord.ppflicht as ppflicht, pord.pnr as pnr
+					FROM pord, pnrzuord
+					LEFT OUTER JOIN hisinone_mapping ON (pnrzuord.pordnr = hisinone_mapping.tabpk  AND hisinone_mapping.tabelle = 'pord')
+					WHERE pord.pordnr = pnrzuord.pordnr 
+					AND artzuord NOT IN ('KOH', 'BFV', 'akv', 'grp', 'aq')
+						[artzuord_restriction]
+						[pord_restriction_PrePO]   
+				UNION
+				SELECT 	
+					pnrzuord.pordnr,
+					pnrzuord.pordnrzu as pordnrzu, pnrzuord.bonus as bonus, pnrzuord.malus as malus, 
+															
+					CASE
+            			WHEN pnrzuord.artzuord in('H4','H6')
+							THEN 'ABS'
+						WHEN pnrzuord.artzuord in('H5')
+							THEN 'KA'
+						ELSE 'AZ' 						
+					END AS artzuord
+															
+					, lfdnr, freivsem, pnrzuord.ppflicht as ppflicht, child_pord.pnr as pnr
+					FROM pord
+					JOIN pnrzuord ON (pord.pordnr = pnrzuord.pordnrzu) 
+					JOIN pord AS child_pord ON (child_pord.pordnr = pnrzuord.pordnr)
+						WHERE 1 = 1
+						AND artzuord NOT IN ('KOH', 'BFV', 'akv', 'grp', 'aq')
+						[artzuord_restriction] 
+						[pord_restriction_PrePO]
+				 ORDER BY 1
+            </select>
+            <param name="targetobject" value="unitrelation" />
+            <param name="TIMER" value="y" />
+             <param name="DEBUG" value="y" />
+         </action>
+         
+         <!-- FGL: 20260519 Nimm hier alle Zuordnungen rein  -->
+         <!--      ABER: in der externalrelation-Tabelle stehen die Zuordnungen noch mit dem 'Q' Wert. 
+         			Darum normalerweise: 
+         			pnrzuord.arzuord AS artzuord	
+         			
+         	 Wenn in der vorherigen action allerdings schon gemappt worden ist:
+				CASE
+            		WHEN pnrzuord.artzuord in('H4','H6')
+						THEN 'ABS'
+					WHEN pnrzuord.artzuord in('H5')
+						THEN 'KA'
+					ELSE 'AZ' 						
+				END AS artzuord
+                    -->
+                   
+         
+         <action name="pnrzuord-mapped" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-pnrzuord-mapped.vm">
+            <select>
+			SELECT DISTINCT
+				pnrzuord.pordnr AS pordnr, pnrzuord.pordnrzu AS pordnrzu, hisinone_mapping.kopf AS kopf
+				,CASE
+					WHEN pnrzuord.bonus IS NULL
+						THEN pord.bonus
+					ELSE 
+						pnrzuord.bonus
+				END AS bonus
+				,CASE
+					WHEN pnrzuord.malus IS NULL
+						THEN pord.malus
+					ELSE 
+						pnrzuord.malus
+				END AS malus
+				,CASE
+					WHEN pnrzuord.ppflicht IS NULL
+						THEN pord.ppflicht
+					ELSE 
+						pnrzuord.ppflicht
+				END AS ppflicht
+				, pfsem, pmaxver, pmaxvbe, phoesem, pabschn, labgewicht, beleg, partngb,
+					
+					CASE
+            			WHEN pnrzuord.artzuord in('H4','H6')
+							THEN 'ABS'
+						WHEN pnrzuord.artzuord in('H5')
+							THEN 'KA'
+						ELSE 'AZ' 						
+					END AS artzuord
+									
+				,lfdnr, freivsem
+				FROM pord, pnrzuord, hisinone_mapping
+				WHERE pord.pordnr = pnrzuord.pordnr 
+				AND pnrzuord.pordnr = hisinone_mapping.tabpk 
+				AND hisinone_mapping.tabelle = 'pord'				
+				ORDER BY 1
+            </select>
+            <param name="DEBUG" value="y" />
+            <param name="targetobject" value="unitrelation" />
+         </action>
+         
+         
+       </actions>
+       </entry>
+  
+  
+    <!-- ####################################################################################### -->
+  	<!-- #######################################################################################
 	     ### EXA - Nachmigration als Testfälle auf dem CUST01, Fuer Migration von Studierenden -->	
 	<entry name="hisinone-sospos-student" active="y" description="Studierende" databases="hisinone,sospos">
       <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
