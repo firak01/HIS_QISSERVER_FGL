@@ -88,12 +88,12 @@
 		<!-- Neue Menüpunkte - Migrationen für EXA, die POs - gesteuert über die SOSPOS Tabelle tubaf.po_migration -->
 		<section name="group" active="y" description="TUBAF EXA FORTLAUFENDE MIGRATION: PRÜFUNGSORDNUNGEN"/>		
 		<section name="subgroup" description="TUBAF: PRÜFUNGSORDNUNGSMIGRATION (der aktuell bereitgestellten PO)" />
-		<section name="menue-Fallgruppe-A" description="Fallgruppen 1a/1b: Eine Prüfungsordnung über alle Vertiefungen (HIS Normal. Wiederverwenden des Aufhängerelements. Vertiefung im Studienverlauf festgelegt.)" >
+		<section name="menue-Fallgruppe-A" description="Fallgruppen 1a/1b und '2 unvertieft': Eine Prüfungsordnung über alle Vertiefungen (HIS Normal. Wiederverwenden des Aufhängerelements. Für 1a / 1b Vertiefung im Studienverlauf festgelegt. Für 2 vertiefungen nachmigrieren)" >
 			<menuentry name="hisinone-sospos-pord" />
 			<menuentry name="zuordnung-pruefung-gesamtkonto" />
 			<menuentry name="hisinone-sospos-pord-PO" />						
 		</section>
-		<section name="menue-Fallgruppe-B" description="Fallgruppe 2:  Eine Prüfungsordnung über alle Vertiefungen, z.B. 88|049 oder 88|039" >
+		<section name="menue-Fallgruppe-B" description="Fallgruppe 2:  Eine Prüfungsordnung über alle Vertiefungen, z.B. 88|049 oder 88|039, Hier: Ergänzen der PO um die noch fehlenden Vertiefungen" >
 			<menuentry name="hisinone-sospos-pord-FallgruppeB" />			
 			<menuentry name="zuordnung-pruefung-gesamtkonto-FallgruppeB" />
 			<menuentry name="hisinone-sospos-pord-PO-FallgruppeB" />						
@@ -207,8 +207,8 @@
 			
 			<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
 			<!--  FGL EXA PARAMETER START IMMER ANPASSEN: Gib hier tubaf fuer den 'NICHT DEV BETRIEB' ein. -->
-			<!-- Merke: Eine Verschachtelung von Parameter in Parameter geht nicht. Darum hier statt des Parameters "[schemaZZZ]" direkt "ichZZZ" schreiben -->				
-				<param active="y" name="schemaZZZ" value="ichzzz" />
+			<!-- Merke: Eine Verschachtelung von Parameter in Parameter geht nicht. Darum hier statt des Parameters "[schemaZZZ]" direkt "tubaf" schreiben -->				
+				<param active="y" name="schemaZZZ" value="tubaf" />
 			<!--  FGL EXA PARAMETER ENDE IMMER ANPASSEN:  -->
 
 				<param active="y" name="unfinishedStudyZZZ_VertSingle_lab_restriction" value="and lab.mtknr in(
@@ -217,13 +217,13 @@
 					)
 				AND lab.abschl IN (
 					select split_part(tubaf_po,'-',1) 
-					from ichZZZ.po_migration
+					from tubaf.po_migration
 					where migriert = true and bereit=true and migrieren=true
 					order by reihenfolge DESC
 					Limit 1) 
 				AND lab.stg IN (
 					select split_part(tubaf_po,'-',2) 
-					from ichZZZ.po_migration
+					from tubaf.po_migration
 					where migriert = true and bereit=true and migrieren=true
 					order by reihenfolge DESC
 					Limit 1)
@@ -235,13 +235,13 @@
 					)
 				AND lab.abschl IN (
 					select abschl 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1) 
 				AND lab.stg IN (
 					select stg 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1)
@@ -253,13 +253,13 @@
                 <param active="n" name="finishedStgZZZ_VertSingle_lab_restriction" value="and lab.pnr in (9999) 
 				AND lab.abschl IN (
 					select split_part(tubaf_po,'-',1) 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1
 				) AND lab.stg IN (
 					select split_part(tubaf_po,'-',2) 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1
@@ -268,13 +268,13 @@
                  <param active="n" name="finishedStgZZZ_lab_restriction" value="and lab.pnr in (9999) 
 				AND lab.abschl IN (
 					select abschl 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1
 				) AND lab.stg IN (
 					select stg 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1
@@ -290,13 +290,13 @@
                 and lab.pnr in (9999) 
 				AND lab.abschl IN (
 					select split_part(tubaf_po,'-',1) 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1
 				) AND lab.stg IN (
 					select split_part(tubaf_po,'-',2) 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1
@@ -310,13 +310,13 @@
                 and lab.pnr in (9999) 
 				AND lab.abschl IN (
 					select abschl 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1
 				) AND lab.stg IN (
 					select stg 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1
@@ -330,13 +330,13 @@
                 and lab.pnr in (9999) 
 				AND lab.abschl IN (
 					select split_part(tubaf_po,'-',1) 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1
 				) AND lab.stg IN (
 					select split_part(tubaf_po,'-',2) 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1
@@ -350,13 +350,13 @@
                 and lab.pnr in (9999) 
 				AND lab.abschl IN (
 					select abschl 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1
 				) AND lab.stg IN (
 					select stg 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1
@@ -371,13 +371,13 @@
                 and lab.pnr in (9999) 
 				AND lab.abschl IN (
 					select abschl 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = false and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1
 				) AND lab.stg IN (
 					select stg 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = false and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1
@@ -602,6 +602,55 @@
 			<!-- ENDE PARAMETER FALLGRUPPE A -->
 					
 			<!-- START PARAMETER FALLGRUPPE B -->
+		
+			<!-- Merke: Abarbeitungsreihenfolge, nimm die letzte erledigte.
+			            Grund: Erst erfolgt die Migration als 'Fallgruppe A'
+			            Danach in der Migration als 'Fallgruppe B' werden die Vertiefungen ergänzt-->
+			
+			<param active="y" name="pord_restrictionFallgruppeB" value="AND pord.abschl IN (
+				select abschl from [schemaZZZ].po_migration
+					where migriert = true and bereit=true and migrieren=true
+					order by reihenfolge DESC
+					Limit 1
+				) AND pord.stg IN (
+				select stg from [schemaZZZ].po_migration
+					where migriert = true and bereit=true and migrieren=true
+					order by reihenfolge DESC
+					Limit 1
+				) AND pord.pversion IN (
+				select pversion::smallint from [schemaZZZ].po_migration
+					where migriert = true and bereit=true and migrieren=true
+					order by reihenfolge DESC
+					Limit 1
+				)
+			" />
+								
+			<!-- ENDE PARAMETER FALLGRUPPE B -->
+			
+			<!-- START PARAMETER FALLGRUPPE C -->
+			<param active="y" name="pord_restrictionFallgruppeC" value="AND pord.abschl IN (
+				select abschl from [schemaZZZ].po_migration
+					where migriert = false and bereit=true and migrieren=true
+					order by reihenfolge ASC
+					Limit 1
+				) AND pord.stg IN (
+				select stg from [schemaZZZ].po_migration
+					where migriert = false and bereit=true and migrieren=true
+					order by reihenfolge ASC
+					Limit 1
+				) AND pord.pversion IN (
+				select pversion::smallint from [schemaZZZ].po_migration
+					where migriert = false and bereit=true and migrieren=true
+					order by reihenfolge ASC
+					Limit 1
+				)
+			" />
+			
+			
+			
+			<!-- ENDE PARAMETER FALLGRUPPE C -->
+			
+			<!-- START PARAMETER IDEEN und DUMP - jetzt ungenutzt -->
 			<!-- FL: Verwendete Werte für die Erzeugung des Aufhängerelements -->	
 			<!--     Merke: Noch nicht migrierte PO. Beachte Konstellation migriert=false und reihenfolge ASC -->	
 			<param active="y" name="pord_abschl_value_VertSingle_TUBAF" value="
@@ -760,86 +809,8 @@
 										Limit 1)
 								END  							
 			"/>
-
-	<param active="y" name="pord_restrictionFallgruppeB" value="AND pord.abschl IN (
-				select abschl from [schemaZZZ].po_migration
-					where migriert = false and bereit=true and migrieren=true
-					order by reihenfolge ASC
-					Limit 1
-				) AND pord.stg IN (
-				select stg from [schemaZZZ].po_migration
-					where migriert = false and bereit=true and migrieren=true
-					order by reihenfolge ASC
-					Limit 1
-				) AND pord.pversion IN (
-				select pversion::smallint from [schemaZZZ].po_migration
-					where migriert = false and bereit=true and migrieren=true
-					order by reihenfolge ASC
-					Limit 1
-				)
-			" />
 			
-<param active="y" name="pord_restrictionFallgruppeB_VertSingle" value="AND pord.abschl IN (
-				select split_part(tubaf_po,'-',1) from [schemaZZZ].po_migration
-					where migriert = false and bereit=true and migrieren=true
-					order by reihenfolge ASC
-					Limit 1
-				) AND pord.stg IN (
-				select split_part(tubaf_po,'-',2) from [schemaZZZ].po_migration
-					where migriert = false and bereit=true and migrieren=true
-					order by reihenfolge ASC
-					Limit 1
-				) AND pord.pversion IN (
-				select split_part(tubaf_po,'-',5)::smallint from [schemaZZZ].po_migration
-					where migriert = false and bereit=true and migrieren=true
-					order by reihenfolge ASC
-					Limit 1
-				)
-			" />
-			
-		
-				
-				
-			<!-- FL: noch nicht migriert. Beachte Konstellation migriert=false und reihenfolge ASC -->
-			<param active="y" name="pord_restriction_VertSingle_vertTUBAF" value="AND pord.vert IN(
-							select case 
-								when split_part(tubaf_po,'-',3)=''							
-									THEN ''
-									ELSE split_part(tubaf_po,'-',3)
-								END  
-							from [schemaZZZ].po_migration
-							where migriert = false and bereit=true and migrieren=true
-							order by reihenfolge ASC
-							Limit 1	
-				)" />		
-				
-								
-			<!-- ENDE PARAMETER FALLGRUPPE B -->
-			
-			<!-- START PARAMETER FALLGRUPPE C -->
-			<param active="y" name="pord_restrictionFallgruppeC" value="AND pord.abschl IN (
-				select abschl from [schemaZZZ].po_migration
-					where migriert = false and bereit=true and migrieren=true
-					order by reihenfolge ASC
-					Limit 1
-				) AND pord.stg IN (
-				select stg from [schemaZZZ].po_migration
-					where migriert = false and bereit=true and migrieren=true
-					order by reihenfolge ASC
-					Limit 1
-				) AND pord.pversion IN (
-				select pversion::smallint from [schemaZZZ].po_migration
-					where migriert = false and bereit=true and migrieren=true
-					order by reihenfolge ASC
-					Limit 1
-				)
-			" />
-			
-			
-			
-			<!-- ENDE PARAMETER FALLGRUPPE C -->
-			
-			<!-- START PARAMETER IDEEN - jetzt ungenutzt -->
+			<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxx -->
 			<param active="y" name="pord_restriction_vertTUBAF" value="AND pord.vert IN(
 							 select case 
 								when vert=''
@@ -877,13 +848,13 @@
 					   	select mtknr from lab
 						where lab.abschl IN (				
 							select abschl
-								from ichZZZ.po_migration
+								from tubaf.po_migration
 								where migriert = true and bereit=true and migrieren=true
 								order by reihenfolge DESC
 								Limit 1
 						) AND lab.stg IN (
 							select stg 
-								from ichZZZ.po_migration
+								from tubaf.po_migration
 								where migriert = true and bereit=true and migrieren=true
 								order by reihenfolge DESC
 								Limit 1
@@ -892,6 +863,36 @@
 				
 				
 			
+				<param active="y" name="pord_restrictionFallgruppeB_VertSingle" value="AND pord.abschl IN (
+				select split_part(tubaf_po,'-',1) from [schemaZZZ].po_migration
+					where migriert = false and bereit=true and migrieren=true
+					order by reihenfolge ASC
+					Limit 1
+				) AND pord.stg IN (
+				select split_part(tubaf_po,'-',2) from [schemaZZZ].po_migration
+					where migriert = false and bereit=true and migrieren=true
+					order by reihenfolge ASC
+					Limit 1
+				) AND pord.pversion IN (
+				select split_part(tubaf_po,'-',5)::smallint from [schemaZZZ].po_migration
+					where migriert = false and bereit=true and migrieren=true
+					order by reihenfolge ASC
+					Limit 1
+				)
+			" />
+			
+			<!-- FL: noch nicht migriert. Beachte Konstellation migriert=false und reihenfolge ASC -->
+			<param active="y" name="pord_restriction_VertSingle_vertTUBAF" value="AND pord.vert IN(
+							select case 
+								when split_part(tubaf_po,'-',3)=''							
+									THEN ''
+									ELSE split_part(tubaf_po,'-',3)
+								END  
+							from [schemaZZZ].po_migration
+							where migriert = false and bereit=true and migrieren=true
+							order by reihenfolge ASC
+							Limit 1	
+				)" />		
 				
 				
 			<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
@@ -900,13 +901,13 @@
 					   	select mtknr from lab
 						where lab.abschl IN (				
 							select split_part(tubaf_po,'-',1) 
-								from ichZZZ.po_migration
+								from tubaf.po_migration
 								where migriert = true and bereit=true and migrieren=true
 								order by reihenfolge DESC
 								Limit 1
 						) AND lab.stg IN (
 							select split_part(tubaf_po,'-',2) 
-								from ichZZZ.po_migration
+								from tubaf.po_migration
 								where migriert = true and bereit=true and migrieren=true
 								order by reihenfolge DESC
 								Limit 1
@@ -920,13 +921,13 @@
 				where lab.pnr in (9999) 
 				AND lab.abschl IN (
 					select split_part(tubaf_po,'-',1) 
-					from ichZZZ.po_migration
+					from tubaf.po_migration
 					where migriert = true and bereit=true and migrieren=true
 					order by reihenfolge DESC
 					Limit 1) 
 				AND lab.stg IN (
 					select split_part(tubaf_po,'-',2) 
-					from ichZZZ.po_migration
+					from tubaf.po_migration
 					where migriert = true and bereit=true and migrieren=true
 					order by reihenfolge DESC
 					Limit 1)
@@ -937,13 +938,13 @@
 				where lab.pnr in (9999) 
 				AND lab.abschl IN (
 					select abschl 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1) 
 				AND lab.stg IN (
 					select stg 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1)
@@ -956,13 +957,13 @@
 					)
 				AND lab.abschl IN (
 					select split_part(tubaf_po,'-',1) 
-					from ichZZZ.po_migration
+					from tubaf.po_migration
 					where migriert = true and bereit=true and migrieren=true
 					order by reihenfolge DESC
 					Limit 1) 
 				AND lab.stg IN (
 					select split_part(tubaf_po,'-',2) 
-					from ichZZZ.po_migration
+					from tubaf.po_migration
 					where migriert = true and bereit=true and migrieren=true
 					order by reihenfolge DESC
 					Limit 1)
@@ -974,13 +975,13 @@
 					)
 				AND lab.abschl IN (
 					select abschl 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1) 
 				AND lab.stg IN (
 					select stg 
-						from ichZZZ.po_migration
+						from tubaf.po_migration
 						where migriert = true and bereit=true and migrieren=true
 						order by reihenfolge DESC
 						Limit 1)
@@ -3731,7 +3732,8 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
   			WHERE 1=1
   			AND hskonst.aikz = 'A'
   			AND pordnr NOT IN (SELECT tabpk FROM hisinone_mapping WHERE tabelle='pord')   			
-  			[pord_restriction]
+  			[pord_restrictionFallgruppeB] --Merke: das betrachtet die zuletzt migrierte PO.
+  			--[pord_vert_restrictionTUBAF]--Merke: hier eben explizit keine Einschränkung auf dier Vertiefung. 
    			ORDER BY pordnr
             </select>
             <!-- on the left: pord.pdum; on the right: corresponding k_elementtype.uniquename -->
@@ -3772,7 +3774,9 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 				LEFT OUTER JOIN k_part ON (pord.part = k_part.part)
 			    WHERE pordnr NOT IN (SELECT tabpk FROM hisinone_mapping WHERE tabelle='pord') 
 			    AND pvken4 = 'Y' AND (lehrsprache='P' OR lehrsprache='S' OR lehrsprache='T')
-            	[pord_restriction]
+            	[pord_restrictionFallgruppeB] --Merke: das betrachtet die zuletzt migrierte PO.
+  				--[pord_vert_restrictionTUBAF]--Merke: hier eben explizit keine Einschränkung auf dier Vertiefung. 
+   			
             	ORDER BY 1
             </select>
 	        <param name="mappingPetgp" value="&quot;
@@ -3813,7 +3817,8 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 					LEFT OUTER JOIN hisinone_mapping ON (pnrzuord.pordnr = hisinone_mapping.tabpk  AND hisinone_mapping.tabelle = 'pord')
 					WHERE pord.pordnr = pnrzuord.pordnr 
 					AND artzuord NOT IN ('KOH', 'BFV', 'akv', 'grp', 'aq')						
-						[pord_restriction]
+						[pord_restrictionFallgruppeB] --Merke: das betrachtet die zuletzt migrierte PO.
+  						--[pord_vert_restrictionTUBAF]--Merke: hier eben explizit keine Einschränkung auf dier Vertiefung.    			
 				UNION
 				SELECT 	
 					pnrzuord.pordnr,
@@ -3833,7 +3838,9 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 					JOIN pord AS child_pord ON (child_pord.pordnr = pnrzuord.pordnr)
 						WHERE 1 = 1
 						AND artzuord NOT IN ('KOH', 'BFV', 'akv', 'grp', 'aq') 
-						[pord_restriction]
+						[pord_restrictionFallgruppeB] --Merke: das betrachtet die zuletzt migrierte PO.
+  						--[pord_vert_restrictionTUBAF]--Merke: hier eben explizit keine Einschränkung auf dier Vertiefung. 
+   			
 				 ORDER BY 1
             </select>
             <param name="targetobject" value="unitrelation" />
@@ -3878,7 +3885,8 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 				WHERE pord.pordnr = pnrzuord.pordnr 
 				AND pnrzuord.pordnr = hisinone_mapping.tabpk 
 				AND hisinone_mapping.tabelle = 'pord'
-					[pord_restriction]
+					[pord_restrictionFallgruppeB] --Merke: das betrachtet die zuletzt migrierte PO.
+  					--[pord_vert_restrictionTUBAF]--Merke: hier eben explizit keine Einschränkung auf dier Vertiefung. 
 				ORDER BY 1
             </select>
             <param name="DEBUG" value="y" />
@@ -3897,7 +3905,8 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 			FROM pord 
 	           WHERE pordnr NOT IN (SELECT tabpk FROM hisinone_mapping WHERE tabelle='pord') 
 	           AND pvken3 = 'V' 
-	           [pord_restriction]
+	         [pord_restrictionFallgruppeB] --Merke: das betrachtet die zuletzt migrierte PO.
+  			 --[pord_vert_restrictionTUBAF]--Merke: hier eben explizit keine Einschränkung auf dier Vertiefung.    			
 	           ORDER BY 1
 	         </select>
 	         <param name="DEBUG" value="y" />
@@ -3914,7 +3923,8 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
             FROM pords, pord 
             WHERE not pords.sprache = 'D' and pord.pordnr=pords.pordnr
                 AND pord.pordnr NOT IN (SELECT hisinone_mapping.tabpk FROM hisinone_mapping WHERE hisinone_mapping.tabelle='pord')
-                [pord_restriction]
+				[pord_restrictionFallgruppeB] --Merke: das betrachtet die zuletzt migrierte PO.
+  				--[pord_vert_restrictionTUBAF]--Merke: hier eben explizit keine Einschränkung auf dier Vertiefung.    			
             ORDER BY 1
             </select>
             <param name="srctable" value="pords" />
@@ -3995,7 +4005,8 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 				SELECT DISTINCT pordnr, pnr, abschl, stg, vert, schwp, kzfa, pversion
 					FROM pord
 					WHERE pvken4 = 'G' AND pvken3 = 'S'
-					[pord_restriction]
+					[pord_restrictionFallgruppeB] --Merke: das betrachtet die zuletzt migrierte PO.
+  					--[pord_vert_restrictionTUBAF]--Merke: hier eben explizit keine Einschränkung auf dier Vertiefung.    			
 					ORDER BY abschl, stg, vert, schwp, kzfa, pversion
 	            </select>
 	            <param name="DEBUG" value="y" />
@@ -4009,7 +4020,8 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 	      
 	    <!-- preprocessing -->
      	<!-- postprocessing -->
-     	<postprocessing active="y" ueberschreiben="y">
+     	<!-- wir arbeiten schon auf den weitergeschobenen Datensatz, darum hier nicht weiterschieben -->
+     	<postprocessing active="n" ueberschreiben="y">
 	       <action name="PO_MIGRATION_FORTSCHREIBEN" active="y" ueberschreiben="y" type="sql" database="sospos">
 					-- FL 20250929 Aktualisiere die Spezialtabelle im angegebenen-Schema und setze diese PO als migriert
 					UPDATE [schemaZZZ].po_migration SET migriert = true
@@ -4026,8 +4038,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 		</entry>
 
     <!-- FL: Mache dies nicht, sondern verwende bestehendes Aufhängerelement wieder -->
-    <!--     Also active ="n" -->
-   <entry name="hisinone-sospos-pord-PO" active="y" description="!!! Hier nur STG / WIN (C13): Anlegen von Aufhängerelementen für die Prüfungsordnungen" databases="hisinone,sospos">
+   <entry name="hisinone-sospos-pord-PO-FallgruppeB" active="n" description="Anlegen von Aufhängerelementen für die Prüfungsordnungen" databases="hisinone,sospos">
       <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
          <admin>
             <execute />
@@ -4094,8 +4105,8 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 				OR pord.pnr IN (Select sonstpnr1 from hskonst WHERE aikz = 'A') 
 				OR pord.pnr IN (Select sonstpnr2 from hskonst WHERE aikz = 'A') 
 				OR pord.pnr IN (Select sonstpnr3 from hskonst WHERE aikz = 'A'))
-				 [pord_restrictionTUBAFdone]
-				 [pord_vert_restriction3TUBAF]
+				[pord_restrictionFallgruppeB]
+				[pord_vert_restrictionTUBAF]
 				ORDER BY abschl, stg, vert, schwp, kzfa, pversion
             </select>
             <param name="targetobject" value="unit" />
