@@ -13,7 +13,7 @@
 	<!-- Für das cust-exa System müssen Teststudis und deren Studienverläufe migriert werden -->
 	<!-- <section name="group" description="HISinOne Campusmanagement"/> -->
 	<menu ueberschreiben="y">
-		<section name="group" description="HISinOne Kernsegment"/>
+		<section name="group" active="n" description="HISinOne Kernsegment"/>
 		<section name="subgroup" active="n" description="Organisationseinheiten und Projekte" />
 		<section name="menu-sva-schluessel" active="n" description="Organisationseinheiten aus COBFSVSVA" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Organisationseinheiten_aus_COBFSVSVA-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
 		<section name="menu-lsf-einrichtung" active="n" description="Organisationseinheiten aus LSF" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Organisationseinheiten_aus_LSF-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
@@ -28,16 +28,13 @@
 		<section name="menu-lsf-k_geb_stock_raum" active="n" description="Räume aus LSF" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Raeume_aus_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
 		<section name="menu-mbs-geb" active="n" description=" Räume aus BAU" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Raeume_aus_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; "/>
 		
-		<section name="subgroup" description="Personen"/>
+		<section name="subgroup" active="n" description="Personen"/>
 		<section name="menu-sva-pgd" active="n" description="Personen aus SVA" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Personen_aus_HIS-GX_SOSPOS_und_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />		
 		<section name="menu-lsf-personal" active="n" description="Personen aus LSF" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Personen_aus_HIS-GX_SOSPOS_und_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
-		<section name="menu-sospos-personen" description="Personen aus SOSPOS" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Personen_aus_HIS-GX_SOSPOS_und_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
-			<menuentry name="hisinone-sospos-student" />
-		</section>
-
-
-		<section name="group" description="HISinOne Campusmanagement"/>
-		
+	
+	    <!-- FGL: Ein Parameter kann leider im Menue nicht ausgwertet werden, damit leider nicht im UI sichtbar. Daher hier hart coded.  -->
+		<section name="group" description="HISinOne Campusmanagement. TUBAF-EXA: Version 20260625"/>
+	
 		<section name="subgroup" active="n" description="Allgemeine Daten"/>
 		
 		<section name="menu-fia" active="n" description="Überprüfung für das Forderungsmanagement" />
@@ -48,10 +45,6 @@
 		<section name="subgroup" active="n" description="APP - Bewerbungs- und Zulassungsmanagement" />
 		<section name="menu-sospos-k_fehl" active="n" description="Schlüsseltabelle für fehlende Unterlagen"/>
 		
-		<section name="subgroup" description="STU - Studierendenmanagement" />
-		<section name="menu-sospos-stg" description="Studienverlauf" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Studierende' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
-					<menuentry name="hisinone-sospos-stg" />
-		</section>
 		
 		<section name="menu-sospos-fristen" active="n" description="Anträge für Fristverlängerungen für STU-relevante Prüfungen" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Fristverl%C3%A4ngerungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
 		<section name="menu-sospos-gebuehren" active="n" description="Gebührenverlauf und Minderungen" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Gebuehren' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
@@ -64,62 +57,85 @@
 		<section name="menu-sospos-doc" active="n" description="DOC - Doktorandenmanagement" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Doktoranden' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
 		<section name="stay_abroad" active="n" description="Daten zu Auslandsaufenthalten der Studierenden" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Verteilter_Betrieb_HISinOne-STU_und_POS-GX#Aktualisierung_der_Daten_in_der_HISinOne-Datenbank' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
 		
-		<!-- Neuer Menüpunkt - Migrationen für EXA, die keine POs brauchen und vorher schon stattfinden können -->
-		<section name="subgroup" description="TUBAF - EXA - Prüfungs- und Veranstaltungsmanagement (ohne migrierte PO)" />
-		<section name="menu-sospos-personenPrePO" description="Personen aus SOSPOS" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Personen_aus_HIS-GX_SOSPOS_und_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
+		<!-- FL: Die Schlüsseltabellen sind inzwischen alle ins System übernommen, eine Migration ist nicht mehr notwendig  -->
+		<section name="subgroup" active="n" description="TUBAF: EXA - Schlüsseltabellen (1x auszuführen, vorgelagert)"/>		
+		<section name="menu-sospos-pruefungsordnung" active="n" ueberschreiben="y" description="Schlüsseltabellen für Prüfungsordnungen" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_PO' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
+			<menuentry name="hisinone-sospos-k_p-tabellen" />			
+		</section>
+		
+		<!-- Neue Menüpunkte - Migrationen für EXA, die keine POs brauchen und vorher schon stattfinden können -->		
+		<section name="subgroup" active="n" description="TUBAF: STU für EXA - TESTDATEN für CUST-Systeme (ohne migrierte PO)" />
+		<section name="menu-sospos-personenPrePO" active="n" description="Personen aus SOSPOS" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Personen_aus_HIS-GX_SOSPOS_und_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
 			<menuentry name="hisinone-sospos-studentPrePO" />
 		</section>
-		<section name="menu-sospos-stgPrePO" description="Studienverlauf" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Studierende' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
+		<section name="menu-sospos-stgPrePO" active="n" description="Studienverlauf" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Studierende' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
 					<menuentry name="hisinone-sospos-stgPrePO" />
 		</section>
-		<section name="menu-sospos-leistungsdaten9999prePO" active="y" ueberschreiben="y" description="TUBAF: Leistungen (nur Abschussleistung von Exmatrikulierten, Promovenden)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
+		<section name="menu-sospos-leistungsdaten9999prePO" active="n" ueberschreiben="y" description="Leistungen (nur Abschussleistung von Exmatrikulierten, Promovenden)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
 			<menuentry name="hisinone-sospos-lab9999prePO" />			
 		</section>
-		<section name="menu-Klemmbaustein" active="y" ueberschreiben="y"  description="TUBAF: Klemmbaumsteinkasten" >
+				
+		<section name="subgroup" description="TUBAF: Stammdaten, PO unabhängig" />			
+		<section name="menu-sospos-prueferPrePO" active="y" description="Prüfer aus SOSPOS" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Personen_aus_HIS-GX_SOSPOS_und_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">		
+			<menuentry name="hisinone-sospos-prueferPrePO" />
+		</section>
+					
+		<section name="subgroup" description="TUBAF: KATALOG (ohne migrierte PO)" />
+		<section name="menu-Klemmbaustein" active="y" ueberschreiben="y"  description="Klemmbaumsteinkasten" >
 			<menuentry name="hisinone-sospos-pordPrePO" />						
 		</section>
 		
-		<section name="subgroup" description="EXA - Prüfungs- und Veranstaltungsmanagement"/>
-		
-		<section name="menu-sospos-pruefungsordnung" ueberschreiben="y" description="Prüfungsordnungen (1x auszuführen, vorgelagert)" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_PO' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
-			<menuentry name="hisinone-sospos-k_p-tabellen" />			
-		</section>
-		<section name="menue-Fallgruppe-A" description="Fallgruppe A: Eine Prüfungsordnung über alle Vertiefungen (HIS Normal. Vertiefung im Studienverlauf festgelegt.)" >
+		<!-- Neue Menüpunkte - Migrationen für EXA, die POs - gesteuert über die SOSPOS Tabelle tubaf.po_migration -->
+		<section name="group" active="y" description="TUBAF EXA FORTLAUFENDE MIGRATION: PRÜFUNGSORDNUNGEN"/>		
+		<section name="subgroup" description="TUBAF: PRÜFUNGSORDNUNGSMIGRATION (der aktuell bereitgestellten PO)" />
+		<section name="menue-Fallgruppe-A" description="Fallgruppen 1a/1b: Eine Prüfungsordnung über alle Vertiefungen (HIS Normal. Wiederverwenden des Aufhängerelements. Vertiefung im Studienverlauf festgelegt.)" >
 			<menuentry name="hisinone-sospos-pord" />
 			<menuentry name="zuordnung-pruefung-gesamtkonto" />
 			<menuentry name="hisinone-sospos-pord-PO" />						
 		</section>
-		<section name="menue-Fallgruppe-B" description="Fallgruppe B: Pro Vertiefung eine Prüfungsordnung (TUBAF Spezial. Vertiefung bei Einschreibung festgelegt, z.B. 88|049)" >
+		<section name="menue-Fallgruppe-B" description="Fallgruppe 2:  Eine Prüfungsordnung über alle Vertiefungen, z.B. 88|049)" >
 			<menuentry name="hisinone-sospos-pord-FallgruppeB" />			
 			<menuentry name="zuordnung-pruefung-gesamtkonto-FallgruppeB" />
 			<menuentry name="hisinone-sospos-pord-PO-FallgruppeB" />						
 		</section>
+		<section name="menue-Fallgruppe-C" description="Fallgruppen 3: Pro Vertiefung eine Prüfungsordnung (TUBAF Spezial. Vertiefung bei Einschreibung festgelegt)(Einbinden von '-', OHNE extra AUfhängerelment für '-'). Z.B. 11|C42)" >
+			<menuentry name="hisinone-sospos-pord-FallgruppeC" />
+			<menuentry name="zuordnung-pruefung-gesamtkonto-FallgruppeC" />
+			<menuentry name="hisinone-sospos-pord-PO-FallgruppeC" />						
+		</section>		
 		<section name="menu-hisinone-unit_studies" ueberschreiben="y" description="Prüfungsordnungen (nachgelagert)" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_PO' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
 			<menuentry name="hisinone-unit_studies" />
 		</section>
 		
-		<section name="subgroup" description="Leistungen"/>
+		<section name="group" active="y" description="TUBAF EXA FORTLAUFENDE MIGRATION: LEISTUNGSDATEN (für zuletzt migrierte PO, nachgelagert). WICHTIG: Haken bei den POs vorher rausnehmen!"/>
+		<section name="subgroup" description="TUBAF: STU für EXA - TESTDATEN für CUST-Systeme (für zuletzt migrierte PO, nachgelagert)" />		
+		<section name="menu-sospos-personen" description="Personen aus SOSPOS" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Personen_aus_HIS-GX_SOSPOS_und_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
+			<menuentry name="hisinone-sospos-student" />
+		</section>
+		<section name="menu-sospos-stg" description="Studienverlauf" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Studierende' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">
+					<menuentry name="hisinone-sospos-stg" />
+		</section>
 		
-		<section name="menu-sospos-leistungsdaten" ueberschreiben="y" description="TUBAF: Leistungen (alle, von nicht Exmatrikulierten, nicht Promovenden)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
+		<section name="subgroup" description="TUBAF: LEISTUNGEN ((für zuletzt migrierte PO, nachgelagert)"/>		
+		<section name="menu-sospos-leistungsdaten" ueberschreiben="y" description="Leistungsdaten (alle, von nicht Exmatrikulierten, nicht Promovenden)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
 			<menuentry name="hisinone-sospos-lab" />
-			<menuentry name="hisinone-sospos-lab-prgrup" />
+			<menuentry name="hisinone-sospos-lab-prgrup" active="n"/>
 			<menuentry name="hisinone-sospos-labzuord" />
 			<menuentry name="hisinone-sospos-labzuord-gesamtkonto" />
 		</section>
 		
 		<!-- Eigener Menüpunkt für Leistungen der Studenten, die einen Abschluss haben.  -->
 		<!-- Darin werden die Leistungen auf die 9999 begrenzt -->
-		<section name="menu-sospos-leistungsdaten9999" active="y" ueberschreiben="y" description="TUBAF: Leistungen (nur Abschussleistung von Exmatrikulierten, Promovenden)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
+		<section name="menu-sospos-leistungsdaten9999" active="y" ueberschreiben="y" description="Leistungsdaten (nur Abschussleistung von Exmatrikulierten, Promovenden)"   help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_Leistungen' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; ">	
 			<menuentry name="hisinone-sospos-lab9999" />
 			<menuentry name="hisinone-sospos-labzuord9999" />
 			<menuentry name="hisinone-sospos-labzuord-gesamtkonto9999" />
 		</section>	
 		
-		<section name="menu-hisinone-examrelation" active="y" ueberschreiben="y" description="TUBAF - Fehlende Zuordnungen zu Leistungen gemäß Prüfungsordnung ergänzen">
+		<section name="menu-hisinone-examrelation" active="y" ueberschreiben="y" description="Fehlende Zuordnungen zu Leistungen gemäß Prüfungsordnung ergänzen">
 			<menuentry name="hisinone-examrelation" />
 		</section>
-		
-		
+				
 		<section name="subgroup" description="(NOCH NICHT) EXA relevant" />
 		<section name="lab-fristen" description="Fristverlängerungen">
 			<menuentry name="hisinone-sospos-lab-frist-all" />
@@ -194,9 +210,8 @@
 				<param active="y" name="schemaZZZ" value="ichzzz" />
 			<!--  FGL EXA PARAMETER ENDE IMMER ANPASSEN:  -->
 
-			<!-- FGL: Parameter kann leider im Menue nicht ausgwertet werden, damit leider nicht im UI sichtbar. Zumindest koennte man ihn in der Datei vergleichen und ggfs. auch ins log Schreiben über Erweiterung der Velocity Scripte  -->
-			<param active="y" name="versionZZZ" value="2026.03.26" />
 			
+						
 			<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
 			<!-- Schema ggfs anpassen. Restriktionen für die Leistungen und Nachmigration der Studenten -->
 			<!-- Merke: Eine Verschachtelung von Parameter in Parameter geht nicht. Darum hier statt des Parameters "[schemaZZZ]" direkt "ichZZZ" schreiben -->
@@ -498,7 +513,8 @@
 				Limit 1
 				)" />
 				
-				<param active="y" name="pord_vert_restriction_TUBAF" value="AND pord.vert IN(
+				<!-- zu kompliziert, vert steht doch selbst in po_migration
+				<param active="y" name="pord_vert_restrictionTUBAF" value="AND pord.vert IN(
 				 select case 
 					when vert=''
         				THEN '-'
@@ -514,6 +530,102 @@
 				        limit 1
 				    )
 				)" />
+				 -->
+				
+				<!-- für Test Fallgruppe 1a oder 1b oder 3 -->
+				<!-- <param active="y" name="pord_vert_restrictionTUBAF" value="AND pord.vert IN('')" />-->				
+				<param active="y" name="pord_vert_restrictionTUBAF" value="AND pord.vert IN(
+				 select case 
+					when vert=''
+        				THEN ''
+        			when vert=' '
+        			    Then ''
+					ELSE vert						
+					END 
+				    from [schemaZZZ].po_migration
+				    where migriert = false and bereit=true and migrieren=true
+					order by reihenfolge ASC
+					Limit 1	
+				)" />
+				
+				 <!-- FL: 20260624 - Beachte, dass hier mit OR die LEEREN VERTIEFUNGEN einbezogen werden -->
+				<param active="y" name="pord_vert_restriction3TUBAF" value="AND (pord.vert IN(
+				 select case 
+					when vert=''
+        				THEN ''
+        			when vert=' '
+        			    Then ''
+					ELSE vert						
+					END 
+				    from [schemaZZZ].po_migration
+				    where migriert = false and bereit=true and migrieren=true
+					order by reihenfolge ASC
+					Limit 1	
+				)
+				OR pord.vert IN(''))" />
+				
+				<!-- FL20260623 hard coded Versuch -->
+				<param active="y" name="pord_vert_restrictionFallgruppe3TUBAF" value="AND pord.vert IN('Bb','Gt','TE')" />
+				
+				<param active="y" name="pord_vert_value3_TUBAF" value="
+								case 
+					when 
+					  (select vert
+						from tubaf.po_migration
+				  		  where migriert = false and bereit=true and migrieren=true
+							order by reihenfolge ASC
+							Limit 1
+					   )=''
+        				THEN '-'
+        			when 
+					  (select vert
+						from tubaf.po_migration
+				  		  where migriert = false and bereit=true and migrieren=true
+							order by reihenfolge ASC
+							Limit 1
+					   )=' '
+        			    Then '-'
+					ELSE vert						
+					END 						
+			"/>
+				
+				
+				
+				<!-- Die pord Restriction ohne vert-Anteil -->
+				<param active="y" name="pord_restrictionTUBAF" value="AND pord.abschl IN (
+					select abschl from [schemaZZZ].po_migration
+						where migriert = false and bereit=true and migrieren=true
+						order by reihenfolge ASC
+						Limit 1
+					) AND pord.stg IN (
+					select stg from [schemaZZZ].po_migration
+						where migriert = false and bereit=true and migrieren=true
+						order by reihenfolge ASC
+						Limit 1				
+					) AND pord.pversion IN (
+					select pversion::smallint from [schemaZZZ].po_migration
+						where migriert = false and bereit=true and migrieren=true
+						order by reihenfolge ASC
+						Limit 1
+					)
+				" />
+				
+				<param active="y" name="pord_restrictionTUBAFdone" value="AND pord.abschl IN (
+				select abschl from [schemaZZZ].po_migration
+					where migriert = true and bereit=true and migrieren=true
+					order by reihenfolge DESC
+					Limit 1
+				) AND pord.stg IN (
+				select stg from [schemaZZZ].po_migration
+					where migriert = true and bereit=true and migrieren=true
+					order by reihenfolge DESC
+					Limit 1
+				) AND pord.pversion IN (
+				select pversion::smallint from [schemaZZZ].po_migration
+					where migriert = true and bereit=true and migrieren=true
+					order by reihenfolge DESC
+					Limit 1
+				) " />	
 				
 			
 			<!-- FL 2025-09-23: Lösung der Reihenfolgeproblematik über eine Tabelle . Dort wird jeweils die niedrigste, bereite und noch nicht migrierte PO als Datensatz geholt. -->
@@ -540,6 +652,7 @@
 				)
 			" />
 			
+			<!-- vert Anteil raus
 			<param active="y" name="pord_restriction" value="AND pord.abschl IN (
 				select abschl from [schemaZZZ].po_migration
 					where migriert = false and bereit=true and migrieren=true
@@ -568,6 +681,30 @@
 					Limit 1
 				)
 			" />
+			-->
+			<param active="y" name="pord_restriction" value="AND pord.abschl IN (
+				select abschl from [schemaZZZ].po_migration
+					where migriert = false and bereit=true and migrieren=true
+					order by reihenfolge ASC
+					Limit 1
+				) AND pord.stg IN (
+				select stg from [schemaZZZ].po_migration
+					where migriert = false and bereit=true and migrieren=true
+					order by reihenfolge ASC
+					Limit 1
+				)AND pord.vert IN (
+				 select vert from [schemaZZZ].po_migration
+					where migriert = false and bereit=true and migrieren=true
+					order by reihenfolge ASC
+					Limit 1
+				) AND pord.pversion IN (
+				select pversion::smallint from [schemaZZZ].po_migration
+					where migriert = false and bereit=true and migrieren=true
+					order by reihenfolge ASC
+					Limit 1
+				)
+			" />
+			
 				
 			<!-- FL: 'Q' rausnehmen, dann wird in der Baumhierarachie 'alternative Zuordnung' verwendet. -->
 			<!-- Alternative 'AZ' as artzuord im SQL verwenden -->
@@ -876,7 +1013,8 @@
 			 <param active="y" name="sos_restrictionTUBAF_exmadat_PrePO" value="AND (sos.exmdat IS null or sos.exmdat &gt;= DATE '2019-10-01')" />
 			 
 			 <!-- fuer den 'Klemmbausteinkasten' -->
-			 <param active="y" name="pord_restriction_PrePO" value="AND pord.pltxt4 LIKE 'P1\_%' ESCAPE '\\'" />
+			 <!-- <param active="y" name="pord_restriction_PrePO" value="AND pord.pltxt4 LIKE 'P1\_%' ESCAPE '\\'" /> -->
+			 <param active="y" name="pord_restriction_PrePO" value="AND pord.pltxt4 LIKE 'P1%'" />
 			 
 			 			 
 			 <!-- fuer die Testweise Migration nur der Studenten, bezogen auf die aktuell zu migrierenden PO (VOR DER PO MIGRATION) -->
@@ -1341,7 +1479,7 @@ Limit 1
 	       <param name="DEBUG" value="n" />
 		   <param name="TIMER" value="y" />
          </action>
-         <action name="smv_notification" active="y" xslt="dbinterface/hisinone/sospos-smv_notification.vm">
+         <action name="smv_notification" active="n" xslt="dbinterface/hisinone/sospos-smv_notification.vm">
          	<!-- Meldungsverlauf SMV -->
             <select>
 				SELECT smv_notification.id AS id
@@ -1541,6 +1679,154 @@ Limit 1
       </actions>
       <destination>intern</destination>
    </entry>
+
+  <!-- Prüfer -->
+  <entry name="hisinone-sospos-prueferPrePO" active="y" description="Prüfer" databases="hisinone,sospos">
+      <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
+         <admin>
+            <execute />
+         </admin>
+      </rights>
+      <dbconnection name="sospos" />
+      <actions sendlevel="3">
+         <action name="ident" active="y" xslt="dbinterface/hisinone/person.vm">
+			<select>
+			SELECT ident.identnr AS identnr, identroll2.verbindung_integer AS pid, k_ppruef.enr AS pgd_join_id
+				, ident.vorname AS firstname, ident.name as surname, ident.geschl as gender, ident.anti as title_academicdegree, ident.antizudtxt as nameprefix
+				, ident.titel_nachgestellt AS namesuffix, identroll.rolle AS rolle
+				, k_ppruef.gebdat AS birthdate
+				, identzusatz.inhalt AS pgd_join_id2
+			FROM k_ppruef 
+     		INNER JOIN identroll ON (identroll.verbindung_char = k_ppruef.ppruefer AND identroll.rolle = 'P')
+            INNER  JOIN ident ON (ident.identnr = identroll.identnr)
+            LEFT OUTER JOIN identroll AS identroll2 ON (identroll.identnr = identroll2.identnr AND identroll2.rolle IN ('F')) 
+            LEFT JOIN identzusatz ON (ident.identnr=identzusatz.identnr AND identzusatz.spaltenname='SVA')
+            WHERE ident.name IS NOT NULL AND TRIM(ident.name) != '' 
+            AND (k_ppruef.prgrup NOT IN ('O','M','U') OR k_ppruef.prgrup IS NULL)
+                [pruefer_restriction]
+            ORDER BY ident.identnr
+            </select>	
+            <param name="database" value="sospos" />
+            <param name="srctable" value="ident" />
+            <param name="srctableid" value="identnr" />
+            <param name="srctable2" value="ident" />
+            <param name="srctable2id" value="identnr" />
+            <param name="create" value="y" />
+            <param name="warnIfChanged" value="y" />
+            <param name="verbose" value="[verbose]" />
+            <param name="dbactions" value="[dbactions]" />
+            <param name="debug" value="[debug]" />
+			<param name="DEBUG" value="n" />
+			<param name="TIMER" value="y" />
+	        <param name="targetobject" value="person" />
+         </action>
+         <action name="anschri" active="y" xslt="dbinterface/hisinone/address.vm">
+			<select>
+            SELECT identroll.identnr AS identnr, identroll.rolle AS rolle, identroll.anschrkz AS postanschrkz
+				, strasse AS street,anschri.zusastrasse AS streetaddition, plz AS postcode, ort AS city, anschri.zusaort AS cityaddition
+				, anschri.anschrkz AS anschrkz, kfz AS country, anschrinr, anschri.zusatz AS addressaddition
+            FROM identroll 
+            JOIN anschri ON (identroll.identnr = anschri.identnr)
+            WHERE identroll.rolle = 'P'
+            [pruefer_restriction]
+            </select>	
+            <param name="database" value="sospos" />
+            <param name="srctable" value="ident" />
+            <param name="srctableid" value="identnr" />
+            <param name="srctable2" value="anschri" />
+            <param name="srctable2id" value="anschrinr" />
+            <param name="targetobject" value="address" />
+			<param name="DEBUG" value="n" />
+			<param name="TIMER" value="y" />
+         </action>
+         <action name="telefon" active="y" xslt="dbinterface/hisinone/address.vm">
+			<select>
+			SELECT identroll.identnr AS identnr
+	            , telefon.tel AS phone, telefon.artkz AS artkz, telefon.anschrkz AS anschrkz
+	            , telefonnr, 'A' AS aikz
+            FROM identroll 
+            JOIN telefon ON (identroll.identnr = telefon.identnr)
+            WHERE identroll.rolle = 'P'
+            [pruefer_restriction]
+           </select>	
+            <param name="database" value="sospos" />
+            <param name="srctable" value="ident" />
+            <param name="srctableid" value="identnr" />
+            <param name="srctable2" value="telefon" />
+            <param name="srctable2id" value="telefonnr" />
+            <param name="targetobject" value="address" />
+			<param name="DEBUG" value="n" />
+			<param name="TIMER" value="y" />
+         </action>
+         <action name="email" active="y" xslt="dbinterface/hisinone/address.vm">
+			<select>
+			SELECT identroll.identnr AS identnr
+            	, emailnr, email.email as email, email.artkz AS artkz, 'A' as aikz
+            FROM identroll 
+            JOIN email ON (identroll.identnr = email.identnr)
+            WHERE identroll.rolle = 'P'
+            [pruefer_restriction]
+            </select>	
+            <param name="database" value="sospos" />
+            <param name="srctable" value="ident" />
+            <param name="srctableid" value="identnr" />
+            <param name="srctable2" value="email" />
+            <param name="srctable2id" value="emailnr" />
+            <param name="targetobject" value="address" />
+			<param name="DEBUG" value="n" />
+			<param name="TIMER" value="y" />
+         </action>
+         <action name="nutzer" active="y" xslt="dbinterface/hisinone/lsf/nutzer.vm">
+          <!-- Migration von Accounts -->
+            <select>
+				SELECT nutzer.onl_login AS login, nutzer.password AS password, nutzer.ustatus AS ustatus, nutzer.nid AS nid
+				, nutzer.identnr AS identnr, lastlogin
+				FROM nutzer, identroll
+				WHERE identroll.identnr = nutzer.identnr
+				AND  nutzer.onl_login IS NOT NULL
+				AND TRIM(nutzer.onl_login) &lt;&gt; ''
+ 				AND identroll.rolle IN ('P', 'F')
+            		[pruefer_restriction]
+		   </select>
+           <param name="database" value="sospos" />
+           <param name="srctable" value="ident" />
+           <param name="srctableid" value="identnr" />
+           <param name="srctable2" value="identroll" />
+           <param name="srctable2id" value="nid" />
+           <param name="externalsystem" value="SOSPOS" />
+           <param name="targetobject" value="account" />
+	        <param name="DEBUG" value="n" />
+			<param name="TIMER" value="y" />
+         </action>
+         <action name="orgrole" active="y" xslt="dbinterface/hisinone/orgrole.vm">
+          <!-- Anlegen von Orgrolen -->
+            <select>
+				SELECT identroll.identnr AS identnr, identroll.rolle AS rolle
+				, 'k_fb' AS org_tabellenname
+				FROM identroll
+				WHERE 1 = 1
+ 				AND identroll.rolle IN ('P', 'F')
+            		[pruefer_restriction]
+		   </select>
+           <param name="database" value="sospos" />
+           <param name="srctable" value="ident" />
+           <param name="srctableid" value="identnr" />
+           <param name="srctable2" value="identroll" />
+           <param name="externalsystem" value="SOSPOS" />
+           <param name="targetobject" value="orgrole" />
+            <!-- Links Rolle in sospos (identroll.rolle) - Rechts korrespondierende Rolle in HISinOne (role.uniquename) -->
+		   <param name="mapping" value="&quot;
+				P=pruefer,
+				F=lehrender,
+				&quot;" />
+			<param name="defaultrole" active="n" value="pruefer" />
+	        <param name="DEBUG" value="n" />
+			<param name="TIMER" value="y" />
+         </action>
+      </actions>
+      <destination>intern</destination>
+   </entry>
+
 
   
   <!-- Studienverlauf -->
@@ -1911,8 +2197,8 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 		</postprocessing>		
 	</entry>
 	
-	<!-- 20260512: Versuch PO Module etc. vorher schon zu migrierern. 
-	               Klemmbausteinkasten
+	<!-- Klemmbausteinkasten
+	     20260512: Versuch PO Module etc. vorher schon zu migrierern. 	               
 	               Ziel: Studiengangsfremde Leistungen angezeigt zu bekommen
 	               Was bereitgestellt ist häng ab von der Spalte PLTXT4
 	               Darin führend 'P1_' als Wert -->
@@ -1969,6 +2255,32 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
             <param name="pformGEToKonto" value="n" /> <!--value=y bedeutet: wenn pform="GE" und pdum=" " dann wird statt einer Prüfung ein Konto erzeugt -->
          </action>
          
+          <!-- Klemmbausteinkasten DUPLICATE. Hier schon einmal ausführen --> 
+          <action name="duplicate_unit" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-duplicate_unitPrePO4TUBAF.vm">
+            <select>
+				SELECT DISTINCT pordnr, pform, pord.part AS part, diplkz, pvken4, fb
+				,CASE 
+					WHEN k_part.prfgkz = 'P'
+						THEN 'PZ'
+					ELSE lehrsprache
+				END AS petgp
+				FROM pord 
+				LEFT OUTER JOIN k_part ON (pord.part = k_part.part)
+			    WHERE pordnr NOT IN (SELECT tabpk FROM hisinone_mapping WHERE tabelle='pord') 
+			    AND pvken4 = 'Y' AND (lehrsprache='P' OR lehrsprache='S' OR lehrsprache='T')
+            	[pord_restriction_PrePO]
+            	ORDER BY 1
+            </select>
+	        <param name="mappingPetgp" value="&quot;
+					P=P,
+					S=SL,
+					T=P,
+					PZ=PZ,
+				&quot;" />
+           <param name="DEBUG" value="y" />
+           <param name="targetobject" value="unit" />
+         </action>
+         
           <action name="pnrzuord" active="y" xslt="dbinterface/hisinone/sospos-pnrzuord.vm">
             <select>
 				SELECT DISTINCT
@@ -1994,7 +2306,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 					WHERE pord.pordnr = pnrzuord.pordnr 
 					AND artzuord NOT IN ('KOH', 'BFV', 'akv', 'grp', 'aq')
 						[artzuord_restriction]
-						-- alle nehmen2 [pord_restriction_PrePO]   
+						[pord_restriction_PrePO]   
 				UNION
 				SELECT 	
 					pnrzuord.pordnr,
@@ -2015,30 +2327,14 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 						WHERE 1 = 1
 						AND artzuord NOT IN ('KOH', 'BFV', 'akv', 'grp', 'aq')
 						[artzuord_restriction] 
-						-- alle nehmen2 [pord_restriction_PrePO]
+						[pord_restriction_PrePO]
 				 ORDER BY 1
             </select>
             <param name="targetobject" value="unitrelation" />
             <param name="TIMER" value="y" />
              <param name="DEBUG" value="y" />
          </action>
-         
-         <!-- FGL: 20260519 Nimm hier alle Zuordnungen rein  -->
-         <!--      ABER: in der externalrelation-Tabelle stehen die Zuordnungen noch mit dem 'Q' Wert. 
-         			Darum normalerweise: 
-         			pnrzuord.arzuord AS artzuord	
-         			
-         	 Wenn in der vorherigen action allerdings schon gemappt worden ist:
-				CASE
-            		WHEN pnrzuord.artzuord in('H4','H6')
-						THEN 'ABS'
-					WHEN pnrzuord.artzuord in('H5')
-						THEN 'KA'
-					ELSE 'AZ' 						
-				END AS artzuord
-                    -->
-                   
-         
+                  
          <action name="pnrzuord-mapped" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-pnrzuord-mapped.vm">
             <select>
 			SELECT DISTINCT
@@ -2080,9 +2376,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
             </select>
             <param name="DEBUG" value="y" />
             <param name="targetobject" value="unitrelation" />
-         </action>
-         
-         
+         </action>    
        </actions>
        </entry>
   
@@ -2969,8 +3263,9 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
                        also pdtxt AS dtxt ersetzt und umgekehrt durch
                             pltxt1 as dtxt   -->
                             
-    <!-- ++++ START FALLGRUPPE A -->
-    <entry name="hisinone-sospos-pord" active="y" description="Prüfungsordnungen" databases="hisinone,sospos">
+    <!-- ++++ START FALLGRUPPE A (aka Fallgruppen 1a/1b)-->
+    <!-- Kennzeichen: Wiederverwenden der bishirigen Aufhängerelemente -->
+     <entry name="hisinone-sospos-pord" active="y" description="Prüfungsordnungen" databases="hisinone,sospos">
       <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
          <admin>
             <execute />
@@ -2996,7 +3291,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
   			LEFT OUTER JOIN k_part ON (pord.part = k_part.part)
   			WHERE 1=1
   			AND hskonst.aikz = 'A'
-  			AND pordnr NOT IN (SELECT tabpk FROM hisinone_mapping WHERE tabelle='pord') 
+  			AND pordnr NOT IN (SELECT tabpk FROM hisinone_mapping WHERE tabelle='pord')   			
   			[pord_restriction]
    			ORDER BY pordnr
             </select>
@@ -3163,7 +3458,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 			FROM pord 
 	           WHERE pordnr NOT IN (SELECT tabpk FROM hisinone_mapping WHERE tabelle='pord') 
 	           AND pvken3 = 'V' 
-	            [pord_restriction]
+	           [pord_restriction]
 	           ORDER BY 1
 	         </select>
 	         <param name="DEBUG" value="y" />
@@ -3274,6 +3569,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 	      
 	      
 	    <!-- preprocessing -->
+     	<!-- postprocessing -->
      	<postprocessing active="y" ueberschreiben="y">
 	       <action name="PO_MIGRATION_FORTSCHREIBEN" active="y" ueberschreiben="y" type="sql" database="sospos">
 					-- FL 20250929 Aktualisiere die Spezialtabelle im angegebenen-Schema und setze diese PO als migriert
@@ -3287,17 +3583,12 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
 						) AS sub
 						WHERE po_migration.reihenfolge = sub.reihenfolge;
 			   </action>					   			    		
-			</postprocessing> 
+			</postprocessing>  
 		</entry>
 
-
-
-
-
-    <!-- FL: Idee: Fake den uniquename - Er entspricht damit der in der PORD_RESTRICTION definierten Vertiefung, hier TG 
-		'[pord_vert_value_TUBAF]' AS vert,-->
-    <!--      aber erst einmal beim Standard belassen -->
-    <entry name="hisinone-sospos-pord-PO" active="y" description="Anlegen von Aufhängerelementen für die Prüfungsordnungen" databases="hisinone,sospos">
+    <!-- FL: Mache dies nicht, sondern verwende bestehendes Aufhängerelement wieder -->
+    <!--     Also active ="n" -->
+   <entry name="hisinone-sospos-pord-PO" active="y" description="!!! Hier nur STG / WIN (C13): Anlegen von Aufhängerelementen für die Prüfungsordnungen" databases="hisinone,sospos">
       <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
          <admin>
             <execute />
@@ -3306,6 +3597,7 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
       <dbconnection name="sospos" />
       <actions sendlevel="3">         
          <!-- variante mit pord_vert_restriction, also einem SQL im WHERE Teil -->
+         <!-- 
          <action name="pord-PO" active="y" ueberschreiben ="y" xslt="dbinterface/hisinone/sospos-pord3.vm">
             <select>
 			SELECT DISTINCT pordnr, pnr, pktxt, abschl, stg, pversion, vert, 
@@ -3335,16 +3627,446 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
             </select>
             <param name="targetobject" value="unit" />
 	        <param name="DEBUG" value="y" />
+         </action>-->
+      
+         <!-- variante mit pord_vert_restriction, also einem SQL im WHERE Teil -->
+         <!-- variante mit Übergabe der VERT als Wert, für Fallgruppe 3 -->
+         <!-- hier die bestehenden Aufhängerelemente nicht verwenden, sondern '-' verwenden, ALLE ELEMENTE IN EINE -->
+         <action name="pord-PO" active="y" ueberschreiben ="y" xslt="dbinterface/hisinone/sospos-pord3FallgruppeA4TUBAF.vm">
+            <select>
+			SELECT DISTINCT pordnr, pnr, pktxt, abschl, stg, pversion, [pord_vert_value3_TUBAF] as vert, 
+				case  schwp
+					when  ' ' then '-'
+					when null then '-'
+					else schwp
+				end AS schwp,
+				case  kzfa
+					when  ' ' then '-'
+					when null then '-'
+					else kzfa
+				end AS kzfa
+				, fb
+				FROM pord 
+				WHERE pversion NOT IN (- 1)
+				AND abschl IS NOT NULL AND NOT TRIM(abschl) = '' 
+				AND stg IS NOT NULL AND NOT TRIM(stg) = '' 
+				AND (pord.pnr IN (Select hpnr from hskonst WHERE aikz = 'A') 
+				OR pord.pnr IN (Select vpnr from hskonst WHERE aikz = 'A') 
+				OR pord.pnr IN (Select sonstpnr1 from hskonst WHERE aikz = 'A') 
+				OR pord.pnr IN (Select sonstpnr2 from hskonst WHERE aikz = 'A') 
+				OR pord.pnr IN (Select sonstpnr3 from hskonst WHERE aikz = 'A'))
+				 [pord_restrictionTUBAFdone]
+				 [pord_vert_restriction3TUBAF]
+				ORDER BY abschl, stg, vert, schwp, kzfa, pversion
+            </select>
+            <param name="targetobject" value="unit" />
+	        <param name="DEBUG" value="y" />
          </action>
       </actions>
       <destination>intern</destination>
 	  <!-- FL 20260127: Eigentlich gehört hier das Postprocessing hin, in dem die externe Migrationstabelle mit dem Status "migriert" versehen wird.
 	                    Hier wird ein Postprocessing nichts nützen, da 0 Datensätze laut Migrationsscript verarbeitet werden.
 	                    Daher mache das Postprocessing im vorherigen entry  -->        
-	</entry>	
+	</entry>
     <!-- ENDE FALLGRUPPE A -->
+    
+    <!-- ++++ START FALLGRUPPE C (aka Fallgruppe 3)-->
+    <!-- Kennzeichen: Erstellen eines neuen Aufhängerelements für PO Elemente ohne Vertiefung (also für Vertiefung '-') -->
+    <entry name="hisinone-sospos-pord-FallgruppeC" active="y" description="Prüfungsordnungen" databases="hisinone,sospos">
+      <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
+         <admin>
+            <execute />
+         </admin>
+      </rights>
+      <dbconnection name="sospos" />
+      <actions sendlevel="3">
+         <action name="pord" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-pord.vm">
+            <select>
+			SELECT DISTINCT pordnr, pnr, pform, pord.part AS part, pabschn, pdum, lehrsprache as petgp, labgewicht, freivers, pktxt AS ktxt, pltxt1 AS dtxt, pdtxt AS ltxt
+			, pltxt2, pltxt3, pversion
+			, pltxt4 AS comment, modulcode AS shortcomment, psws, zmadauer, pdauer, diplkz, pord.bendauer AS bendauer, 'D' AS sprache, pvken4, fb
+			, bonus, malus, beleg, partngb, ppflicht, pfsem, pmaxver, pmaxvbe, phoesem, pabschn, labgewicht
+			, hpnr, vpnr, sonstpnr1, sonstpnr2, sonstpnr3
+			, k_part.prfgkz AS prfgkz
+			, CASE lehrsprache
+           			WHEN  'D' THEN 'de'
+           			WHEN  'E' THEN 'en'
+					WHEN  'F' THEN 'fr' 
+			  END AS lehrspracheOriginalFGL
+   			FROM pord
+   			JOIN hskonst ON 1=1
+  			LEFT OUTER JOIN k_part ON (pord.part = k_part.part)
+  			WHERE 1=1
+  			AND hskonst.aikz = 'A'
+  			AND pordnr NOT IN (SELECT tabpk FROM hisinone_mapping WHERE tabelle='pord')   			
+  			[pord_restrictionTUBAF]
+  			[pord_vert_restriction3TUBAF]
+   			ORDER BY pordnr
+            </select>
+            <!-- on the left: pord.pdum; on the right: corresponding k_elementtype.uniquename -->
+		    <param name="mapping" value="&quot;
+			D=K,
+			P=P,
+			B=M,
+			M=M,
+			A=M,
+			V=M,
+			&quot;" />
+		    <param name="mappingPetgp" value="&quot;
+			M=M,
+			K=K,
+			P=P,
+			D=K,
+			S=SL,
+			U=V,
+			T=T,
+			&quot;" />
+            <param name="DEBUG" value="y" />
+            <param name="targetobject" value="unit" />
+            <param name="pformGEToKonto" value="n" /> <!--value=y bedeutet: wenn pform="GE" und pdum=" " dann wird statt einer Prüfung ein Konto erzeugt -->
+         </action>
+         
+         <!-- 2026-03-10: Folgende action bleibt unverändert, es geht um Diplomabschulssarbeiten -->
+         <!-- <action name="pords" ..... -->
+         
+         <action name="duplicate_unit" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-duplicate_unit.vm">
+            <select>
+				SELECT DISTINCT pordnr, pform, pord.part AS part, diplkz, pvken4, fb
+				,CASE 
+					WHEN k_part.prfgkz = 'P'
+						THEN 'PZ'
+					ELSE lehrsprache
+				END AS petgp
+				FROM pord 
+				LEFT OUTER JOIN k_part ON (pord.part = k_part.part)
+			    WHERE pordnr NOT IN (SELECT tabpk FROM hisinone_mapping WHERE tabelle='pord') 
+			    AND pvken4 = 'Y' AND (lehrsprache='P' OR lehrsprache='S' OR lehrsprache='T')
+            	[pord_restrictionTUBAF]
+            	[pord_vert_restriction3TUBAF]
+            	ORDER BY 1
+            </select>
+	        <param name="mappingPetgp" value="&quot;
+					P=P,
+					S=SL,
+					T=P,
+					PZ=PZ,
+				&quot;" />
+           <param name="DEBUG" value="y" />
+           <param name="targetobject" value="unit" />
+         </action>                 
+       
+	    <!-- <action name="zuordnung-gesamtkonto" active="y" ... -->
+	       
+	    <action name="pnrzuord" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-pnrzuord.vm">
+            <select>
+				SELECT DISTINCT
+					CASE
+						WHEN pnrzuord.pordnr != hisinone_mapping.kopf
+							THEN hisinone_mapping.kopf
+						ELSE 
+							pnrzuord.pordnr
+					END AS pordnr,
+					pnrzuord.pordnrzu as pordnrzu, pnrzuord.bonus as bonus, pnrzuord.malus as malus, 
+					
+					
+					CASE
+            			WHEN pnrzuord.artzuord in('H4','H6')
+							THEN 'ABS'
+						WHEN pnrzuord.artzuord in('H5')
+							THEN 'KA'
+						ELSE 'AZ' 						
+					END AS artzuord
+					
+					
+					, lfdnr, freivsem, pnrzuord.ppflicht as ppflicht, pord.pnr as pnr
+					FROM pord, pnrzuord
+					LEFT OUTER JOIN hisinone_mapping ON (pnrzuord.pordnr = hisinone_mapping.tabpk  AND hisinone_mapping.tabelle = 'pord')
+					WHERE pord.pordnr = pnrzuord.pordnr 
+					AND artzuord NOT IN ('KOH', 'BFV', 'akv', 'grp', 'aq')						
+						[pord_restrictionTUBAF]
+            			[pord_vert_restriction3TUBAF]
+				UNION
+				SELECT 	
+					pnrzuord.pordnr,
+					pnrzuord.pordnrzu as pordnrzu, pnrzuord.bonus as bonus, pnrzuord.malus as malus, 
+					
+					CASE
+            			WHEN pnrzuord.artzuord in('H4','H6')
+							THEN 'ABS'
+						WHEN pnrzuord.artzuord in('H5')
+							THEN 'KA'
+						ELSE 'AZ' 						
+					END AS artzuord
+										
+					, lfdnr, freivsem, pnrzuord.ppflicht as ppflicht, child_pord.pnr as pnr
+					FROM pord
+					JOIN pnrzuord ON (pord.pordnr = pnrzuord.pordnrzu) 
+					JOIN pord AS child_pord ON (child_pord.pordnr = pnrzuord.pordnr)
+						WHERE 1 = 1
+						AND artzuord NOT IN ('KOH', 'BFV', 'akv', 'grp', 'aq') 
+						[pord_restrictionTUBAF]
+            			[pord_vert_restriction3TUBAF]
+				 ORDER BY 1
+            </select>
+            <param name="targetobject" value="unitrelation" />
+            <param name="TIMER" value="y" />
+             <param name="DEBUG" value="y" />
+         </action>
+	    
+	    <action name="pnrzuord-mapped" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-pnrzuord-mapped.vm">
+            <select>
+			SELECT DISTINCT
+				pnrzuord.pordnr AS pordnr, pnrzuord.pordnrzu AS pordnrzu, hisinone_mapping.kopf AS kopf
+				,CASE
+					WHEN pnrzuord.bonus IS NULL
+						THEN pord.bonus
+					ELSE 
+						pnrzuord.bonus
+				END AS bonus
+				,CASE
+					WHEN pnrzuord.malus IS NULL
+						THEN pord.malus
+					ELSE 
+						pnrzuord.malus
+				END AS malus
+				,CASE
+					WHEN pnrzuord.ppflicht IS NULL
+						THEN pord.ppflicht
+					ELSE 
+						pnrzuord.ppflicht
+				END AS ppflicht
+				, pfsem, pmaxver, pmaxvbe, phoesem, pabschn, labgewicht, beleg, partngb,
+				
+				CASE
+            		WHEN pnrzuord.artzuord in('H4','H6')
+						THEN 'ABS'
+					WHEN pnrzuord.artzuord in('H5')
+						THEN 'KA'
+					ELSE 'AZ' 						
+				END AS artzuord
+				
+				,lfdnr, freivsem
+				FROM pord, pnrzuord, hisinone_mapping
+				WHERE pord.pordnr = pnrzuord.pordnr 
+				AND pnrzuord.pordnr = hisinone_mapping.tabpk 
+				AND hisinone_mapping.tabelle = 'pord'
+					[pord_restrictionTUBAF]
+            		[pord_vert_restriction3TUBAF]
+				ORDER BY 1
+            </select>
+            <param name="DEBUG" value="y" />
+            <param name="targetobject" value="unitrelation" />
+         </action>
+	    
+	    <action name="duplicate_unit_veranstaltung" ueberschreiben="y" active="n" xslt="dbinterface/hisinone/sospos-duplicate_unit_veranstaltung.vm">
+	        <select>
+			SELECT DISTINCT pordnr, pnr, pvken3 as pvken3, pvken4 as pvken4, fb, pktxt AS ktxt, pdtxt AS dtxt, pltxt1 AS ltxt, pltxt4 AS comment, 
+			modulcode AS shortcomment, psws, zmadauer, pdauer, 'D' AS sprache, fb
+			, CASE lehrsprache
+	          	WHEN  'D' THEN 'de'
+	          	WHEN  'E' THEN 'en'
+			  	WHEN  'F' THEN 'fr' 
+			  END AS lehrsprache
+			FROM pord 
+	           WHERE pordnr NOT IN (SELECT tabpk FROM hisinone_mapping WHERE tabelle='pord') 
+	           AND pvken3 = 'V' 
+	           [pord_restrictionTUBAF]
+               [pord_vert_restriction3TUBAF]
+	           ORDER BY 1
+	         </select>
+	         <param name="DEBUG" value="y" />
+	         <param name="targetobject" value="unit" />
+	       </action> 
+         <action name="pords-duplicate_unit_veranstaltung" ueberschreiben="y" active="n" xslt="dbinterface/hisinone/sospos/foreigntext.vm">
+            <select>
+            SELECT DISTINCT pords.pordnr as pordnr, pord.pnr as pnr, pords.pktxt as ktxt, pords.pdtxt as dtxt, pords.pltxt1 as ltxt,
+                CASE pords.sprache
+                	WHEN  'E' THEN 'en' 
+                    WHEN  'F' THEN 'fr' 
+                    ELSE 'en'
+            END AS sprache 
+            FROM pords, pord 
+            WHERE not pords.sprache = 'D' and pord.pordnr=pords.pordnr
+                AND pord.pordnr NOT IN (SELECT hisinone_mapping.tabpk FROM hisinone_mapping WHERE hisinone_mapping.tabelle='pord')
+                [pord_restrictionTUBAF]
+            	[pord_vert_restriction3TUBAF]
+            ORDER BY 1
+            </select>
+            <param name="srctable" value="pords" />
+            <param name="table" value="unit" />
+            <param name="srccolumn" value="pordnr" />
+            <param name="column" value="elementnr" /> <!-- pord.pnr -->
+            <param name="externaltable" value="pordcopy2" />
+            <param name="externaltabpk" value="pordnr" />
+            <param name="externalsystem" value="sospos" />
+            <param name="DEBUG" value="y" />
+            <param name="targetobject" value="foreigntext" />
+         </action>
+	    
+     </actions>
+     
+     <!-- preprocessing -->
+     <postprocessing active="y" ueberschreiben="y">
+			   <action active="y" ueberschreiben="y" type="sql" database="hisinone">
+					UPDATE event SET k_frequency_of_offer_id = (SELECT id FROM k_frequency_of_offer WHERE termcategory IS NULL AND termnumber IS NULL AND frequency IS NULL LIMIT 1 ) WHERE k_frequency_of_offer_id IS NULL;
+			   		-- Initialisieren der processing_sequence bei Child-Parent-Relations
+					UPDATE unitrelation SET processing_sequence = 0 WHERE processing_sequence IS NULL and parent_unit_id IS NOT NULL;
+					-- Korrigieren der unitrelations mit identischen Werten für child_unit_id und processing_sequence 
+					UPDATE unitrelation update_relation SET processing_sequence = row_num
+						FROM unitrelation relation INNER JOIN (
+							SELECT DISTINCT oo.id, oo.child_unit_id, oo.parent_unit_id, oo.processing_sequence, DENSE_RANK() over(PARTITION BY oo.child_unit_id ORDER BY oo.id) as row_num
+							FROM unitrelation oo INNER JOIN (
+								SELECT o.child_unit_id, o.parent_unit_id, o.processing_sequence
+								FROM unitrelation o INNER JOIN (
+									SELECT child_unit_id, processing_sequence, COUNT(*)
+									FROM unitrelation
+									GROUP BY child_unit_id, processing_sequence
+									HAVING ( COUNT(*) > 1 )
+								) i ON o.child_unit_id = i.child_unit_id and o.processing_sequence = i.processing_sequence
+							) ii ON oo.child_unit_id = ii.child_unit_id
+							ORDER BY oo.child_unit_id
+						) false_relation ON false_relation.id = relation.id
+						WHERE relation.id = update_relation.id
+				</action>	
+				
+				<action name="KorrekturModul_Versuchszahl" active="y" ueberschreiben="y" type="sql" database="hisinone">
+					--korregiere die beim Duplikaterstellen auf 0 gesetzte Versuchsanzahl und mache NULL daraus
+					update unitrelation set max_attempts = null where max_attempts in (0);
+				</action>
+				
+				<action name="KorrekturPruefung_Semesterwochenstungen" active="y" ueberschreiben="y" type="sql" database="hisinone">
+					--korregiere die beim Duplikaterstellen auf 0 gesetzte Anzahl Semesterwochenstunden und mache NULL daraus
+					update unit set hours_per_week = null where hours_per_week in (0);
+				</action>
+				
+				<action name="MODULE_MAX_ATTEMPTS_NORMIEREN" active="Y" ueberschreiben="y" type="sql" database="hisinone">
+					-- FL 20260311 die Anzahl der maximalen Versuche in allen Modulen auf 1 setzen, auch wenn etwas anderes aus SOSPOS kommt. Der zu verwendende Wert steht in der Prüfung selbst
+					update unitrelation set max_attempts = 1
+					where id in
+						(
+							select default_unitrelation_id from unit 
+							where k_elementtype_id in
+								(
+									select id from k_elementtype where hiskey_id in (8)
+							 	)
+						)
+					and max_attempts is not null;
+			   </action>					   			    		
+		</postprocessing>   
+    </entry>
+    
+    <!-- FL: 20260319: wichtig erst hier im postprocessing die Zeile in der Tabelle PO_MIGRATION weiterschieben -->
+    <!-- Merke in diesem SQL holt man das "markierte" Gesamtkonto, der Zeile aus der Tabelle PO_MIGRATION. Dies wird im Velocityscript noch einmal wiederholt, basierend auf external_realtions -->
+	 <entry name="zuordnung-pruefung-gesamtkonto-FallgruppeC" active="y" ueberschreiben="y" description="Zuordnen von gekennzeichneten Prüfungen zum Gesamtkonto" databases="hisinone,sospos">
+	      <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
+	         <admin>
+	            <execute />
+	         </admin>
+	      </rights>
+	      <dbconnection name="sospos" />
+	      <actions sendlevel="3">
+	         <action name="zuordnung-pruefung-gesamtkonto" active="y" xslt="dbinterface/hisinone/zuordnung-pruefung-gesamtkonto.vm">
+	            <select>
+				SELECT DISTINCT pordnr, pnr, abschl, stg, vert, schwp, kzfa, pversion
+					FROM pord
+					WHERE pvken4 = 'G' AND pvken3 = 'S'
+					[pord_restrictionTUBAF]
+            		[pord_vert_restriction3TUBAF]
+					ORDER BY abschl, stg, vert, schwp, kzfa, pversion
+	            </select>
+	            <param name="DEBUG" value="y" />
+	            <param name="targetobject" value="unitrelation" />
+	            <param name="unitrelationtype" value="AZ" />
+	            <param name="pordfeld" value="pvken2" />
+	         </action>
+	      </actions>
+	      <destination>intern</destination>
+	      
+	      
+	    <!-- preprocessing -->
+     	<!-- postprocessing -->
+		</entry>
+
+
+
+
+
+    <!-- FL: Idee: Fake den uniquename - Er entspricht damit der in der PORD_RESTRICTION definierten Vertiefung, hier TG 
+		'[pord_vert_value_TUBAF]' AS vert,-->
+    <!--  Damit könnte ein fehlende '-' Aufhängerelment erstellt werden.
+          FL: 20260624: Hier sollen aber nur die Elemente mit den bereits existierenden Aufhängerelementen 
+                        migriert werden. Darum wird der Punkt komplett rausgenommen. -->
+    <entry name="hisinone-sospos-pord-PO-FallgruppeC" active="n" description="Anlegen von Aufhängerelementen für die Prüfungsordnungen" databases="hisinone,sospos">
+      <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
+         <admin>
+            <execute />
+         </admin>
+      </rights>
+      <dbconnection name="sospos" />
+      <actions sendlevel="3">         
+         <!-- variante mit pord_vert_restriction, also einem SQL im WHERE Teil -->
+         <!-- variante mit Übergabe der VERT als Wert, für Fallgruppe 3 -->
+         <!-- hier die bestehenden Aufhängerelemente nicht verwenden, sondern '-' verwenden, ALLE ELEMENTE IN EINE -->
+         <!-- je Datensatz[pord_vert_restriction3TUBAF] und im Select [pord_vert_value3_TUBAF] as vert
+              
+              oder diese Restriction?
+              alle Vertiefungen in einer [pord_vert_restrictionFallgruppe3TUBAF] und im Select nur  vert
+              HAT NICHT GEKLAPPT
+         -->
+         <action name="pord-PO" active="y" ueberschreiben ="y" xslt="dbinterface/hisinone/sospos-pord3FallgruppeA4TUBAF.vm">
+            <select>
+			SELECT DISTINCT pordnr, pnr, pktxt, abschl, stg, pversion, [pord_vert_value3_TUBAF] as vert, 
+				case  schwp
+					when  ' ' then '-'
+					when null then '-'
+					else schwp
+				end AS schwp,
+				case  kzfa
+					when  ' ' then '-'
+					when null then '-'
+					else kzfa
+				end AS kzfa
+				, fb
+				FROM pord 
+				WHERE pversion NOT IN (- 1)
+				AND abschl IS NOT NULL AND NOT TRIM(abschl) = '' 
+				AND stg IS NOT NULL AND NOT TRIM(stg) = '' 
+				AND (pord.pnr IN (Select hpnr from hskonst WHERE aikz = 'A') 
+				OR pord.pnr IN (Select vpnr from hskonst WHERE aikz = 'A') 
+				OR pord.pnr IN (Select sonstpnr1 from hskonst WHERE aikz = 'A') 
+				OR pord.pnr IN (Select sonstpnr2 from hskonst WHERE aikz = 'A') 
+				OR pord.pnr IN (Select sonstpnr3 from hskonst WHERE aikz = 'A'))
+				 [pord_restrictionTUBAF]
+				 [pord_vert_restriction3TUBAF]
+				ORDER BY abschl, stg, vert, schwp, kzfa, pversion
+            </select>
+            <param name="targetobject" value="unit" />
+	        <param name="DEBUG" value="y" />
+         </action>
+      </actions>
+      <destination>intern</destination>
+      	<!-- preprocessing -->
+	  <!-- FL 20260127: Eigentlich gehört hier das Postprocessing hin, in dem die externe Migrationstabelle mit dem Status "migriert" versehen wird.
+	                    Hier wird ein Postprocessing nichts nützen, da 0 Datensätze laut Migrationsscript verarbeitet werden.
+	                    Daher mache das Postprocessing im vorherigen entry  -->  
+	  <postprocessing active="y" ueberschreiben="y">
+	       <action name="PO_MIGRATION_FORTSCHREIBEN" active="y" ueberschreiben="y" type="sql" database="sospos">
+					-- FL 20250929 Aktualisiere die Spezialtabelle im angegebenen-Schema und setze diese PO als migriert
+					UPDATE [schemaZZZ].po_migration SET migriert = true
+						FROM (
+						  SELECT reihenfolge
+						  FROM [schemaZZZ].po_migration
+						  WHERE migriert = false and bereit=true
+													order by reihenfolge ASC
+													Limit 1
+						) AS sub
+						WHERE po_migration.reihenfolge = sub.reihenfolge;
+			   </action>					   			    		
+			</postprocessing>       
+	</entry>	
+    <!-- ENDE FALLGRUPPE C -->
    
-    <!-- ++++ START FALLGRUPPE B - Pro Vertiefung eine Prüfungsordnung (TUBAF Speziallösung) ++++++ -->    
+    <!-- ++++ START FALLGRUPPE B - (aka Fallgruppe 2) Pro Vertiefung eine Prüfungsordnung (TUBAF Speziallösung) ++++++ -->    
     <entry name="hisinone-sospos-pord-FallgruppeB" active="y" description="Prüfungsordnungen" databases="hisinone,sospos">
       <rights name="R_HISinOne" checkForRights="cs.sys.core.EXECUTE_MIGRATION" checkForRightsAction="execute">
          <admin>

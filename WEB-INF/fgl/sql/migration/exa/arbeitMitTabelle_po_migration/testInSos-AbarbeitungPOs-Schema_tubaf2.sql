@@ -6,12 +6,12 @@ select *, CASE migriert
 			ELSE 0
 		 END AS sortierer
 from tubaf.po_migration
-where migrieren = true
+where migrieren = true and bereit = true
 order by sortierer ASC, reihenfolge ASC;
 
 --Sortierung der Hilfstabelle po_migration_vert:
 --Welche Vertiefung ist nun dran migriert zu werden!!!!
---TODO LÖSE DAS DURCH EINEN JOIN DER BEIDEN TABELLEN
+--TODO LÖSE DAS DURCH EINEN JOIN DER BEIDEN TABELLEN UM FALLGRUPPE 2 zu bekommen.
 select * from tubaf.po_migration_vert
 where tubaf_po in(
 		select tubaf_po
@@ -23,6 +23,28 @@ where tubaf_po in(
 
 
 
+
+
+--------------------------------------------------------
+--------------------------------------------------------
+--- MIGRIERT STATUS ÄNDERN, alle wieder zurueck ab der Reihenfolge
+update tubaf.po_migration
+SET migriert = false
+WHERE reihenfolge >= 1;
+
+update tubaf.po_migration
+SET migriert = true
+WHERE reihenfolge BETWEEN 1 AND 15;
+
+--- REIHENFOLGE GGFS. ÄNDERN, durch Dreickstauschtausch möglich wenn man keine Lücken in der Reihenfolge haben will.
+update tubaf.po_migration
+SET reihenfolge = 14
+WHERE reihenfolge =98 ;
+
+
+
+--------------------------------------------------------------
+---------------------------------------------------------------
 
 ---#################################################################################################
 --Sortierung für Studi- und Leistungsmigration, die erledigten nach vorne
@@ -36,23 +58,7 @@ where migrieren = true
 order by sortierer DESC, reihenfolge DESC;
 
 --####################################################
-
-
---------------------------------------------------------
---------------------------------------------------------
---- MIGRIERT STATUS ÄNDERN, alle wieder zurueck ab der Reihenfolge
-update tubaf.po_migration
-SET migriert = false
-WHERE reihenfolge >= 1;
-
---- REIHENFOLGE GGFS. ÄNDERN, durch Dreickstauschtausch möglich wenn man keine Lücken in der Reihenfolge haben will.
-update tubaf.po_migration
-SET reihenfolge = 14
-WHERE reihenfolge =98 ;
-
---------------------------------------------------------------
----------------------------------------------------------------
-
+--###################################################################################################
 --------------------------------------------------------
 --------------------------------------------------------
 select *
