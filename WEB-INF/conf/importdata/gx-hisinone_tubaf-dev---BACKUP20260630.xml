@@ -33,7 +33,7 @@
 		<section name="menu-lsf-personal" active="n" description="Personen aus LSF" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Personen_aus_HIS-GX_SOSPOS_und_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
 	
 	    <!-- FGL: Ein Parameter kann leider im Menue nicht ausgwertet werden, damit leider nicht im UI sichtbar. Daher hier hart coded.  -->
-		<section name="group" description="HISinOne Campusmanagement. TUBAF-EXA: Version 20260630"/>
+		<section name="group" description="HISinOne Campusmanagement. TUBAF-EXA: Version 20260625"/>
 	
 		<section name="subgroup" active="n" description="Allgemeine Daten"/>
 		
@@ -2288,11 +2288,10 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
             <param name="pformGEToKonto" value="n" /> <!--value=y bedeutet: wenn pform="GE" und pdum=" " dann wird statt einer Prüfung ein Konto erzeugt -->
          </action>
          
-          <!-- Klemmbausteinkasten DUPLICATE. Hier schon einmal ausführen -->
-          <!-- FL: 20260629 Nimm die pnr in das Select auf. Damit kann der Kurzkommentar zu Debug-Zwecken erweitert werden. --> 
+          <!-- Klemmbausteinkasten DUPLICATE. Hier schon einmal ausführen --> 
           <action name="duplicate_unit" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-duplicate_unitPrePO4TUBAF.vm">
             <select>
-				SELECT DISTINCT pnr, pordnr, pform, pord.part AS part, diplkz, pvken4, fb
+				SELECT DISTINCT pordnr, pform, pord.part AS part, diplkz, pvken4, fb
 				,CASE 
 					WHEN k_part.prfgkz = 'P'
 						THEN 'PZ'
@@ -3355,10 +3354,9 @@ returning (uniquename, src_uniquename || ' ---> ' || src_regular_number_of_semes
          <!-- 2026-03-10: Folgende action bleibt unverändert, es geht um Diplomabschulssarbeiten -->
          <!-- <action name="pords" ..... -->
          
-         <!-- FL 20260629 nimm die pnr hinzu: Ergänzend für den Kurzkommentar, aus DEBUG-Gründen   -->
          <action name="duplicate_unit" ueberschreiben="y" active="y" xslt="dbinterface/hisinone/sospos-duplicate_unit.vm">
             <select>
-				SELECT DISTINCT pnr, pordnr, pform, pord.part AS part, diplkz, pvken4, fb
+				SELECT DISTINCT pordnr, pform, pord.part AS part, diplkz, pvken4, fb
 				,CASE 
 					WHEN k_part.prfgkz = 'P'
 						THEN 'PZ'

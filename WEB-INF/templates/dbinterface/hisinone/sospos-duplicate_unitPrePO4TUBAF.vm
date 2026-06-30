@@ -77,7 +77,7 @@
             	<dbi:echo>DEBUG-1 (TUBAF sospos-duplicate_unit) pordnr=<xsl:value-of select="pordnr" />; unit.id=[unit.id]</dbi:echo>
     		#end
     		<dbi:if dbi:is-set="unit.id">
-    		<!--  Überprüfen, ob schon eine Kopie erstellt wurde -->	
+				<!--  Überprüfen, ob schon eine Kopie erstellt wurde -->	
         		<dbi:dbaction dbi:action="select" dbi:select-type="intern">
             		<dbi:data>
             			<hisinone:hisinone>
@@ -190,7 +190,7 @@
 					#if ($DEBUG && $DEBUG == "y")
                     	<dbi:echo>DEBUG-3a (TUBAF sospos-duplicate_unit) KOMMENTAR: Versuche update action für unitcopyid=[unitcopyid], calNow=[calNow], activity_date=[activity_date], TODAY=[TODAY]</dbi:echo>
 					#end
-					<dbi:set dbi:variable="commententry" dbi:parse="true">PORDNR: <xsl:value-of select="pordnr" />; PNR: <xsl:value-of select="pnr" />; Migration: Prüfung als Grundlage für Modulerstellung: unitcopyid=[unitcopyid], ggfs. erzeugte unit.id=[unit.id], am: [TODAY];<xsl:value-of select="comment"/></dbi:set>
+					<dbi:set dbi:variable="commententry" dbi:parse="true">PORDNR: <xsl:value-of select="pordnr" />; PNR: <xsl:value-of select="pnr" />; Migration, Klemmbausteinkasten: Prüfung als Grundlage für Modulerstellung: unitcopyid=[unitcopyid], ggfs. erzeugte unit.id=[unit.id], am: [TODAY];<xsl:value-of select="comment"/></dbi:set>
 					
 					<!-- Diese Ausgangsunit ist eine Prüfung, aus der das Modul erzeugt worden ist. -->
 					<!-- FL20260127: Entferne nun ua der Prüfung die Anzahl der Semesterwochenstunden -->
@@ -198,10 +198,10 @@
 					#if ($DEBUG && $DEBUG == "y")
                     	<dbi:echo>DEBUG-3a (TUBAF sospos-duplicate_unit) SEMESTERWOCHENSTUNDEN: Versuche update action für unitcopyid=[unitcopyid] Setze in die Prüfung (als Ausgangsobjekte der Modulerzeugung) die Semesterwochenstunden auf 0 (NULL geht nicht)</dbi:echo>
 					#end
-					<dbi:set dbi:variable="hoursPerWeekEntry" dbi:parse="true">0</dbi:set> -->
+					<dbi:set dbi:variable="hoursPerWeekEntry" dbi:parse="true">0</dbi:set>-->
 					
 					<!-- FL20260608: Im Migrationskonzept V06 steht, dass diese explizit erhalten bleiben
-									 Laut Testplan aber wieder drin, ABER: Konzept ist führend
+									 Laut Testplan aber wieder drin. Aber Konzept ist führend.
 					entsprechend im update auch raus:
 								<hisinone:hours_per_week>
 									[hoursPerWeekEntry]
@@ -214,7 +214,7 @@
             				<hisinone:unit>
             					<hisinone:comment>
 									[commententry]
-								</hisinone:comment>							
+								</hisinone:comment>								
             				</hisinone:unit>
             			</hisinone:hisinone>
             		</dbi:data>
@@ -360,7 +360,7 @@
 				<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
 				<!-- Das Modul als Duplikat aus der Prüfung-->
 				<!-- a) im Moduldatensatz selbst -->
-				<dbi:set dbi:variable="commententry02" dbi:parse="true">PORDNR: <xsl:value-of select="pordnr" />; PNR: <xsl:value-of select="pnr" />; Migration: Modul, mit unit.id=[unit.id], ggfs. zuletzt erstellt als Duplikat aus der Prüfung mit unitcopyid=[unitcopyid], am: [TODAY];<xsl:value-of select="comment"/></dbi:set>
+				<dbi:set dbi:variable="commententry02" dbi:parse="true">PORDNR: <xsl:value-of select="pordnr" />; PNR: <xsl:value-of select="pnr" />; Migration, Klemmbausteinkasten: Modul, mit unit.id=[unit.id], ggfs. zuletzt erstellt als Duplikat aus der Prüfung mit unitcopyid=[unitcopyid], am: [TODAY];<xsl:value-of select="comment"/></dbi:set>
 					<dbi:dbaction dbi:action="update">
             		<dbi:data>
             			<hisinone:hisinone>
