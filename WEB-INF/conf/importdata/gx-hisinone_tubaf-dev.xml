@@ -33,7 +33,7 @@
 		<section name="menu-lsf-personal" active="n" description="Personen aus LSF" help=" &lt;a href='http://wiki.his.de/mediawiki/index.php/Personen_aus_HIS-GX_SOSPOS_und_LSF_%28Migration%29-HISinOne' target='blank' &gt;(Informationen im HIS-Wiki)&lt;/a&gt; " />
 	
 	    <!-- FGL: Ein Parameter kann leider im Menue nicht ausgwertet werden, damit leider nicht im UI sichtbar. Daher hier hart coded.  -->
-		<section name="group" description="HISinOne Campusmanagement. TUBAF-EXA: Version 20260630"/>
+		<section name="group" description="HISinOne Campusmanagement. TUBAF-EXA: Version 20260630c"/>
 	
 		<section name="subgroup" active="n" description="Allgemeine Daten"/>
 		
@@ -93,12 +93,12 @@
 			<menuentry name="zuordnung-pruefung-gesamtkonto" />
 			<menuentry name="hisinone-sospos-pord-PO" />						
 		</section>
-		<section name="menue-Fallgruppe-B" description="Fallgruppe 2:  Eine Prüfungsordnung über alle Vertiefungen, z.B. 88|049 oder 88|039, Hier: Ergänzen der PO um die noch fehlenden Vertiefungen" >
+		<section name="menue-Fallgruppe-B" description="Fallgruppe 2 ('Vertiefungen'):  Eine Prüfungsordnung über alle Vertiefungen, z.B. 88|049 oder 88|039, Hier: Ergänzen der PO um die noch fehlenden Vertiefungen" >
 			<menuentry name="hisinone-sospos-pord-FallgruppeB" />			
 			<menuentry name="zuordnung-pruefung-gesamtkonto-FallgruppeB" />
 			<menuentry name="hisinone-sospos-pord-PO-FallgruppeB" />						
 		</section>
-		<section name="menue-Fallgruppe-C" description="Fallgruppen 3: Pro Vertiefung eine Prüfungsordnung (TUBAF Spezial. Vertiefung bei Einschreibung festgelegt)(Einbinden von '-', OHNE extra AUfhängerelment für '-'). Z.B. 11|C42)" >
+		<section name="menue-Fallgruppe-C" description="Fallgruppe 3: Pro Vertiefung eine Prüfungsordnung (TUBAF Spezial. Vertiefung bei Einschreibung festgelegt)(Einbinden von '-', OHNE extra AUfhängerelment für '-'). Z.B. 11|C42)" >
 			<menuentry name="hisinone-sospos-pord-FallgruppeC" />
 			<menuentry name="zuordnung-pruefung-gesamtkonto-FallgruppeC" />
 			<menuentry name="hisinone-sospos-pord-PO-FallgruppeC" />						

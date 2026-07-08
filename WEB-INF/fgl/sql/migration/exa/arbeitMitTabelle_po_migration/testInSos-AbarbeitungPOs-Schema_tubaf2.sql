@@ -34,9 +34,9 @@ WHERE reihenfolge >= 1;
 
 update tubaf.po_migration
 SET migriert = true
-WHERE reihenfolge BETWEEN 1 AND 15;
+WHERE reihenfolge BETWEEN 1 AND 19;
 
---- REIHENFOLGE GGFS. ÄNDERN, durch Dreickstauschtausch möglich wenn man keine Lücken in der Reihenfolge haben will.
+--- REIHENFOLGE GGFS. ÄNDERN, durch Dreickstausch möglich wenn man keine Lücken in der Reihenfolge haben will.
 update tubaf.po_migration
 SET reihenfolge = 14
 WHERE reihenfolge =98 ;

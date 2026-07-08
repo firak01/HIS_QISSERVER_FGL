@@ -484,7 +484,9 @@ Siehe hierzu https://wiki.his.de/mediawiki/index.php/Migration_Leitfaden_PO#Flex
 	                ## Texte für FlexNow evtl. unterschiedlich
 	            	<dbi:set dbi:variable="shorttext"><xsl:value-of select="ktxt"/></dbi:set>
 	            	<dbi:set dbi:variable="defaulttext"><xsl:value-of select="dtxt"/></dbi:set>
-	            	<dbi:set dbi:variable="comment"><xsl:value-of select="comment"/></dbi:set>
+	            	<!-- FL: 20260630 erweitere Kommentar:<dbi:set dbi:variable="comment"><xsl:value-of select="comment"/></dbi:set>-->
+					<dbi:set dbi:variable="comment" dbi:parse="true">PORDNR: <xsl:value-of select="pordnr" />; PNR: <xsl:value-of select="pnr" />;<xsl:value-of select="comment"/></dbi:set>
+					
 					## Schriftliche Arbeit?
 					<xsl:variable name="diplkz"><xsl:value-of select="diplkz"/></xsl:variable>
     				<xsl:choose>
